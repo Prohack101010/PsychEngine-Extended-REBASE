@@ -1092,7 +1092,7 @@ class FunkinLua {
 			if (variable == 'application.window.title'){
     			    return false;
             }
-			if (!variable == 'application.window.title'){
+			if (variable != 'application.window.title'){
 			#end
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
