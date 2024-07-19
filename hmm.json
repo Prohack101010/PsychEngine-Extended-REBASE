@@ -1,49 +1,42 @@
 {
   "dependencies": [
     {
-      "name": "lime",
-      "type": "haxelib",
-      "version": null
+      "name": "discord_rpc",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/MobilePorting/linc_discord-rpc-0.6.3"
     },
     {
-      "name": "openfl",
-      "type": "haxelib",
-      "version": null
+      "name": "linc_luajit",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/MobilePorting/linc_luajit-0.6.3.git"
+    },
+    {
+      "name": "extension-androidtools",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/MobilePorting/extension-androidtools-0.6.3"
     },
     {
       "name": "flixel",
       "type": "haxelib",
-      "version": null
+      "version": "4.11.0"
     },
     {
       "name": "flixel-addons",
       "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "flixel-tools",
-      "type": "haxelib",
-      "version": null
+      "version": "2.11.0"
     },
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": null
+      "version": "2.4.0"
     },
     {
-      "name": "hxcpp",
+      "name": "hscript",
       "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "tjson",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hxjsonast",
-      "type": "haxelib",
-      "version": null
+      "version": "2.4.0"
     },
     {
       "name": "hxCodec",
@@ -51,21 +44,16 @@
       "version": "2.5.1"
     },
     {
-      "name": "hscript",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hxcpp-debug-server",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "discord_rpc",
+      "name": "hxcpp",
       "type": "git",
-      "dir": null,
       "ref": "master",
-      "url": "https://github.com/Aidan63/linc_discord-rpc"
+      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
+    },
+    {
+      "name": "lime",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/MobilePorting/lime-0.6.3.git"
     },
     {
       "name": "flxanimate",
@@ -75,18 +63,9 @@
       "url": "https://github.com/ShadowMario/flxanimate.git"
     },
     {
-      "name": "hscript-ex",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/ianharrigan/hscript-ex"
-    },
-    {
-      "name": "linc_luajit",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/nebulazorua/linc_luajit"
+      "name": "openfl",
+      "type": "haxelib",
+      "version": "9.1.0"
     }
   ]
 }
