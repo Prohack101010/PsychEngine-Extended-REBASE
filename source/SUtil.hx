@@ -34,8 +34,12 @@ class SUtil
 		#if android
 		if (aDir != null && aDir.length > 0)
 			return aDir;
+		else if (ClientPrefs.storageType == 'NovaFlare')
+			return aDir = '/storage/emulated/0/' + '.' + 'NovaFlare Engine' + '/';
+		else if (ClientPrefs.storageType == 'NF_Engine')
+			return aDir = '/storage/emulated/0/' + '.' + 'NF Engine' + '/';
 		else
-			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
 		#else
 		return '';
 		#end
