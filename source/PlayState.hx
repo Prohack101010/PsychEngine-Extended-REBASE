@@ -1210,7 +1210,16 @@ class PlayState extends MusicBeatState
 
 		#if android
 		addAndroidControls();
-		androidc.visible = false;
+		if (ClientPrefs.hitboxmode == 'Classic') {
+		MusicBeatState.androidc.visible = false;
+		}
+	        if (ClientPrefs.hitboxmode == 'New') {
+		MusicBeatState.androidc.visible = true;
+		if (!ClientPrefs.hitboxhint) {
+		MusicBeatState.androidc.alpha = 0.000001;
+		}
+		}
+		
 		#end
 
 		// if (SONG.song == 'South')
@@ -2128,7 +2137,7 @@ class PlayState extends MusicBeatState
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
 			#if android
-			androidc.visible = true;
+			MusicBeatState.androidc.visible = true;
 			#end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
@@ -3943,6 +3952,9 @@ class PlayState extends MusicBeatState
 
 		#if android
 		androidc.visible = false;
+		if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
+		MusicBeatState.androidc.alpha = 0.00001;
+		}
 		#end
 		timeBarBG.visible = false;
 		timeBar.visible = false;

@@ -8,6 +8,7 @@ import Controls;
 
 class ClientPrefs {
 	public static var downScroll:Bool = false;
+	public static var Modpack:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = true;
@@ -34,8 +35,13 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
-	public static var hitboxmode:String = 'Classic';  //starting new way to change between hitboxes yay
+	#if android public static var storageType:String = 'PsychEngine'; #end
+        public static var hitboxhint = true;
+	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
+	public static var hitboxExtend:Int = 0;
+	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = 0.2; //someone request this lol
+	public static var VirtualPadAlpha:Float = 0.75;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -98,6 +104,7 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
+		FlxG.save.data.Modpack = Modpack;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
 		FlxG.save.data.showFPS = showFPS;
@@ -134,9 +141,14 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
-		
+
+		FlxG.save.data.storageType = storageType;
+		FlxG.save.data.hitboxExtend = hitboxExtend;
+	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
+                FlxG.save.data.hitboxhint = hitboxhint;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
+		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
 	
 	
 		FlxG.save.flush();
@@ -151,6 +163,9 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
+		}
+		if(FlxG.save.data.Modpack != null) {
+			Modpack = FlxG.save.data.Modpack;
 		}
 		if(FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;
@@ -250,11 +265,26 @@ class ClientPrefs {
 		if(FlxG.save.data.hitsoundVolume != null) {
 			hitsoundVolume = FlxG.save.data.hitsoundVolume;
 		}
+		if(FlxG.save.data.storageType != null) {
+			storageType = FlxG.save.data.storageType;
+		}
 		if(FlxG.save.data.hitboxmode != null) {
 			hitboxmode = FlxG.save.data.hitboxmode;
 		}
+		if(FlxG.save.data.hitboxhint != null) {
+			hitboxhint = FlxG.save.data.hitboxhint;
+		}
+		if(FlxG.save.data.hitboxLocation != null) {
+			hitboxLocation = FlxG.save.data.hitboxLocation;
+		}
+		if(FlxG.save.data.hitboxExtend != null) {
+			hitboxExtend = FlxG.save.data.hitboxExtend;
+		}
 		if(FlxG.save.data.hitboxalpha != null) {
 			hitboxalpha = FlxG.save.data.hitboxalpha;
+		}
+		if(FlxG.save.data.VirtualPadAlpha != null) {
+			VirtualPadAlpha = FlxG.save.data.VirtualPadAlpha;
 		}
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
