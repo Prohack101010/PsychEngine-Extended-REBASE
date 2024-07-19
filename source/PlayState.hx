@@ -3951,7 +3951,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if android
-		androidc.visible = false;
+		MusicBeatState.androidc.visible = false;
 		if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
 		MusicBeatState.androidc.alpha = 0.00001;
 		}
