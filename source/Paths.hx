@@ -307,7 +307,7 @@ class Paths
 		#end
 	}
 	
-	
+	// less optimized but automatic handling
 	static public function getAtlas(key:String, ?library:String):FlxAtlasFrames
 	{
 		#if MODS_ALLOWED
@@ -320,7 +320,6 @@ class Paths
 		}
 		return getPackerAtlas(key, library);
 	}
-
 
 	inline static public function getPackerAtlas(key:String, ?library:String):FlxAtlasFrames
 	{
