@@ -26,7 +26,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.2.0
         with:
-          haxe-version: 4.2.5
+          haxe-version: 4.2.0
 
       - name: Install Haxelib
         run: |
@@ -47,7 +47,7 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -armv7 -final
+        run: haxelib run lime build android -D NO_PRECOMPILED_HEADERS -armv7 -final
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
@@ -77,7 +77,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.2.0
         with:
-          haxe-version: 4.2.5
+          haxe-version: 4.2.0
 
       - name: Install Haxelib
         run: |
@@ -98,7 +98,7 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -arm64 -final
+        run: haxelib run lime build android -D NO_PRECOMPILED_HEADERS -arm64 -final
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
