@@ -1,6 +1,6 @@
 package;
 
-import backend.animation.PsychAnimationController;
+import animation.PsychAnimationController;
 import flxanimate.FlxAnimate;
 import flixel.util.FlxDestroyUtil;
 import flixel.FlxG;
