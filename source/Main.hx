@@ -52,7 +52,7 @@ class Main extends Sprite
 
 	public function new()
 	{
-	    CopyState.CopyStateOpened = false;
+	    CopyStateOpened = false;
 	    #if mobile
 		#if android
 		SUtil.doPermissionsShit();
@@ -101,7 +101,7 @@ class Main extends Sprite
 		// addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		#if MODS_ALLOWED
 		#if mobile
-		CopyState.CopyStateOpened = true;
+		CopyStateOpened = true;
 		#end
 		#end
 		
