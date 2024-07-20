@@ -26,6 +26,9 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
 import SUtil;
+import haxe.io.Path;
+import sys.FileSystem;
+import sys.io.File;
 
 using StringTools;
 
