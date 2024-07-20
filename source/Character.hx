@@ -246,7 +246,7 @@ class Character extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		if(!debugMode && animation.curAnim != null)
+		if(debugMode || (!isAnimateAtlas && animation.curAnim != null) || (isAnimateAtlas && atlas.anim.curSymbol != null))
 		{
 			if(heyTimer > 0)
 			{
@@ -289,26 +289,30 @@ class Character extends FlxSprite
 		if(isAnimationFinished() && animOffsets.exists('$name-loop'))
 			playAnim('$name-loop');
 			
+		}
 		super.update(elapsed);
 	}
 	
-	public function getAnimationName():String
+	inline public function isAnimationNull():Bool
+		return !isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null);
+
+	inline public function getAnimationName():String
 	{
 		var name:String = '';
 		@:privateAccess
-		if(!!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) name = !isAnimateAtlas ? animation.curAnim.name : atlas.anim.lastPlayedAnim;
+		if(!isAnimationNull()) name = !isAnimateAtlas ? animation.curAnim.name : atlas.anim.lastPlayedAnim;
 		return (name != null) ? name : '';
 	}
 
 	public function isAnimationFinished():Bool
 	{
-		if(!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) return false;
+		if(isAnimationNull()) return false;
 		return !isAnimateAtlas ? animation.curAnim.finished : atlas.anim.finished;
 	}
 
 	public function finishAnimation():Void
 	{
-		if(!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) return;
+		if(isAnimationNull()) return;
 
 		if(!isAnimateAtlas) animation.curAnim.finish();
 		else atlas.anim.curFrame = atlas.anim.length - 1;
@@ -317,12 +321,12 @@ class Character extends FlxSprite
 	public var animPaused(get, set):Bool;
 	private function get_animPaused():Bool
 	{
-		if(!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) return false;
+		if(isAnimationNull()) return false;
 		return !isAnimateAtlas ? animation.curAnim.paused : atlas.anim.isPlaying;
 	}
 	private function set_animPaused(value:Bool):Bool
 	{
-		if(!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) return value;
+		if(isAnimationNull()) return value;
 		if(!isAnimateAtlas) animation.curAnim.paused = value;
 		else
 		{
