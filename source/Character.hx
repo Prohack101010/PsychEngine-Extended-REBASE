@@ -292,28 +292,30 @@ class Character extends FlxSprite
 		super.update(elapsed);
 	}
     
+    /*
     inline public function isAnimationNullPlus():Bool
 	{
 		return !isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null);
     }
+    */
 
 	inline public function getAnimationName():String
 	{
 		var name:String = '';
 		@:privateAccess
-		if(!isAnimationNullPlus()) name = !isAnimateAtlas ? animation.curAnim.name : atlas.anim.lastPlayedAnim;
+		if(!!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) name = !isAnimateAtlas ? animation.curAnim.name : atlas.anim.lastPlayedAnim;
 		return (name != null) ? name : '';
 	}
 
 	public function isAnimationFinished():Bool
 	{
-		if(isAnimationNullPlus()) return false;
+		if(!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) return false;
 		return !isAnimateAtlas ? animation.curAnim.finished : atlas.anim.finished;
 	}
 
 	public function finishAnimation():Void
 	{
-		if(isAnimationNullPlus()) return;
+		if(!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) return;
 
 		if(!isAnimateAtlas) animation.curAnim.finish();
 		else atlas.anim.curFrame = atlas.anim.length - 1;
@@ -322,12 +324,12 @@ class Character extends FlxSprite
 	public var animPaused(get, set):Bool;
 	private function get_animPaused():Bool
 	{
-		if(isAnimationNullPlus()) return false;
+		if(!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) return false;
 		return !isAnimateAtlas ? animation.curAnim.paused : atlas.anim.isPlaying;
 	}
 	private function set_animPaused(value:Bool):Bool
 	{
-		if(isAnimationNullPlus()) return value;
+		if(!isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null)) return value;
 		if(!isAnimateAtlas) animation.curAnim.paused = value;
 		else
 		{
