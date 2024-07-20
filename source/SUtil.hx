@@ -109,16 +109,16 @@ class SUtil
 
 		errMsg += e.error;
 
-		if (!FileSystem.exists(SUtil.getPath() + "crash"))
-		FileSystem.createDirectory(SUtil.getPath() + "crash");
+		if (!FileSystem.exists(SUtil.getStorageDirectory() + "crash"))
+		FileSystem.createDirectory(SUtil.getStorageDirectory() + "crash");
 
-		File.saveContent(SUtil.getPath() + path, errMsg + "\n");
+		File.saveContent(SUtil.getStorageDirectory() + path, errMsg + "\n");
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 		Sys.println("Making a simple alert ...");
 
-		SUtil.applicationAlert("Uncaught Error :(!", errMsg);
+		SUtil.showPopUp("Uncaught Error :(!", errMsg);
 		LimeSystem.exit(1);
 	}
 

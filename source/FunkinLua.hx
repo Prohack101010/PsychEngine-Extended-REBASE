@@ -2901,6 +2901,26 @@ class FunkinLua {
                     pressCheck = true;
                     return pressCheck;
                 }
+                
+                if (variable == 'keys.justPressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
+    			    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.pressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
+                    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.justReleased.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
+                    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                
+                if (variable == 'keys.justPressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
+    			    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.pressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.pressed){
+                    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.justReleased.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
+                    return FunkinLua.getVarInArray(myClass, variable);
+                }
             }
         #end
         
