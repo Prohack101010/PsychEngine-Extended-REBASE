@@ -14,6 +14,7 @@ import flixel.util.FlxGradient;
 import flixel.FlxState;
 import flixel.FlxCamera;
 import flixel.FlxBasic;
+import CopyState;
 
 #if android
 import flixel.input.actions.FlxActionInput;
@@ -106,8 +107,10 @@ class MusicBeatState extends FlxUIState
 	
 	override function destroy() {
 		#if android
+		if (!CopyState.CopyStateOpened) {
 		controls.removeFlxInput(trackedinputsNOTES);
 		controls.removeFlxInput(trackedinputsUI);
+		}
 		#end
 
 		super.destroy();

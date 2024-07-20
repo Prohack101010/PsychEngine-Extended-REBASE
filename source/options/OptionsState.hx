@@ -25,10 +25,6 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
-import SUtil;
-import haxe.io.Path;
-import sys.FileSystem;
-import sys.io.File;
 
 using StringTools;
 
@@ -38,9 +34,6 @@ class OptionsState extends MusicBeatState
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
-	#if android
-	final lastStorageType:String = ClientPrefs.storageType;
-	#end
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
@@ -195,25 +188,5 @@ class OptionsState extends MusicBeatState
 			}
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
-	}
-	
-	#if android
-	function onStorageChange():Void
-	{
-		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
-	
-		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
-	}
-	#end
-
-	override public function destroy() {
-		super.destroy();
-		#if android
-		if (ClientPrefs.storageType != lastStorageType) {
-			onStorageChange();
-			SUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
-			lime.system.System.exit(0);
-		}
-		#end
 	}
 }

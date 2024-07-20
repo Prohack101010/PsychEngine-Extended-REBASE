@@ -41,7 +41,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
     #if android
 	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL", "EXTERNAL_NFENGINE"];
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
-	// final lastStorageType:String = ClientPrefs.storageType;
+	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 	public function new()
 	{
@@ -129,7 +129,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		super();
 	}
 
-    /*
 	#if android
 	function onStorageChange():Void
 	{
@@ -149,7 +148,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		}
 		#end
 	}
-	*/
 	
 	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
 	function onChangePadAlpha()
