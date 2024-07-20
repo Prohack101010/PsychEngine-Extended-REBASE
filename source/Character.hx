@@ -299,7 +299,7 @@ class Character extends FlxSprite
     }
     */
 
-	inline public function getAnimationName():String
+	public function getAnimationName():String
 	{
 		var name:String = '';
 		@:privateAccess
