@@ -199,7 +199,7 @@ class Paths
 			return file;
 		}
 		#end
-		return SUtil.getStorageDirectory() + 'assets/videos/$key.$VIDEO_EXT';
+		return Sys.getCwd() + 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -246,19 +246,19 @@ class Paths
 		if (!ignoreMods && FileSystem.exists(modFolders(key)))
 			return File.getContent(modFolders(key));
 
-		if (FileSystem.exists(SUtil.getStorageDirectory() + getPreloadPath(key)))
-			return File.getContent(SUtil.getStorageDirectory() + getPreloadPath(key));
+		if (FileSystem.exists(Sys.getCwd() + getPreloadPath(key)))
+			return File.getContent(Sys.getCwd() + getPreloadPath(key));
 
 		if (currentLevel != null)
 		{
 			var levelPath:String = '';
 			if(currentLevel != 'shared') {
-				levelPath = SUtil.getStorageDirectory() + getLibraryPathForce(key, currentLevel);
+				levelPath = Sys.getCwd() + getLibraryPathForce(key, currentLevel);
 				if (FileSystem.exists(levelPath))
 					return File.getContent(levelPath);
 			}
 
-			levelPath = SUtil.getStorageDirectory() + getLibraryPathForce(key, 'shared');
+			levelPath = Sys.getCwd() + getLibraryPathForce(key, 'shared');
 			if (FileSystem.exists(levelPath))
 				return File.getContent(levelPath);
 		}
@@ -274,7 +274,7 @@ class Paths
 			return file;
 		}
 		#end
-		return SUtil.getStorageDirectory() + 'assets/fonts/$key';
+		return Sys.getCwd() + 'assets/fonts/$key';
 	}
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
@@ -390,7 +390,7 @@ class Paths
 		}
 		#end
 		// I hate this so god damn much
-		var gottenPath:String = SUtil.getStorageDirectory() + getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		var gottenPath:String = Sys.getCwd() + getPath('$path/$key.$SOUND_EXT', SOUND, library);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
@@ -410,7 +410,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-	    return if (ClientPrefs.Modpack) SUtil.getStorageDirectory() + 'modpack/' + key; else SUtil.getStorageDirectory() + 'mods/' + key;
+	    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -469,7 +469,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		return if (ClientPrefs.Modpack) SUtil.getStorageDirectory() + 'modpack/' + key; else SUtil.getStorageDirectory() + 'mods/' + key;
+		return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
 	}
 
 	public static var globalMods:Array<String> = [];
@@ -480,7 +480,7 @@ class Paths
 	static public function pushGlobalMods() // prob a better way to do this but idc
 	{
 		globalMods = [];
-		var path:String = SUtil.getStorageDirectory() + 'modsList.txt';
+		var path:String = Sys.getCwd() + 'modsList.txt';
 		if(FileSystem.exists(path))
 		{
 			var list:Array<String> = CoolUtil.coolTextFile(path);

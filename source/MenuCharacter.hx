@@ -56,11 +56,11 @@ class MenuCharacter extends FlxSprite
 				#if MODS_ALLOWED
 				var path:String = Paths.modFolders(characterPath);
 				if (!FileSystem.exists(path)) {
-					path = SUtil.getStorageDirectory() + Paths.getPreloadPath(characterPath);
+					path = Sys.getCwd() + Paths.getPreloadPath(characterPath);
 				}
 
 				if(!FileSystem.exists(path)) {
-					path = SUtil.getStorageDirectory() + Paths.getPreloadPath('images/menucharacters/' + DEFAULT_CHARACTER + '.json');
+					path = Sys.getCwd() + Paths.getPreloadPath('images/menucharacters/' + DEFAULT_CHARACTER + '.json');
 				}
 				rawJson = File.getContent(path);
 
