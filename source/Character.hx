@@ -291,14 +291,7 @@ class Character extends FlxSprite
 			
 		super.update(elapsed);
 	}
-    
-    /*
-    inline public function isAnimationNullPlus():Bool
-	{
-		return !isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null);
-    }
-    */
-
+	
 	public function getAnimationName():String
 	{
 		var name:String = '';
