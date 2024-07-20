@@ -1,6 +1,5 @@
 package;
 
-import animation.PsychAnimationController;
 import flxanimate.FlxAnimate;
 import flixel.util.FlxDestroyUtil;
 import flixel.FlxG;
@@ -48,8 +47,6 @@ typedef AnimArray = {
 
 class Character extends FlxSprite
 {
-    public static final DEFAULT_CHARACTER:String = 'bf';
-
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
 
@@ -82,11 +79,10 @@ class Character extends FlxSprite
 	public var originalFlipX:Bool = false;
 	public var healthColorArray:Array<Int> = [255, 0, 0];
 
+	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false)
 	{
 		super(x, y);
-		
-		animation = new PsychAnimationController(this);
 
 		animOffsets = new Map<String, Array<Dynamic>>();
 		curCharacter = character;
@@ -103,7 +99,7 @@ class Character extends FlxSprite
 				#if MODS_ALLOWED
 				var path:String = Paths.modFolders(characterPath);
 				if (!FileSystem.exists(path)) {
-					path = SUtil.getPath() + Paths.getPreloadPath(characterPath);
+					path = SUtil.getStorageDirectory() + Paths.getPreloadPath(characterPath);
 				}
 
 				if (!FileSystem.exists(path))
@@ -112,7 +108,7 @@ class Character extends FlxSprite
 				if (!Assets.exists(path))
 				#end
 				{
-					path = SUtil.getPath() + Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
+					path = SUtil.getStorageDirectory() + Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 				}
 
 				#if MODS_ALLOWED
