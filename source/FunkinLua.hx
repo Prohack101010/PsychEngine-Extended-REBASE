@@ -1029,7 +1029,8 @@ class FunkinLua {
 			@:privateAccess
 			var myClass:Dynamic = Type.resolveClass(classVar);
 			var killMe:Array<String> = variable.split('.');
-			
+			// hyperlink heal system su-
+			// I'm kidding
 		   #if android // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){
@@ -1049,6 +1050,26 @@ class FunkinLua {
                     return FunkinLua.getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justReleased){
+                    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                
+                if (variable == 'keys.justPressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
+    			    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.pressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
+                    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.justReleased.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
+                    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                
+                if (variable == 'keys.justPressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
+    			    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.pressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.pressed){
+                    return FunkinLua.getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.justReleased.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
                     return FunkinLua.getVarInArray(myClass, variable);
                 }
            }
@@ -2900,26 +2921,6 @@ class FunkinLua {
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justReleased){
                     pressCheck = true;
                     return pressCheck;
-                }
-                
-                if (variable == 'keys.justPressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.pressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.justReleased.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                
-                if (variable == 'keys.justPressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.pressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.justReleased.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
                 }
             }
         #end
