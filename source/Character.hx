@@ -293,7 +293,9 @@ class Character extends FlxSprite
 	}
 	
 	inline public function isAnimationNull():Bool
+	{
 		return !isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null);
+	}
 
 	inline public function getAnimationName():String
 	{
