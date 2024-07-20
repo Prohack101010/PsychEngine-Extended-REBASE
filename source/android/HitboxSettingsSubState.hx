@@ -147,7 +147,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		}
 		#end
 	}
-}
 	
 	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
 	function onChangePadAlpha()
