@@ -35,7 +35,9 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
-	#if android public static var storageType:String = 'PsychEngine'; #end
+	#if android
+	public static var storageType:String = "EXTERNAL_DATA";
+	#end
         public static var hitboxhint = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
 	public static var hitboxExtend:Int = 0;

@@ -73,6 +73,11 @@ class SUtil
 			}
 		}
 	}
+	
+	public static function gameCrashCheck()
+	{
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+	}
 
 	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json',
 			fileData:String = 'You forgor to add somethin\' in yo code :3'):Void
