@@ -291,11 +291,6 @@ class Character extends FlxSprite
 			
 		super.update(elapsed);
 	}
-	
-	inline public function isAnimationNull():Bool
-	{
-		return !isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null);
-    }
     
     inline public function isAnimationNullPlus():Bool
 	{
@@ -306,19 +301,19 @@ class Character extends FlxSprite
 	{
 		var name:String = '';
 		@:privateAccess
-		if(!isAnimationNull()) name = !isAnimateAtlas ? animation.curAnim.name : atlas.anim.lastPlayedAnim;
+		if(!isAnimationNullPlus()) name = !isAnimateAtlas ? animation.curAnim.name : atlas.anim.lastPlayedAnim;
 		return (name != null) ? name : '';
 	}
 
 	public function isAnimationFinished():Bool
 	{
-		if(isAnimationNull()) return false;
+		if(isAnimationNullPlus()) return false;
 		return !isAnimateAtlas ? animation.curAnim.finished : atlas.anim.finished;
 	}
 
 	public function finishAnimation():Void
 	{
-		if(isAnimationNull()) return;
+		if(isAnimationNullPlus()) return;
 
 		if(!isAnimateAtlas) animation.curAnim.finish();
 		else atlas.anim.curFrame = atlas.anim.length - 1;
@@ -327,12 +322,12 @@ class Character extends FlxSprite
 	public var animPaused(get, set):Bool;
 	private function get_animPaused():Bool
 	{
-		if(isAnimationNull()) return false;
+		if(isAnimationNullPlus()) return false;
 		return !isAnimateAtlas ? animation.curAnim.paused : atlas.anim.isPlaying;
 	}
 	private function set_animPaused(value:Bool):Bool
 	{
-		if(isAnimationNull()) return value;
+		if(isAnimationNullPlus()) return value;
 		if(!isAnimateAtlas) animation.curAnim.paused = value;
 		else
 		{
