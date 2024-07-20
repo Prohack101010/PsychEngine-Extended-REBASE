@@ -24,9 +24,6 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
-#if android
-import android.Hardware;
-#end
 
 using StringTools;
 
@@ -169,10 +166,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	#if android
 	function onChangeVibration()
 	{
-		if(ClientPrefs.vibration)
-		{
-			Hardware.vibrate(500);
-		}
+	// do nothing
 	}
 	#end
 }
