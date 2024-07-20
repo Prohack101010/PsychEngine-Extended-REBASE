@@ -33,7 +33,7 @@ class CopyState extends MusicBeatState
 	var failedFilesStack:Array<String> = [];
 	var canUpdate:Bool = true;
 	var shouldCopy:Bool = false;
-	var CopyStateOpened:Bool = true;
+	public static var CopyStateOpened:Bool = true;
 
 	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
 
