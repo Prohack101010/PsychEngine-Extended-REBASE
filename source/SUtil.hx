@@ -1,4 +1,4 @@
-package mobile;
+package;
 
 import lime.system.System as LimeSystem;
 #if android
@@ -134,7 +134,7 @@ class SUtil
 	}
 	#end
 	#end
-	public static function showPopUp(title:String, message:String):Void
+	public static function showPopUp(message:String, title:String):Void
 	{
 		#if !ios
 		try
@@ -153,7 +153,7 @@ class SUtil
 enum abstract StorageType(String) from String to String
 {
 	final forcedPath = '/storage/emulated/0/';
-	final packageNameLocal = 'com.alonegamer.nfengine';
+	final packageNameLocal = 'com.kraloyuncu.psychengineextended';
 	final fileLocal = 'PsychEngine';
 	final fileLocalNF = 'NF Engine';
 
