@@ -3,7 +3,11 @@ package animation;
 import flixel.animation.FlxAnimationController;
 
 class PsychAnimationController extends FlxAnimationController {
-    public var followGlobalSpeed:Bool = true;
+
+    public function create()
+    {
+        followGlobalSpeed = true;
+    }
 
     public function update(elapsed:Float):Void {
 		if (_curAnim != null) {
