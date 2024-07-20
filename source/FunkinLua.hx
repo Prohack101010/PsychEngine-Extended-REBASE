@@ -1037,23 +1037,23 @@ class FunkinLua {
 		   #if android // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
+    			    return FunkinLua.getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
+                    return FunkinLua.getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
+                    return FunkinLua.getVarInArray(myClass, variable);
                 }
                 
                 if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
+    			    return FunkinLua.getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
+                    return FunkinLua.getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
+                    return FunkinLua.getVarInArray(myClass, variable);
                 }
            }
            #end
