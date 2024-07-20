@@ -39,7 +39,6 @@ class Main extends Sprite
 		framerate: 60, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
 		startFullscreen: true // if the game should start at fullscreen mode
-		CopyState.CopyStateOpened
 	};
 
 	public static var fpsVar:FPS;
