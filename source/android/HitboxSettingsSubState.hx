@@ -118,10 +118,10 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		
 		#if android
 		var option:Option = new Option('Storage Type',
-			'Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)',
+			'Which folder Psych Engine should use?',
 			'storageType',
 			'string',
-			null,
+			ClientPrefs.storageType,
 			storageTypes);
 			addOption(option);
 		#end
