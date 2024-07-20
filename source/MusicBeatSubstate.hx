@@ -5,6 +5,7 @@ import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.FlxBasic;
 import flixel.FlxSprite;
+import CopyState;
 
 #if android
 import flixel.input.actions.FlxActionInput;
@@ -65,7 +66,7 @@ class MusicBeatSubstate extends FlxSubState
 	
 	override function destroy() {
 		#if android
-		if (trackedinputsUI.length > 0 && trackedinputsNOTES.length > 0) {
+		if (!CopyStateOpened) {
 		controls.removeFlxInput(trackedinputsUI);
 		controls.removeFlxInput(trackedinputsNOTES);
 		}

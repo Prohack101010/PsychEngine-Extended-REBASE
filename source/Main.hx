@@ -39,6 +39,7 @@ class Main extends Sprite
 		framerate: 60, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
 		startFullscreen: true // if the game should start at fullscreen mode
+		CopyState.CopyStateOpened
 	};
 
 	public static var fpsVar:FPS;
@@ -52,6 +53,7 @@ class Main extends Sprite
 
 	public function new()
 	{
+	    CopyState.CopyStateOpened = false;
 	    #if mobile
 		#if android
 		SUtil.doPermissionsShit();
@@ -98,6 +100,10 @@ class Main extends Sprite
 	
 		ClientPrefs.loadDefaultKeys();
 		// addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		#if (mobile && MODS_ALLOWED)
+		{
+		    CopyState.CopyStateOpened = true;
+		}
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, game.zoom, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		fpsVar = new FPS(10, 3, 0xFFFFFF);

@@ -33,6 +33,7 @@ class CopyState extends MusicBeatState
 	var failedFilesStack:Array<String> = [];
 	var canUpdate:Bool = true;
 	var shouldCopy:Bool = false;
+	var CopyStateOpened:Bool = true;
 
 	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
 
@@ -43,6 +44,7 @@ class CopyState extends MusicBeatState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
+		    CopyStateOpened = false;
 			MusicBeatState.switchState(new TitleState());
 			return;
 		}
@@ -93,6 +95,7 @@ class CopyState extends MusicBeatState
 				}
 				canUpdate = false;
 				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () -> {
+				    CopyStateOpened = false;
 					MusicBeatState.switchState(new TitleState());
 				};
 			}
