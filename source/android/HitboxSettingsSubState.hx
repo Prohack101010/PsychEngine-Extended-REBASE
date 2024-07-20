@@ -37,11 +37,11 @@ using StringTools;
 
 class HitboxSettingsSubState extends BaseOptionsMenu
 {
-    /*
     #if android
+	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL", "EXTERNAL_NFENGINE"];
+	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
-	*/
 	public function new()
 	{
 		title = 'Hitbox Settings';
@@ -116,37 +116,38 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		
 		#if android
-		var option:Option = new Option('Storage Type:',
-			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
+		var option:Option = new Option('Storage Type',
+			'Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)',
 			'storageType',
 			'string',
-			'PsychEngine',
-			['NF_Engine', 'NovaFlare', 'PsychEngine']);
-		addOption(option);
+			null,
+			storageTypes);
+			addOption(option);
 		#end
 
 		super();
 	}
-	
-	/*
+
+	#if android
 	function onStorageChange():Void
 	{
 		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
-
-		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
-	}
-	*/
 	
+		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
+	}
+	#end
+
 	override public function destroy() {
 		super.destroy();
-		/*
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
-		    onStorageChange();
+			onStorageChange();
+			SUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
+			lime.system.System.exit(0);
 		}
 		#end
-		*/
 	}
+}
 	
 	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
 	function onChangePadAlpha()
