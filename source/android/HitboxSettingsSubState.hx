@@ -52,7 +52,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			"Allow Extra Controls",
 			'hitboxExtend',
 			'float',
-			0.2);
+			2);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0;
 		option.maxValue = 4;
@@ -143,8 +143,9 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 			onStorageChange();
-			// SUtil.showPopUp('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
-			// lime.system.System.exit(0);
+			ClientPrefs.saveSettings();
+			SUtil.showPopUp('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			lime.system.System.exit(0);
 		}
 		#end
 	}
