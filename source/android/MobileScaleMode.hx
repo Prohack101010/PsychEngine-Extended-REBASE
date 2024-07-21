@@ -33,7 +33,6 @@ class MobileScaleMode extends BaseScaleMode
     @:noCompletion
     private static function set_allowWideScreen(value:Bool):Bool
     {
-        allowWideScreen = value;
         FlxG.scaleMode = new MobileScaleMode();
         return value;
     }
