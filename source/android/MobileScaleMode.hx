@@ -5,16 +5,9 @@ import flixel.system.scaleModes.BaseScaleMode;
 
 class MobileScaleMode extends BaseScaleMode
 {
-    public static var allowWideScreen(default, set):Bool = true;
 
     override function updateGameSize(Width:Int, Height:Int):Void
 	{
-        if(ClientPrefs.data.wideScreen && allowWideScreen)
-        {
-            super.updateGameSize(Width, Height);
-        }
-        else
-        {
             var ratio:Float = FlxG.width / FlxG.height;
             var realRatio:Float = Width / Height;
     
@@ -30,14 +23,10 @@ class MobileScaleMode extends BaseScaleMode
                 gameSize.y = Height;
                 gameSize.x = Math.floor(gameSize.y * ratio);
             }
-        }
 	}
 
     override function updateGamePosition():Void
 	{
-        if(ClientPrefs.data.wideScreen && allowWideScreen)
-		    FlxG.game.x = FlxG.game.y = 0;
-        else
             super.updateGamePosition();
 	}
 
