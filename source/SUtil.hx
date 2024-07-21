@@ -177,6 +177,7 @@ class SUtil
 				'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens');
 			if (!AndroidEnvironment.isExternalStorageManager())
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+			LimeSystem.exit(1);
 		}
 		else
 		{
@@ -229,10 +230,10 @@ class SUtil
 enum abstract StorageType(String) from String to String
 {
 	final forcedPath = '/storage/emulated/0/';
-	final packageNameLocal = 'com.kraloyuncu.psychengineextended';
+	final packageNameLocal = 'com.kraloyuncu.psychengineexrebase';
 	final fileLocal = 'PsychEngine';
 	final fileLocalNF = 'NF Engine';
-	final fileLocalEX = 'PsychEngine Extended'; //idk why
+	final fileLocalEX = 'PsychEngineEx'; //idk why
 
 	public static function fromStr(str:String):StorageType
 	{

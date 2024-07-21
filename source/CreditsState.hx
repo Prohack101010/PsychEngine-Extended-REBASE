@@ -81,6 +81,17 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+		    ['Psych Extended'],
+			['KralOyuncu',		    'KralOyuncu',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'9E29CF'],
+			[''],
+			['Psych Engine Extended V0.5'],
+			['KralOyuncu',		    'KralOyuncu',		'Just Im Made This Build',					'https://youtube.com/@kraloyuncurbx',	'9E29CF'],
+			['DarkVerseKing', 	    'Dark',			    'Helper and Useless Person',		            'https://youtube.com/@darkverseking', '444444'],
+			[''],
+			['Special Thanks'],
+			['beihu',	            'beihu',			    'Extra Controls (Shift and Space)',			   'https://youtube.com/@beihu235',	'FFC0CB'],
+			['MobilePorting', 		'lily',			    'Extended Vpad',		                       'https://github.com/MobilePorting', 'FFB4F0'],
+			[''],
 			['Psych Engine Android Team'],
 			['MaysLastPlay',		'MaysLastPlay',		'Android Porter',							'https://www.youtube.com/channel/UCx0LxtFR8ROd9sFAq-UxDfw',	'5DE7FF'],
 			['Nuno Filipe Studios',	'nuno',				'Android Porter',							'https://www.youtube.com/channel/UCq7G3p4msVN5SX2CpJ86tTw',	'989c99'],

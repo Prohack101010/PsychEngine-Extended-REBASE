@@ -39,7 +39,7 @@ using StringTools;
 class HitboxSettingsSubState extends BaseOptionsMenu
 {
     #if android
-	var storageTypes:Array<String> = ["EXTERNAL_EX", "EXTERNAL", "EXTERNAL_NF"];
+	var storageTypes:Array<String> = ["EXTERNAL", "EXTERNAL_EX", "EXTERNAL_NF"];
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end

@@ -20,7 +20,7 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty' #if android, 'Chart Editor' #end, 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Skip Time', 'Botplay', 'Practice Mode', 'Options', 'Change Difficulty' #if android, 'Chart Editor' #end, 'Exit to menu', 'Exit to main menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -32,6 +32,7 @@ class PauseSubState extends MusicBeatSubstate
 	//var botplayText:FlxText;
 
 	public static var songName:String = '';
+	public static var MoveOption:Bool;
 
 	public function new(x:Float, y:Float)
 	{
@@ -266,6 +267,12 @@ class PauseSubState extends MusicBeatSubstate
                                 case 'Chart Editor':
 		                        MusicBeatState.switchState(new editors.ChartingState());
 		                        PlayState.chartingMode = true;
+		        case 'Options':
+					MoveOption = true;
+					PlayState.deathCounter = 0;
+					PlayState.seenCutscene = false;
+					MusicBeatState.switchState(new options.OptionsState());
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				case "Exit to menu":
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
@@ -276,6 +283,16 @@ class PauseSubState extends MusicBeatSubstate
 					} else {
 						MusicBeatState.switchState(new FreeplayState());
 					}
+					PlayState.cancelMusicFadeTween();
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					PlayState.changedDifficulty = false;
+					PlayState.chartingMode = false;
+			    case "Exit to main menu":
+					PlayState.deathCounter = 0;
+					PlayState.seenCutscene = false;
+
+					WeekData.loadTheFirstEnabledMod();
+					MusicBeatState.switchState(new MainMenuState());
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;

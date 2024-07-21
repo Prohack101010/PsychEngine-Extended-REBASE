@@ -147,6 +147,7 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
+	public static var MoveOption:Bool;
 
 	public var spawnTime:Float = 2000;
 
@@ -3374,6 +3375,20 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		#end
+	}
+	
+	function openOptionsMenu()
+	{
+		persistentUpdate = false;
+		MoveOption = true;
+		PlayState.deathCounter = 0;
+	    PlayState.seenCutscene = false;
+		MusicBeatState.switchState(new options.OptionsState());
+		FlxG.sound.playMusic(Paths.music('freakyMenu'));
+
+		#if desktop
+		DiscordClient.changePresence("Options Menu", null, null, true);
 		#end
 	}
 
