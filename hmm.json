@@ -56,13 +56,6 @@
       "url": "https://github.com/MobilePorting/lime-0.6.3.git"
     },
     {
-      "name": "flxanimate",
-      "type": "git",
-      "dir": null,
-      "ref": "dev",
-      "url": "https://github.com/ShadowMario/flxanimate.git"
-    },
-    {
       "name": "openfl",
       "type": "git",
       "ref": "develop",

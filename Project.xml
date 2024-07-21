@@ -137,7 +137,7 @@
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/> 
         <haxelib name="extension-androidtools" if="android"/>
 	<haxelib name="faxe" if='switch'/>
-	<haxelib name="flxanimate" if="android"/>
+	<!--<haxelib name="flxanimate" if="android"/> -->
 	<!--<haxelib name="polymod"/> -->
 	<haxelib name="discord_rpc" if="desktop"/>
 
