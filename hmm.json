@@ -57,9 +57,8 @@
     },
     {
       "name": "openfl",
-      "type": "git",
-      "ref": "develop",
-      "url": "https://github.com/Prohack101010/openfl-0.6.3.git"
+      "type": "haxelib",
+      "version": "9.2.0"
     }
   ]
 }
