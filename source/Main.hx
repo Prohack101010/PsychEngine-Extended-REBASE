@@ -97,6 +97,10 @@ class Main extends Sprite
 		}
 		
 		SUtil.doTheCheck();
+		
+		#if mobile
+		FlxG.signals.gameResized.add(resizeGame);
+		#end
 	
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
@@ -129,6 +133,12 @@ class Main extends Sprite
 		}
 		#end
 	}
+	
+	function resizeGame(width:Int, height:Int):Void
+    {
+      // Calling this so it gets scaled based on the resolution of the game and device's resolution.
+      final scale:Float = Math.min(flixel.FlxG.stage.stageWidth / flixel.FlxG.width, flixel.FlxG.stage.stageHeight / flixel.FlxG.height);
+    }    
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
 	// very cool person for real they don't get enough credit for their work
