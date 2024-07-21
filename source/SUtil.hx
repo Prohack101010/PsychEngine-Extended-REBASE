@@ -178,12 +178,11 @@ class SUtil
     					CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
     					LimeSystem.exit(1);
     				}
-			}
+			    }
 			catch (e:Dynamic)
 			{
 				showPopUp('Error!', 'Please create folder to\n' + SUtil.getStorageDirectory(true) + '\nPress OK to close the game');
 				LimeSystem.exit(1);
-			}
 			}
 		}
 	}
