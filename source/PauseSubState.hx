@@ -142,7 +142,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		else
 		{
-		        addVirtualPad(UP_DOWN, A);
+		        addVirtualPad(FULL, A);
 		}
 		addPadCamera();
 		#end
@@ -231,7 +231,7 @@ class PauseSubState extends MusicBeatSubstate
 					menuItems = difficultyChoices;
 					deleteSkipTimeText();
 					regenMenu();
-				case 'Toggle Practice Mode':
+				case 'Practice Mode':
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
 					PlayState.changedDifficulty = true;
 					practiceText.visible = PlayState.instance.practiceMode;
@@ -258,7 +258,7 @@ class PauseSubState extends MusicBeatSubstate
 				case "End Song":
 					close();
 					PlayState.instance.finishSong(true);
-				case 'Toggle Botplay':
+				case 'Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
