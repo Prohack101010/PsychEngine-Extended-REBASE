@@ -153,7 +153,7 @@ class OptionsState extends MusicBeatState
 				PlayState.MoveOption = false;
 			} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.normalstates) {MusicBeatState.switchState(new MainMenuStatePsych());} else {MusicBeatState.switchState(new MainMenuState());}
+			MusicBeatState.switchState(new MainMenuState());
 		    }
 		}
 

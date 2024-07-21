@@ -202,7 +202,7 @@ class TitleState extends MusicBeatState
 
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
-		if (ClientPrefs.normalstates) {MusicBeatState.switchState(new FreeplayStatePsych());} else {MusicBeatState.switchState(new FreeplayState());}
+		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
@@ -501,7 +501,7 @@ class TitleState extends MusicBeatState
 					if (mustUpdate) {
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
-						if (ClientPrefs.normalstates) {MusicBeatState.switchState(new MainMenuStatePsych());} else {MusicBeatState.switchState(new MainMenuState());}
+						MusicBeatState.switchState(new MainMenuState());
 					}
 					closedState = true;
 				});

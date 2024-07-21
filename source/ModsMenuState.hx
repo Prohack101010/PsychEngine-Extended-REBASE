@@ -499,7 +499,7 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-				if (ClientPrefs.normalstates) {MusicBeatState.switchState(new MainMenuStatePsych());} else {MusicBeatState.switchState(new MainMenuState());}
+				MusicBeatState.switchState(new MainMenuState());
 			}
 		}
 

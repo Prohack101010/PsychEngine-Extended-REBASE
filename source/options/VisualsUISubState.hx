@@ -121,13 +121,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
-		
-		var option:Option = new Option('PsychEngine States',
-			"If unchecked, disables the PsychEngine States.",
-			'normalstates',
-			'bool',
-			false);
-		addOption(option);
 
 		super();
 	}

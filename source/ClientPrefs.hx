@@ -38,8 +38,7 @@ class ClientPrefs {
 	#if android
 	public static var storageType:String = "EXTERNAL";
 	#end
-    public static var hitboxhint = true;
-    public static var normalstates = false;
+        public static var hitboxhint = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
 	public static var hitboxExtend:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
@@ -149,8 +148,7 @@ class ClientPrefs {
 		FlxG.save.data.hitboxExtend = hitboxExtend;
 	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
-        FlxG.save.data.hitboxhint = hitboxhint;
-        FlxG.save.data.normalstates = normalstates;
+                FlxG.save.data.hitboxhint = hitboxhint;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
 	
@@ -277,9 +275,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hitboxhint != null) {
 			hitboxhint = FlxG.save.data.hitboxhint;
-		}
-		if(FlxG.save.data.normalstates != null) {
-			normalstates = FlxG.save.data.normalstates;
 		}
 		if(FlxG.save.data.hitboxLocation != null) {
 			hitboxLocation = FlxG.save.data.hitboxLocation;
