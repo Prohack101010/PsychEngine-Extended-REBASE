@@ -85,6 +85,7 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
+	    /*
 	    #if (openfl <= "9.2.0")
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
@@ -98,9 +99,10 @@ class Main extends Sprite
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
 		#else
+		*/
 		if (game.zoom == -1.0)
 			game.zoom = 1.0;
-		#end
+		// #end
 		
 		SUtil.doTheCheck();
 	
