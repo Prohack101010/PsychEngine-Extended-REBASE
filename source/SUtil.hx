@@ -165,14 +165,14 @@ class SUtil
     			}
     			else
     			{
-    			    if (!FileSystem.exists(SUtil.getPath() + 'assets'))
+    			    if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets'))
     				{
     					SUtil.showPopUp('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
     					CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
     					LimeSystem.exit(1);
     				}
     
-    				if (!FileSystem.exists(SUtil.getPath() + 'mods'))
+    				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
     				{
     					SUtil.showPopUp('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
     					CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
