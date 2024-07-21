@@ -39,6 +39,7 @@ class ClientPrefs {
 	public static var storageType:String = "EXTERNAL";
 	#end
         public static var hitboxhint = true;
+    public static var testmode:String = "Disabled";
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
 	public static var hitboxExtend:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
@@ -145,6 +146,7 @@ class ClientPrefs {
 		FlxG.save.data.comboStacking = comboStacking;
 
 		FlxG.save.data.storageType = storageType;
+		FlxG.save.data.testmode = testmode;
 		FlxG.save.data.hitboxExtend = hitboxExtend;
 	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
@@ -269,6 +271,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.storageType != null) {
 			storageType = FlxG.save.data.storageType;
+		}
+		if(FlxG.save.data.testmode != null) {
+			testmode = FlxG.save.data.testmode;
 		}
 		if(FlxG.save.data.hitboxmode != null) {
 			hitboxmode = FlxG.save.data.hitboxmode;

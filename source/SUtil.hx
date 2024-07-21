@@ -176,8 +176,17 @@ class SUtil
 			showPopUp('Notice!',
 				'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens');
 			if (!AndroidEnvironment.isExternalStorageManager())
+			{
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
-			LimeSystem.exit(1);
+				if (ClientPrefs.testmode == 'Test 1')
+				{
+			    // do nothing
+			    }
+			    else
+			    {
+			        LimeSystem.exit(1);
+			    }
+			}
 		}
 		else
 		{

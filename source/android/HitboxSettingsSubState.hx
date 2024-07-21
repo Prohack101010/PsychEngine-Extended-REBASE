@@ -43,6 +43,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
+	var TestModes:Array<String> = ["Disabled", "Test 1"];
 	public function new()
 	{
 		title = 'Hitbox Settings';
@@ -114,6 +115,14 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			'Modpack',
 			'bool',
 			false);
+		addOption(option);
+		
+		var option:Option = new Option('Test Mode',
+			'Test Mode',
+			'testmode',
+			'string',
+			null,
+			TestModes);
 		addOption(option);
 		
 		#if android
