@@ -178,18 +178,16 @@ class SUtil
 			if (!AndroidEnvironment.isExternalStorageManager())
 			{
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
-				if (ClientPrefs.testmode == 'Test 1')
-				{
-			    // do nothing
-			    }
-			    else
-			    {
-			        LimeSystem.exit(1);
-			    }
+			    // LimeSystem.exit(1);
 			}
 		}
 		else
 		{
+		    if (!AndroidEnvironment.isExternalStorageManager())
+			{
+				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+			    // LimeSystem.exit(1);
+			}
 			try
 			{
 				if (!FileSystem.exists(SUtil.getStorageDirectory()))
