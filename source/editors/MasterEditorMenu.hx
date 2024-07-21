@@ -113,7 +113,7 @@ class MasterEditorMenu extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.normalstates) {MusicBeatState.switchState(new MainMenuStatePsych());} else {MusicBeatState.switchState(new MainMenuState());}
 		}
 
 		if (controls.ACCEPT)

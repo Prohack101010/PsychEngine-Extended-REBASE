@@ -232,7 +232,7 @@ class CreditsState extends MusicBeatState
 					colorTween.cancel();
 				}
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MainMenuState());
+				if (ClientPrefs.normalstates) {MusicBeatState.switchState(new MainMenuStatePsych());} else {MusicBeatState.switchState(new MainMenuState());}
 				quitting = true;
 			}
 		}
