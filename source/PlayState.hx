@@ -1069,6 +1069,20 @@ class PlayState extends MusicBeatState
 
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
+		
+		#if android
+		addAndroidControls();
+		if (ClientPrefs.hitboxmode == 'Classic') {
+		MusicBeatState.androidc.visible = false;
+		}
+	        if (ClientPrefs.hitboxmode == 'New') {
+		MusicBeatState.androidc.visible = true;
+		if (!ClientPrefs.hitboxhint) {
+		MusicBeatState.androidc.alpha = 0.000001;
+		}
+		}
+		
+		#end
 
 		// startCountdown();
 
@@ -1200,20 +1214,6 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
-
-		#if android
-		addAndroidControls();
-		if (ClientPrefs.hitboxmode == 'Classic') {
-		MusicBeatState.androidc.visible = false;
-		}
-	        if (ClientPrefs.hitboxmode == 'New') {
-		MusicBeatState.androidc.visible = true;
-		if (!ClientPrefs.hitboxhint) {
-		MusicBeatState.androidc.alpha = 0.000001;
-		}
-		}
-		
-		#end
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -2129,9 +2129,6 @@ class PlayState extends MusicBeatState
 		var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
-			#if android
-			MusicBeatState.androidc.visible = true;
-			#end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 			for (i in 0...playerStrums.length) {
@@ -2144,7 +2141,12 @@ class PlayState extends MusicBeatState
 				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 			}
 
+			#if android
+			startedCountdown = MusicBeatState.androidc.visible = true;
+			if (checkHitbox != true) MusicBeatState.androidc.alpha = 1;
+			#else
 			startedCountdown = true;
+			#end
 			Conductor.songPosition = -Conductor.crochet * 5;
 			setOnLuas('startedCountdown', true);
 			callOnLuas('onCountdownStarted', []);
