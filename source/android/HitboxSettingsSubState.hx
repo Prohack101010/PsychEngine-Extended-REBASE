@@ -39,7 +39,7 @@ using StringTools;
 class HitboxSettingsSubState extends BaseOptionsMenu
 {
     #if android
-	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL", "EXTERNAL_NFENGINE"];
+	var storageTypes:Array<String> = ["EXTERNAL_EX", "EXTERNAL", "EXTERNAL_NF"];
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
@@ -110,7 +110,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		super();
 		
 		var option:Option = new Option('Modpack Folder',
-			'Wip',
+			'If checked, game uses modpack folder instead of mods folder. (You need to create the folder yourself)',
 			'Modpack',
 			'bool',
 			false);
@@ -143,8 +143,8 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 			onStorageChange();
-			SUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
-			lime.system.System.exit(0);
+			// SUtil.showPopUp('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			// lime.system.System.exit(0);
 		}
 		#end
 	}

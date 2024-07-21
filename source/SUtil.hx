@@ -142,7 +142,7 @@ class SUtil
 	{
 	    if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
 		{
-			SUtil.showPopUp('Uncaught Error :(!', "Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
+			SUtil.showPopUp('Uncaught Error :(', "Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
 			CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
 			LimeSystem.exit(1);
 		}
@@ -150,14 +150,14 @@ class SUtil
 		{
 			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets'))
 			{
-				SUtil.showPopUp('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
+				SUtil.showPopUp('Uncaught Error :(', "Whoops, seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
 				CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
 				LimeSystem.exit(1);
 			}
 
 			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
 			{
-				SUtil.showPopUp('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
+				SUtil.showPopUp('Uncaught Error :(', "Whoops, seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
 				CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
 				LimeSystem.exit(1);
 			}
@@ -232,6 +232,7 @@ enum abstract StorageType(String) from String to String
 	final packageNameLocal = 'com.kraloyuncu.psychengineextended';
 	final fileLocal = 'PsychEngine';
 	final fileLocalNF = 'NF Engine';
+	final fileLocalEX = 'PsychEngine Extended'; //idk why
 
 	public static function fromStr(str:String):StorageType
 	{
@@ -240,6 +241,7 @@ enum abstract StorageType(String) from String to String
 		final EXTERNAL_MEDIA = AndroidEnvironment.getExternalStorageDirectory() + '/Android/media/' + lime.app.Application.current.meta.get('packageName');
 		final EXTERNAL = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
 		final EXTERNAL_NF = forcedPath + '.' + fileLocalNF;
+		final EXTERNAL_EX = forcedPath + '.' + fileLocalEX;
 
 		return switch (str)
 		{
@@ -248,6 +250,7 @@ enum abstract StorageType(String) from String to String
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
 			case "EXTERNAL": EXTERNAL;
 			case "EXTERNAL_NF": EXTERNAL_NF;
+			case "EXTERNAL_EX": EXTERNAL_EX;
 			default: SUtil.getExternalDirectory(str) + '.' + fileLocal;
 		}
 	}
@@ -259,6 +262,7 @@ enum abstract StorageType(String) from String to String
 		final EXTERNAL_MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
 		final EXTERNAL = forcedPath + '.' + fileLocal;
 		final EXTERNAL_NF = forcedPath + '.' + fileLocalNF;
+		final EXTERNAL_EX = forcedPath + '.' + fileLocalEX;
 
 		return switch (str)
 		{
@@ -267,6 +271,7 @@ enum abstract StorageType(String) from String to String
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
 			case "EXTERNAL": EXTERNAL;
 			case "EXTERNAL_NF": EXTERNAL_NF;
+			case "EXTERNAL_EX": EXTERNAL_EX;
 			default: SUtil.getExternalDirectory(str) + '.' + fileLocal;
 		}
 	}
