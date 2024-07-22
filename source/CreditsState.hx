@@ -90,7 +90,7 @@ class CreditsState extends MusicBeatState
 			[''],
 			['Special Thanks'],
 			['beihu',	            'beihu',			    'Extra Controls (Shift and Space)',			   'https://youtube.com/@beihu235',	'FFC0CB'],
-			['MobilePorting', 		'lily',			    'Extended Vpad',		                       'https://github.com/MobilePorting', 'FFB4F0'],
+			['MobilePorting', 		'lily',			    'SUtil and Extended Vpad',		                       'https://github.com/MobilePorting', 'FFB4F0'],
 			[''],
 			['Psych Engine Android Team'],
 			['MaysLastPlay',		'MaysLastPlay',		'Android Porter',							'https://www.youtube.com/channel/UCx0LxtFR8ROd9sFAq-UxDfw',	'5DE7FF'],
