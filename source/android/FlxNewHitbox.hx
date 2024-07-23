@@ -159,11 +159,6 @@ class FlxNewHitbox extends FlxSpriteGroup
 		bitmap.draw(shape);
 		return bitmap;
 	}
-	
-	public function HitboxExtend() {
-	
-	
-	
 
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
 	{
