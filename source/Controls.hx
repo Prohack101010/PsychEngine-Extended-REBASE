@@ -389,13 +389,13 @@ class Controls extends FlxActionSet
 	#end
 
 	#if android
-	public var trackedinputsUI:Array<FlxActionInput> = [];
-	public var trackedinputsNOTES:Array<FlxActionInput> = [];	
+	public var trackedInputsUI:Array<FlxActionInput> = [];
+	public var trackedInputsNOTES:Array<FlxActionInput> = [];
 
 	public function addbuttonuNOTES(action:FlxActionDigital, button:FlxButton, state:FlxInputState) 
 	{
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
-		trackedinputsNOTES.push(input);
+		trackedInputsNOTES.push(input);
 		action.add(input);
 	}
 	
@@ -403,13 +403,13 @@ class Controls extends FlxActionSet
 	public function addButtonNOTES(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState)
 	{
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
-		trackedinputsNOTES.push(input);
+		trackedInputsNOTES.push(input);
 		action.add(input);
 	}
 
 	public function addbuttonuUI(action:FlxActionDigital, button:FlxButton, state:FlxInputState) {
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
-		trackedinputsUI.push(input);
+		trackedInputsUI.push(input);
 		action.add(input);
 	}
 
