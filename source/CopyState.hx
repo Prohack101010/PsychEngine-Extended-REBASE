@@ -74,10 +74,6 @@ class CopyState extends MusicBeatState
 		copyLoop = new FlxAsyncLoop(maxLoopTimes, copyAsset, ticks);
 		add(copyLoop);
 		copyLoop.start();
-		
-		#if android
-        addVirtualPad(NONE, A_B);
-        #end
 
 		super.create();
 	}
