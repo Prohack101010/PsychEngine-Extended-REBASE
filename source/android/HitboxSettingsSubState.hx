@@ -65,7 +65,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			'hitboxLocation',
 			'string',
 			'Bottom',
-			['Bottom', 'Top']);
+			['Bottom', 'Top', 'Middle']);
 		  addOption(option);
 
 		var option:Option = new Option('Hitbox Mode:',

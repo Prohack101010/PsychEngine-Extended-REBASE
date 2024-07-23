@@ -1053,23 +1053,23 @@ class FunkinLua {
                     return FunkinLua.getVarInArray(myClass, variable);
                 }
                 
-                if (variable == 'keys.justPressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
+                if (variable == 'keys.justPressed.Q' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
     			    return FunkinLua.getVarInArray(myClass, variable);
                 }
-                else if (variable == 'keys.pressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
+                else if (variable == 'keys.pressed.Q' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
                     return FunkinLua.getVarInArray(myClass, variable);
                 }
-                else if (variable == 'keys.justReleased.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
+                else if (variable == 'keys.justReleased.Q' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
                     return FunkinLua.getVarInArray(myClass, variable);
                 }
                 
-                if (variable == 'keys.justPressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
+                if (variable == 'keys.justPressed.E' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
     			    return FunkinLua.getVarInArray(myClass, variable);
                 }
-                else if (variable == 'keys.pressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.pressed){
+                else if (variable == 'keys.pressed.E' && MusicBeatState.androidc.newhbox.buttonE.pressed){
                     return FunkinLua.getVarInArray(myClass, variable);
                 }
-                else if (variable == 'keys.justReleased.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
+                else if (variable == 'keys.justReleased.E' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
                     return FunkinLua.getVarInArray(myClass, variable);
                 }
            }
@@ -1442,10 +1442,10 @@ class FunkinLua {
                 if (name == 'SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justPressed){
     			    return true;
                 }
-                if (name == 'EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
+                if (name == 'Q' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
     			    return true;
                 }
-                if (name == 'EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
+                if (name == 'E' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
     			    return true;
                 }
             }
@@ -1462,10 +1462,10 @@ class FunkinLua {
                 if (name == 'SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.pressed){
     			    return true;
                 }
-                if (name == 'EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
+                if (name == 'Q' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
     			    return true;
                 }
-                if (name == 'EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.pressed){
+                if (name == 'E' && MusicBeatState.androidc.newhbox.buttonE.pressed){
     			    return true;
                 }
            }
@@ -1482,10 +1482,10 @@ class FunkinLua {
                 if (name == 'SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justReleased){
     			    return true;
                 }
-                if (name == 'EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
+                if (name == 'Q' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
     			    return true;
                 }
-                if (name == 'EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
+                if (name == 'E' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
     			    return true;
                 }
            }
@@ -1565,8 +1565,8 @@ class FunkinLua {
 				case 'reset': key = PlayState.instance.getControl('RESET');
 				case 'shift': key = (PlayState.instance.getControl('SHIFT_P') || FlxG.keys.justPressed.SHIFT);//an extra key for convinience
 				case 'space': key = (PlayState.instance.getControl('SPACE_P') || FlxG.keys.justPressed.SPACE);//an extra key for convinience			
-				case 'extra1': key = (PlayState.instance.getControl('Q_P') || FlxG.keys.justPressed.Q);//an extra key for convinience
-				case 'extra2': key = (PlayState.instance.getControl('E_P') || FlxG.keys.justPressed.E);//an extra key for convinience
+				case 'Q': key = (PlayState.instance.getControl('Q_P') || FlxG.keys.justPressed.Q);//an extra key for convinience
+				case 'E': key = (PlayState.instance.getControl('E_P') || FlxG.keys.justPressed.E);//an extra key for convinience
 			}
 			return key;
 		});
@@ -1579,8 +1579,8 @@ class FunkinLua {
 				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT');
 				case 'shift': key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT);//an extra key for convinience
 				case 'space': key = (PlayState.instance.getControl('SPACE') || FlxG.keys.pressed.SPACE);//an extra key for convinience
-				case 'extra1': key = (PlayState.instance.getControl('Q') || FlxG.keys.pressed.Q);//an extra key for convinience
-				case 'extra2': key = (PlayState.instance.getControl('E') || FlxG.keys.pressed.E);//an extra key for convinience
+				case 'Q': key = (PlayState.instance.getControl('Q') || FlxG.keys.pressed.Q);//an extra key for convinience
+				case 'E': key = (PlayState.instance.getControl('E') || FlxG.keys.pressed.E);//an extra key for convinience
 			}
 			return key;
 		});
@@ -1593,8 +1593,8 @@ class FunkinLua {
 				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT_R');
 				case 'shift': key = (PlayState.instance.getControl('SHIFT_R') || FlxG.keys.justReleased.SHIFT);//an extra key for convinience
 				case 'space': key = (PlayState.instance.getControl('SPACE_R') || FlxG.keys.justReleased.SPACE);//an extra key for convinience			
-				case 'extra1': key = (PlayState.instance.getControl('Q_R') || FlxG.keys.justReleased.Q);//an extra key for convinience
-				case 'extra2': key = (PlayState.instance.getControl('E_R') || FlxG.keys.justReleased.E);//an extra key for convinience
+				case 'Q': key = (PlayState.instance.getControl('Q_R') || FlxG.keys.justReleased.Q);//an extra key for convinience
+				case 'E': key = (PlayState.instance.getControl('E_R') || FlxG.keys.justReleased.E);//an extra key for convinience
 			}
 			return key;
 		});
@@ -2941,28 +2941,28 @@ class FunkinLua {
                     return pressCheck;
                 }
                 
-                if (variable == 'keys.justPressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
+                if (variable == 'keys.justPressed.Q' && MusicBeatState.androidc.newhbox.buttonQ.justPressed){
     			    pressCheck = true;
                     return pressCheck;
                 }
-                else if (variable == 'keys.pressed.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
+                else if (variable == 'keys.pressed.Q' && MusicBeatState.androidc.newhbox.buttonQ.pressed){
                     pressCheck = true;
                     return pressCheck;
                 }
-                else if (variable == 'keys.justReleased.EXTRA1' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
+                else if (variable == 'keys.justReleased.Q' && MusicBeatState.androidc.newhbox.buttonQ.justReleased){
                     pressCheck = true;
                     return pressCheck;
                 }
                 
-                if (variable == 'keys.justPressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
+                if (variable == 'keys.justPressed.E' && MusicBeatState.androidc.newhbox.buttonE.justPressed){
     			    pressCheck = true;
                     return pressCheck;
                 }
-                else if (variable == 'keys.pressed.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.pressed){
+                else if (variable == 'keys.pressed.E' && MusicBeatState.androidc.newhbox.buttonE.pressed){
                     pressCheck = true;
                     return pressCheck;
                 }
-                else if (variable == 'keys.justReleased.EXTRA2' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
+                else if (variable == 'keys.justReleased.E' && MusicBeatState.androidc.newhbox.buttonE.justReleased){
                     pressCheck = true;
                     return pressCheck;
                 }

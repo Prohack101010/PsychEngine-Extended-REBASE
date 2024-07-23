@@ -93,11 +93,8 @@ class Main extends Sprite
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
 		
-		#if mobile
 		#if android
 		SUtil.doPermissionsShit();
-		#end
-		SUtil.doTheCheck();
 		#end
 	
 		ClientPrefs.loadDefaultKeys();
