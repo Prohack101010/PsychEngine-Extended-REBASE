@@ -53,6 +53,9 @@ class Main extends Sprite
 	public function new()
 	{
 	    #if mobile
+	    #if android
+		SUtil.doPermissionsShit();
+		#end
 		Sys.setCwd(SUtil.getStorageDirectory());
 		#end
 	
@@ -92,10 +95,6 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
-		
-		#if android
-		SUtil.doPermissionsShit();
-		#end
 	
 		ClientPrefs.loadDefaultKeys();
 		// default
