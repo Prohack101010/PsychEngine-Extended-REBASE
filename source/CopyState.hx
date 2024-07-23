@@ -46,6 +46,8 @@ class CopyState extends MusicBeatState
 			MusicBeatState.switchState(new TitleState());
 			return;
 		}
+		
+		if (!FileSystem.exists(SUtil.getStorageDirectory())) { FileSystem.createDirectory(SUtil.getStorageDirectory()); }
 
 		SUtil.showPopUp("Notice!", "Seems like you have some missing files that are necessary to run the game\nPress OK to begin the copy process");
 		

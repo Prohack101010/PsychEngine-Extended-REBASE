@@ -190,9 +190,16 @@
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 
 	<!-- _________________________________ Android Stuff _______________________________ -->
-	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" if="android"/>
-	<config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" if="android"/>
-	<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" if="android"/>
+	
+	<section if="android">
+			<!-- Do whatever you want I'm tired uninstall and install everytime -->
+			<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" unless="debug" />
+		
+			<config:android permission="android.permission.READ_EXTERNAL_STORAGE" />
+	        <config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
+	        <config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
+	</section>
+	
   <!--<config:android gradle-version="7.5.1" />
   <config:android gradle-plugin="7.3.1" />-->
 

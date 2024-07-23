@@ -88,7 +88,7 @@ class FPS extends TextField
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			text += "\nVersion: PsychEngine EX 1.0b";
+			text += "\nVersion: PsychEngine EX 1.0";
 			text += "\nMemory: " + memoryMegas + " MB";
 			#end
 
