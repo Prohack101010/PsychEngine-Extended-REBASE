@@ -166,7 +166,7 @@ class SUtil
 			{
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
 				// showPopUp('Notice!',
-				'you needed restart the game!! (idk why)\nPress OK to close the game.');
+				// 'you needed restart the game!! (idk why)\nPress OK to close the game.');
 			    // LimeSystem.exit(1);
 			}
 		}
@@ -187,7 +187,7 @@ class SUtil
 			{
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
 				// showPopUp('Notice!',
-				'you needed restart the game!! (idk why)\nPress OK to close the game.');
+				// 'you needed restart the game!! (idk why)\nPress OK to close the game.');
 			    // LimeSystem.exit(1);
 			}
 		}
