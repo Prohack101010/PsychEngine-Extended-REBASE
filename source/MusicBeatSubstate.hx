@@ -5,6 +5,8 @@ import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.FlxBasic;
 import flixel.FlxSprite;
+import flixel.input.actions.FlxActionInput;
+import flixel.util.FlxDestroyUtil;
 
 #if android
 import flixel.input.actions.FlxActionInput;
@@ -37,20 +39,26 @@ class MusicBeatSubstate extends FlxSubState
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end
 	
+	var virtualPad:FlxVirtualPad;
+	var trackedInputsVirtualPad:Array<FlxActionInput> = [];
+	
 	#if android
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
 		add(_virtualpad);
 		controls.setVirtualPadUI(_virtualpad, DPad, Action);
-		trackedinputsUI = controls.trackedinputsUI;
-		controls.trackedinputsUI = [];
+		trackedInputsVirtualPad = controls.trackedInputsUI;
+		controls.trackedInputsUI = [];
 	}
 	#end
 
 	#if android
 	public function removeVirtualPad() {
-		controls.removeFlxInput(trackedinputsUI);
-		remove(_virtualpad);
+		if (trackedInputsVirtualPad.length > 0)
+			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+
+		if (virtualPad != null)
+			remove(virtualPad);
 	}
 	#end
 
@@ -64,12 +72,13 @@ class MusicBeatSubstate extends FlxSubState
 	#end
 	
 	override function destroy() {
-		#if android
-		controls.removeFlxInput(trackedinputsUI);
-		controls.removeFlxInput(trackedinputsNOTES);
-		#end
+		if (trackedInputsVirtualPad.length > 0)
+			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
 
 		super.destroy();
+
+		if (virtualPad != null)
+			virtualPad = FlxDestroyUtil.destroy(virtualPad);
 	}
 
 	override function update(elapsed:Float)
