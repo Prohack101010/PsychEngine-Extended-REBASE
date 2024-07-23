@@ -165,9 +165,9 @@ class SUtil
 			if (!AndroidEnvironment.isExternalStorageManager())
 			{
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
-				showPopUp('Notice!',
+				// showPopUp('Notice!',
 				'you needed restart the game!! (idk why)\nPress OK to close the game.');
-			    LimeSystem.exit(1);
+			    // LimeSystem.exit(1);
 			}
 		}
 	}
@@ -186,9 +186,9 @@ class SUtil
 			if (!AndroidEnvironment.isExternalStorageManager())
 			{
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
-				showPopUp('Notice!',
+				// showPopUp('Notice!',
 				'you needed restart the game!! (idk why)\nPress OK to close the game.');
-			    LimeSystem.exit(1);
+			    // LimeSystem.exit(1);
 			}
 		}
 		else
