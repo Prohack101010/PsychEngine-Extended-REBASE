@@ -41,6 +41,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	var leftItem:FlxSprite;
 	var rightItem:FlxSprite;
+	var debugKeys:Array<FlxKey>;
 
 	//Centered/Text options
 	var optionShit:Array<String> = [
@@ -67,12 +68,13 @@ class MainMenuState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
+		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = 0.25;
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
@@ -83,7 +85,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.antialiasing = ClientPrefs.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -133,12 +135,21 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 
-		addVirtualPad('NONE', 'E');
+		addVirtualPad('NONE', 'A_B_E');
 
 		super.create();
 
 		FlxG.camera.follow(camFollow, null, 0.15);
 	}
+	
+	#if ACHIEVEMENTS_ALLOWED
+	// Unlocks "Freaky on a Friday Night" achievement
+	function giveAchievement() {
+		add(new AchievementObject('friday_night_play', camAchievement));
+		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+		trace('Giving achievement "friday_night_play"');
+	}
+	#end
 
 	function createMenuItem(name:String, x:Float, y:Float):FlxSprite
 	{
@@ -149,7 +160,7 @@ class MainMenuState extends MusicBeatState
 		menuItem.animation.play('idle');
 		menuItem.updateHitbox();
 		
-		menuItem.antialiasing = ClientPrefs.antialiasing;
+		menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 		menuItem.scrollFactor.set();
 		menuItems.add(menuItem);
 		return menuItem;
