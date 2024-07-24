@@ -641,7 +641,7 @@ class FreeplayState extends MusicBeatState
         if (TouchUtil.pressed) touchBuddy.setPosition(TouchUtil.touch.screenX, TouchUtil.touch.screenY);
         #end
 
-		else if (accepted #if mobile || (FlxG.pixelPerfectOverlap(touchBuddy, grpCapsules.members[curSelected].capsule, 0) && TouchUtil.justReleased && !SwipeUtil.swipeAny) #end);)
+		else if (accepted #if mobile || (FlxG.pixelPerfectOverlap(touchBuddy, grpSongs.members[curSelected].capsule, 0) && TouchUtil.justReleased && !SwipeUtil.swipeAny) #end);)
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
