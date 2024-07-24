@@ -22,6 +22,7 @@ import flixel.addons.display.FlxBackdrop;
 import WeekData;
 import flixel.FlxCamera;
 import SwipeUtil;
+import TouchUtil;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
