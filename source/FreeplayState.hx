@@ -21,8 +21,6 @@ import openfl.utils.Assets as OpenFlAssets;
 import flixel.addons.display.FlxBackdrop;
 import WeekData;
 import flixel.FlxCamera;
-import SwipeUtil;
-import TouchUtil;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -116,17 +114,12 @@ class FreeplayState extends MusicBeatState
 	var camGame:FlxCamera;
 	var camSearch:FlxCamera;
 	var camBlackFade:FlxCamera;
-	var funnyCam:FunkinCamera;
 	
 	var openSearch:Bool = false;
 	var SearchTween:Array<FlxTween> = [];
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
-	
-	#if mobile
-    var touchBuddy:FlxSprite;
-    #end
 
 	private var iconArray:Array<HealthIcon> = [];
 
@@ -151,20 +144,6 @@ class FreeplayState extends MusicBeatState
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
 		camSearch.y = -300 - showOffset;
-		
-		funnyCam = new FlxCamera('freeplayFunny', 0, 0, FlxG.width, FlxG.height);
-        funnyCam.bgColor = FlxColor.TRANSPARENT;
-        FlxG.cameras.add(funnyCam, false);
-        this.cameras = [funnyCam];
-		
-		#if mobile
-        touchBuddy = new FlxSprite().makeGraphic(10, 10, FlxColor.GREEN);
-        touchBuddy.cameras = [funnyCam]; // this is stupid but it works.
-    
-        addBackButton(FlxG.width * 0.96, FlxG.height * 0.84, FlxColor.WHITE, goBack);
-    
-        FlxTween.tween(backButton, {x: 824}, FlxG.random.float(0.5, 0.95), {ease: FlxEase.backOut});
-        #end
 		
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
@@ -538,15 +517,9 @@ class FreeplayState extends MusicBeatState
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
 
-        #if desktop
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		#else
-		var upP = SwipeUtil.swipeUp;
-		var downP = SwipeUtil.swipeDown;
-		var accepted = controls.ACCEPT;
-		#end
 		var space = FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonX.justPressed #end;
 		var ctrl = FlxG.keys.justPressed.CONTROL #if android || _virtualpad.buttonC.justPressed #end;
 
@@ -636,12 +609,8 @@ class FreeplayState extends MusicBeatState
 				#end
 			}
 		}
-		
-		#if mobile
-        if (TouchUtil.pressed) touchBuddy.setPosition(TouchUtil.touch.screenX, TouchUtil.touch.screenY);
-        #end
 
-		else if (accepted #if mobile || (FlxG.pixelPerfectOverlap(touchBuddy, grpSongs.members[curSelected].capsule, 0) && TouchUtil.justReleased && !SwipeUtil.swipeAny) #end);)
+		else if (accepted)
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
