@@ -1090,7 +1090,7 @@ class FunkinLua {
 			
 			#if mobile
 			if (variable == 'application.window.title'){
-    			    return false;
+    			    return null;
             }
 			if (variable != 'application.window.title'){
 			#end
