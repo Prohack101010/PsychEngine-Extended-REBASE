@@ -910,6 +910,13 @@ class FreeplayState extends MusicBeatState
 	function SearchChangeSelection(playSound:Bool = true)
 	{
 		if(playSound) FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		
+		curSelected += change;
+
+		if (curSelected < 0)
+			curSelected = songs.length - 1;
+		if (curSelected >= songs.length)
+			curSelected = 0;
 
 		var newColor:Int = songs[curSelected].color;
 		if(newColor != intendedColor) {
