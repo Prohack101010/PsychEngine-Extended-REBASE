@@ -42,6 +42,7 @@ class MainMenuState extends MusicBeatState
 	var leftItem:FlxSprite;
 	var rightItem:FlxSprite;
 	var debugKeys:Array<FlxKey>;
+	private var camAchievement:FlxCamera;
 
 	//Centered/Text options
 	var optionShit:Array<String> = [
@@ -69,6 +70,10 @@ class MainMenuState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
+		
+		camAchievement = new FlxCamera();
+		camAchievement.bgColor.alpha = 0;
+		FlxG.cameras.add(camAchievement, false);
 
 		persistentUpdate = persistentDraw = true;
 
@@ -135,7 +140,7 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 
-		addVirtualPad('NONE', 'A_B_E');
+		addVirtualPad(NONE, A_B_E);
 
 		super.create();
 
