@@ -1,10 +1,11 @@
-package states;
+package;
 
 import flixel.FlxObject;
 import flixel.effects.FlxFlicker;
 import lime.app.Application;
-import states.editors.MasterEditorMenu;
+import editors.MasterEditorMenu;
 import options.OptionsState;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 enum MainMenuColumn {
 	LEFT;
