@@ -20,8 +20,9 @@
     },
     {
       "name": "flixel",
-      "type": "haxelib",
-      "version": "4.11.0"
+      "type": "git",
+      "ref": "dev",
+      "url": "https://github.com/Prohack101010/flixel"
     },
     {
       "name": "flixel-addons",

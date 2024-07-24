@@ -59,9 +59,9 @@ class MainMenuState extends MusicBeatState
 	override function create()
 	{
 		#if MODS_ALLOWED
-		Mods.pushGlobalMods();
+		Paths.pushGlobalMods();
 		#end
-		Mods.loadTopMod();
+		WeekData.loadTheFirstEnabledMod();
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
@@ -72,7 +72,7 @@ class MainMenuState extends MusicBeatState
 
 		var yScroll:Float = 0.25;
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.antialiasing;
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
@@ -83,7 +83,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.antialiasing;
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -121,14 +121,16 @@ class MainMenuState extends MusicBeatState
 		changeItem();
 
 		#if ACHIEVEMENTS_ALLOWED
-		// Unlocks "Freaky on a Friday Night" achievement if it's a Friday and between 18:00 PM and 23:59 PM
+		Achievements.loadAchievements();
 		var leDate = Date.now();
-		if (leDate.getDay() == 5 && leDate.getHours() >= 18)
-			Achievements.unlock('friday_night_play');
-
-		#if MODS_ALLOWED
-		Achievements.reloadList();
-		#end
+		if (leDate.getDay() == 5 && leDate.getHours() >= 18) {
+			var achieveID:Int = Achievements.getAchievementIndex('friday_night_play');
+			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
+				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+				giveAchievement();
+				ClientPrefs.saveSettings();
+			}
+		}
 		#end
 
 		addVirtualPad('NONE', 'E');
@@ -147,7 +149,7 @@ class MainMenuState extends MusicBeatState
 		menuItem.animation.play('idle');
 		menuItem.updateHitbox();
 		
-		menuItem.antialiasing = ClientPrefs.data.antialiasing;
+		menuItem.antialiasing = ClientPrefs.antialiasing;
 		menuItem.scrollFactor.set();
 		menuItems.add(menuItem);
 		return menuItem;
@@ -278,7 +280,7 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.mouse.visible = false;
 
-					if (ClientPrefs.data.flashing)
+					if (ClientPrefs.flashing)
 						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					var item:FlxSprite;
@@ -321,13 +323,6 @@ class MainMenuState extends MusicBeatState
 								MusicBeatState.switchState(new CreditsState());
 							case 'options':
 								MusicBeatState.switchState(new OptionsState());
-								OptionsState.onPlayState = false;
-								if (PlayState.SONG != null)
-								{
-									PlayState.SONG.arrowSkin = null;
-									PlayState.SONG.splashSkin = null;
-									PlayState.stageUI = 'normal';
-								}
 						}
 					});
 					
@@ -341,7 +336,7 @@ class MainMenuState extends MusicBeatState
 				}
 				else CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 			}
-			else if (controls.justPressed('debug_1') || virtualPad.buttonE.justPressed)
+			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || _virtualpad.buttonE.justPressed #end)
 			{
 				selectedSomethin = true;
 				FlxG.mouse.visible = false;
