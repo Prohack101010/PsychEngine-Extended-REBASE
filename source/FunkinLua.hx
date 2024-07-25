@@ -1087,13 +1087,6 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			@:privateAccess
 			var killMe:Array<String> = variable.split('.');
-			
-			#if mobile
-			if (variable == 'application.window.title'){
-    			    return false;
-            }
-			else {
-			#end
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
 				for (i in 1...killMe.length-1) {
@@ -1104,7 +1097,6 @@ class FunkinLua {
 			}
 			setVarInArray(Type.resolveClass(classVar), variable, value);
 			return true;
-			#if mobile } #end
 		});
 
 		//shitass stuff for epic coders like me B)  *image of obama giving himself a medal*
