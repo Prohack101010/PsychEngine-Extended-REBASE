@@ -864,6 +864,7 @@ class FreeplayState extends MusicBeatState
 		    curSelected = songNum[realChoose]; //main move freeplay choose
 		    SearchChangeSelection(true);
 		    changeSelection();
+		    changeDiff();
 		}
 	}
 
