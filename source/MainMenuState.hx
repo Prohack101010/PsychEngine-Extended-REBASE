@@ -282,6 +282,12 @@ class MainMenuState extends MusicBeatState
 						curColumn = RIGHT;
 						changeItem();
 					}
+					
+					else if(controls.UI_RIGHT_P && controls.UI_UP_P && rightOption != null)
+					{
+						curColumn = RIGHT;
+						changeItem();
+					}
 
 				case LEFT:
 					if(controls.UI_RIGHT_P)
@@ -291,6 +297,13 @@ class MainMenuState extends MusicBeatState
 					}
 
 				case RIGHT:
+					if(controls.UI_LEFT_P)
+					{
+						curColumn = CENTER;
+						changeItem();
+					}
+					
+				case EDITOR:
 					if(controls.UI_LEFT_P)
 					{
 						curColumn = CENTER;
