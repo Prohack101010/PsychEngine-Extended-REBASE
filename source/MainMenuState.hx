@@ -30,6 +30,7 @@ enum MainMenuColumn {
 	LEFT;
 	CENTER;
 	RIGHT;
+	EDITOR;
 }
 
 class MainMenuState extends MusicBeatState
@@ -41,6 +42,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	var leftItem:FlxSprite;
 	var rightItem:FlxSprite;
+	var editorItem:FlxSprite;
 	var debugKeys:Array<FlxKey>;
 	private var camAchievement:FlxCamera;
 
@@ -54,6 +56,7 @@ class MainMenuState extends MusicBeatState
 
 	var leftOption:String = #if ACHIEVEMENTS_ALLOWED 'achievements' #else null #end;
 	var rightOption:String = 'options';
+	var editorOption:String = 'editor';
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -115,6 +118,11 @@ class MainMenuState extends MusicBeatState
 		{
 			rightItem = createMenuItem(rightOption, FlxG.width - 60, 490);
 			rightItem.x -= rightItem.width;
+		}
+		if (editorOption != null)
+		{
+			editorItem = createMenuItem(editorOption, FlxG.width - 60, 245);
+			editorItem.x -= editorItem.width;
 		}
 
 		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
@@ -201,6 +209,8 @@ class MainMenuState extends MusicBeatState
 						selectedItem = leftItem;
 					case RIGHT:
 						selectedItem = rightItem;
+				    case EDITOR:
+						selectedItem = editorItem;
 				}
 
 				if(leftItem != null && FlxG.mouse.overlaps(leftItem))
@@ -216,6 +226,14 @@ class MainMenuState extends MusicBeatState
 					if(selectedItem != rightItem)
 					{
 						curColumn = RIGHT;
+						changeItem();
+					}
+				}
+				else if(editorItem != null && FlxG.mouse.overlaps(editorItem))
+				{
+					if(selectedItem != editorItem)
+					{
+						curColumn = EDITOR;
 						changeItem();
 					}
 				}
@@ -314,6 +332,10 @@ class MainMenuState extends MusicBeatState
 						case RIGHT:
 							option = rightOption;
 							item = rightItem;
+						
+						case EDITOR:
+							option = editorOption;
+							item = editorItem;
 					}
 
 					FlxFlicker.flicker(item, 1, 0.06, false, false, function(flick:FlxFlicker)
@@ -384,6 +406,8 @@ class MainMenuState extends MusicBeatState
 				selectedItem = leftItem;
 			case RIGHT:
 				selectedItem = rightItem;
+			case EDITOR:
+				selectedItem = EditorItem;
 		}
 		selectedItem.animation.play('selected');
 		selectedItem.centerOffsets();

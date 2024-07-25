@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="menu_editor.png">
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="editor0000" x="0" y="0" width="381" height="284" frameX="-30" frameY="-88" frameWidth="415" frameHeight="415"/>
+</TextureAtlas>
