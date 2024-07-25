@@ -135,7 +135,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 
 		switch (Action){
 		    case E:
-				actions.add(add(buttonE = createButton(FlxG.width - 44 * 3, FlxG.height - 125 * 3, 44 * 3, 127, "modding")));
+				actions.add(add(buttonE = createButton(FlxG.width - 44 * 3, FlxG.height - 125 * 3, 44 * 3, 127, "modding", 0xFF7D00, true)));
 			case A:
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "a", 0xFF0000)));
 			case B:
@@ -208,15 +208,16 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		}
 	}
 
-	public function createButton(x:Float, y:Float, width:Int, height:Int, frames:String, ?ColorS:Int):FlxButton {
+	public function createButton(x:Float, y:Float, width:Int, height:Int, frames:String, ColorS:Int, ?mainmenu:Bool = false):FlxButton {
 		var button = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromFrame(getFrames().getByName(frames), FlxPoint.get(width, height));
 		button.resetSizeFromFrame();
 		button.solid = false;
 		button.immovable = true;
 		button.scrollFactor.set();
-		button.alpha = orgAlpha;
-		button.color = ColorS;
+		if (!mainmenu) { button.alpha = orgAlpha; }
+		if (mainmenu) { button.alpha = 1; }
+		if (!mainmenu) { button.color = ColorS; }
 		button.antialiasing = orgAntialiasing;
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
