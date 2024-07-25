@@ -420,7 +420,7 @@ class MainMenuState extends MusicBeatState
 			case RIGHT:
 				selectedItem = rightItem;
 			case EDITOR:
-				selectedItem = EditorItem;
+				selectedItem = editorItem;
 		}
 		selectedItem.animation.play('selected');
 		selectedItem.centerOffsets();
