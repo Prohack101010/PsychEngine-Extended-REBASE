@@ -131,7 +131,7 @@ class ControlsSubState extends MusicBeatSubstate {
 				changeAlt();
 			}
 
-			if (controls.BACK) {
+			if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end) {
 				ClientPrefs.reloadControls();
 				#if android
 				FlxTransitionableState.skipNextTransOut = true;
@@ -142,7 +142,7 @@ class ControlsSubState extends MusicBeatSubstate {
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
 
-			if(controls.ACCEPT && nextAccept <= 0) {
+			if(#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end && nextAccept <= 0) {
 				if(optionShit[curSelected][0] == defaultKey) {
 					ClientPrefs.keyBinds = ClientPrefs.defaultKeys.copy();
 					reloadKeys();

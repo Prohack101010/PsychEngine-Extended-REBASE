@@ -94,7 +94,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK) {
+		if(#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			#if android
                         FlxTransitionableState.skipNextTransOut = true;
@@ -102,7 +102,7 @@ class ResetScoreSubState extends MusicBeatSubstate
                         #else
                         close();
                         #end
-		} else if(controls.ACCEPT) {
+		} else if(#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end) {
 			if(onYes) {
 				if(week == -1) {
 					Highscore.resetSong(song, difficulty);

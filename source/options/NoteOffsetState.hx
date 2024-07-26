@@ -347,13 +347,13 @@ class NoteOffsetState extends MusicBeatState
 			}
 		}
 
-		if(controls.ACCEPT)
+		if(#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
 		{
 			onComboMenu = !onComboMenu;
 			updateMode();
 		}
 
-		if(controls.BACK)
+		if(#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end)
 		{
 			if(zoomTween != null) zoomTween.cancel();
 			if(beatTween != null) beatTween.cancel();

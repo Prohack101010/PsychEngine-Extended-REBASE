@@ -12,7 +12,6 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.system.FlxSound;
-import MainMenuState;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -93,31 +92,31 @@ class MasterEditorMenu extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (_virtualpad.buttonUp.justPressed)
+		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
 		}
-		if (_virtualpad.buttonDown.justPressed)
+		if (controls.UI_DOWN_P)
 		{
 			changeSelection(1);
 		}
 		#if MODS_ALLOWED
-		if(_virtualpad.buttonLeft.justPressed)
+		if(controls.UI_LEFT_P)
 		{
 			changeDirectory(-1);
 		}
-		if(_virtualpad.buttonRight.justPressed)
+		if(controls.UI_RIGHT_P)
 		{
 			changeDirectory(1);
 		}
 		#end
 
-		if (_virtualpad.buttonB.justPressed)
+		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end)
 		{
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if (_virtualpad.buttonA.justPressed)
+		if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
 		{
 			switch(options[curSelected]) {
 				case 'Character Editor':

@@ -59,7 +59,7 @@ class GitarooPause extends MusicBeatState
 		if (controls.UI_LEFT_P || controls.UI_RIGHT_P)
 			changeThing();
 
-		if (controls.ACCEPT)
+		if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
 		{
 			if (replaySelect)
 			{

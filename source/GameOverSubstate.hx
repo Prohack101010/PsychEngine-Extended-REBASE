@@ -89,12 +89,12 @@ class GameOverSubstate extends MusicBeatSubstate
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
 
-		if (controls.ACCEPT)
+		if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
 		{
 			endBullshit();
 		}
 
-		if (controls.BACK)
+		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end)
 		{
 			FlxG.sound.music.stop();
 			PlayState.deathCounter = 0;

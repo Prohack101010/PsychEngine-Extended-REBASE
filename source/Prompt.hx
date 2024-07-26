@@ -117,7 +117,7 @@ class Prompt extends MusicBeatSubstate
 		buttonNo.color.brightness = 0.5;
 		if (selected == 0 ) buttonAccept.color.brightness = 0.9;
 		if (selected == 1 ) buttonNo.color.brightness = 0.9;
-		if (controls.ACCEPT ){
+		if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end ){
 			if (selected == 0){
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				if(okc != null)okc();

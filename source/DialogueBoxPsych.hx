@@ -315,7 +315,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 		        }
 		        #end
 
-			if(PlayerSettings.player1.controls.ACCEPT #if android || justTouched #end) {
+			if(PlayerSettings.player1.#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end #if android || justTouched #end) {
 				if(!daText.finishedText) {
 					daText.finishText();
 					if(skipDialogueThing != null) {

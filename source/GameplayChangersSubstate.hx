@@ -182,7 +182,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
+		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end) {
 			
 			#if android
 			FlxTransitionableState.skipNextTransOut = true;
@@ -204,7 +204,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 			if(usesCheckbox)
 			{
-				if(controls.ACCEPT)
+				if(#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);

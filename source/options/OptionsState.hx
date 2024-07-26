@@ -143,7 +143,7 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 		
-		if (controls.BACK) {
+		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end) {
 	     	if (PauseSubState.MoveOption) {
 				MusicBeatState.switchState(new PlayState());
 				PauseSubState.MoveOption = false;
@@ -169,7 +169,7 @@ class OptionsState extends MusicBeatState
 		}
 		#end
 
-		if (controls.ACCEPT) {
+		if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end) {
 			openSelectedSubstate(options[curSelected]);
 		}
 	}

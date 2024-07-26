@@ -161,7 +161,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
-		var accepted = controls.ACCEPT;
+		var accepted = #if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end;
 
 		if (upP)
 		{

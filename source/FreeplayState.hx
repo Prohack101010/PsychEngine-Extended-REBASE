@@ -519,7 +519,7 @@ class FreeplayState extends MusicBeatState
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
-		var accepted = controls.ACCEPT;
+		var accepted = #if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end;
 		var space = FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonX.justPressed #end;
 		var ctrl = FlxG.keys.justPressed.CONTROL #if android || _virtualpad.buttonC.justPressed #end;
 
@@ -566,7 +566,7 @@ class FreeplayState extends MusicBeatState
 			changeDiff(1);
 		else if (upP || downP) changeDiff();
 
-		if (controls.BACK)
+		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end)
 		{
 			persistentUpdate = false;
 			if(colorTween != null) {

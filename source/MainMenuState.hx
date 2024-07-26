@@ -280,7 +280,7 @@ class MainMenuState extends MusicBeatState
 					}
 			}
 
-			if (controls.BACK)
+			if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end)
 			{
 				selectedSomethin = true;
 				FlxG.mouse.visible = false;
@@ -288,7 +288,7 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 
-			if (controls.ACCEPT || (FlxG.mouse.overlaps(menuItems, FlxG.camera) && FlxG.mouse.justPressed))
+			if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end || (FlxG.mouse.overlaps(menuItems, FlxG.camera) && FlxG.mouse.justPressed))
 			{
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				if (optionShit[curSelected] != 'donate')
