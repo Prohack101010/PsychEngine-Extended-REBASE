@@ -10,6 +10,8 @@ class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var Modpack:Bool = false;
 	public static var coloredvpad:Bool = true;
+	public static var VPadSpaceExtend:Bool = true;
+	public static var VPadShiftExtend:Bool = true;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = true;
@@ -109,6 +111,8 @@ class ClientPrefs {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.Modpack = Modpack;
 		FlxG.save.data.coloredvpad = coloredvpad;
+		FlxG.save.data.VPadSpaceExtend = VPadSpaceExtend;
+		FlxG.save.data.VPadShiftExtend = VPadShiftExtend;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
 		FlxG.save.data.showFPS = showFPS;
@@ -173,6 +177,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.coloredvpad != null) {
 			coloredvpad = FlxG.save.data.coloredvpad;
+		}
+		if(FlxG.save.data.VPadSpaceExtend != null) {
+			VPadSpaceExtend = FlxG.save.data.VPadSpaceExtend;
+		}
+		if(FlxG.save.data.VPadShiftExtend != null) {
+			VPadShiftExtend = FlxG.save.data.VPadShiftExtend;
 		}
 		if(FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;

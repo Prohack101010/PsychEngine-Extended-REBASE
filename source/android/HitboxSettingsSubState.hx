@@ -59,6 +59,20 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.changeValue = 1;
 		option.decimals = 1;
 		addOption(option);
+		
+		var option:Option = new Option('VirtualPad Shift',
+			'Allow Extend VirtualPad Shift Control',
+			'VPadShiftExtend',
+			'bool',
+			true);
+		addOption(option);
+		
+		var option:Option = new Option('VirtualPad Space',
+			'Allow Extend VirtualPad Space Control',
+			'VPadSpaceExtend',
+			'bool',
+			true);
+		addOption(option);
 		  
 		  var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
