@@ -115,7 +115,7 @@ class LoadingState extends MusicBeatState
 		super.update(elapsed);
 		funkay.setGraphicSize(Std.int(0.88 * FlxG.width + 0.9 * (funkay.width - 0.88 * FlxG.width)));
 		funkay.updateHitbox();
-		if(#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
+		if(controls.ACCEPT)
 		{
 			funkay.setGraphicSize(Std.int(funkay.width + 60));
 			funkay.updateHitbox();

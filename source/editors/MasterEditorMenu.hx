@@ -111,12 +111,12 @@ class MasterEditorMenu extends MusicBeatState
 		}
 		#end
 
-		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end)
+		if (controls.BACK)
 		{
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
+		if (controls.ACCEPT)
 		{
 			switch(options[curSelected]) {
 				case 'Character Editor':

@@ -153,7 +153,7 @@ class NotesSubState extends MusicBeatSubstate
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end && nextAccept <= 0) {
+			if (controls.ACCEPT && nextAccept <= 0) {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changingNote = true;
 				holdTime = 0;
@@ -176,7 +176,7 @@ class NotesSubState extends MusicBeatSubstate
 			}
 		}
 
-		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end || (changingNote && #if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)) {
+		if (controls.BACK || (changingNote && controls.ACCEPT)) {
 			if(!changingNote) {
 				#if android
 				FlxTransitionableState.skipNextTransOut = true;

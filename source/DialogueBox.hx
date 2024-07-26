@@ -190,7 +190,7 @@ class DialogueBox extends FlxSpriteGroup
 		}
 		#end
 
-		if(#if android justTouched #else PlayerSettings.player1.controls.ACCEPT #end)
+		if(PlayerSettings.player1.controls.ACCEPT #if android || justTouched #end)
 		{
 			if (dialogueEnded)
 			{

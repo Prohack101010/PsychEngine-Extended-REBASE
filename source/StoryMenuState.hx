@@ -266,13 +266,13 @@ class StoryMenuState extends MusicBeatState
 				openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
 				//FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			else if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
+			else if (controls.ACCEPT)
 			{
 				selectWeek();
 			}
 		}
 
-		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end && !movedBack && !selectedWeek)
+		if (controls.BACK && !movedBack && !selectedWeek)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;

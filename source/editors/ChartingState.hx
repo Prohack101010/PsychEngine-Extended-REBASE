@@ -361,6 +361,21 @@ class ChartingState extends MusicBeatState
 		\nEnter - Play your chart
 		\nQ/E - Decrease/Increase Note Sustain Length
 		\nSpace - Stop/Resume song";
+		
+		#if android
+		text =
+		"G - Change chart UI
+		\nUP/Down - Change Conductor's strum time
+		\nC + Left/Right - Go to the previous/next section
+		\nLeft/Right - Change Snap
+		\nZ - Reset Song Playback Rate
+		\nHold C to move 4x faster
+		\nHold X to move 10x faster
+		\nV/D - Zoom in/out
+		\nB - Test your chart inside Chart Editor
+		\nUP/Down(Right Side) - Decrease/Increase Note Sustain Length
+		\nY - Stop/Resume song";
+		#end
 
 		var tipTextArray:Array<String> = text.split('\n');
 		for (i in 0...tipTextArray.length) {
@@ -1790,9 +1805,12 @@ class ChartingState extends MusicBeatState
 				}
 				else
 				{
+				    if (UI_box.selected_tab == 5) {
+					UI_box.selected_tab = 0;
+					}
+					else {
 					UI_box.selected_tab += 1;
-					if (UI_box.selected_tab >= 3)
-						UI_box.selected_tab = 0;
+					}
 				}
 			}
 
@@ -1862,8 +1880,7 @@ class ChartingState extends MusicBeatState
 				var holdingShift:Float = 1;
 				if (FlxG.keys.pressed.CONTROL) holdingShift = 0.25;
 				else if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonC.pressed #end) holdingShift = 4;
-				#if android else if (_virtualpad.buttonX.pressed) holdingShift = 10; #end
-
+                else if (_virtualpad.buttonX.pressed) holdingShift = 10;
 				var daTime:Float = 700 * FlxG.elapsed * holdingShift;
 
 				if (FlxG.keys.pressed.W #if android || _virtualpad.buttonUp.pressed #end)
@@ -1910,7 +1927,7 @@ class ChartingState extends MusicBeatState
 			//AWW YOU MADE IT SEXY <3333 THX SHADMAR
 
 			if(!blockInput){
-				if(FlxG.keys.justPressed.RIGHT #if android || _virtualpad.buttonRight.justPressed && !_virtualpad.buttonC.pressed #end){
+				if(FlxG.keys.justPressed.RIGHT #if android || (_virtualpad.buttonRight.justPressed && !_virtualpad.buttonC.pressed) #end){
 					curQuant++;
 					if(curQuant>quantizations.length-1)
 						curQuant = 0;
@@ -1918,7 +1935,7 @@ class ChartingState extends MusicBeatState
 					quantization = quantizations[curQuant];
 				}
 
-				if(FlxG.keys.justPressed.LEFT  #if android || _virtualpad.buttonLeft.justPressed && !_virtualpad.buttonC.pressed #end){
+				if(FlxG.keys.justPressed.LEFT  #if android || (_virtualpad.buttonLeft.justPressed && !_virtualpad.buttonC.pressed) #end){
 					curQuant--;
 					if(curQuant<0)
 						curQuant = quantizations.length-1;
@@ -1999,9 +2016,9 @@ class ChartingState extends MusicBeatState
 			if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonC.pressed #end)
 				shiftThing = 4;
 
-			if (FlxG.keys.justPressed.D #if android || _virtualpad.buttonRight.justPressed && _virtualpad.buttonC.pressed #end)
+			if (FlxG.keys.justPressed.D #if android || (_virtualpad.buttonRight.justPressed && _virtualpad.buttonC.pressed) #end)
 				changeSection(curSec + shiftThing);
-			if (FlxG.keys.justPressed.A #if android || _virtualpad.buttonLeft.justPressed && _virtualpad.buttonC.pressed #end) {
+			if (FlxG.keys.justPressed.A #if android || (_virtualpad.buttonLeft.justPressed && _virtualpad.buttonC.pressed) #end) {
 				if(curSec <= 0) {
 					changeSection(_song.notes.length-1);
 				} else {

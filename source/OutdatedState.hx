@@ -43,11 +43,11 @@ class OutdatedState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if(!leftState) {
-			if (#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end) {
+			if (controls.ACCEPT) {
 				leftState = true;
 				CoolUtil.browserLoad("https://github.com/ShadowMario/FNF-PsychEngine/releases");
 			}
-			else if(#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end) {
+			else if(controls.BACK) {
 				leftState = true;
 			}
 

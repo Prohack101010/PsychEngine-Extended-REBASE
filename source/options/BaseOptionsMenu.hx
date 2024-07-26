@@ -150,7 +150,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		if (#if desktop controls.BACK #else _virtualpad.buttonB.pressed #end) {
+		if (controls.BACK) {
 			#if android
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
@@ -170,7 +170,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 			if(usesCheckbox)
 			{
-				if(#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end)
+				if(controls.ACCEPT)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);

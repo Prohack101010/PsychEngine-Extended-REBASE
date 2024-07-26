@@ -476,7 +476,7 @@ class ModsMenuState extends MusicBeatState
 			noModsTxt.alpha = 1 - Math.sin((Math.PI * noModsSine) / 180);
 		}
 
-		if(canExit && #if desktop controls.BACK #else _virtualpad.buttonB.pressed #end)
+		if(canExit && controls.BACK)
 		{
 			if(colorTween != null) {
 				colorTween.cancel();
