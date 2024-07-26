@@ -98,7 +98,7 @@ class AndroidControls extends FlxSpriteGroup {
 		super();
 
 		config = new Config('saved-controls');
-		extendConfig = new Config('saved-extendControls')
+		extendConfig = new Config('saved-extendControls');
 
 		mode = getModeFromNumber(config.getcontrolmode());
 
