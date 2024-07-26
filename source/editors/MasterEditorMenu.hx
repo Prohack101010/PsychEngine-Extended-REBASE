@@ -93,20 +93,20 @@ class MasterEditorMenu extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P)
+		if (_virtualpad.buttonUp.justPressed)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P)
+		if (_virtualpad.buttonDown.justPressed)
 		{
 			changeSelection(1);
 		}
 		#if MODS_ALLOWED
-		if(controls.UI_LEFT_P)
+		if(_virtualpad.buttonLeft.justPressed)
 		{
 			changeDirectory(-1);
 		}
-		if(controls.UI_RIGHT_P)
+		if(_virtualpad.buttonRight.justPressed)
 		{
 			changeDirectory(1);
 		}
