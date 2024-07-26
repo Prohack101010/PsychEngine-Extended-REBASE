@@ -1,4 +1,4 @@
-package states;
+package;
 
 import flash.text.TextField;
 import flixel.tweens.FlxTween;
