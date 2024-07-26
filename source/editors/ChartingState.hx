@@ -400,7 +400,7 @@ class ChartingState extends MusicBeatState
 		updateGrid();
 
 		#if android
-		addVirtualPad(MEGA, MEGA);
+		addVirtualPad(ALL, ALL);
 		#end
 
 		super.create();
