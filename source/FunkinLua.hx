@@ -1076,23 +1076,23 @@ class FunkinLua {
            
            if (MusicBeatState.androidc.vpad != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.androidc.vpad.buttonG.justPressed){
-    			    return getVarInArray(myClass, variable, allowMaps);
+    			    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SPACE' && MusicBeatState.androidc.vpad.buttonG.pressed){
-                    return getVarInArray(myClass, variable, allowMaps);
+                    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.androidc.vpad.buttonG.justReleased){
-                    return getVarInArray(myClass, variable, allowMaps);
+                    return getVarInArray(myClass, variable);
                 }
                 
                 if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.androidc.vpad.buttonF.justPressed){
-    			    return getVarInArray(myClass, variable, allowMaps);
+    			    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.androidc.vpad.buttonF.pressed){
-                    return getVarInArray(myClass, variable, allowMaps);
+                    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.androidc.vpad.buttonF.justReleased){
-                    return getVarInArray(myClass, variable, allowMaps);
+                    return getVarInArray(myClass, variable);
                 }
            }
            #end
