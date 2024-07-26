@@ -12,11 +12,11 @@ class Config {
 	var save:FlxSave;
 	var isExtend:Bool = false;
 
-	public function new(saveName:String) {
+	public function new(var:String) {
 		save = new FlxSave();
-		save.bind("saveName");
-		
-		if (saveName == 'saved-extendControls') isExtend = true;
+		save.bind(var);
+
+		if (var == 'saved-extendControls') isExtend = true;
 	}
 
 	public function getcontrolmode():Int {
@@ -46,7 +46,7 @@ class Config {
 			    save.data.buttons[1] = FlxPoint.get(_pad.buttonF.x, _pad.buttonF.y);
 			}
 		}else{
-		    if (!isExtend){
+			if (!isExtend){
 			    var tempCount:Int = 0;
 			    for (buttons in _pad){
 				    save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
@@ -64,8 +64,8 @@ class Config {
 	public function loadcustom(_pad:FlxVirtualPad):FlxVirtualPad {
 		if (save.data.buttons == null) 
 			return _pad; 
+		if (save.data.buttons != null){
 		var tempCount:Int = 0;
-		
 		if (!isExtend){
     		for(buttons in _pad){
     			buttons.x = save.data.buttons[tempCount].x;
@@ -74,16 +74,13 @@ class Config {
     		}
 		}
 		else{
-		    if (_pad.buttonG != null){
-		        _pad.buttonG.x = save.data.buttons[0].x;
-			    _pad.buttonG.y = save.data.buttons[0].y;
-			}
-			if (_pad.buttonF != null){
-			    _pad.buttonF.x = save.data.buttons[1].x;
-			    _pad.buttonF.y = save.data.buttons[1].y;
-			}
+		    _pad.buttonG.x = save.data.buttons[0].x;
+			_pad.buttonG.y = save.data.buttons[0].y;
+			_pad.buttonF.x = save.data.buttons[1].x;
+			_pad.buttonF.y = save.data.buttons[1].y;
 		}
 		return _pad;
+		}
 	}
 }
 
@@ -101,7 +98,7 @@ class AndroidControls extends FlxSpriteGroup {
 		super();
 
 		config = new Config('saved-controls');
-		extendConfig = new Config('saved-extendControls');
+		extendConfig = new Config('saved-extendControls')
 
 		mode = getModeFromNumber(config.getcontrolmode());
 
