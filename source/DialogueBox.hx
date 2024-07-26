@@ -190,7 +190,7 @@ class DialogueBox extends FlxSpriteGroup
 		}
 		#end
 
-		if(PlayerSettings.player1.#if desktop controls.ACCEPT #else _virtualpad.buttonA.pressed #end #if android || justTouched #end)
+		if(#if android justTouched #else PlayerSettings.player1.controls.ACCEPT #end)
 		{
 			if (dialogueEnded)
 			{
