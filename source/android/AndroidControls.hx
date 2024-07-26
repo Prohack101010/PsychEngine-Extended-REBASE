@@ -78,7 +78,6 @@ class Config {
 			_pad.buttonF.x = save.data.buttons[1].x;
 			_pad.buttonF.y = save.data.buttons[1].y;
 		}
-	}
 	return _pad;
 	}
 }
