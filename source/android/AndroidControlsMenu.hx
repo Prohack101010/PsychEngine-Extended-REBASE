@@ -31,13 +31,16 @@ class AndroidControlsMenu extends MusicBeatState
 	var buttonistouched:Bool = false;
 	var bindbutton:FlxButton;
 	var config:Config;
+	var extendConfig:Config;
 
 	override public function create():Void
 	{
 		super.create();
 		
-		config = new Config();
+		config = new Config('saved-controls');
 		curSelected = config.getcontrolmode();
+		
+		extendConfig = new Config('saved-extendControls');
 
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -162,19 +165,22 @@ class AndroidControlsMenu extends MusicBeatState
 					remove(vpad);
 					vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
 					add(vpad);
+					loadcustom(false);
 				case 'Pad-Left':
 					remove(vpad);
 					vpad = new FlxVirtualPad(FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
 					add(vpad);
+					loadcustom(false);
 				case 'Pad-Custom':
 					remove(vpad);
 					vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
 					add(vpad);
-					loadcustom();
+					loadcustom(true);
 				case 'Duo':
 					remove(vpad);
 					vpad = new FlxVirtualPad(DUO, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
 					add(vpad);
+					loadcustom(false);
 				case 'Hitbox':
 					vpad.alpha = 0;
 				case 'Keyboard':
@@ -269,9 +275,18 @@ class AndroidControlsMenu extends MusicBeatState
 		if (daChoice == 'Pad-Custom'){
 			config.savecustom(vpad);
 		}
+		if (daChoice != 'Hitbox'){
+		    extendConfig.savecustom(vpad);
+		}
 	}
 
-	function loadcustom():Void{
+	function loadcustom(needFix:Bool):Void{
+		if (needFix){
 		vpad = config.loadcustom(vpad);	
+		vpad = extendConfig.loadcustom(vpad);
+		}
+		else{
+		vpad = extendConfig.loadcustom(vpad);
+		}
 	}
 }

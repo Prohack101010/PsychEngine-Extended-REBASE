@@ -109,6 +109,13 @@ class HitboxSettingsSubState extends BaseOptionsMenu
         option.onChange = onChangePadAlpha;
 		super();
 		
+		var option:Option = new Option('Colored VirtualPad',
+			'If unchecked, disables VirtualPad colors\n(can be used to make custom colored VirtualPad)',
+			'coloredvpad',
+			'bool',
+			true);
+		addOption(option);
+		
 		var option:Option = new Option('Modpack Folder',
 			'If checked, game uses modpack folder instead of mods folder. (You need to create the folder yourself)',
 			'Modpack',
