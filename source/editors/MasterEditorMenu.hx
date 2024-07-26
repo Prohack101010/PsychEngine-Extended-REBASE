@@ -13,6 +13,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.system.FlxSound;
 import MainMenuState;
+import Controls;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -112,7 +113,7 @@ class MasterEditorMenu extends MusicBeatState
 		}
 		#end
 
-		if (_virtualpad.buttonB.justPressed)
+		if (controls.BACK)
 		{
 			MusicBeatState.switchState(new MainMenuState());
 		}
