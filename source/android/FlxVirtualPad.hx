@@ -134,6 +134,8 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		}
 
 		switch (Action){
+		    case E:
+				actions.add(add(buttonE = createButton(FlxG.width - 44 * 3, FlxG.height - 125 * 3, 44 * 3, 127, "e", 0xFF7D00)));
 			case A:
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "a", 0xFF0000)));
 			case B:
@@ -280,6 +282,7 @@ enum FlxDPadMode {
 }
 
 enum FlxActionMode {
+    E;
 	A;
 	B;
 	D;

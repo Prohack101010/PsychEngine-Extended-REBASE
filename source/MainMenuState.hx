@@ -34,7 +34,7 @@ enum MainMenuColumn {
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '1.0b'; // This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.6.3'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 	public static var curColumn:MainMenuColumn = CENTER;
 
@@ -140,7 +140,7 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 
-		addVirtualPad(NONE, A_B_E);
+		addVirtualPad(NONE, E);
 
 		super.create();
 
