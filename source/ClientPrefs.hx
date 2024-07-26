@@ -170,7 +170,7 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.Modpack != null) {
 			Modpack = FlxG.save.data.Modpack;
-		}.
+		}
 		if(FlxG.save.data.coloredvpad != null) {
 			coloredvpad = FlxG.save.data.coloredvpad;
 		}
