@@ -21,6 +21,8 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	public var buttonX:FlxButton;
 	public var buttonY:FlxButton;
 	public var buttonZ:FlxButton;
+	public var buttonF:FlxButton;
+	public var buttonG:FlxButton;
 
 	//DPad
 	public var buttonLeft:FlxButton;
@@ -135,7 +137,8 @@ class FlxVirtualPad extends FlxSpriteGroup {
 
 		switch (Action){
 		    case E:
-				actions.add(add(buttonE = createButton(FlxG.width - 44 * 3, FlxG.height - 125 * 3, 44 * 3, 127, "modding", 0xFF7D00, true)));
+		        orgAlpha = 1;
+				actions.add(add(buttonE = createButton(FlxG.width - 44 * 3, FlxG.height - 125 * 3, 44 * 3, 127, "modding", 0xFF7D00, false)));
 			case A:
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "a", 0xFF0000)));
 			case B:
@@ -187,6 +190,10 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "b", 0xFFCB00)));								
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "a", 0xFF0000)));
 				
+			case controlExtend:
+			    if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.hitboxExtend == 1) actions.add(add(buttonF = createButton(FlxG.width * 0.5 - 44 * 3, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "f", 0xFF0000)));
+				if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.hitboxExtend == 2) actions.add(add(buttonG = createButton(FlxG.width * 0.5, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "g", 0xFFFF00)));	
+				
 			case CHART_EDITOR:
 			    orgAlpha = 0.75;
 				actions.add(add(buttonV = createButton(FlxG.width - 170 * 3, FlxG.height - 85 * 3, 44 * 3, 127, "v", 0x49A9B2)));            
@@ -208,16 +215,15 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		}
 	}
 
-	public function createButton(x:Float, y:Float, width:Int, height:Int, frames:String, ColorS:Int, ?mainmenu:Bool = false):FlxButton {
+	public function createButton(x:Float, y:Float, width:Int, height:Int, frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
 		var button = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromFrame(getFrames().getByName(frames), FlxPoint.get(width, height));
 		button.resetSizeFromFrame();
 		button.solid = false;
 		button.immovable = true;
 		button.scrollFactor.set();
-		if (!mainmenu) { button.alpha = orgAlpha; }
-		if (mainmenu) { button.alpha = 1; }
-		if (!mainmenu) { button.color = ColorS; }
+		button.alpha = orgAlpha;
+		if (colored) button.color = ColorS;
 		button.antialiasing = orgAntialiasing;
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
@@ -244,6 +250,8 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		buttonD = null;
 		buttonE = null;
 		buttonM = null;
+		buttonF = null;
+		buttonG = null;
 
 		buttonV = null;	
 		buttonX = null;	
@@ -296,6 +304,7 @@ enum FlxActionMode {
 	A_B_C_X_Y_Z;
 	FULL;
 	CHART_EDITOR;
+	controlExtend;
 	B_E;
 	NONE;
 }

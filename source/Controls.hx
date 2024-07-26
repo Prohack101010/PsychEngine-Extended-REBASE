@@ -466,6 +466,8 @@ class Controls extends FlxActionSet
 		{
 		    case E:
 			                    //nothing				
+			case controlExtend:
+			                    //nothing				
 			case A:
 				inline forEachBound(Control.ACCEPT, (action, state) -> addbuttonuUI(action, virtualPad.buttonA, state));
                         case B:
@@ -542,6 +544,8 @@ class Controls extends FlxActionSet
 		switch (Action)
 		{
 		    case E:
+			                    //nothing				
+			case controlExtend:
 			                    //nothing				
 			case A:
 				inline forEachBound(Control.ACCEPT, (action, state) -> addbuttonuNOTES(action, virtualPad.buttonA, state));
