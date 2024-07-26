@@ -112,7 +112,7 @@ class MasterEditorMenu extends MusicBeatState
 		}
 		#end
 
-		if (controls.BACK)
+		if (_virtualpad.buttonB.justPressed)
 		{
 			MusicBeatState.switchState(new MainMenuState());
 		}
