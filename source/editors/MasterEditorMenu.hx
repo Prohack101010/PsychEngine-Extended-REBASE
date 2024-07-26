@@ -13,7 +13,6 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.system.FlxSound;
 import MainMenuState;
-import Controls;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -86,7 +85,7 @@ class MasterEditorMenu extends MusicBeatState
 		FlxG.mouse.visible = false;
 
 		#if android
-		addVirtualPad(FULL, MASTER);
+		addVirtualPad(FULL, A_B);
 		#end
 
 		super.create();
@@ -118,7 +117,7 @@ class MasterEditorMenu extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if (controls.ACCEPT)
+		if (_virtualpad.buttonA.justPressed)
 		{
 			switch(options[curSelected]) {
 				case 'Character Editor':
