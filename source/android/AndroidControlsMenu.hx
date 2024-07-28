@@ -219,8 +219,15 @@ class AndroidControlsMenu extends MusicBeatState
 
 		if (daChoice != "Hitbox" && daChoice != "Keyboard")
 		{
-			spacePozition.visible = true;
-			shiftPozition.visible = true;
+		    if (ClientPrefs.VPadSpaceExtend)
+			    spacePozition.visible = true;
+			else
+			    spacePozition.visible = false;
+			
+			if (ClientPrefs.VPadShiftExtend)
+			    shiftPozition.visible = true;
+			else
+			    shiftPozition.visible = false;
 		}
 		else
 		{

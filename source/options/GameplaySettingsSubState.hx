@@ -77,16 +77,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		#if android
-		var option:Option = new Option('Vibrations',
-			"If unchecked, your phone will not vibrate.",
-			'vibration',
-			'bool',
-			true);
-		addOption(option);
-		option.onChange = onChangeVibration;
-		#end
-
 		var option:Option = new Option('Hitsound Volume',
 			'Funny notes does \"Tick!\" when you hit them."',
 			'hitsoundVolume',
