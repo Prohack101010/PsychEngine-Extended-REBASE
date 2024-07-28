@@ -184,14 +184,11 @@ class CopyState extends MusicBeatState
 	public static function checkExistingFiles():Bool
 	{
 		locatedFiles = OpenFLAssets.list();
-		locatedModpackFiles = OpenFLAssets.list();
 		
 		// removes unwanted assets
 		var assets = locatedFiles.filter(folder -> folder.startsWith('assets/'));
 		var mods = locatedFiles.filter(folder -> folder.startsWith('mods/'));
-		var modpack = locatedFiles.filter(folder -> folder.startsWith('modpack/'));
 		locatedFiles = assets.concat(mods);
-		locatedModpackFiles = assets.concat(modpack);
 
 		var filesToRemove:Array<String> = [];
 
@@ -202,23 +199,11 @@ class CopyState extends MusicBeatState
 				filesToRemove.push(file);
 			}
 		}
-		
-		for (file in locatedModpackFiles)
-		{
-			if (FileSystem.exists(file) || OpenFLAssets.exists(getFile(Path.join([Path.directory(getFile(file)), IGNORE_FOLDER_FILE_NAME]))))
-			{
-				filesToRemove.push(file);
-			}
-		}
 
 		for (file in filesToRemove)
 			locatedFiles.remove(file);
-			
-		for (file in filesToRemove)
-			locatedModpackFiles.remove(file);
 
 		maxLoopTimes = locatedFiles.length;
-		maxLoopTimes = locatedModpackFiles.length;
 
 		return (maxLoopTimes <= 0);
 	}
