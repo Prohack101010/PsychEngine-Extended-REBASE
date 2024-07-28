@@ -236,10 +236,10 @@ class SUtil
 enum abstract StorageType(String) from String to String
 {
 	final forcedPath = '/storage/emulated/0/';
-	final packageNameLocal = 'com.kraloyuncu.psychengineexrebase';
+	final packageNameLocal = 'com.kraloyuncu.psychextended';
 	final fileLocal = 'PsychEngine';
 	final fileLocalNF = 'NF Engine';
-	final fileLocalEX = 'PsychEngineEx'; //idk why
+	final fileLocalEX = 'Psych Extended'; //idk why
 
 	public static function fromStr(str:String):StorageType
 	{

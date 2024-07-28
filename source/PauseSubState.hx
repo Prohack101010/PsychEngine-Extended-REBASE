@@ -41,7 +41,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		if(PlayState.chartingMode)
 		{
-			menuItemsOG.insert(8, 'Leave Charting Mode');
+			menuItemsOG.insert(7, 'Leave Charting Mode');
 			menuItemsOG.insert(7, 'End Song');
 		}
 		menuItems = menuItemsOG;

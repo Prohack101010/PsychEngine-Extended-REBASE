@@ -70,9 +70,9 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: true
-          automatic_release_tag: "0.6.3-prerelease-1"
-          title: "0.6.3 PreRelease 1"
+          prerelease: false
+          automatic_release_tag: "0.6.3"
+          title: "0.6.3"
           files: |
             /home/runner/*.apk
             /home/runner/*.zip
