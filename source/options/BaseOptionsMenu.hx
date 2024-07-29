@@ -38,7 +38,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
 
-	// private var boyfriend:Character = null;
+	private var boyfriend:Character = null;
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
 
@@ -115,12 +115,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			}
 			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
 
-        /*
 			if(optionsArray[i].showBoyfriend && boyfriend == null)
 			{
 				reloadBoyfriend();
 			}
-		*/
 			updateTextFrom(optionsArray[i]);
 		}
 
@@ -272,11 +270,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			}
 		}
 
-        /*
 		if(boyfriend != null && boyfriend.animation.curAnim.finished) {
 			boyfriend.dance();
 		}
-		*/
 
 		if(nextAccept > 0) {
 			nextAccept -= 1;
@@ -334,16 +330,14 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
 
-        /*
 		if(boyfriend != null)
 		{
 			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
-		*/
+		}
 		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 
-    /*
 	public function reloadBoyfriend()
 	{
 		var wasVisible:Bool = false;
@@ -361,7 +355,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		insert(1, boyfriend);
 		boyfriend.visible = wasVisible;
 	}
-	*/
 
 	function reloadCheckboxes() {
 		for (checkbox in checkboxGroup) {
