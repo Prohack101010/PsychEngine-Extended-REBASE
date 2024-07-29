@@ -361,11 +361,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		insert(1, boyfriend);
 		boyfriend.visible = wasVisible;
 	}
+	*/
 
 	function reloadCheckboxes() {
 		for (checkbox in checkboxGroup) {
 			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
 		}
 	}
-	*/
 }
