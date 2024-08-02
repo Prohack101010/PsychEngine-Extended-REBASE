@@ -20,9 +20,8 @@
     },
     {
       "name": "flixel",
-      "type": "git",
-      "ref": "dev",
-      "url": "https://github.com/Prohack101010/flixel"
+      "type": "haxelib",
+      "version": "4.11.0"
     },
     {
       "name": "flixel-addons",
@@ -47,7 +46,7 @@
     {
       "name": "hxcpp",
       "type": "git",
-      "ref": "master",
+      "ref": "becf3f8bea42641c03b1924b40e5f5fc5dd255d1",
       "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
     },
     {
