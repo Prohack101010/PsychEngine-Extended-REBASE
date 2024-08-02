@@ -170,8 +170,8 @@ class PlayState extends MusicBeatState
 	private static var prevCamFollowPos:FlxObject;
 
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
-	public var playerStrums:FlxTypedGroup<StrumNote>;
 	public var opponentStrums:FlxTypedGroup<StrumNote>;
+	public var playerStrums:FlxTypedGroup<StrumNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
 	public var camZooming:Bool = false;
@@ -966,15 +966,28 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+        if (opponentChart) {
 		dad = new Character(0, 0, SONG.player2);
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
-
+        
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
+		}
+		else {
+		dad = new Boyfriend(0, 0, SONG.player1);
+		startCharacterPos(dad);
+		dadGroup.add(dad);
+		startCharacterLua(dad.curCharacter);
+        
+		boyfriend = new Character(0, 0, SONG.player2);
+		startCharacterPos(boyfriend, true);
+		boyfriendGroup.add(boyfriend);
+		startCharacterLua(boyfriend.curCharacter);
+		}
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
@@ -1074,8 +1087,8 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
 
-		playerStrums = new FlxTypedGroup<StrumNote>();
 		opponentStrums = new FlxTypedGroup<StrumNote>();
+		playerStrums = new FlxTypedGroup<StrumNote>();
 		
 		#if android
 		addAndroidControls();
@@ -2140,14 +2153,14 @@ class PlayState extends MusicBeatState
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
 			generateStaticArrows(0);
 			generateStaticArrows(1);
-			for (i in 0...opponentStrums.length) {
-				setOnLuas('defaultPlayerStrumX' + i, opponentStrums.members[i].x);
-				setOnLuas('defaultPlayerStrumY' + i, opponentStrums.members[i].y);
-			}
 			for (i in 0...playerStrums.length) {
-				setOnLuas('defaultOpponentStrumX' + i, playerStrums.members[i].x);
-				setOnLuas('defaultOpponentStrumY' + i, playerStrums.members[i].y);
-				//if(ClientPrefs.middleScroll) playerStrums.members[i].visible = false;
+				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
+				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
+			}
+			for (i in 0...opponentStrums.length) {
+				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
+				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
+				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 			}
 
 			#if android
@@ -2752,8 +2765,8 @@ class PlayState extends MusicBeatState
 
 			if (player == 1)
 			{
-				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) opponentStrums.add(babyArrow);
-				else playerStrums.add(babyArrow);
+				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) playerStrums.add(babyArrow);
+				else opponentStrums.add(babyArrow);
 			}
 			else
 			{
@@ -2764,8 +2777,8 @@ class PlayState extends MusicBeatState
 						babyArrow.x += FlxG.width / 2 + 25;
 					}
 				}
-				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) playerStrums.add(babyArrow);
-				else opponentStrums.add(babyArrow);
+				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) opponentStrums.add(babyArrow);
+				else playerStrums.add(babyArrow);
 			}
 
 			strumLineNotes.add(babyArrow);
@@ -3226,8 +3239,8 @@ class PlayState extends MusicBeatState
 					var fakeCrochet:Float = (60 / SONG.bpm) * 1000;
 					notes.forEachAlive(function(daNote:Note)
 					{
-						var strumGroup:FlxTypedGroup<StrumNote> = opponentStrums;
-						if(!daNote.mustPress) strumGroup = playerStrums;
+						var strumGroup:FlxTypedGroup<StrumNote> = playerStrums;
+						if(!daNote.mustPress) strumGroup = opponentStrums;
 
 						var strumX:Float = strumGroup.members[daNote.noteData].x;
 						var strumY:Float = strumGroup.members[daNote.noteData].y;
@@ -3369,6 +3382,7 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('cameraX', camFollowPos.x);
 		setOnLuas('cameraY', camFollowPos.y);
+		setOnLuas('OpponentMode', cpuControlled_opponent);
 		if (opponentChart)
 		    setOnLuas('botPlay', cpuControlled_opponent);
 		else
@@ -4451,7 +4465,7 @@ class PlayState extends MusicBeatState
 				Conductor.songPosition = lastTime;
 			}
 
-			var spr:StrumNote = opponentStrums.members[key];
+			var spr:StrumNote = playerStrums.members[key];
 			if(strumsBlocked[key] != true && spr != null && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
@@ -4478,7 +4492,7 @@ class PlayState extends MusicBeatState
 		var key:Int = getKeyFromEvent(eventKey);
 		if(!cpuControlled && startedCountdown && !paused && key > -1)
 		{
-			var spr:StrumNote = opponentStrums.members[key];
+			var spr:StrumNote = playerStrums.members[key];
 			if(spr != null)
 			{
 				spr.playAnim('static');
@@ -4828,7 +4842,7 @@ class PlayState extends MusicBeatState
 				}
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
 			} else {
-				var spr = opponentStrums.members[note.noteData];
+				var spr = playerStrums.members[note.noteData];
 				if(spr != null)
 				{
 					spr.playAnim('confirm', true);
@@ -4854,7 +4868,7 @@ class PlayState extends MusicBeatState
 
 	public function spawnNoteSplashOnNote(note:Note) {
 		if(ClientPrefs.noteSplashes && note != null) {
-			var strum:StrumNote = opponentStrums.members[note.noteData];
+			var strum:StrumNote = playerStrums.members[note.noteData];
 			if(strum != null) {
 				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
 			}
@@ -5309,12 +5323,12 @@ class PlayState extends MusicBeatState
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float) {
 		var spr:StrumNote = null;
 		if (isDad && opponentChart) {
-			spr = playerStrums.members[id];
+			spr = opponentStrums.members[id];
 		}
 		else if(isDad) {
 			spr = strumLineNotes.members[id];
 		} else {
-			spr = opponentStrums.members[id];
+			spr = playerStrums.members[id];
 		}
 
 		if(spr != null) {

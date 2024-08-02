@@ -171,6 +171,7 @@ class FunkinLua {
 		set('healthLossMult', PlayState.instance.healthLoss);
 		set('playbackRate', PlayState.instance.playbackRate);
 		set('instakillOnMiss', PlayState.instance.instakillOnMiss);
+		set('OpponentMode', PlayState.instance.cpuControlled_opponent);
 		
 		if (PlayState.opponentChart)
 		    set('botPlay', PlayState.instance.cpuControlled_opponent);
