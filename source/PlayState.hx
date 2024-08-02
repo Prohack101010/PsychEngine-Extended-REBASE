@@ -4621,7 +4621,7 @@ class PlayState extends MusicBeatState
 		RecalculateRating(true);
 
 		var char:Character = boyfriend;
-		if (opponentChart) char = dad;
+		if (opponentChart && !daNote.gfNote) char = dad;
 		if(daNote.gfNote) {
 			char = gf;
 		}
@@ -4691,7 +4691,7 @@ class PlayState extends MusicBeatState
 		}
 
 		var char:Character = dad;
-		if(opponentChart) char = boyfriend;
+		if(opponentChart && !note.gfNote) char = boyfriend;
 		if(note.noteType == 'Hey!' && char.animOffsets.exists('hey')) {
 			char.playAnim('hey', true);
 			char.specialAnim = true;
