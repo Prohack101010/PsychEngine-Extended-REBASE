@@ -4717,6 +4717,10 @@ class PlayState extends MusicBeatState
 			if(opponentChart && !note.gfNote) {
 			    char = boyfriend;
 		    }
+		    
+		    if (opponentNoteHit(daNote)) {
+		        char = dad;
+		    }
 
 			char.playAnim(animToPlay, true);
 			char.holdTimer = 0;
