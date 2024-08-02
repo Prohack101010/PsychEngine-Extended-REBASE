@@ -170,8 +170,8 @@ class PlayState extends MusicBeatState
 	private static var prevCamFollowPos:FlxObject;
 
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
-	public var opponentStrums:FlxTypedGroup<StrumNote>;
 	public var playerStrums:FlxTypedGroup<StrumNote>;
+	public var opponentStrums:FlxTypedGroup<StrumNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
 	public var camZooming:Bool = false;
@@ -1074,8 +1074,8 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
 
-		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
+		opponentStrums = new FlxTypedGroup<StrumNote>();
 		
 		#if android
 		addAndroidControls();
@@ -2140,14 +2140,14 @@ class PlayState extends MusicBeatState
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
 			generateStaticArrows(0);
 			generateStaticArrows(1);
-			for (i in 0...playerStrums.length) {
-				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
-				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
-			}
 			for (i in 0...opponentStrums.length) {
-				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
-				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
-				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
+				setOnLuas('defaultPlayerStrumX' + i, opponentStrums.members[i].x);
+				setOnLuas('defaultPlayerStrumY' + i, opponentStrums.members[i].y);
+			}
+			for (i in 0...playerStrums.length) {
+				setOnLuas('defaultOpponentStrumX' + i, playerStrums.members[i].x);
+				setOnLuas('defaultOpponentStrumY' + i, playerStrums.members[i].y);
+				//if(ClientPrefs.middleScroll) playerStrums.members[i].visible = false;
 			}
 
 			#if android
@@ -2733,7 +2733,7 @@ class PlayState extends MusicBeatState
 			var targetAlpha:Float = 1;
 			if (player < 1)
 			{
-				if(!ClientPrefs.opponentStrums) targetAlpha = 0;
+				if(!ClientPrefs.playerStrums) targetAlpha = 0;
 				else if(ClientPrefs.middleScroll) targetAlpha = 0.35;
 			}
 
@@ -2752,8 +2752,8 @@ class PlayState extends MusicBeatState
 
 			if (player == 1)
 			{
-				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) playerStrums.add(babyArrow);
-				else opponentStrums.add(babyArrow);
+				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) opponentStrums.add(babyArrow);
+				else playerStrums.add(babyArrow);
 			}
 			else
 			{
@@ -2764,8 +2764,8 @@ class PlayState extends MusicBeatState
 						babyArrow.x += FlxG.width / 2 + 25;
 					}
 				}
-				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) opponentStrums.add(babyArrow);
-				else playerStrums.add(babyArrow);
+				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) playerStrums.add(babyArrow);
+				else opponentStrums.add(babyArrow);
 			}
 
 			strumLineNotes.add(babyArrow);
@@ -3226,8 +3226,8 @@ class PlayState extends MusicBeatState
 					var fakeCrochet:Float = (60 / SONG.bpm) * 1000;
 					notes.forEachAlive(function(daNote:Note)
 					{
-						var strumGroup:FlxTypedGroup<StrumNote> = playerStrums;
-						if(!daNote.mustPress) strumGroup = opponentStrums;
+						var strumGroup:FlxTypedGroup<StrumNote> = opponentStrums;
+						if(!daNote.mustPress) strumGroup = playerStrums;
 
 						var strumX:Float = strumGroup.members[daNote.noteData].x;
 						var strumY:Float = strumGroup.members[daNote.noteData].y;
@@ -5309,7 +5309,7 @@ class PlayState extends MusicBeatState
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float) {
 		var spr:StrumNote = null;
 		if (isDad && opponentChart) {
-			spr = opponentStrums.members[id];
+			spr = playerStrums.members[id];
 		}
 		else if(isDad) {
 			spr = strumLineNotes.members[id];
