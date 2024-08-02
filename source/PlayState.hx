@@ -330,7 +330,6 @@ class PlayState extends MusicBeatState
 	// Opponent Play
 	public var opponentDrain:Bool = false;
 	public static var opponentChart:Bool = false;
-	public static var opponentChartExtras:Bool = false;
 	public var cpuControlled_opponent:Bool = false;
 
 	override public function create()
@@ -397,7 +396,6 @@ class PlayState extends MusicBeatState
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 		opponentChart = ClientPrefs.getGameplaySetting('opponentplay', false);
-		opponentChartExtras = ClientPrefs.getGameplaySetting('opponentplayextras', false);
 		cpuControlled_opponent = ClientPrefs.getGameplaySetting('opponentplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
@@ -3290,7 +3288,7 @@ class PlayState extends MusicBeatState
 							opponentNoteHit(daNote);
 						}
 						
-						if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && daNote.ignoreNote && opponentChartExtras)
+						if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && daNote.ignoreNote && opponentChart)
 						{
 							opponentNoteHit(daNote);
 						}
@@ -4711,16 +4709,13 @@ class PlayState extends MusicBeatState
 			if(note.gfNote) {
 				char = gf;
 			}
+			
+			if(opponentChart && !note.gfNote) {
+			    char = boyfriend;
+		    }
 
-			if(opponentChart) {
-				boyfriend.playAnim(animToPlay, true);
-				boyfriend.holdTimer = 0;
-			}
-			else if(char != null && !opponentChart)
-			{
-				char.playAnim(animToPlay, true);
-				char.holdTimer = 0;
-			}
+			char.playAnim(animToPlay, true);
+			char.holdTimer = 0;
 		}
 
 		if (SONG.needsVoices)
