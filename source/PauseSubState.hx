@@ -228,10 +228,6 @@ class PauseSubState extends MusicBeatSubstate
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
 					restartSong();
-				case "Change Gameplay Settings":
-					persistentUpdate = false;
-					openSubState(new GameplayChangersSubstate());
-					GameplayChangersSubstate.inThePauseMenu = true;
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
