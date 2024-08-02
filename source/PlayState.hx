@@ -4451,7 +4451,7 @@ class PlayState extends MusicBeatState
 				Conductor.songPosition = lastTime;
 			}
 
-			var spr:StrumNote = playerStrums.members[key];
+			var spr:StrumNote = opponentStrums.members[key];
 			if(strumsBlocked[key] != true && spr != null && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
@@ -4478,7 +4478,7 @@ class PlayState extends MusicBeatState
 		var key:Int = getKeyFromEvent(eventKey);
 		if(!cpuControlled && startedCountdown && !paused && key > -1)
 		{
-			var spr:StrumNote = playerStrums.members[key];
+			var spr:StrumNote = opponentStrums.members[key];
 			if(spr != null)
 			{
 				spr.playAnim('static');
@@ -4828,7 +4828,7 @@ class PlayState extends MusicBeatState
 				}
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
 			} else {
-				var spr = playerStrums.members[note.noteData];
+				var spr = opponentStrums.members[note.noteData];
 				if(spr != null)
 				{
 					spr.playAnim('confirm', true);
@@ -4854,7 +4854,7 @@ class PlayState extends MusicBeatState
 
 	public function spawnNoteSplashOnNote(note:Note) {
 		if(ClientPrefs.noteSplashes && note != null) {
-			var strum:StrumNote = playerStrums.members[note.noteData];
+			var strum:StrumNote = opponentStrums.members[note.noteData];
 			if(strum != null) {
 				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
 			}
@@ -5314,7 +5314,7 @@ class PlayState extends MusicBeatState
 		else if(isDad) {
 			spr = strumLineNotes.members[id];
 		} else {
-			spr = playerStrums.members[id];
+			spr = opponentStrums.members[id];
 		}
 
 		if(spr != null) {
