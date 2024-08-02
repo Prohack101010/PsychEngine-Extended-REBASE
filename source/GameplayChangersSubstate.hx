@@ -101,6 +101,9 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		
 		var option:GameplayOption = new GameplayOption('test', 'opponentplayalpha', 'bool', false);
 		optionsArray.push(option);
+		
+		var option:GameplayOption = new GameplayOption('new animations', 'opponentplayplus', 'bool', false);
+		optionsArray.push(option);
 	}
 
 	public function getOptionByName(name:String)

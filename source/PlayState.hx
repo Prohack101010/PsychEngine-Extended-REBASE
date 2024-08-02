@@ -331,6 +331,7 @@ class PlayState extends MusicBeatState
 	public var opponentDrain:Bool = false;
 	public static var opponentChart:Bool = false;
 	public static var opponentChartAlpha:Bool = false;
+	public static var opponentChartPlus:Bool = false;
 	public var cpuControlled_opponent:Bool = false;
 
 	override public function create()
@@ -398,6 +399,7 @@ class PlayState extends MusicBeatState
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 		opponentChart = ClientPrefs.getGameplaySetting('opponentplay', false);
 		opponentChartAlpha = ClientPrefs.getGameplaySetting('opponentplayalpha', false);
+		opponentChartPlus = ClientPrefs.getGameplaySetting('opponentplayplus', false);
 		cpuControlled_opponent = ClientPrefs.getGameplaySetting('opponentplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
