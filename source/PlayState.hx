@@ -330,6 +330,7 @@ class PlayState extends MusicBeatState
 	// Opponent Play
 	public var opponentDrain:Bool = false;
 	public static var opponentChart:Bool = false;
+	public static var opponentChartExtras:Bool = false;
 	public var cpuControlled_opponent:Bool = false;
 
 	override public function create()
@@ -396,6 +397,7 @@ class PlayState extends MusicBeatState
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 		opponentChart = ClientPrefs.getGameplaySetting('opponentplay', false);
+		opponentChartExtras = ClientPrefs.getGameplaySetting('opponentplayextras', false);
 		cpuControlled_opponent = ClientPrefs.getGameplaySetting('opponentplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
@@ -966,28 +968,15 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-        if (opponentChart) {
 		dad = new Character(0, 0, SONG.player2);
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
-        
+
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
-		}
-		else {
-		dad = new Character(0, 0, SONG.player1);
-		startCharacterPos(dad);
-		dadGroup.add(dad);
-		startCharacterLua(dad.curCharacter);
-        
-		boyfriend = new Boyfriend(0, 0, SONG.player2);
-		startCharacterPos(boyfriend, true);
-		boyfriendGroup.add(boyfriend);
-		startCharacterLua(boyfriend.curCharacter);
-		}
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
@@ -3300,6 +3289,11 @@ class PlayState extends MusicBeatState
 						{
 							opponentNoteHit(daNote);
 						}
+						
+						if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && daNote.ignoreNote && opponentChartExtras)
+						{
+							opponentNoteHit(daNote);
+						}
 
 						if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit) {
 							if(daNote.isSustainNote) {
@@ -4627,10 +4621,10 @@ class PlayState extends MusicBeatState
 		RecalculateRating(true);
 
 		var char:Character = boyfriend;
+		if (opponentChart) char = dad;
 		if(daNote.gfNote) {
 			char = gf;
 		}
-		if (opponentChart) char = dad;
 
 		if(char != null && !daNote.noMissAnimation && char.hasMissAnimations)
 		{
