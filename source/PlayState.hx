@@ -3220,6 +3220,10 @@ class PlayState extends MusicBeatState
 				if(cpuControlled && opponentChart && dad.holdTimer > Conductor.stepCrochet * 0.001 * dad.singDuration && dad.animation.curAnim.name.startsWith('sing') && !dad.animation.curAnim.name.endsWith('miss')) {
 					dad.dance();
 				}
+				
+				if(cpuControlled && opponentChart && gf.holdTimer > Conductor.stepCrochet * 0.001 * gf.singDuration && gf.animation.curAnim.name.startsWith('sing') && !gf.animation.curAnim.name.endsWith('miss')) {
+					gf.dance();
+				}
 
 				if(startedCountdown)
 				{
@@ -4699,7 +4703,7 @@ class PlayState extends MusicBeatState
 
 			if (SONG.notes[curSection] != null)
 			{
-				if (SONG.notes[curSection].altAnim && !SONG.notes[curSection].gfSection && !opponentChart) {
+				if (SONG.notes[curSection].altAnim && !SONG.notes[curSection].gfSection) {
 					altAnim = '-alt';
 				}
 			}
