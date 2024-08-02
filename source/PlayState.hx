@@ -4710,13 +4710,6 @@ class PlayState extends MusicBeatState
 				char.holdTimer = 0;
 			}
 		}
-		
-		if (opponentChart)
-				{
-					boyfriend.playAnim(animToPlay + note.animSuffix, true);
-					boyfriend.holdTimer = 0;
-					boyfriend.playAnim(animToPlay + note.animSuffix, true);
-				}
 
 		if (SONG.needsVoices)
 			vocals.volume = 1;
@@ -4807,13 +4800,6 @@ class PlayState extends MusicBeatState
 				{
 					char.playAnim(animToPlay + note.animSuffix, true);
 					char.holdTimer = 0;
-				}
-				
-				if (opponentChart)
-				{
-					dad.playAnim(animToPlay, true);
-				    dad.holdTimer = 0;
-					dad.playAnim(animToPlay + note.animSuffix, true);
 				}
 
 				if(note.noteType == 'Hey!') {
