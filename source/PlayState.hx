@@ -3369,7 +3369,11 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('cameraX', camFollowPos.x);
 		setOnLuas('cameraY', camFollowPos.y);
-		setOnLuas('botPlay', cpuControlled_opponent ? cpuControlled_opponent : cpuControlled);
+		if (opponentChart)
+		    setOnLuas('botPlay', cpuControlled_opponent);
+		else
+		    setOnLuas('botPlay', cpuControlled);
+		    
 		callOnLuas('onUpdatePost', [elapsed]);
 	}
 
