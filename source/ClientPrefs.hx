@@ -7,6 +7,7 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
+    public static var VirtualPadSkin:String = 'Original';
 	public static var downScroll:Bool = false;
 	public static var Modpack:Bool = false;
 	public static var coloredvpad:Bool = true;
@@ -109,6 +110,7 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
+		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.Modpack = Modpack;
 		FlxG.save.data.coloredvpad = coloredvpad;
 		FlxG.save.data.VPadSpaceExtend = VPadSpaceExtend;
@@ -171,6 +173,9 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
+		}
+		if(FlxG.save.data.VirtualPadSkin != null) {
+			VirtualPadSkin = FlxG.save.data.VirtualPadSkin;
 		}
 		if(FlxG.save.data.Modpack != null) {
 			Modpack = FlxG.save.data.Modpack;

@@ -239,7 +239,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		button.immovable = true;
 		button.scrollFactor.set();
 		button.alpha = orgAlpha;
-		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
+		if (colored && ClientPrefs.coloredvpad && ClientPrefs.VirtualPadSkin == 'original') button.color = ColorS;
 		button.antialiasing = orgAntialiasing;
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
@@ -248,7 +248,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public static function getFrames():FlxAtlasFrames {
-		return Paths.getPackerAtlas('androidcontrols/virtualpad');
+		return Paths.getPackerAtlas('androidcontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
 	}
 
 	override public function destroy():Void {

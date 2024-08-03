@@ -33,6 +33,7 @@ import openfl.Lib;
 import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
+import android.HitboxSettingsSubState;
 
 using StringTools;
 
@@ -43,6 +44,9 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
+	
+	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/androidcontrols/virtualpad/virtualpadSkinList.txt'));
+	
 	public function new()
 	{
 		title = 'Hitbox Settings';
@@ -59,6 +63,18 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.changeValue = 1;
 		option.decimals = 1;
 		addOption(option);
+		
+		var option:Option = new Option('VirtualPad Skin',
+			"Choose VirtualPad Skin",
+			'virtualpadskin',
+			'string',
+			'original',
+			virtualpadSkinList);
+			option.onChange = onChangeVirtualPadSkin;
+
+	    option.showNote = true;
+		addOption(option);
+		option.onChange = onChangeNoteSkin;
 		
 		var option:Option = new Option('VirtualPad Shift',
 			'Allow Extend VirtualPad Shift Control',
@@ -176,6 +192,13 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	{
 	ClientPrefs.saveSettings();
 	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
+	}
+	
+	function onChangeVirtualPadSkin()
+	{
+	    ClientPrefs.saveSettings();
+	    removeVirtualPad();
+		openSubState(new HitboxSettingsSubState());
 	}
 
 /*
