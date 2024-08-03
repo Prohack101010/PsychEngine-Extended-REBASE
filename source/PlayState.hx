@@ -4719,9 +4719,21 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 			
-			if(opponentChart) {
-			    char = boyfriend;
-		    }
+			notes.forEachAlive(function(daNote:Note)
+			{
+    			if(opponentChartAlpha && && daNote.mustPress) {
+    			    char = boyfriend;
+    		    }
+    		    
+    		    if(opponentChartPlus && char == dad && daNote.mustPress) {
+    			    char = boyfriend;
+    		    }
+    		    
+		        if (!daNote.mustPress && opponentChart && opponentChartAlpha || !daNote.mustPress && opponentChart && opponentChartPlus)
+		        {
+		            char = dad;
+		        }
+		    });
 
             if(char != null)
 			{
