@@ -332,6 +332,7 @@ class PlayState extends MusicBeatState
 	public static var opponentChart:Bool = false;
 	public static var opponentChartAlpha:Bool = false;
 	public static var opponentChartPlus:Bool = false;
+	public static var OhGodNo:Bool = false;
 	public var cpuControlled_opponent:Bool = false;
 
 	override public function create()
@@ -3293,11 +3294,13 @@ class PlayState extends MusicBeatState
 
 						if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 						{
+						    OhGodNo = true;
 							opponentNoteHit(daNote);
 						}
 						
 						if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && daNote.ignoreNote && opponentChart)
 						{
+						    OhGodNo = true;
 							opponentNoteHit(daNote);
 						}
 
@@ -4628,7 +4631,6 @@ class PlayState extends MusicBeatState
 
 		var char:Character = boyfriend;
 		if (opponentChart && !daNote.gfNote) char = dad;
-		if (opponentChart && opponentChartAlpha) char = dad;
 		if(daNote.gfNote) {
 			char = gf;
 		}
@@ -4719,21 +4721,15 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 			
-			notes.forEachAlive(function(daNote:Note)
-			{
-    			if(opponentChartAlpha && daNote.mustPress) {
-    			    char = boyfriend;
-    		    }
+    		if (!OhGodNo) {
+    		    char = dad;
+    		}
     		    
-    		    if(opponentChartPlus && daNote.mustPress) {
-    			    char = boyfriend;
-    		    }
-    		    
-		        if (!daNote.mustPress && opponentChart && opponentChartAlpha || !daNote.mustPress && opponentChart && opponentChartPlus)
-		        {
-		            char = dad;
-		        }
-		    });
+		    if (OhGodNo)
+		    {
+		        char = boyfriend;
+		        OhGodNo = false;
+		    }
 
             if(char != null)
 			{
