@@ -330,9 +330,6 @@ class PlayState extends MusicBeatState
 	// Opponent Play
 	public var opponentDrain:Bool = false;
 	public static var opponentChart:Bool = false;
-	public static var opponentChartAlpha:Bool = false;
-	public static var opponentChartPlus:Bool = false;
-	public static var OhGodNo:Bool = false;
 	public var cpuControlled_opponent:Bool = false;
 
 	override public function create()
@@ -399,8 +396,6 @@ class PlayState extends MusicBeatState
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 		opponentChart = ClientPrefs.getGameplaySetting('opponentplay', false);
-		opponentChartAlpha = ClientPrefs.getGameplaySetting('opponentplayalpha', false);
-		opponentChartPlus = ClientPrefs.getGameplaySetting('opponentplayplus', false);
 		cpuControlled_opponent = ClientPrefs.getGameplaySetting('opponentplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
@@ -3294,13 +3289,11 @@ class PlayState extends MusicBeatState
 
 						if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 						{
-						    OhGodNo = true;
 							opponentNoteHit(daNote);
 						}
 						
 						if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && daNote.ignoreNote && opponentChart)
 						{
-						    OhGodNo = true;
 							opponentNoteHit(daNote);
 						}
 
@@ -4721,14 +4714,9 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 			
-    		if (!OhGodNo) {
-    		    char = dad;
-    		}
-    		    
-		    if (OhGodNo)
+		    if (opponentChart)
 		    {
 		        char = boyfriend;
-		        OhGodNo = false;
 		    }
 
             if(char != null)
