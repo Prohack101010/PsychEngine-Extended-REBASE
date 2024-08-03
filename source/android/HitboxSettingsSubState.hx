@@ -45,7 +45,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 	
-	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/androidcontrols/virtualpad/virtualpadSkinList.txt'));
+	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Sys.getCwd() + Paths.getPreloadPath('images/androidcontrols/virtualpad/virtualpadSkinList.txt'));
 	
 	public function new()
 	{
@@ -66,7 +66,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		
 		var option:Option = new Option('VirtualPad Skin',
 			"Choose VirtualPad Skin",
-			'virtualpadskin',
+			'VirtualPadSkin',
 			'string',
 			'original',
 			virtualpadSkinList);

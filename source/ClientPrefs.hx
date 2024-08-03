@@ -7,7 +7,7 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
-    public static var VirtualPadSkin:String = 'Original';
+    public static var VirtualPadSkin:String = 'original';
 	public static var downScroll:Bool = false;
 	public static var Modpack:Bool = false;
 	public static var coloredvpad:Bool = true;
