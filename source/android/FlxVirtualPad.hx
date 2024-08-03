@@ -51,7 +51,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	public var orgAlpha:Float = 0.75;
 	public var orgAntialiasing:Bool = true;
 	
-	var virtualpadtype:Array<String> = 'androidcontrols/virtualpad/';
+	public var virtualpadtype:String = "androidcontrols/virtualpad/";
 
 	public function new(?DPad:FlxDPadMode, ?Action:FlxActionMode, ?alphaAlt:Float = 0.75, ?antialiasingAlt:Bool = true) {
 		super();
