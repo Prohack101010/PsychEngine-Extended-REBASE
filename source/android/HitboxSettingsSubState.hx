@@ -70,11 +70,9 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			'string',
 			'original',
 			virtualpadSkinList);
-			option.onChange = onChangeVirtualPadSkin;
 
-	    option.showNote = true;
 		addOption(option);
-		option.onChange = onChangeNoteSkin;
+		option.onChange = onChangeVirtualPadSkin;
 		
 		var option:Option = new Option('VirtualPad Shift',
 			'Allow Extend VirtualPad Shift Control',
