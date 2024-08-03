@@ -50,8 +50,6 @@ class FlxVirtualPad extends FlxSpriteGroup {
 
 	public var orgAlpha:Float = 0.75;
 	public var orgAntialiasing:Bool = true;
-	
-	public var virtualpadtype:String = "androidcontrols/virtualpad/";
 
 	public function new(?DPad:FlxDPadMode, ?Action:FlxActionMode, ?alphaAlt:Float = 0.75, ?antialiasingAlt:Bool = true) {
 		super();
@@ -250,7 +248,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public static function getFrames():FlxAtlasFrames {
-		return Paths.getPackerAtlas(virtualpadtype + ClientPrefs.VirtualPadSkin);
+		return Paths.getPackerAtlas('androidcontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
 	}
 
 	override public function destroy():Void {
