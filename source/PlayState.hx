@@ -4719,7 +4719,7 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 			
-			if(opponentChartAlpha) {
+			if(opponentChart) {
 			    char = boyfriend;
 		    }
 

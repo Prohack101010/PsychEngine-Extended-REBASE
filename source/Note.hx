@@ -348,24 +348,52 @@ class Note extends FlxSprite
 
 		if (mustPress)
 		{
-			// ok river
-			if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult)
-				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
-				canBeHit = true;
-			else
-				canBeHit = false;
+		    if (PlayState.opponentChartPlus)
+		    {
+		        canBeHit = false;
 
-			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
-				tooLate = true;
-		}
+    			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
+    			{
+    				if((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
+    					wasGoodHit = true;
+    			}
+    		}
+    		else
+    		{
+    			// ok river
+    			if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult)
+    				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
+    				canBeHit = true;
+    			else
+    				canBeHit = false;
+    
+    			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
+    				tooLate = true;
+    		}
+    	}
 		else
 		{
-			canBeHit = false;
-
-			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
-			{
-				if((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
-					wasGoodHit = true;
+		    if (PlayState.opponentChartPlus)
+		    {
+    		    // ok river
+    			if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult)
+    				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
+    				canBeHit = true;
+    			else
+    				canBeHit = false;
+    
+    			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
+    				tooLate = true;
+    	    }
+    	    else
+    	    {
+    			canBeHit = false;
+    
+    			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
+    			{
+    				if((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
+    					wasGoodHit = true;
+    			}
 			}
 		}
 
