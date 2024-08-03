@@ -72,6 +72,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			virtualpadSkinList);
 
 		addOption(option);
+		option.onChange = onChangeVirtualPadSkin;
 		
 		var option:Option = new Option('VirtualPad Shift',
 			'Allow Extend VirtualPad Shift Control',
@@ -191,6 +192,13 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
 	}
 	
+	function onChangeVirtualPadSkin()
+	{
+	    ClientPrefs.saveSettings();
+	    removeVirtualPad();
+		openSubState(new HitboxSettingsSubState());
+	}
+
 /*
 	override function update(elapsed:Float)
 	{
