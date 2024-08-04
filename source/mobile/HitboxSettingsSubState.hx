@@ -34,6 +34,7 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import mobile.HitboxSettingsSubState;
+import mobile.MobileControls;
 
 using StringTools;
 
@@ -62,7 +63,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeVirtualPadSkin;
 		
-        if (MobileControls.mode == "Hitbox" && MobileControls.mode != "Keyboard")
+        if (mode == "Hitbox" && mode != "Keyboard")
 		{
             var option:Option = new Option('Extra Controls',
     			"Allow Extra Controls",
@@ -77,7 +78,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
     		addOption(option);
     	}
 		
-		if (MobileControls.mode != "Hitbox" && MobileControls.mode != "Keyboard")
+		if (mode != "Hitbox" && mode != "Keyboard")
 		{
     		var option:Option = new Option('VirtualPad Shift',
     			'Allow Extend VirtualPad Shift Control',
@@ -94,7 +95,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
     		addOption(option);
 		}
 		
-		if (MobileControls.mode == "Hitbox" && MobileControls.mode != "Keyboard")
+		if (mode == "Hitbox" && mode != "Keyboard")
 		{
 		  var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
