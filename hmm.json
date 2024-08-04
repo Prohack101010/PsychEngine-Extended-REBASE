@@ -4,19 +4,19 @@
       "name": "discord_rpc",
       "type": "git",
       "ref": "master",
-      "url": "https://github.com/MobilePorting/linc_discord-rpc-0.6.3"
+      "url": "https://github.com/Aidan63/linc_discord-rpc"
     },
     {
       "name": "linc_luajit",
       "type": "git",
       "ref": "main",
-      "url": "https://github.com/MobilePorting/linc_luajit-0.6.3.git"
+      "url": "https://github.com/Prohack101010/linc_luajit-extended"
     },
     {
       "name": "extension-androidtools",
       "type": "git",
       "ref": "main",
-      "url": "https://github.com/MobilePorting/extension-androidtools-0.6.3"
+      "url": "https://github.com/MAJigsaw77/extension-androidtools"
     },
     {
       "name": "flixel",
@@ -47,14 +47,14 @@
     {
       "name": "hxcpp",
       "type": "git",
-      "ref": "becf3f8bea42641c03b1924b40e5f5fc5dd255d1",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
+      "ref": "stable",
+      "url": "https://github.com/Prohack101010/hxcpp-extended.git"
     },
     {
       "name": "lime",
       "type": "git",
-      "ref": "main",
-      "url": "https://github.com/MobilePorting/lime-0.6.3.git"
+      "ref": "develop",
+      "url": "https://github.com/Prohack101010/lime-extended"
     },
     {
       "name": "openfl",
