@@ -11,6 +11,7 @@ import android.FlxHitbox;
 import android.FlxNewHitbox;
 import android.AndroidControls.Config;
 import android.FlxVirtualPad;
+import flixel.ui.FlxButton as UIButton;
 
 using StringTools;
 
@@ -34,10 +35,16 @@ class AndroidControlsMenu extends MusicBeatState
 	var bindbutton:FlxButton;
 	var config:Config;
 	var extendConfig:Config;
+	var ui:FlxCamera;
 
 	override public function create():Void
 	{
 		super.create();
+		
+		ui = new FlxCamera();
+		ui.bgColor.alpha = 0;
+		ui.alpha = 0;
+		FlxG.cameras.add(ui, false);
 		
 		config = new Config('saved-controls');
 		curSelected = config.getcontrolmode();
