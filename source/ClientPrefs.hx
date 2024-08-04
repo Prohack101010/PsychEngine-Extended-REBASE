@@ -44,7 +44,7 @@ class ClientPrefs {
 	#end
         public static var hitboxhint = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
-	public static var hitboxtype:String = 'Gradient';
+	public static var hitboxtype:String = 'No Gradient';
 	public static var hitboxExtend:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = 0.2; //someone request this lol
