@@ -35,17 +35,11 @@ class AndroidControlsMenu extends MusicBeatState
 	var bindbutton:FlxButton;
 	var config:Config;
 	var extendConfig:Config;
-	var ui:FlxCamera;
 
 	override public function create():Void
 	{
 		super.create();
-		
-		ui = new FlxCamera();
-		ui.bgColor.alpha = 0;
-		ui.alpha = 0;
-		FlxG.cameras.add(ui, false);
-		
+
 		config = new Config('saved-controls');
 		curSelected = config.getcontrolmode();
 		
@@ -147,7 +141,6 @@ class AndroidControlsMenu extends MusicBeatState
 		exit.label.fieldWidth = exit.width;
 		exit.label.x = ((exit.width - exit.label.width) / 2) + exit.x;
 		exit.label.offset.y = -10; // WHY THE FUCK I CAN'T CHANGE THE LABEL Y
-		exit.cameras = [ui];
 		add(exit);
 		#end
 
