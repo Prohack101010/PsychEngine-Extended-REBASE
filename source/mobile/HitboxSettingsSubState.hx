@@ -66,7 +66,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeVirtualPadSkin;
 		
-        if (mobilec.mode == "HITBOX" && mobilec.mode != "KEYBOARD")
+        if (mobilec.mode == HITBOX && mobilec.mode != KEYBOARD)
 		{
             var option:Option = new Option('Extra Controls',
     			"Allow Extra Controls",
@@ -81,7 +81,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
     		addOption(option);
     	}
 		
-		if (mobilec.mode != "HITBOX" && mobilec.mode != "KEYBOARD")
+		if (mobilec.mode != HITBOX && mobilec.mode != KEYBOARD)
 		{
     		var option:Option = new Option('VirtualPad Shift',
     			'Allow Extend VirtualPad Shift Control',
@@ -98,7 +98,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
     		addOption(option);
 		}
 		
-		if (mobilec.mode == "HITBOX" && mobilec.mode != "KEYBOARD")
+		if (mobilec.mode == HITBOX && mobilec.mode != KEYBOARD)
 		{
 		  var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
