@@ -68,15 +68,15 @@ class Main extends Sprite
 		}
 		else
 		{
-			addEventListener(Event.ADDED_TO_STAGE, init);
+			Lib.current.stage.addEventListener(Event.RESIZE, init);
 		}
 	}
 
 	private function init(?E:Event):Void
 	{
-		if (hasEventListener(Event.ADDED_TO_STAGE))
+		if (Lib.current.stage.hasEventListener(Event.RESIZE))
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+			Lib.current.stage.removeEventListener(Event.RESIZE, init);
 		}
 
 		setupGame();
