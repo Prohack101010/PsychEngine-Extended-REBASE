@@ -61,33 +61,41 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 
 		addOption(option);
 		option.onChange = onChangeVirtualPadSkin;
-
-        var option:Option = new Option('Extra Controls',
-			"Allow Extra Controls",
-			'hitboxExtend',
-			'float',
-			2);
-		option.scrollSpeed = 1.6;
-		option.minValue = 0;
-		option.maxValue = 4;
-		option.changeValue = 1;
-		option.decimals = 1;
-		addOption(option);
 		
-		var option:Option = new Option('VirtualPad Shift',
-			'Allow Extend VirtualPad Shift Control',
-			'VPadShiftExtend',
-			'bool',
-			true);
-		addOption(option);
+        if (MobileControls.mode == "Hitbox" && MobileControls.mode != "Keyboard")
+		{
+            var option:Option = new Option('Extra Controls',
+    			"Allow Extra Controls",
+    			'hitboxExtend',
+    			'float',
+    			2);
+    		option.scrollSpeed = 1.6;
+    		option.minValue = 0;
+    		option.maxValue = 4;
+    		option.changeValue = 1;
+    		option.decimals = 1;
+    		addOption(option);
+    	}
 		
-		var option:Option = new Option('VirtualPad Space',
-			'Allow Extend VirtualPad Space Control',
-			'VPadSpaceExtend',
-			'bool',
-			true);
-		addOption(option);
-		  
+		if (MobileControls.mode != "Hitbox" && MobileControls.mode != "Keyboard")
+		{
+    		var option:Option = new Option('VirtualPad Shift',
+    			'Allow Extend VirtualPad Shift Control',
+    			'VPadShiftExtend',
+    			'bool',
+    			true);
+    		addOption(option);
+    		
+    		var option:Option = new Option('VirtualPad Space',
+    			'Allow Extend VirtualPad Space Control',
+    			'VPadSpaceExtend',
+    			'bool',
+    			true);
+    		addOption(option);
+		}
+		
+		if (MobileControls.mode == "Hitbox" && MobileControls.mode != "Keyboard")
+		{
 		  var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
 			'hitboxLocation',
@@ -102,6 +110,14 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 			'string',
 			'New',
 			['Classic', 'New']);
+		  addOption(option);
+		  
+		var option:Option = new Option('Hitbox Design:',
+			"Choose how your hitbox should look like.",
+			'hitboxtype',
+			'string',
+			'Gradient',
+			['Gradient', 'No Gradient', 'No Gradient (Old)']);
 		  addOption(option);
 
 		var option:Option = new Option('Hitbox Hint',
@@ -122,6 +138,8 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
+		
+		}
 		
 		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
 			'Changes VirtualPad Alpha',

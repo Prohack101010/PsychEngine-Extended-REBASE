@@ -44,6 +44,7 @@ class ClientPrefs {
 	#end
         public static var hitboxhint = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
+	public static var hitboxtype:String = 'Gradient';
 	public static var hitboxExtend:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = 0.2; //someone request this lol
@@ -157,6 +158,7 @@ class ClientPrefs {
 		FlxG.save.data.hitboxExtend = hitboxExtend;
 	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
+		FlxG.save.data.hitboxtype = hitboxtype;
                 FlxG.save.data.hitboxhint = hitboxhint;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
@@ -295,6 +297,9 @@ class ClientPrefs {
 		#end
 		if(FlxG.save.data.hitboxmode != null) {
 			hitboxmode = FlxG.save.data.hitboxmode;
+		}
+		if(FlxG.save.data.hitboxtype != null) {
+			hitboxtype = FlxG.save.data.hitboxtype;
 		}
 		if(FlxG.save.data.hitboxhint != null) {
 			hitboxhint = FlxG.save.data.hitboxhint;
