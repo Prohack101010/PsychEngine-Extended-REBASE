@@ -54,8 +54,11 @@ class MusicBeatSubstate extends FlxSubState
 
 	#if android
 	public function removeVirtualPad() {
-		controls.removeFlxInput(trackedInputsVirtualPad);
-		remove(virtualPad);
+		if (trackedInputsVirtualPad.length > 0)
+			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+
+		if (virtualPad != null)
+			remove(virtualPad);
 	}
 	#end
 

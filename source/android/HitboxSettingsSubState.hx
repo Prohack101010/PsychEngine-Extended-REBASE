@@ -51,6 +51,16 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	{
 		title = 'Hitbox Settings';
 		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
+		
+		var option:Option = new Option('VirtualPad Skin',
+			"Choose VirtualPad Skin",
+			'VirtualPadSkin',
+			'string',
+			'original',
+			virtualpadSkinList);
+
+		addOption(option);
+		option.onChange = onChangeVirtualPadSkin;
 
         var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",
@@ -63,16 +73,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.changeValue = 1;
 		option.decimals = 1;
 		addOption(option);
-		
-		var option:Option = new Option('VirtualPad Skin',
-			"Choose VirtualPad Skin",
-			'VirtualPadSkin',
-			'string',
-			'original',
-			virtualpadSkinList);
-
-		addOption(option);
-		option.onChange = onChangeVirtualPadSkin;
 		
 		var option:Option = new Option('VirtualPad Shift',
 			'Allow Extend VirtualPad Shift Control',
@@ -194,10 +194,9 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	
 	function onChangeVirtualPadSkin()
 	{
-	    #if android
+	    ClientPrefs.saveSettings();
 	    removeVirtualPad();
-		addVirtualPad(FULL, A_B_C);
-		#end
+		openSubState(new HitboxSettingsSubState());
 	}
 
 /*
