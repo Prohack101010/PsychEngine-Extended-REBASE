@@ -34,7 +34,6 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import mobile.HitboxSettingsSubState;
-import mobile.MobileControls.MobileControls;
 
 using StringTools;
 
@@ -45,9 +44,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
-	
-	public static var mobilec:MobileControls;
-	var MobileControls:MobileControls;
 	
 	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Sys.getCwd() + Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	
@@ -65,41 +61,33 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 
 		addOption(option);
 		option.onChange = onChangeVirtualPadSkin;
+
+        var option:Option = new Option('Extra Controls',
+			"Allow Extra Controls",
+			'hitboxExtend',
+			'float',
+			2);
+		option.scrollSpeed = 1.6;
+		option.minValue = 0;
+		option.maxValue = 4;
+		option.changeValue = 1;
+		option.decimals = 1;
+		addOption(option);
 		
-        if (mobilec.mode == HITBOX && mobilec.mode != KEYBOARD)
-		{
-            var option:Option = new Option('Extra Controls',
-    			"Allow Extra Controls",
-    			'hitboxExtend',
-    			'float',
-    			2);
-    		option.scrollSpeed = 1.6;
-    		option.minValue = 0;
-    		option.maxValue = 4;
-    		option.changeValue = 1;
-    		option.decimals = 1;
-    		addOption(option);
-    	}
+		var option:Option = new Option('VirtualPad Shift',
+			'Allow Extend VirtualPad Shift Control',
+			'VPadShiftExtend',
+			'bool',
+			true);
+		addOption(option);
 		
-		if (mobilec.mode != HITBOX && mobilec.mode != KEYBOARD)
-		{
-    		var option:Option = new Option('VirtualPad Shift',
-    			'Allow Extend VirtualPad Shift Control',
-    			'VPadShiftExtend',
-    			'bool',
-    			true);
-    		addOption(option);
-    		
-    		var option:Option = new Option('VirtualPad Space',
-    			'Allow Extend VirtualPad Space Control',
-    			'VPadSpaceExtend',
-    			'bool',
-    			true);
-    		addOption(option);
-		}
-		
-		if (mobilec.mode == HITBOX && mobilec.mode != KEYBOARD)
-		{
+		var option:Option = new Option('VirtualPad Space',
+			'Allow Extend VirtualPad Space Control',
+			'VPadSpaceExtend',
+			'bool',
+			true);
+		addOption(option);
+		  
 		  var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
 			'hitboxLocation',
@@ -142,8 +130,6 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
-		
-		}
 		
 		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
 			'Changes VirtualPad Alpha',
