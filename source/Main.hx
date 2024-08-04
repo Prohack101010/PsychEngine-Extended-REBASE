@@ -21,13 +21,13 @@ using StringTools;
 
 class Main extends Sprite
 {
-	var width: 1280, // WINDOW width
-	var height: 720, // WINDOW height
-	var initialState: TitleState, // initial game state
-	var zoom: -1.0, // game state bounds
-	var framerate: 60, // default framerate
-	var skipSplash: true, // if the default flixel splash screen should be skipped
-	var startFullscreen: true // if the game should start at fullscreen mode
+	var gameWidth:Int = 1280; // WINDOW width
+	var gameHeight:Int = 720; // WINDOW height
+	var initialState:Class<FlxState> = TitleState; // initial game state
+	var zoom:Float = -1.0; // game state bounds
+	var framerate:Int = 60; // default framerate
+	var skipSplash:Bool = true; // if the default flixel splash screen should be skipped
+	var startFullscreen:Bool = true; // if the game should start at fullscreen mode
 
 	public static var fpsVar:FPS;
 
