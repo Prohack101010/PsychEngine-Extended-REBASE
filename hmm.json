@@ -21,7 +21,7 @@
     {
       "name": "flixel",
       "type": "git",
-      "ref": "141d26c8c152ebcc70f74bbe558bbb3d484ebf03",
+      "ref": "dev",
       "url": "https://github.com/Prohack101010/flixel"
     },
     {
@@ -46,9 +46,8 @@
     },
     {
       "name": "hxcpp",
-      "type": "git",
-      "ref": "becf3f8bea42641c03b1924b40e5f5fc5dd255d1",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
+      "type": "haxelib",
+      "version": "4.2.1"
     },
     {
       "name": "lime",
