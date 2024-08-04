@@ -11,7 +11,7 @@ import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 
-#if android
+#if mobile
 import flixel.group.FlxGroup;
 import android.FlxHitbox;
 import android.FlxNewHitbox;
@@ -388,7 +388,7 @@ class Controls extends FlxActionSet
 	}
 	#end
 
-	#if android
+	#if mobile
 	public var trackedInputsUI:Array<FlxActionInput> = [];
 	public var trackedInputsNOTES:Array<FlxActionInput> = [];
 

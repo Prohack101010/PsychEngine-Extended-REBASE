@@ -1077,7 +1077,7 @@ class PlayState extends MusicBeatState
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 		
-		#if android
+		#if mobile
 		addAndroidControls();
 		if (ClientPrefs.hitboxmode == 'Classic') {
 		MusicBeatState.androidc.visible = false;
@@ -2150,7 +2150,7 @@ class PlayState extends MusicBeatState
 				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 			}
 
-			#if android
+			#if mobile
 			startedCountdown = MusicBeatState.androidc.visible = true;
 			if (checkHitbox != true) MusicBeatState.androidc.alpha = 1;
 			#else
@@ -3074,7 +3074,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (controls.PAUSE #if mobile || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', [], false);
 			if(ret != FunkinLua.Function_Stop) {
@@ -3992,7 +3992,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		#if android
+		#if mobile
 		MusicBeatState.androidc.visible = false;
 		if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
 		MusicBeatState.androidc.alpha = 0.00001;

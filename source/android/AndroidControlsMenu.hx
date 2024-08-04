@@ -123,6 +123,26 @@ class AndroidControlsMenu extends MusicBeatState
 		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
 		add(tipText);
+		
+		#if mobile
+		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
+		{
+			save();
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new options.OptionsState());
+		});
+		exit.color = FlxColor.LIME;
+		exit.setGraphicSize(Std.int(exit.width) * 3);
+		exit.updateHitbox();
+		exit.x = FlxG.width - exit.width - 70;
+		exit.label.setFormat(Paths.font('vcr.ttf'), 28, FlxColor.WHITE, FlxTextAlign.CENTER);
+		exit.label.fieldWidth = exit.width;
+		exit.label.x = ((exit.width - exit.label.width) / 2) + exit.x;
+		exit.label.offset.y = -10; // WHY THE FUCK I CAN'T CHANGE THE LABEL Y
+		exit.cameras = [ui];
+		add(exit);
+		#end
 
 		changeSelection(0);
 	}
@@ -147,7 +167,7 @@ class AndroidControlsMenu extends MusicBeatState
 			trackbutton(touch);
 		}
 		
-		#if android
+		#if desktop
 		if (FlxG.android.justReleased.BACK)
 		{
 			save();
