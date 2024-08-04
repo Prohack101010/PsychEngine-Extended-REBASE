@@ -1078,14 +1078,14 @@ class PlayState extends MusicBeatState
 		playerStrums = new FlxTypedGroup<StrumNote>();
 		
 		#if mobile
-		addAndroidControls();
+		addMobileControls();
 		if (ClientPrefs.hitboxmode == 'Classic') {
-		MusicBeatState.androidc.visible = false;
+		MusicBeatState.mobilec.visible = false;
 		}
 	        if (ClientPrefs.hitboxmode == 'New') {
-		MusicBeatState.androidc.visible = true;
+		MusicBeatState.mobilec.visible = true;
 		if (!ClientPrefs.hitboxhint) {
-		MusicBeatState.androidc.alpha = 0.000001;
+		MusicBeatState.mobilec.alpha = 0.000001;
 		}
 		}
 		
@@ -2151,8 +2151,8 @@ class PlayState extends MusicBeatState
 			}
 
 			#if mobile
-			startedCountdown = MusicBeatState.androidc.visible = true;
-			if (checkHitbox != true) MusicBeatState.androidc.alpha = 1;
+			startedCountdown = MusicBeatState.mobilec.visible = true;
+			if (checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
 			#else
 			startedCountdown = true;
 			#end
@@ -3993,9 +3993,9 @@ class PlayState extends MusicBeatState
 		}
 
 		#if mobile
-		MusicBeatState.androidc.visible = false;
+		MusicBeatState.mobilec.visible = false;
 		if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
-		MusicBeatState.androidc.alpha = 0.00001;
+		MusicBeatState.mobilec.alpha = 0.00001;
 		}
 		#end
 		timeBarBG.visible = false;

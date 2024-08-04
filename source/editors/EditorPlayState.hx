@@ -167,11 +167,11 @@ class EditorPlayState extends MusicBeatState
 		}
 
 		#if mobile
-		addAndroidControls();
+		addMobileControls();
 		#end
 
 		#if mobile
-		MusicBeatState.androidc.visible = true;
+		MusicBeatState.mobilec.visible = true;
 		#end
 
 		super.create();
@@ -338,7 +338,7 @@ class EditorPlayState extends MusicBeatState
 			FlxG.sound.music.pause();
 			vocals.pause();
 			#if mobile
-			MusicBeatState.androidc.visible = false;
+			MusicBeatState.mobilec.visible = false;
 			#end
 			LoadingState.loadAndSwitchState(new editors.ChartingState());
 		}

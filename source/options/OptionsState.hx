@@ -161,7 +161,7 @@ class OptionsState extends MusicBeatState
 		if (_virtualpad.buttonX.justPressed) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new mobile.AndroidControlsMenu());
+			MusicBeatState.switchState(new mobile.MobileControlsMenu());
 		}
 		if (_virtualpad.buttonY.justPressed) {
 			removeVirtualPad();
