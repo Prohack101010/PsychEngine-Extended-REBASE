@@ -46,6 +46,9 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 	
+	public static var mobilec:MobileControls;
+	var MobileControls:MobileControls;
+	
 	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Sys.getCwd() + Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	
 	public function new()
@@ -63,7 +66,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeVirtualPadSkin;
 		
-        if (MobileControls.mode == HITBOX && MobileControls.mode != KEYBOARD)
+        if (mobilec.mode == "HITBOX" && mobilec.mode != "KEYBOARD")
 		{
             var option:Option = new Option('Extra Controls',
     			"Allow Extra Controls",
@@ -78,7 +81,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
     		addOption(option);
     	}
 		
-		if (MobileControls.mode != HITBOX && MobileControls.mode != KEYBOARD)
+		if (mobilec.mode != "HITBOX" && mobilec.mode != "KEYBOARD")
 		{
     		var option:Option = new Option('VirtualPad Shift',
     			'Allow Extend VirtualPad Shift Control',
@@ -95,7 +98,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
     		addOption(option);
 		}
 		
-		if (MobileControls.mode == HITBOX && MobileControls.mode != KEYBOARD)
+		if (mobilec.mode == "HITBOX" && mobilec.mode != "KEYBOARD")
 		{
 		  var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
