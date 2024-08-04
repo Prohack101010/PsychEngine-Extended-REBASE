@@ -35,7 +35,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 #if mobile
-import android.flixel.FlxButton;
+import mobile.flixel.FlxButton;
 #else
 import flixel.ui.FlxButton;
 #end

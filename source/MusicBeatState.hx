@@ -17,8 +17,8 @@ import flixel.FlxBasic;
 
 #if mobile
 import flixel.input.actions.FlxActionInput;
-import android.AndroidControls.AndroidControls;
-import android.FlxVirtualPad;
+import mobile.AndroidControls.AndroidControls;
+import mobile.FlxVirtualPad;
 #end
 import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;

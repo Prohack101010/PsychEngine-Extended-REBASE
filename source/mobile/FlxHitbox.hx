@@ -36,7 +36,7 @@ class FlxHitbox extends FlxSpriteGroup {
 		hitbox.add(add(buttonUp = createhitbox(640, 0, "up")));
 		hitbox.add(add(buttonRight = createhitbox(960, 0, "right")));
 
-		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox_hint'));
+		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
 		hitbox_hint.antialiasing = orgAntialiasing;
 		hitbox_hint.alpha = orgAlpha;
 		add(hitbox_hint);
@@ -54,7 +54,7 @@ class FlxHitbox extends FlxSpriteGroup {
 	}
 
 	public function getFrames():FlxAtlasFrames {
-		return Paths.getSparrowAtlas('mobilecontrols/hitbox');
+		return Paths.getSparrowAtlas('mobilecontrols/hitbox/hitbox');
 	}
 
 	override public function destroy():Void {

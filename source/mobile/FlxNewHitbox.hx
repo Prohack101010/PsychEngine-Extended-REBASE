@@ -53,7 +53,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 		        add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
 		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
 		        if (ClientPrefs.hitboxhint){
-		        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox_hint'));
+		        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
 		        add(hitbox_hint);
 		        }
                 
@@ -79,7 +79,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 		        add(buttonUp = createHint(FlxG.width / 2, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
 		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
 			if (ClientPrefs.hitboxhint){
-		        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox_hint'));
+		        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
 		        add(hitbox_hint);
 		        }
  
@@ -105,7 +105,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 		        add(buttonUp = createHint(FlxG.width / 5 * 3, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0x00FF00));
 		        add(buttonRight = createHint(FlxG.width / 5 * 4 , 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFF0000));
 		        if (ClientPrefs.hitboxhint){
-		        var hitbox_hint:FlxSprite = new FlxSprite(0, -150).loadGraphic(Paths.image('mobilecontrols/hitbox_hint'));
+		        var hitbox_hint:FlxSprite = new FlxSprite(0, -150).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
 		        add(hitbox_hint);
 		        }
 		        

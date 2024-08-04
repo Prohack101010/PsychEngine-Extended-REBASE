@@ -1,4 +1,4 @@
-name: ios
+name: IOS
 on: workflow_dispatch
 jobs:
   iOS:

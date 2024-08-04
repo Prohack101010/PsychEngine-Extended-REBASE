@@ -13,11 +13,11 @@ import flixel.input.keyboard.FlxKey;
 
 #if mobile
 import flixel.group.FlxGroup;
-import android.FlxHitbox;
-import android.FlxNewHitbox;
-import android.FlxVirtualPad;
+import mobile.FlxHitbox;
+import mobile.FlxNewHitbox;
+import mobile.FlxVirtualPad;
 import flixel.ui.FlxButton;
-import android.flixel.FlxButton as FlxNewButton;
+import mobile.flixel.FlxButton as FlxNewButton;
 #end
 
 #if (haxe >= "4.0.0")
