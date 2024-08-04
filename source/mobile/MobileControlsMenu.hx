@@ -126,7 +126,7 @@ class MobileControlsMenu extends MusicBeatState
 		add(tipText);
 		
 		#if mobile
-		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
+		var exit = new UIButton(0, 35, "Exit & Save", () ->
 		{
 			save();
 			FlxTransitionableState.skipNextTransIn = true;
