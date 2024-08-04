@@ -194,9 +194,10 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	
 	function onChangeVirtualPadSkin()
 	{
-	    ClientPrefs.saveSettings();
+	    #if android
 	    removeVirtualPad();
-		openSubState(new HitboxSettingsSubState());
+		addVirtualPad(FULL, A_B_C);
+		#end
 	}
 
 /*
