@@ -25,6 +25,7 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
+import mobile.options.MobileOptionsSubState;
 
 using StringTools;
 
@@ -165,7 +166,7 @@ class OptionsState extends MusicBeatState
 		}
 		if (_virtualpad.buttonY.justPressed) {
 			removeVirtualPad();
-			openSubState(new mobile.options.MobileOptionsSubState());
+			openSubState(new MobileOptionsSubState());
 		}
 		#end
 
