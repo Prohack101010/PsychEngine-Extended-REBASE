@@ -186,7 +186,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		if (ClientPrefs.storageType != lastStorageType) {
 			onStorageChange();
 			ClientPrefs.saveSettings();
-			SUtil.showPopUp('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			SUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
 			lime.system.System.exit(0);
 		}
 		#end
