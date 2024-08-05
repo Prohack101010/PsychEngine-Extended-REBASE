@@ -9,8 +9,8 @@
     {
       "name": "linc_luajit",
       "type": "git",
-      "ref": "main",
-      "url": "https://github.com/mcagabe19-stuff/linc_luajit-legacy"
+      "ref": "master",
+      "url": "https://github.com/Sirox228/linc_luajit"
     },
     {
       "name": "extension-androidtools",
@@ -52,8 +52,9 @@
     },
     {
       "name": "lime",
-      "type": "haxelib",
-      "version": "7.9.0"
+      "type": "git",
+      "ref": "develop",
+      "url": "https://github.com/mcagabe19-stuff/lime"
     },
     {
       "name": "openfl",
