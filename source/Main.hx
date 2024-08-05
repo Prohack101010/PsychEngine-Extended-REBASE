@@ -179,7 +179,7 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
         #if android
-        AndroidTools.showAlertDialog("Error!", errMsg, null, null);
+        AndroidTools.showAlertDialog("Error!", errMsg, {name: "OK", func: null}, null);
         #else
         Log.error(errMsg);
         #end

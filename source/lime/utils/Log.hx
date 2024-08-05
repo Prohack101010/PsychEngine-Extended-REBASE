@@ -49,7 +49,7 @@ class Log
 					+ '\n');
 
                                 #if android
-                    			AndroidTools.showAlertDialog("Error!", message, null, null);
+                    			AndroidTools.showAlertDialog("Error!", message, {name: "OK", func: null}, null);
                     			#else
                     			Log.error(message);
                     			#end

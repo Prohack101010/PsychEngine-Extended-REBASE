@@ -177,6 +177,16 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 	
 		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
+	    
+	    if (lastStorageType != EXTERNAL || lastStorageType != EXTERNAL_EX || lastStorageType != EXTERNAL_NF)
+	    {
+    		try
+    		{
+    			Sys.command('rm', ['-rf', lastStoragePath]);
+    		}
+    		catch (e:haxe.Exception)
+    			trace('Failed to remove last directory. (${e.message})');
+    	}
 	}
 	#end
 
