@@ -48,7 +48,11 @@ class Log
 					message
 					+ '\n');
 
-                                Lib.application.window.alert(message, 'Error!');
+                                #if android
+                    			AndroidTools.showAlertDialog("Error!", message, null, null)
+                    			#else
+                    			Log.error(message)
+                    			#end
 				throw message;
 			}
 			else

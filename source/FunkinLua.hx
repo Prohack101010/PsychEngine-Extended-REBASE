@@ -91,11 +91,11 @@ class FunkinLua {
 			var resultStr:String = Lua.tostring(lua, result);
 			if(resultStr != null && result != 0) {
 				trace('Error on lua script! ' + resultStr);
-				#if (windows || android)
-				lime.app.Application.current.window.alert(resultStr, 'Error on lua script!');
-				#else
-				luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
-				#end
+				#if android
+                AndroidTools.showAlertDialog("Error on .LUA script!", resultStr, null, null)
+                #else
+                Log.error(resultStr)
+                #end
 				lua = null;
 				return;
 			}
