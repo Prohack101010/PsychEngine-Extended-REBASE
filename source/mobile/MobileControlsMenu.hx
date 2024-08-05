@@ -7,10 +7,10 @@ import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
-import mobile.FlxHitbox;
-import mobile.FlxNewHitbox;
+import mobile.flixel.FlxHitbox;
+import mobile.flixel.FlxNewHitbox;
 import mobile.MobileControls.Config;
-import mobile.FlxVirtualPad;
+import mobile.flixel.FlxVirtualPad;
 import flixel.ui.FlxButton as UIButton;
 
 using StringTools;

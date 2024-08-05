@@ -1,4 +1,4 @@
-package mobile;
+package mobile.flixel;
 
 import flixel.FlxG;
 import flixel.graphics.frames.FlxTileFrames;

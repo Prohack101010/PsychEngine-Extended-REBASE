@@ -1,4 +1,4 @@
-package mobile;
+package mobile.flixel;
 
 //new
 import flixel.graphics.frames.FlxAtlasFrames;

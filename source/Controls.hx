@@ -13,9 +13,9 @@ import flixel.input.keyboard.FlxKey;
 
 #if mobile
 import flixel.group.FlxGroup;
-import mobile.FlxHitbox;
-import mobile.FlxNewHitbox;
-import mobile.FlxVirtualPad;
+import mobile.flixel.FlxHitbox;
+import mobile.flixel.FlxNewHitbox;
+import mobile.flixel.FlxVirtualPad;
 import flixel.ui.FlxButton;
 import mobile.flixel.FlxButton as FlxNewButton;
 #end
