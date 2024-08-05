@@ -178,7 +178,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	
 		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
 	    
-	    if (lastStorageType != EXTERNAL || lastStorageType != EXTERNAL_EX || lastStorageType != EXTERNAL_NF)
+	    if (lastStorageType != "EXTERNAL" || lastStorageType != "EXTERNAL_EX" || lastStorageType != "EXTERNAL_NF")
 	    {
     		try
     		{
