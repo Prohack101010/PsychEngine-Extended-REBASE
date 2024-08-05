@@ -10,13 +10,13 @@
       "name": "linc_luajit",
       "type": "git",
       "ref": "master",
-      "url": "https://github.com/Sirox228/linc_luajit"
+      "url": "https://github.com/Prohack101010/linc_luajit-0.6.3-ex"
     },
     {
       "name": "extension-androidtools",
       "type": "git",
       "ref": "main",
-      "url": "https://github.com/MAJigsaw77/extension-androidtools"
+      "url": "https://github.com/Prohack101010/extension-androidtools-0.6.3"
     },
     {
       "name": "flixel",
@@ -53,8 +53,8 @@
     {
       "name": "lime",
       "type": "git",
-      "ref": "develop",
-      "url": "https://github.com/mcagabe19-stuff/lime"
+      "ref": "main",
+      "url": "https://github.com/Prohack101010/lime-0.6.3-ex"
     },
     {
       "name": "openfl",
