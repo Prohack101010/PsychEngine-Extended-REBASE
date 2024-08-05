@@ -26,7 +26,6 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
-import SUtil;
 import options.BaseOptionsMenu;
 import options.Option;
 import openfl.Lib;

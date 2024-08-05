@@ -11,7 +11,7 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
-import CopyState;
+import mobile.CopyState;
 
 #if desktop
 import Discord.DiscordClient;
