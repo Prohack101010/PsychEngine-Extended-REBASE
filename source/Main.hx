@@ -17,17 +17,29 @@ import CopyState;
 import Discord.DiscordClient;
 #end
 
+//crash handler stuff
+#if CRASH_HANDLER
+import openfl.events.UncaughtErrorEvent;
+import haxe.CallStack;
+import haxe.io.Path;
+import sys.FileSystem;
+import sys.io.File;
+import sys.io.Process;
+#end
+
 using StringTools;
 
 class Main extends Sprite
 {
-	var gameWidth:Int = 1280; // WINDOW width
-	var gameHeight:Int = 720; // WINDOW height
-	var initialState:Class<FlxState> = TitleState; // initial game state
-	var zoom:Float = -1.0; // game state bounds
-	var framerate:Int = 60; // default framerate
-	var skipSplash:Bool = true; // if the default flixel splash screen should be skipped
-	var startFullscreen:Bool = true; // if the game should start at fullscreen mode
+	var game = {
+		width: 1280, // WINDOW width
+		height: 720, // WINDOW height
+		initialState: TitleState, // initial game state
+		zoom: -1.0, // game state bounds
+		framerate: 60, // default framerate
+		skipSplash: true, // if the default flixel splash screen should be skipped
+		startFullscreen: true // if the game should start at fullscreen mode
+	};
 
 	public static var fpsVar:FPS;
 
@@ -61,15 +73,15 @@ class Main extends Sprite
 		}
 		else
 		{
-			Lib.current.stage.addEventListener(Event.RESIZE, init);
+			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 	}
 
 	private function init(?E:Event):Void
 	{
-		if (Lib.current.stage.hasEventListener(Event.RESIZE))
+		if (hasEventListener(Event.ADDED_TO_STAGE))
 		{
-			Lib.current.stage.removeEventListener(Event.RESIZE, init);
+			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
 
 		setupGame();
@@ -80,17 +92,17 @@ class Main extends Sprite
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
-		if (zoom == -1.0)
+		if (game.zoom == -1.0)
 		{
-			var ratioX:Float = stageWidth / width;
-			var ratioY:Float = stageHeight / height;
-			zoom = Math.min(ratioX, ratioY);
-			gameWidth = Math.ceil(stageWidth / zoom);
-			gameHeight = Math.ceil(stageHeight / zoom);
+			var ratioX:Float = stageWidth / game.width;
+			var ratioY:Float = stageHeight / game.height;
+			game.zoom = Math.min(ratioX, ratioY);
+			game.width = Math.ceil(stageWidth / game.zoom);
+			game.height = Math.ceil(stageHeight / game.zoom);
 		}
 	
 		ClientPrefs.loadDefaultKeys();
-		addChild(new FlxGame(gameWidth, gameHeight, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, game.zoom, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
