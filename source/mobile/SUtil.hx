@@ -101,7 +101,7 @@ class SUtil
 	{
 	    if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
 		{
-			SUtil.showPopUp('Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.', "Uncaught Error :(");
+			SUtil.showPopUp("Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.", 'Uncaught Error :(');
 			CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
 			LimeSystem.exit(1);
 		}
@@ -109,14 +109,14 @@ class SUtil
 		{
 			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets'))
 			{
-				SUtil.showPopUp('Whoops, seems you didn't extract the assets folder from the .APK!\nPlease watch the tutorial by pressing OK.', "Uncaught Error :(");
+				SUtil.showPopUp("Whoops, seems you didn't extract the assets folder from the .APK!\nPlease watch the tutorial by pressing OK.", 'Uncaught Error :(');
 				CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
 				LimeSystem.exit(1);
 			}
 
 			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
 			{
-				SUtil.showPopUp('Whoops, seems you didn't extract the mods folder from the .APK!\nPlease watch the tutorial by pressing OK.', "Uncaught Error :(");
+				SUtil.showPopUp("Whoops, seems you didn't extract the mods folder from the .APK!\nPlease watch the tutorial by pressing OK.", 'Uncaught Error :(');
 				CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
 				LimeSystem.exit(1);
 			}
