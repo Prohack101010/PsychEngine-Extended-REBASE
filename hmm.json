@@ -1,14 +1,22 @@
 {
   "dependencies": [
     {
-      "name": "lime",
-      "type": "haxelib",
-      "version": "7.9.0"
+      "name": "discord_rpc",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/Aidan63/linc_discord-rpc"
     },
     {
-      "name": "openfl",
-      "type": "haxelib",
-      "version": "9.1.0"
+      "name": "linc_luajit",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/mcagabe19-stuff/linc_luajit-legacy"
+    },
+    {
+      "name": "extension-androidtools",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/MAJigsaw77/extension-androidtools"
     },
     {
       "name": "flixel",
@@ -22,51 +30,14 @@
       "version": "2.11.0"
     },
     {
-      "name": "flixel-tools",
-      "type": "haxelib",
-      "version": null
-    },
-    {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hxcpp",
-      "type": "haxelib",
-      "version": "4.2.1"
-    },
-    {
-      "name": "tjson",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hxjsonast",
-      "type": "haxelib",
-      "version": null
+      "version": "2.4.0"
     },
     {
       "name": "hscript",
       "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hxcpp-debug-server",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hscript-ex",
-      "type": "git",
-      "ref": "master",
-      "url": "https://github.com/ianharrigan/hscript-ex"
-    },
-    {
-      "name": "linc_luajit",
-      "type": "git",
-      "ref": "master",
-      "url": "https://github.com/Sirox228/linc_luajit"
+      "version": "2.4.0"
     },
     {
       "name": "hxCodec",
@@ -74,10 +45,21 @@
       "version": "2.5.1"
     },
     {
-      "name": "extension-androidtools",
+      "name": "hxcpp",
       "type": "git",
-      "ref": "6c8818a722499ffc93214e95110d560aa49f0e38",
-      "url": "https://github.com/MAJigsaw77/extension-androidtools"
+      "ref": "master",
+      "url": "https://github.com/mcagabe19-stuff/hxcpp"
+    },
+    {
+      "name": "lime",
+      "type": "git",
+      "ref": "develop",
+      "url": "https://github.com/mcagabe19-stuff/lime"
+    },
+    {
+      "name": "openfl",
+      "type": "haxelib",
+      "version": "9.1.0"
     }
   ]
 }
