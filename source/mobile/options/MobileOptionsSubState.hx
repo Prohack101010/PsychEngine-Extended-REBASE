@@ -36,7 +36,7 @@ import mobile.options.MobileOptionsSubState;
 
 using StringTools;
 
-class HitboxSettingsSubState extends BaseOptionsMenu
+class MobileOptionsSubState extends BaseOptionsMenu
 {
     #if android
 	var storageTypes:Array<String> = ["EXTERNAL", "EXTERNAL_EX", "EXTERNAL_NF", "EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA"];
@@ -48,8 +48,8 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	
 	public function new()
 	{
-		title = 'Hitbox Settings';
-		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
+		title = 'Mobile Settings';
+		rpcTitle = 'Mobile Options Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 		
 		var option:Option = new Option('VirtualPad Skin',
 			"Choose VirtualPad Skin",
@@ -203,7 +203,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	{
 	    ClientPrefs.saveSettings();
 	    removeVirtualPad();
-		openSubState(new HitboxSettingsSubState());
+		openSubState(new MobileOptionsSubState());
 	}
 
 /*
