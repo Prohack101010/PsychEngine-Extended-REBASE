@@ -12,6 +12,7 @@
     },
     {
       "name": "flixel",
+      "type": "git",
       "ref": "dev",
       "url": "https://github.com/Prohack101010/flixel"
     },
@@ -74,7 +75,7 @@
     },
     {
       "name": "extension-androidtools",
-      "type": "git",,
+      "type": "git",
       "ref": "e646f7ff0e9f8f90c7e2aa3f4bc4e7302c48200d",
       "url": "https://github.com/MAJigsaw77/extension-androidtools"
     }
