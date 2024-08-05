@@ -92,9 +92,9 @@ class FunkinLua {
 			if(resultStr != null && result != 0) {
 				trace('Error on lua script! ' + resultStr);
 				#if android
-                AndroidTools.showAlertDialog("Error on .LUA script!", resultStr, null, null)
+                AndroidTools.showAlertDialog("Error on .LUA script!", resultStr, null, null);
                 #else
-                Log.error(resultStr)
+                Log.error(resultStr);
                 #end
 				lua = null;
 				return;

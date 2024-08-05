@@ -179,9 +179,9 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
         #if android
-        AndroidTools.showAlertDialog("Error!", errMsg, null, null)
+        AndroidTools.showAlertDialog("Error!", errMsg, null, null);
         #else
-        Log.error(errMsg)
+        Log.error(errMsg);
         #end
     #if desktop
 		DiscordClient.shutdown();
