@@ -12,6 +12,10 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import mobile.CopyState;
+#if android
+import sys.FileSystem;
+import sys.io.File;
+#end
 
 #if desktop
 import Discord.DiscordClient;
