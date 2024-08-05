@@ -1,12 +1,12 @@
 package flixel.system;
 
 #if (flixel < "5.3.0")
-import openfl.events.Event;
-import openfl.events.IEventDispatcher;
-import openfl.media.Sound;
-import openfl.media.SoundChannel;
-import openfl.media.SoundTransform;
-import openfl.net.URLRequest;
+import flash.events.Event;
+import flash.events.IEventDispatcher;
+import flash.media.Sound;
+import flash.media.SoundChannel;
+import flash.media.SoundTransform;
+import flash.net.URLRequest;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.math.FlxMath;
@@ -16,7 +16,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxStringUtil;
 import openfl.Assets;
 #if flash11
-import openfl.utils.ByteArray;
+import flash.utils.ByteArray;
 #end
 #if (openfl >= "8.0.0")
 import openfl.utils.AssetType;

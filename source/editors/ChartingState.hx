@@ -3,7 +3,7 @@ package editors;
 #if desktop
 import Discord.DiscordClient;
 #end
-import openfl.geom.Rectangle;
+import flash.geom.Rectangle;
 import haxe.Json;
 import haxe.format.JsonParser;
 import haxe.io.Bytes;
@@ -53,7 +53,7 @@ import openfl.utils.ByteArray;
 
 using StringTools;
 #if sys
-import openfl.media.Sound;
+import flash.media.Sound;
 import sys.FileSystem;
 import sys.io.File;
 #end

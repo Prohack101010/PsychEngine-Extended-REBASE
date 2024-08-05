@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
-import openfl.display.BitmapData;
+import flash.display.BitmapData;
 import editors.ChartingState;
 
 using StringTools;

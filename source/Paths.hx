@@ -21,7 +21,7 @@ import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 import haxe.Json;
 
-import openfl.media.Sound;
+import flash.media.Sound;
 
 using StringTools;
 
