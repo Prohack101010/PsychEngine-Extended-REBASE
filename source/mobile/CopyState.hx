@@ -1,4 +1,4 @@
-package;
+package mobile;
 
 #if mobile
 import lime.utils.Assets as LimeAssets;
