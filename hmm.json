@@ -9,13 +9,14 @@
     {
       "name": "linc_luajit",
       "type": "git",
+      "dir":null,
       "ref": "master",
       "url": "https://github.com/Sirox228/linc_luajit"
     },
     {
       "name": "extension-androidtools",
       "type": "git",
-      "ref": "main",
+      "ref": "e646f7ff0e9f8f90c7e2aa3f4bc4e7302c48200d",
       "url": "https://github.com/MAJigsaw77/extension-androidtools"
     },
     {
