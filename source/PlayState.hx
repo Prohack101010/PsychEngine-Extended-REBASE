@@ -387,7 +387,8 @@ class PlayState extends MusicBeatState
 			keysPressed.push(false);
 		}
 
-		FlxG.sound.music?.stop();
+		if(FlxG.sound.music != null)
+			FlxG.sound.music.stop();
 
 		// Gameplay settings
 		healthGain = ClientPrefs.getGameplaySetting('healthgain', 1);
@@ -2489,7 +2490,7 @@ class PlayState extends MusicBeatState
 			if (SONG.needsVoices)
 			{
 				var playerVocals = Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile);
-				vocals.loadEmbedded(playerVocals ?? Paths.voices(songData.song));
+				vocals.loadEmbedded(playerVocals != null ? playerVocals : Paths.voices(songData.song));
 
 				var oppVocals = Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile);
 				if(oppVocals != null) opponentVocals.loadEmbedded(oppVocals);
@@ -3425,8 +3426,8 @@ class PlayState extends MusicBeatState
 	{
 		persistentUpdate = false;
 		paused = true;
-		FlxG.sound.music?.stop();
-		cancelMusicFadeTween();
+		if(FlxG.sound.music != null)
+			FlxG.sound.music.stop();
 		MusicBeatState.switchState(new ChartingState());
 		chartingMode = true;
 
