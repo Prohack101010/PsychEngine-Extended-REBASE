@@ -464,8 +464,7 @@ class Paths
 	static public function pushGlobalMods() // prob a better way to do this but idc
 	{
 		globalMods = [];
-		if (ClientPrefs.Modpack) var path:String = Sys.getCwd() + 'modpackList.txt';
-		else var path:String = Sys.getCwd() + 'modsList.txt';
+		var path:String = Sys.getCwd() + 'modsList.txt';
 		if(FileSystem.exists(path))
 		{
 			var list:Array<String> = CoolUtil.coolTextFile(path);
