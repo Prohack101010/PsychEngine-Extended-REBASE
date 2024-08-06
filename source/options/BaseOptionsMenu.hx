@@ -141,11 +141,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P || SwipeUtil.swipeUp)
+		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P || SwipeUtil.swipeDown)
+		if (controls.UI_DOWN_P)
 		{
 			changeSelection(1);
 		}
@@ -159,8 +159,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			#end
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
-		
-		for (item in grpOptions.members) {
 
 		if(nextAccept <= 0)
 		{
@@ -169,12 +167,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			{
 				usesCheckbox = false;
 			}
-			
-			for (touch in FlxG.touches.list){		
 
 			if(usesCheckbox)
 			{
-				if(touch.overlaps(item) && touch.justPressed || controls.ACCEPT)
+				if(controls.ACCEPT)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
@@ -182,20 +178,14 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					reloadCheckboxes();
 				}
 			} else {
-				if(controls.UI_LEFT || controls.UI_RIGHT || SwipeUtil.swipeLeft || SwipeUtil.swipeRight) {
-					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P || SwipeUtil.swipeLeft || SwipeUtil.swipeRight);
+				if(controls.UI_LEFT || controls.UI_RIGHT) {
+					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
 					if(holdTime > 0.5 || pressed) {
 						if(pressed) {
 							var add:Dynamic = null;
-							#if desktop
 							if(curOption.type != 'string') {
 								add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
 							}
-							#else
-							if(curOption.type != 'string') {
-								add = SwipeUtil.swipeLeft ? -curOption.changeValue : curOption.changeValue;
-							}
-							#end
 
 							switch(curOption.type)
 							{
@@ -217,7 +207,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 								case 'string':
 									var num:Int = curOption.curOption; //lol
-									if(controls.UI_LEFT_P || SwipeUtil.swipeLeft) --num;
+									if(controls.UI_LEFT_P) --num;
 									else num++;
 
 									if(num < 0) {
@@ -234,8 +224,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 							curOption.change();
 							FlxG.sound.play(Paths.sound('scrollMenu'));
 						} else if(curOption.type != 'string') {
-							#if desktop holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1);
-							#else holdValue += curOption.scrollSpeed * elapsed * (SwipeUtil.swipeLeft ? -1 : 1); #end
+							holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1);
 							if(holdValue < curOption.minValue) holdValue = curOption.minValue;
 							else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
 
@@ -255,11 +244,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					if(curOption.type != 'string') {
 						holdTime += elapsed;
 					}
-				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R || SwipeUtil.swipeLeft || SwipeUtil.swipeRight) {
+				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
 					clearHold();
 				}
-			}
-			}
 			}
 
 			if(controls.RESET #if mobile || _virtualpad.buttonC.justPressed #end)

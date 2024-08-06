@@ -3,7 +3,7 @@ package options;
 #if desktop
 import Discord.DiscordClient;
 #end
-import openfl.text.TextField;
+import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
@@ -14,7 +14,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 import flixel.FlxSubState;
-import openfl.text.TextField;
+import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxSave;
@@ -30,7 +30,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -44,9 +44,16 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.NotesSubState());
 			case 'Controls':
 				#if mobile
-				removeVirtualPad();
-				#end
+				if (ClientPrefs.VirtualPadAlpha == 0) { removeVirtualPad(); }
+				else {
+    				FlxTransitionableState.skipNextTransIn = true;
+    			    FlxTransitionableState.skipNextTransOut = true;
+    			    MusicBeatState.switchState(new mobile.MobileControlsMenu());
+			    }
+			    if (ClientPrefs.VirtualPadAlpha == 0) { openSubState(new options.ControlsSubState()); }
+				#else
 				openSubState(new options.ControlsSubState());
+				#end
 			case 'Graphics':
 				#if mobile
 				removeVirtualPad();
@@ -62,6 +69,11 @@ class OptionsState extends MusicBeatState
 				removeVirtualPad();
 				#end
 				openSubState(new options.GameplaySettingsSubState());
+			#if mobile
+			case 'Mobile Options':
+				removeVirtualPad();
+			    openSubState(new mobile.options.MobileOptionsSubState());
+			#end
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
@@ -122,7 +134,7 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		#if mobile
-		addVirtualPad(UP_DOWN, A_B_X_Y);
+		addVirtualPad(UP_DOWN, A_B);
 		#end
 
 		super.create();

@@ -167,8 +167,8 @@ class CreditsState extends MusicBeatState
 		bg.color = getCurrentBGColor();
 		intendedColor = bg.color;
 		changeSelection();
-                #if mobile
-                addVirtualPad(UP_DOWN, A_B);
+                #if ios
+                addVirtualPad(NONE, B);
                 #end
 		super.create();
 	}
@@ -192,18 +192,18 @@ class CreditsState extends MusicBeatState
 				var upP = controls.UI_UP_P;
 				var downP = controls.UI_DOWN_P;
 
-				if (upP)
+				if (upP || SwipeUtil.swipeUp)
 				{
 					changeSelection(-shiftMult);
 					holdTime = 0;
 				}
-				if (downP)
+				if (downP || SwipeUtil.swipeDown)
 				{
 					changeSelection(shiftMult);
 					holdTime = 0;
 				}
 
-				if(controls.UI_DOWN || controls.UI_UP)
+				if(controls.UI_DOWN || controls.UI_UP || SwipeUtil.swipeDown || SwipeUtil.swipeUp)
 				{
 					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 					holdTime += elapsed;
@@ -211,15 +211,21 @@ class CreditsState extends MusicBeatState
 
 					if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 					{
+						#if desktop
 						changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
+						#else
+						changeSelection((checkNewHold - checkLastHold) * (SwipeUtil.swipeUp ? -shiftMult : shiftMult));
+						#end
 					}
 				}
 			}
-
-			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
-				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
-			}
-			if (controls.BACK)
+            
+            for (touch in FlxG.touches.list){		
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(creditsStuff[curSelected][3]) && touch.justPressed &&  && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
+    				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
+    			}
+    		}
+			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 			{
 				if(colorTween != null) {
 					colorTween.cancel();
