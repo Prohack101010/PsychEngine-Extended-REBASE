@@ -10,7 +10,7 @@
       "name": "linc_luajit",
       "type": "git",
       "ref": "main",
-      "url": "https://github.com/Prohack101010/linc_luajit-0.6.3-ex.git"
+      "url": "https://github.com/Prohack101010/linc_luajit-extended"
     },
     {
       "name": "extension-androidtools",
@@ -41,15 +41,14 @@
     },
     {
       "name": "hxCodec",
-      "type": "git",
-      "ref": "main",
-      "url": "https://github.com/MobilePorting/hxCodec-0.6.3"
+      "type": "haxelib",
+      "version": "2.5.1"
     },
     {
       "name": "hxcpp",
       "type": "git",
-      "ref": "becf3f8bea42641c03b1924b40e5f5fc5dd255d1",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
+      "ref": "stable",
+      "url": "https://github.com/Prohack101010/hxcpp-extended.git"
     },
     {
       "name": "lime",
