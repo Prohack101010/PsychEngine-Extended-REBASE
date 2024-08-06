@@ -178,15 +178,12 @@ class Main extends Sprite
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-        #if android
-        SUtil.showPopUp("Error!", errMsg);
-        #else
+        #if mobile
         SUtil.showPopUp("Error!", errMsg);
         #end
     #if desktop
 		DiscordClient.shutdown();
 	 #end
-		Sys.exit(1);
 	}
 	#end
 }

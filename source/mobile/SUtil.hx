@@ -219,10 +219,13 @@ class SUtil
 	#end
 	public static function showPopUp(title:String, message:String):Void
 	{
-		#if android
-		flixel.FlxG.stage.window.alert(message, title);
-		#elseif (!ios || !android)
-		flixel.FlxG.stage.window.alert(message, title);
+		#if !ios
+		try
+		{
+			flixel.FlxG.stage.window.alert(message, title);
+		}
+		catch (e:Dynamic)
+			trace('$title - $message');
 		#else
 		trace('$title - $message');
 		#end

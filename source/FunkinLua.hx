@@ -8,6 +8,13 @@ import llua.State;
 import llua.Convert;
 #end
 
+#if android
+import android.widget.Toast as AndroidToast;
+import android.Tools as AndroidTools;
+//import android.os.BatteryManager as AndroidBatteryManager;
+import android.PsychJNI;
+#end
+
 import animateatlas.AtlasFrameMaker;
 import flixel.FlxG;
 import flixel.addons.effects.FlxTrail;
@@ -228,6 +235,8 @@ class FunkinLua {
 		set('buildTarget', 'browser');
 		#elseif android
 		set('buildTarget', 'android');
+		#elseif ios
+		set('buildTarget', 'ios');
 		#else
 		set('buildTarget', 'unknown');
 		#end
@@ -2900,6 +2909,67 @@ class FunkinLua {
 			#end
 			return list;
 		});
+		
+		Lua_helper.add_callback(lua, "vibrate", (duration:Null<Int>, ?period:Null<Int>) ->
+		{
+			if (duration == null)
+				return luaTrace('vibrate: No duration specified.');
+			else if (period == null)
+				period = 0;
+			return lime.ui.Haptic.vibrate(period, duration);
+		});
+		
+		#if android
+		//static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
+		//Lua_helper.add_callback(lua, "isRooted", AndroidTools.isRooted());
+		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
+		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
+		Lua_helper.add_callback(lua, "isTablet", AndroidTools.isTablet());
+		Lua_helper.add_callback(lua, "isChromebook", AndroidTools.isChromebook());
+		Lua_helper.add_callback(lua, "isDeXMode", AndroidTools.isDeXMode());
+		Lua_helper.add_callback(lua, "backJustPressed", FlxG.android.justPressed.BACK);
+		Lua_helper.add_callback(lua, "backPressed", FlxG.android.pressed.BACK);
+		Lua_helper.add_callback(lua, "backJustReleased", FlxG.android.justReleased.BACK);
+		Lua_helper.add_callback(lua, "menuJustPressed", FlxG.android.justPressed.MENU);
+		Lua_helper.add_callback(lua, "menuPressed", FlxG.android.pressed.MENU);
+		Lua_helper.add_callback(lua, "menuJustReleased", FlxG.android.justReleased.MENU);
+		Lua_helper.add_callback(lua, "getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
+		Lua_helper.add_callback(lua, "setOrientation", function(orientation:Null<String>):Void
+		{
+			switch (orientation.toLowerCase())
+			{
+				case 'portrait':
+					orientation = 'Portrait';
+				case 'portraitupsidedown' | 'upsidedownportrait' | 'upsidedown':
+					orientation = 'PortraitUpsideDown';
+				case 'landscapeleft' | 'leftlandscape':
+					orientation = 'LandscapeLeft';
+				case 'landscaperight' | 'rightlandscape' | 'landscape':
+					orientation = 'LandscapeRight';
+				default:
+					orientation = null;
+			}
+			if (orientation == null)
+				return luaTrace('setOrientation: No orientation specified.');
+			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, orientation);
+		});
+		Lua_helper.add_callback(lua, "minimizeWindow", () -> AndroidTools.minimizeWindow());
+		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>)
+		{
+			if (text == null)
+				return luaTrace('showToast: No text specified.');
+			else if (duration == null)
+				return luaTrace('showToast: No duration specified.');
+
+			if (xOffset == null)
+				xOffset = 0;
+			if (yOffset == null)
+				yOffset = 0;
+
+			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
+		});
+		//Lua_helper.add_callback(lua, "isCharging", spicyPillow.isCharging());
+		#end
 
 		call('onCreate', []);
 		#end
@@ -3636,6 +3706,7 @@ class HScript
 		#end
 		interp.variables.set('ShaderFilter', openfl.filters.ShaderFilter);
 		interp.variables.set('StringTools', StringTools);
+		interp.variables.set('SUtil', SUtil);
 
 		interp.variables.set('setVar', function(name:String, value:Dynamic)
 		{
