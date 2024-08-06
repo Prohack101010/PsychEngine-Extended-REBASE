@@ -232,22 +232,24 @@ class StoryMenuState extends MusicBeatState
 				changeDifficulty();
 			}
 
-			if (controls.UI_RIGHT)
+        for (touch in FlxG.touches.list){		
+			if (touch.overlaps(rightArrow) && touch.justPressed || controls.UI_RIGHT)
 				rightArrow.animation.play('press')
 			else
 				rightArrow.animation.play('idle');
 
-			if (controls.UI_LEFT)
+			if (touch.overlaps(leftArrow) && touch.justPressed || controls.UI_LEFT)
 				leftArrow.animation.play('press');
 			else
 				leftArrow.animation.play('idle');
 
-			if (controls.UI_RIGHT_P)
+			if (touch.overlaps(rightArrow) && touch.justPressed || controls.UI_RIGHT_P)
 				changeDifficulty(1);
-			else if (controls.UI_LEFT_P)
+			else if (touch.overlaps(leftArrow) && touch.justPressed || controls.UI_LEFT_P)
 				changeDifficulty(-1);
 			else if (upP || downP)
 				changeDifficulty();
+			}
 
 			if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonX.justPressed #end)
 			{
