@@ -187,7 +187,7 @@ class StoryMenuState extends MusicBeatState
 		changeDifficulty();
 
                 #if mobile
-                addVirtualPad(FULL, A_B_X_Y);
+                addVirtualPad(UP_DOWN, A_B_X_Y);
                 #end
 
 		super.create();
@@ -249,7 +249,7 @@ class StoryMenuState extends MusicBeatState
 				changeDifficulty(-1);
 			else if (upP || downP)
 				changeDifficulty();
-			}
+		}
 
 			if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonX.justPressed #end)
 			{
@@ -268,10 +268,12 @@ class StoryMenuState extends MusicBeatState
 				openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
 				//FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			else if (controls.ACCEPT)
-			{
-				selectWeek();
-			}
+			for (touch in FlxG.touches.list){
+    			else if (touch.overlaps(grpWeekText.members[curWeek]) && touch.justPressed || controls.ACCEPT)
+    			{
+    				selectWeek();
+    			}
+    		}
 		}
 
 		if (controls.BACK && !movedBack && !selectedWeek)

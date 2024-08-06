@@ -7,7 +7,6 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
-    public static var wideScreen:Bool = false;
     public static var VirtualPadSkin:String = 'original';
 	public static var downScroll:Bool = false;
 	public static var Modpack:Bool = false;
@@ -111,7 +110,6 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
-	    FlxG.save.data.wideScreen = wideScreen;
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.Modpack = Modpack;
@@ -176,9 +174,6 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
-	    if(FlxG.save.data.wideScreen != null) {
-			wideScreen = FlxG.save.data.wideScreen;
-		}
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}

@@ -33,7 +33,6 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import mobile.options.MobileOptionsSubState;
-import mobile.MobileScaleMode;
 
 using StringTools;
 
@@ -157,14 +156,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'Modpack',
 			'bool',
 			false);
-		addOption(option);
-		
-		var option:Option = new Option('Wide Screen Mode',
-		    'If checked, The game will stetch to fill your whole screen. (WARNING: Can result in bad visuals & break some mods that resizes the game/cameras)',
-	    	'wideScreen',
-		    'bool',
-			false);
-		option.onChange = () -> FlxG.scaleMode = new MobileScaleMode();
 		addOption(option);
 		
 		#if android
