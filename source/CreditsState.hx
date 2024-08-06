@@ -221,7 +221,7 @@ class CreditsState extends MusicBeatState
 			}
             
             for (touch in FlxG.touches.list){		
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(creditsStuff[curSelected][3]) && touch.justPressed &&  && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(creditsStuff[curSelected][3]) && touch.justPressed) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
     		}
