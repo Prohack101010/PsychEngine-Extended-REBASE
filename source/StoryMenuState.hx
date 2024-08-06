@@ -18,6 +18,7 @@ import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 import flixel.graphics.FlxGraphic;
 import WeekData;
+import mobile.SwipeUtil;
 
 using StringTools;
 
@@ -186,8 +187,10 @@ class StoryMenuState extends MusicBeatState
 		changeWeek();
 		changeDifficulty();
 
-                #if mobile
-                addVirtualPad(UP_DOWN, A_B_X_Y);
+                #if android
+                addVirtualPad(NONE, X_Y);
+                #elseif ios
+                addVirtualPad(NONE, B_X_Y);
                 #end
 
 		super.create();
@@ -213,13 +216,13 @@ class StoryMenuState extends MusicBeatState
 		{
 			var upP = controls.UI_UP_P;
 			var downP = controls.UI_DOWN_P;
-			if (upP)
+			if (upP || SwipeUtil.swipeUp)
 			{
 				changeWeek(-1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
-			if (downP)
+			if (downP || SwipeUtil.swipeDown)
 			{
 				changeWeek(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -247,7 +250,7 @@ class StoryMenuState extends MusicBeatState
 				changeDifficulty(1);
 			else if (touch.overlaps(leftArrow) && touch.justPressed || controls.UI_LEFT_P)
 				changeDifficulty(-1);
-			else if (upP || downP)
+			else if (upP || downP || SwipeUtil.swipeUp || SwipeUtil.swipeDown)
 				changeDifficulty();
 		}
 

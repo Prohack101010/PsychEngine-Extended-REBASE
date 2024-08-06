@@ -42,12 +42,12 @@ class ClientPrefs {
 	#if android
 	public static var storageType:String = "EXTERNAL";
 	#end
-        public static var hitboxhint = true;
+        public static var hitboxhint = false;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
 	public static var hitboxtype:String = 'No Gradient';
 	public static var hitboxExtend:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
-	public static var hitboxalpha:Float = 0.2; //someone request this lol
+	public static var hitboxalpha:Float = 0.7; //someone request this lol
 	public static var VirtualPadAlpha:Float = 0.75;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
