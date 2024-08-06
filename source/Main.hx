@@ -12,7 +12,7 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import mobile.CopyState;
-import mobile.widescreen.MobileScaleMode;
+import mobile.MobileScaleMode;
 
 #if desktop
 import Discord.DiscordClient;
