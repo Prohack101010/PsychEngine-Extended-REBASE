@@ -10,7 +10,7 @@
       "name": "linc_luajit",
       "type": "git",
       "ref": "main",
-      "url": "https://github.com/Prohack101010/linc_luajit-0.6.3-ex"
+      "url": "https://github.com/Prohack101010/linc_luajit-0.6.3-ex.git"
     },
     {
       "name": "extension-androidtools",
@@ -48,14 +48,14 @@
     {
       "name": "hxcpp",
       "type": "git",
-      "ref": "master",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp"
+      "ref": "becf3f8bea42641c03b1924b40e5f5fc5dd255d1",
+      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
     },
     {
       "name": "lime",
       "type": "git",
       "ref": "main",
-      "url": "https://github.com/Prohack101010/lime-0.6.3-ex"
+      "url": "https://github.com/Prohack101010/lime-0.6.3-ex.git"
     },
     {
       "name": "openfl",
