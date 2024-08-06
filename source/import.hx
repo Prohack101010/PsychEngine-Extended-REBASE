@@ -1,5 +1,6 @@
 import Paths;
 import mobile.SUtil;
+import mobile.SwipeUtil;
 
 //Android
 #if android

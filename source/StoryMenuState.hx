@@ -18,7 +18,6 @@ import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 import flixel.graphics.FlxGraphic;
 import WeekData;
-import mobile.SwipeUtil;
 
 using StringTools;
 
@@ -280,7 +279,7 @@ class StoryMenuState extends MusicBeatState
     		}
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek)
+		if (controls.BACK && !movedBack && !selectedWeek #if android || FlxG.android.justReleased.BACK  && !movedBack && !selectedWeek #end)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
