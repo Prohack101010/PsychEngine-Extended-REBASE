@@ -181,7 +181,7 @@ class Main extends Sprite
         #if android
         AndroidTools.showAlertDialog("Error!", errMsg, {name: "OK", func: null}, null);
         #else
-        Log.error(errMsg);
+        SUtil.showPopUp("Error!", errMsg);
         #end
     #if desktop
 		DiscordClient.shutdown();

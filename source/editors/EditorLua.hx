@@ -56,7 +56,7 @@ class EditorLua {
 		    #if android
             AndroidTools.showAlertDialog("Error on .LUA script!", resultStr, {name: "OK", func: null}, null);
             #else
-            Log.error(resultStr);
+            SUtil.showPopUp("Error on .LUA script!", resultStr);
             #end
 			trace('Error on .LUA script! ' + resultStr);
 			lua = null;

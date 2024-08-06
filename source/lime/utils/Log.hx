@@ -51,7 +51,7 @@ class Log
                                 #if android
                     			AndroidTools.showAlertDialog("Error!", message, {name: "OK", func: null}, null);
                     			#else
-                    			Log.error(message);
+                    			SUtil.showPopUp("Error!", message);
                     			#end
 				throw message;
 			}
