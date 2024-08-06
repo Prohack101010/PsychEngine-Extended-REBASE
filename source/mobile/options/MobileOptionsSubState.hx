@@ -33,7 +33,7 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import mobile.options.MobileOptionsSubState;
-import mobile.widescreen.MobileScaleMode;
+import mobile.MobileScaleMode;
 
 using StringTools;
 
