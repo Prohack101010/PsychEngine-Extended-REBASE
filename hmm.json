@@ -10,12 +10,12 @@
       "name": "linc_luajit",
       "type": "git",
       "ref": "main",
-      "url": "https://github.com/Prohack101010/linc_luajit-extended"
+      "url": "https://github.com/mcagabe19-stuff/linc_luajit-legacy"
     },
     {
       "name": "extension-androidtools",
       "type": "git",
-      "ref": "6c8818a722499ffc93214e95110d560aa49f0e38",
+      "ref": "main",
       "url": "https://github.com/MAJigsaw77/extension-androidtools"
     },
     {
@@ -41,20 +41,21 @@
     },
     {
       "name": "hxCodec",
-      "type": "haxelib",
-      "version": "2.5.1"
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/MobilePorting/hxCodec-0.6.3"
     },
     {
       "name": "hxcpp",
       "type": "git",
-      "ref": "stable",
-      "url": "https://github.com/Prohack101010/hxcpp-extended.git"
+      "ref": "c1c234b7b1fc6c3a72d0c73c55020cea253e3e14",
+      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
     },
     {
       "name": "lime",
       "type": "git",
-      "ref": "main",
-      "url": "https://github.com/Prohack101010/lime-0.6.3-ex.git"
+      "ref": "develop",
+      "url": "https://github.com/mcagabe19-stuff/lime"
     },
     {
       "name": "openfl",
