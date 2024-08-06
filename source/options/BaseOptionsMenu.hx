@@ -233,7 +233,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 							FlxG.sound.play(Paths.sound('scrollMenu'));
 						} else if(curOption.type != 'string') {
 							#if desktop holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1);
-							#else holdValue += curOption.scrollSpeed * elapsed * (SwipeUtil.swipeLeft ? -1 : 1);
+							#else holdValue += curOption.scrollSpeed * elapsed * (SwipeUtil.swipeLeft ? -1 : 1); #end
 							if(holdValue < curOption.minValue) holdValue = curOption.minValue;
 							else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
 
