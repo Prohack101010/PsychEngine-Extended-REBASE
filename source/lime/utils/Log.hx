@@ -49,7 +49,7 @@ class Log
 					+ '\n');
 
                                 #if android
-                    			AndroidTools.showAlertDialog("Error!", message, {name: "OK", func: null}, null);
+                    			SUtil.showPopUp("Error!", message);
                     			#else
                     			SUtil.showPopUp("Error!", message);
                     			#end

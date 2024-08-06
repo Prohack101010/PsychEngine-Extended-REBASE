@@ -48,8 +48,8 @@
     {
       "name": "hxcpp",
       "type": "git",
-      "ref": "c1c234b7b1fc6c3a72d0c73c55020cea253e3e14",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
+      "ref": "master",
+      "url": "https://github.com/mcagabe19-stuff/hxcpp"
     },
     {
       "name": "lime",

@@ -220,9 +220,9 @@ class SUtil
 	public static function showPopUp(title:String, message:String):Void
 	{
 		#if android
-		AndroidTools.showAlertDialog(title, message, {name: "OK", func: null}, null);
+		flixel.FlxG.stage.window.alert(message, title);
 		#elseif (!ios || !android)
-		lime.app.Application.current.window.alert(message, title);
+		flixel.FlxG.stage.window.alert(message, title);
 		#else
 		trace('$title - $message');
 		#end

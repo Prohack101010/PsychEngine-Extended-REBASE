@@ -48,6 +48,11 @@ class Main extends Sprite
 	public static function main():Void
 	{
 		Lib.current.addChild(new Main());
+		#if cpp
+		cpp.NativeGc.enable(true);
+		#elseif hl
+		hl.Gc.enable(true);
+		#end
 	}
 
 	public function new()
@@ -75,15 +80,15 @@ class Main extends Sprite
 		}
 		else
 		{
-			addEventListener(Event.ADDED_TO_STAGE, init);
+			Lib.current.stage.addEventListener(Event.RESIZE, init);
 		}
 	}
 
 	private function init(?E:Event):Void
 	{
-		if (hasEventListener(Event.ADDED_TO_STAGE))
+		if (Lib.current.stage.hasEventListener(Event.RESIZE))
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+			Lib.current.stage.removeEventListener(Event.RESIZE, init);
 		}
 
 		setupGame();
@@ -174,7 +179,7 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
         #if android
-        AndroidTools.showAlertDialog("Error!", errMsg, {name: "OK", func: null}, null);
+        SUtil.showPopUp("Error!", errMsg);
         #else
         SUtil.showPopUp("Error!", errMsg);
         #end

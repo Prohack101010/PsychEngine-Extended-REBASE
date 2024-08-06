@@ -21,7 +21,7 @@ import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 import haxe.Json;
 
-import flash.media.Sound;
+import openfl.media.Sound;
 
 using StringTools;
 
@@ -81,6 +81,11 @@ class Paths
 		}
 		// run the garbage collector for good measure lmfao
 		System.gc();
+		#if cpp
+		cpp.NativeGc.run(true);
+		#elseif hl
+		hl.Gc.major();
+		#end
 	}
 
 	// define the locally tracked assets

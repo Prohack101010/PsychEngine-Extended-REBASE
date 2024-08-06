@@ -54,7 +54,7 @@ class EditorLua {
 		var resultStr:String = Lua.tostring(lua, result);
 		if(resultStr != null && result != 0) {
 		    #if android
-            AndroidTools.showAlertDialog("Error on .LUA script!", resultStr, {name: "OK", func: null}, null);
+            SUtil.showPopUp("Error on .LUA script!", resultStr);
             #else
             SUtil.showPopUp("Error on .LUA script!", resultStr);
             #end
