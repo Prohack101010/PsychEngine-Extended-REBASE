@@ -459,7 +459,7 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 	
-	public function SubStateClosed() {
+	public static function SubStateClosed() {
 		persistentUpdate = true;
 		super.closeSubState();
 	}
