@@ -2936,7 +2936,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
 		Lua_helper.add_callback(lua, "setOrientation", function(hint:Null<String>):Void
 		{
-			switch (orientation.toLowerCase())
+			switch (hint.toLowerCase())
 			{
 				case 'portrait':
 					hint = 'Portrait';
