@@ -108,7 +108,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'hitboxtype',
 			'string',
 			'No Gradient',
-			['Gradient', 'No Gradient', 'No Gradient (Old)']);
+			['Gradient', 'No Gradient'/*bruh, 'No Gradient (Old)'*/]);
 		  addOption(option);
 
 		var option:Option = new Option('Hitbox Hint',
@@ -122,7 +122,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'Changes opacity -omg',
 			'hitboxalpha',
 			'float',
-			0.2);
+			0.7);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;

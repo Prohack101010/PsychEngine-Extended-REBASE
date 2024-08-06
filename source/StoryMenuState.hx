@@ -251,24 +251,25 @@ class StoryMenuState extends MusicBeatState
 				changeDifficulty();
 		}
 
-			if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonX.justPressed #end)
-			{
-				#if mobile
-				removeVirtualPad();
-				#end
-				persistentUpdate = false;
-				openSubState(new GameplayChangersSubstate());
-			}
-			else if(controls.RESET #if mobile || _virtualpad.buttonY.justPressed #end)
-			{
-				#if mobile
-				removeVirtualPad();
-				#end
-				persistentUpdate = false;
-				openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
-				//FlxG.sound.play(Paths.sound('scrollMenu'));
-			}
-			for (touch in FlxG.touches.list){
+            for (touch in FlxG.touches.list){
+    			if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonX.justPressed #end)
+    			{
+    				#if mobile
+    				removeVirtualPad();
+    				#end
+    				persistentUpdate = false;
+    				openSubState(new GameplayChangersSubstate());
+    			}
+    			else if(controls.RESET #if mobile || _virtualpad.buttonY.justPressed #end)
+    			{
+    				#if mobile
+    				removeVirtualPad();
+    				#end
+    				persistentUpdate = false;
+    				openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
+    				//FlxG.sound.play(Paths.sound('scrollMenu'));
+    			}
+			
     			else if (touch.overlaps(grpWeekText.members[curWeek]) && touch.justPressed || controls.ACCEPT)
     			{
     				selectWeek();

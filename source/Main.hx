@@ -12,7 +12,6 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import mobile.CopyState;
-import mobile.MobileScaleMode;
 
 #if desktop
 import Discord.DiscordClient;
@@ -127,10 +126,6 @@ class Main extends Sprite
 		
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK]; 
-		#end
-		
-		#if mobile
-		FlxG.scaleMode = new MobileScaleMode();
 		#end
 		
 		#if CRASH_HANDLER
