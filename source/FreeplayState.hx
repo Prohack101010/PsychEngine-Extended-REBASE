@@ -459,9 +459,13 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 	
-	public static function SubStateClosed() {
+	override function SubStateClosedFunction() {
 		persistentUpdate = true;
-		super.closeSubState();
+		super.SubStateClosedFunction();
+	}
+	
+	static function SubStateClosed() {
+	    SubStateClosedFunction();
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
