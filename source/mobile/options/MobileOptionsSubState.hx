@@ -33,6 +33,7 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import mobile.options.MobileOptionsSubState;
+import mobile.widescreen.MobileScaleMode;
 
 using StringTools;
 
@@ -158,6 +159,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 		
+		option = new Option('Wide Screen Mode',
+		'If checked, The game will stetch to fill your whole screen. (WARNING: Can result in bad visuals & break some mods that resizes the game/cameras)',
+		'wideScreen',
+		BOOL);
+		option.onChange = () -> FlxG.scaleMode = new MobileScaleMode();
+		addOption(option);
+		
 		#if android
 		var option:Option = new Option('Storage Type',
 			'Which folder Psych Engine should use?',
@@ -177,16 +185,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 	
 		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
-	    
-	    if (lastStorageType != "EXTERNAL" || lastStorageType != "EXTERNAL_EX" || lastStorageType != "EXTERNAL_NF")
-	    {
-    		try
-    		{
-    			Sys.command('rm', ['-rf', lastStoragePath]);
-    		}
-    		catch (e:haxe.Exception)
-    			trace('Failed to remove last directory. (${e.message})');
-    	}
 	}
 	#end
 

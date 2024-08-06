@@ -219,13 +219,15 @@ class SUtil
 	#end
 	public static function showPopUp(title:String, message:String):Void
 	{
-		#if !ios
+		#if desktop
 		try
 		{
 			flixel.FlxG.stage.window.alert(message, title);
 		}
 		catch (e:Dynamic)
 			trace('$title - $message');
+		#elseif android
+		AndroidTools.showAlertDialog(title, message, {name: "OK", func: null}, null);
 		#else
 		trace('$title - $message');
 		#end

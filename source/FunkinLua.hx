@@ -12,7 +12,7 @@ import llua.Convert;
 import android.widget.Toast as AndroidToast;
 import android.Tools as AndroidTools;
 //import android.os.BatteryManager as AndroidBatteryManager;
-import android.PsychJNI;
+import mobile.PsychJNI;
 #end
 
 import animateatlas.AtlasFrameMaker;
