@@ -586,7 +586,7 @@ class FreeplayState extends MusicBeatState
 		
 		for (item in grpSongs.members)
 		{
-
+        for (touch in FlxG.touches.list){		
     		if(ctrl)
     		{
     			#if mobile
@@ -666,6 +666,7 @@ class FreeplayState extends MusicBeatState
     			FlxG.sound.play(Paths.sound('scrollMenu'));
     		}
     		super.update(elapsed);
+    	}
     	}
 	}
 

@@ -169,6 +169,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			{
 				usesCheckbox = false;
 			}
+			
+			for (touch in FlxG.touches.list){		
 
 			if(usesCheckbox)
 			{
@@ -256,6 +258,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R || SwipeUtil.swipeLeft || SwipeUtil.swipeRight) {
 					clearHold();
 				}
+			}
 			}
 			}
 
