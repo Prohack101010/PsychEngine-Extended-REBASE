@@ -27,12 +27,12 @@ import Controls;
 
 using StringTools;
 
-class VisualsUISubState extends BaseOptionsMenu
+class VisualsSubState extends BaseOptionsMenu
 {
 	public function new()
 	{
 		title = 'Visuals Settings';
-		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
+		rpcTitle = 'Visuals Settings Menu'; //for Discord Rich Presence
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
