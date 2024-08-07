@@ -25,15 +25,15 @@ class CreditsState extends MusicBeatState
 {
 	var curSelected:Int = -1;
 
+	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
-	public var creditsStuff:Array<Array<String>> = [];
+	private var creditsStuff:Array<Array<String>> = [];
 
 	var bg:FlxSprite;
 	var descText:FlxText;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 	var descBox:AttachedSprite;
-	var optionText:Alphabet;
 
 	var offsetThing:Float = -75;
 
@@ -48,6 +48,9 @@ class CreditsState extends MusicBeatState
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		add(bg);
 		bg.screenCenter();
+		
+		grpOptions = new FlxTypedGroup<Alphabet>();
+		add(grpOptions);
 
 		#if MODS_ALLOWED
 		var path:String = Sys.getCwd() + 'modsList.txt';
@@ -119,14 +122,12 @@ class CreditsState extends MusicBeatState
 		for (i in 0...creditsStuff.length)
 		{
 			var isSelectable:Bool = !unselectableCheck(i);
-			// var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
-			optionText = new Alphabet(FlxG.width / 2, 300, "", !isSelectable);
+			var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
 			optionText.isMenuItem = true;
 			optionText.targetY = i;
 			optionText.changeX = false;
 			optionText.snapToPosition();
-			optionText.text = creditsStuff[i][0];
-			add(optionText);
+			grpOptions.add(optionText);
 
 			if(isSelectable) {
 				if(creditsStuff[i][5] != null)
@@ -221,10 +222,13 @@ class CreditsState extends MusicBeatState
 				}
 			}
             
+            for (item in grpOptions.members)
+		    {
             for (touch in FlxG.touches.list){		
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(optionText[curSelected]) && touch.justPressed) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(optionText) && item.targetY == 0 && touch.justPressed) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
+    		}
     		}
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #elseif ios || SwipeUtil.swipeRight #end)
 			{
@@ -237,18 +241,21 @@ class CreditsState extends MusicBeatState
 			}
 		}
 		
-		if(!optionText.bold)
+		for (item in grpOptions.members)
 		{
-			var lerpVal:Float = CoolUtil.boundTo(elapsed * 12, 0, 1);
-			if(optionText.targetY == 0)
+			if(!item.bold)
 			{
-				var lastX:Float = optionText.x;
-				optionText.screenCenter(X);
-				optionText.x = FlxMath.lerp(lastX, optionText.x - 70, lerpVal);
-			}
-			else
-			{
-				optionText.x = FlxMath.lerp(optionText.x, 200 + -40 * Math.abs(optionText.targetY), lerpVal);
+				var lerpVal:Float = CoolUtil.boundTo(elapsed * 12, 0, 1);
+				if(item.targetY == 0)
+				{
+					var lastX:Float = item.x;
+					item.screenCenter(X);
+					item.x = FlxMath.lerp(lastX, item.x - 70, lerpVal);
+				}
+				else
+				{
+					item.x = FlxMath.lerp(item.x, 200 + -40 * Math.abs(item.targetY), lerpVal);
+				}
 			}
 		}
 		super.update(elapsed);
@@ -281,13 +288,16 @@ class CreditsState extends MusicBeatState
 
 		var bullShit:Int = 0;
 
-		optionText.targetY = bullShit - curSelected;
-		bullShit++;
+		for (item in grpOptions.members)
+		{
+			item.targetY = bullShit - curSelected;
+			bullShit++;
 
-		if(!unselectableCheck(bullShit-1)) {
-			optionText.alpha = 0.6;
-			if (optionText.targetY == 0) {
-				optionText.alpha = 1;
+			if(!unselectableCheck(bullShit-1)) {
+				item.alpha = 0.6;
+				if (item.targetY == 0) {
+					item.alpha = 1;
+				}
 			}
 		}
 
