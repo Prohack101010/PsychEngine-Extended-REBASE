@@ -48,7 +48,7 @@ class TouchUtil
     #if FLX_TOUCH
     for (touch in FlxG.touches.list)
     {
-      if (touch.overlaps(object, camera ?? object.camera)) return true;
+      if (touch.overlaps(object, camera ? object.camera)) return true;
     }
     #end
 
