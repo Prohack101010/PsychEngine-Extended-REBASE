@@ -124,7 +124,7 @@ class CreditsState extends MusicBeatState
 			var isSelectable:Bool = !unselectableCheck(i);
 			var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
 			optionText.isMenuItem = true;
-			optionText.targetY = i;
+			optionText.targetY = i + 100;
 			optionText.changeX = false;
 			optionText.snapToPosition();
 			grpOptions.add(optionText);
@@ -288,7 +288,7 @@ class CreditsState extends MusicBeatState
 
 		for (item in grpOptions.members)
 		{
-			item.targetY = bullShit - curSelected;
+			item.targetY = bullShit - curSelected - 100;
 			bullShit++;
 
 			if(!unselectableCheck(bullShit-1)) {
