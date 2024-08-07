@@ -25,9 +25,9 @@ class CreditsState extends MusicBeatState
 {
 	var curSelected:Int = -1;
 
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	public var grpOptions:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
-	private var creditsStuff:Array<Array<String>> = [];
+	public var creditsStuff:Array<Array<String>> = [];
 
 	var bg:FlxSprite;
 	var descText:FlxText;
@@ -130,6 +130,7 @@ class CreditsState extends MusicBeatState
 			optionText.changeX = false;
 			optionText.snapToPosition();
 			grpOptions.add(optionText);
+			add(optionText);
 
 			if(isSelectable) {
 				if(creditsStuff[i][5] != null)
