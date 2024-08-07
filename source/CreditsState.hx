@@ -219,13 +219,11 @@ class CreditsState extends MusicBeatState
 					}
 				}
 			}
-            for (item in grpOptions.members[curSelected])
-		    {
+            
             for (touch in FlxG.touches.list){		
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(item) && touch.justPressed &&  && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(grpOptions.members[curSelected]) && touch.justPressed && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
-    		}
     		}
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 			{
