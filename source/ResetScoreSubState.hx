@@ -127,7 +127,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 			if(onYes) {
     			if(week == -1 ) {
     				Highscore.resetSong(song, difficulty);
-    			} elsei {
+    			} else {
     				Highscore.resetWeek(WeekData.weeksList[week], difficulty);
     			}
     		}
