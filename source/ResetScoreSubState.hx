@@ -80,8 +80,6 @@ class ResetScoreSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
-	for (touch in FlxG.touches.list)
-	{
 		bg.alpha += elapsed * 1.5;
 		if(bg.alpha > 0.6) bg.alpha = 0.6;
 
@@ -121,37 +119,39 @@ class ResetScoreSubState extends MusicBeatSubstate
                         #end
 		}
 		
-		if(touch.overlaps(yesText) && touch.justPressed)
-		{
-			onYes = true;
-			if(onYes) {
-    			if(week == -1 ) {
-    				Highscore.resetSong(song, difficulty);
-    			} else {
-    				Highscore.resetWeek(WeekData.weeksList[week], difficulty);
-    			}
+		for (touch in FlxG.touches.list)
+	    {	
+    		if(touch.overlaps(yesText) && touch.justPressed)
+    		{
+    			onYes = true;
+    			if(onYes) {
+        			if(week == -1 ) {
+        				Highscore.resetSong(song, difficulty);
+        			} else {
+        				Highscore.resetWeek(WeekData.weeksList[week], difficulty);
+        			}
+        		}
+        		FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+    			#if mobile
+                FlxTransitionableState.skipNextTransOut = true;
+    			FlxG.resetState();
+                #else
+                close();
+                #end
     		}
-    		FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-			#if mobile
-            FlxTransitionableState.skipNextTransOut = true;
-			FlxG.resetState();
-            #else
-            close();
-            #end
-		}
-		
-		if(touch.overlaps(noText) && touch.justPressed)
-		{
-    		FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-			#if mobile
-            FlxTransitionableState.skipNextTransOut = true;
-			FlxG.resetState();
-            #else
-            close();
-            #end
-		}
+    		
+    		if(touch.overlaps(noText) && touch.justPressed)
+    		{
+        		FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+    			#if mobile
+                FlxTransitionableState.skipNextTransOut = true;
+    			FlxG.resetState();
+                #else
+                close();
+                #end
+    		}
+    	}
 		super.update(elapsed);
-	}
 	}
 
 	function updateOptions() {

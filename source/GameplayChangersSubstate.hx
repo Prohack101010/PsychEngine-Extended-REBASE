@@ -178,8 +178,6 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-	for (touch in FlxG.touches.list)
-	{
 		if (controls.UI_UP_P || SwipeUtil.swipeUp)
 		{
 			changeSelection(-1);
@@ -211,12 +209,15 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 			if(usesCheckbox)
 			{
+			    for (touch in FlxG.touches.list)
+	            {
 				if(controls.ACCEPT || touch.overlaps(optionsArray[curSelected]) && touch.justPressed)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
 					curOption.change();
 					reloadCheckboxes();
+				}
 				}
 			} else {
 				if(controls.UI_LEFT || controls.UI_RIGHT || SwipeUtil.swipeLeft || SwipeUtil.swipeRight) {
@@ -353,7 +354,6 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			nextAccept -= 1;
 		}
 		super.update(elapsed);
-	}
 	}
 
 	function updateTextFrom(option:GameplayOption) {
