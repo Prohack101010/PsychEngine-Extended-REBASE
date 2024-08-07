@@ -124,7 +124,7 @@ class CreditsState extends MusicBeatState
 			var isSelectable:Bool = !unselectableCheck(i);
 			var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
 			optionText.isMenuItem = true;
-			optionText.targetY = i - 100;
+			optionText.targetY = i;
 			optionText.changeX = false;
 			optionText.snapToPosition();
 			grpOptions.add(optionText);
@@ -295,6 +295,7 @@ class CreditsState extends MusicBeatState
 				item.alpha = 0.6;
 				if (item.targetY == 0) {
 					item.alpha = 1;
+					item.x += 100;
 				}
 			}
 		}
