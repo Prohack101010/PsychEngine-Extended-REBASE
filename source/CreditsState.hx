@@ -18,7 +18,6 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import lime.utils.Assets;
-import flixel.FlxBasic;
 
 using StringTools;
 
@@ -222,7 +221,7 @@ class CreditsState extends MusicBeatState
 			}
             
             for (touch in FlxG.touches.list){		
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(creditsStuff[0]:FlxBasic) && touch.justPressed && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(optionText) && touch.justPressed && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
     		}
