@@ -234,48 +234,44 @@ class StoryMenuState extends MusicBeatState
 				changeDifficulty();
 			}
 
-        for (touch in FlxG.touches.list){		
-			if (touch.overlaps(rightArrow) && touch.justPressed || controls.UI_RIGHT)
+			if (TouchUtil.overlaps(rightArrow) && TouchUtil.justPressed || controls.UI_RIGHT)
 				rightArrow.animation.play('press')
 			else
 				rightArrow.animation.play('idle');
 
-			if (touch.overlaps(leftArrow) && touch.justPressed || controls.UI_LEFT)
+			if (TouchUtil.overlaps(leftArrow) && TouchUtil.justPressed || controls.UI_LEFT)
 				leftArrow.animation.play('press');
 			else
 				leftArrow.animation.play('idle');
 
-			if (touch.overlaps(rightArrow) && touch.justPressed || controls.UI_RIGHT_P)
+			if (TouchUtil.overlaps(rightArrow) && TouchUtil.justPressed || controls.UI_RIGHT_P)
 				changeDifficulty(1);
-			else if (touch.overlaps(leftArrow) && touch.justPressed || controls.UI_LEFT_P)
+			else if (TouchUtil.overlaps(leftArrow) && TouchUtil.justPressed || controls.UI_LEFT_P)
 				changeDifficulty(-1);
 			else if (upP || downP || SwipeUtil.swipeUp || SwipeUtil.swipeDown)
 				changeDifficulty();
-		}
 
-            for (touch in FlxG.touches.list){
-    			if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonX.justPressed #end)
-    			{
-    				#if mobile
-    				removeVirtualPad();
-    				#end
-    				persistentUpdate = false;
-    				openSubState(new GameplayChangersSubstate());
-    			}
-    			else if(controls.RESET #if mobile || _virtualpad.buttonY.justPressed #end)
-    			{
-    				#if mobile
-    				removeVirtualPad();
-    				#end
-    				persistentUpdate = false;
-    				openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
-    				//FlxG.sound.play(Paths.sound('scrollMenu'));
-    			}
+    		if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonX.justPressed #end)
+    		{
+    			#if mobile
+    			removeVirtualPad();
+    			#end
+    			persistentUpdate = false;
+    			openSubState(new GameplayChangersSubstate());
+    		}
+    		else if(controls.RESET #if mobile || _virtualpad.buttonY.justPressed #end)
+    		{
+    			#if mobile
+    			removeVirtualPad();
+    			#end
+    			persistentUpdate = false;
+    			openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
+    			//FlxG.sound.play(Paths.sound('scrollMenu'));
+    		}
 			
-    			else if (touch.overlaps(grpWeekText.members[curWeek]) && touch.justPressed || controls.ACCEPT)
-    			{
-    				selectWeek();
-    			}
+    			else if (TouchUtil.overlaps(grpWeekText.members[curWeek]) && TouchUtil.justPressed || controls.ACCEPT)
+    		{
+    			selectWeek();
     		}
 		}
 
