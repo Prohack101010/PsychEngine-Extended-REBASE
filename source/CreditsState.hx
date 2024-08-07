@@ -120,11 +120,12 @@ class CreditsState extends MusicBeatState
 		{
 			var isSelectable:Bool = !unselectableCheck(i);
 			// var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
-			optionText = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
+			optionText = new Alphabet(FlxG.width / 2, 300, "", !isSelectable);
 			optionText.isMenuItem = true;
 			optionText.targetY = i;
 			optionText.changeX = false;
 			optionText.snapToPosition();
+			optionText.text = creditsStuff[i][0];
 			add(optionText);
 
 			if(isSelectable) {
@@ -221,7 +222,7 @@ class CreditsState extends MusicBeatState
 			}
             
             for (touch in FlxG.touches.list){		
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(optionText[curSelected]) && touch.justPressed) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(optionText) && touch.justPressed) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
     		}
