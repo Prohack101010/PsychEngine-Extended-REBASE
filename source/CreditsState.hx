@@ -222,10 +222,13 @@ class CreditsState extends MusicBeatState
 				}
 			}
             
+            for (optionText in grpOptions.members)
+		    {
             for (touch in FlxG.touches.list){		
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(grpOptions.optionText[curSelected]) && touch.justPressed) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(optionText[curSelected]) && touch.justPressed) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
+    		}
     		}
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #elseif ios || SwipeUtil.swipeRight #end)
 			{
