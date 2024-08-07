@@ -165,10 +165,12 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		changeSelection();
 		reloadCheckboxes();
 
+        /*
 		#if mobile
 		addVirtualPad(FULL, A_B_C);
 		addPadCamera();
 		#end
+		*/
 	}
 
 	var nextAccept:Int = 5;
@@ -176,16 +178,18 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P)
+	for (touch in FlxG.touches.list)
+	{
+		if (controls.UI_UP_P || SwipeUtil.swipeUp)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P)
+		if (controls.UI_DOWN_P || SwipeUtil.swipeDown)
 		{
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #elseif ios || SwipeUtil.swipeRight #end) {
 			
 			#if mobile
 			FlxTransitionableState.skipNextTransOut = true;
@@ -207,7 +211,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 			if(usesCheckbox)
 			{
-				if(controls.ACCEPT)
+				if(controls.ACCEPT || touch.overlaps(optionsArray[curSelected]) && touch.justPressed)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
@@ -215,13 +219,17 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 					reloadCheckboxes();
 				}
 			} else {
-				if(controls.UI_LEFT || controls.UI_RIGHT) {
-					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
+				if(controls.UI_LEFT || controls.UI_RIGHT || SwipeUtil.swipeLeft || SwipeUtil.swipeRight) {
+					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P || SwipeUtil.swipeLeft || SwipeUtil.swipeRight);
 					if(holdTime > 0.5 || pressed) {
 						if(pressed) {
 							var add:Dynamic = null;
 							if(curOption.type != 'string') {
-								add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
+							#if	desktop
+							add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
+							#else
+							add = SwipeUtil.swipeLeft ? -curOption.changeValue : curOption.changeValue;
+							#end
 							}
 
 							switch(curOption.type)
@@ -244,7 +252,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 								case 'string':
 									var num:Int = curOption.curOption; //lol
-									if(controls.UI_LEFT_P) --num;
+									if(controls.UI_LEFT_P || SwipeUtil.swipeLeft) --num;
 									else num++;
 
 									if(num < 0) {
@@ -281,7 +289,11 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 							curOption.change();
 							FlxG.sound.play(Paths.sound('scrollMenu'));
 						} else if(curOption.type != 'string') {
+							#if desktop
 							holdValue = Math.max(curOption.minValue, Math.min(curOption.maxValue, holdValue + curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1)));
+							#else
+							holdValue = Math.max(curOption.minValue, Math.min(curOption.maxValue, holdValue + curOption.scrollSpeed * elapsed * (SwipeUtil.swipeLeft ? -1 : 1)));
+							#end
 
 							switch(curOption.type)
 							{
@@ -300,7 +312,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 					if(curOption.type != 'string') {
 						holdTime += elapsed;
 					}
-				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
+				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R || SwipeUtil.swipeLeft || SwipeUtil.swipeRight) {
 					clearHold();
 				}
 			}
@@ -341,6 +353,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			nextAccept -= 1;
 		}
 		super.update(elapsed);
+	}
 	}
 
 	function updateTextFrom(option:GameplayOption) {

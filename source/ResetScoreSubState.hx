@@ -80,6 +80,8 @@ class ResetScoreSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
+	for (touch in FlxG.touches.list)
+	{
 		bg.alpha += elapsed * 1.5;
 		if(bg.alpha > 0.6) bg.alpha = 0.6;
 
@@ -89,12 +91,12 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		if(week == -1) icon.alpha += elapsed * 2.5;
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
+		if(controls.UI_LEFT_P || controls.UI_RIGHT_P || SwipeUtil.swipeLeft || SwipeUtil.swipeRight) {
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK) {
+		if(controls.BACK #if android || FlxG.android.justReleased.BACK #elseif ios || SwipeUtil.swipeRight #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			#if mobile
                         FlxTransitionableState.skipNextTransOut = true;
@@ -118,7 +120,38 @@ class ResetScoreSubState extends MusicBeatSubstate
                         close();
                         #end
 		}
+		
+		if(touch.overlaps(yesText) && touch.justPressed)
+		{
+			onYes = true;
+			if(onYes) {
+    			if(week == -1 ) {
+    				Highscore.resetSong(song, difficulty);
+    			} elsei {
+    				Highscore.resetWeek(WeekData.weeksList[week], difficulty);
+    			}
+    		}
+    		FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+			#if mobile
+            FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
+            #else
+            close();
+            #end
+		}
+		
+		if(touch.overlaps(noText) && touch.justPressed)
+		{
+    		FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+			#if mobile
+            FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
+            #else
+            close();
+            #end
+		}
 		super.update(elapsed);
+	}
 	}
 
 	function updateOptions() {

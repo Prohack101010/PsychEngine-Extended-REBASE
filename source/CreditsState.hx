@@ -168,7 +168,9 @@ class CreditsState extends MusicBeatState
 		intendedColor = bg.color;
 		changeSelection();
                 #if ios
-                addVirtualPad(NONE, B);
+                addVirtualPad(NONE, A_B);
+                #elseif android
+                addVirtualPad(NONE, A);
                 #end
 		super.create();
 	}
@@ -220,15 +222,12 @@ class CreditsState extends MusicBeatState
 				}
 			}
             
-            for (item in grpOptions.members)
-		    {
             for (touch in FlxG.touches.list){		
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(item) && item.targetY == 0 && touch.justPressed && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
     		}
-    		}
-			if (controls.BACK #if android || FlxG.android.justReleased.BACK || SwipeUtil.swipeRight #end)
+			if (controls.BACK #if android || FlxG.android.justReleased.BACK #elseif ios || SwipeUtil.swipeRight #end)
 			{
 				if(colorTween != null) {
 					colorTween.cancel();
@@ -295,7 +294,6 @@ class CreditsState extends MusicBeatState
 				item.alpha = 0.6;
 				if (item.targetY == 0) {
 					item.alpha = 1;
-					item.x += 100;
 				}
 			}
 		}
