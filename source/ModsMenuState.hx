@@ -476,7 +476,7 @@ class ModsMenuState extends MusicBeatState
 			noModsTxt.alpha = 1 - Math.sin((Math.PI * noModsSine) / 180);
 		}
 
-		if(canExit && controls.BACK #if android || canExit && FlxG.android.justReleased.BACK #end )
+		if(canExit && controls.BACK #if android || canExit && FlxG.android.justReleased.BACK || canExit && SwipeUtil.swipeRight #end )
 		{
 			if(colorTween != null) {
 				colorTween.cancel();
@@ -503,12 +503,12 @@ class ModsMenuState extends MusicBeatState
 			}
 		}
 
-		if(controls.UI_UP_P || SwipeUtil.swipeUp)
+		if(controls.UI_UP_P || SwipeUtil.swipeUp && !noModsTxt.visible)
 		{
 			changeSelection(-1);
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
-		if(controls.UI_DOWN_P || SwipeUtil.swipeDown)
+		if(controls.UI_DOWN_P || SwipeUtil.swipeDown && !noModsTxt.visible)
 		{
 			changeSelection(1);
 			FlxG.sound.play(Paths.sound('scrollMenu'));

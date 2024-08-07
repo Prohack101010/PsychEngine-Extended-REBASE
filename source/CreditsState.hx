@@ -221,11 +221,11 @@ class CreditsState extends MusicBeatState
 			}
             
             for (touch in FlxG.touches.list){		
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(grpOptions.members[curSelected]) && touch.justPressed && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || touch.overlaps(creditsStuff[curSelected][3]) && touch.justPressed && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
     		}
-			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
+			if (controls.BACK #if android || FlxG.android.justReleased.BACK || SwipeUtil.swipeRight #end)
 			{
 				if(colorTween != null) {
 					colorTween.cancel();

@@ -51,7 +51,7 @@ class MobileControlsMenu extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		var titleText:Alphabet = new Alphabet(75, 60, "Mobile Controls", true);
+		var titleText:Alphabet = new Alphabet(75, 60, "Controls", true);
 		titleText.scaleX = 0.6;
 		titleText.scaleY = 0.6;
 		titleText.alpha = 0.4;

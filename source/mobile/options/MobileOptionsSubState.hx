@@ -48,7 +48,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	
 	public function new()
 	{
-		title = 'Mobile Settings';
+		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 		
 		var option:Option = new Option('VirtualPad Skin',
@@ -136,7 +136,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'float',
 			0.75);
 		option.scrollSpeed = 1.6;
-		option.minValue = 0.1;
+		option.minValue = 0;
 		option.maxValue = 1;
 		option.changeValue = 0.01;
 		option.decimals = 2;
