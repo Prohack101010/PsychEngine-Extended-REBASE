@@ -72,7 +72,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		updateOptions();
 
                #if mobile
-                addVirtualPad(LEFT_RIGHT, A_B);
+                addVirtualPad(NONE, NONE);
                 addPadCamera();
                 #end
 
@@ -94,7 +94,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK #if android || FlxG.android.justReleased.BACK #elseif ios || SwipeUtil.swipeRight #end) {
+		if(controls.BACK #if android || FlxG.android.justReleased.BACK #end #if mobile || SwipeUtil.swipeRight #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			#if mobile
                         FlxTransitionableState.skipNextTransOut = true;
@@ -119,37 +119,34 @@ class ResetScoreSubState extends MusicBeatSubstate
                         #end
 		}
 		
-		for (touch in FlxG.touches.list)
-	    {	
-    		if(touch.overlaps(yesText) && touch.justPressed)
-    		{
-    			onYes = true;
-    			if(onYes) {
-        			if(week == -1 ) {
-        				Highscore.resetSong(song, difficulty);
-        			} else {
-        				Highscore.resetWeek(WeekData.weeksList[week], difficulty);
-        			}
+    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed)
+    	{
+    		onYes = true;
+    		if(onYes) {
+        		if(week == -1 ) {
+        			Highscore.resetSong(song, difficulty);
+        		} else {
+        			Highscore.resetWeek(WeekData.weeksList[week], difficulty);
         		}
-        		FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-    			#if mobile
-                FlxTransitionableState.skipNextTransOut = true;
-    			FlxG.resetState();
-                #else
-                close();
-                #end
-    		}
+        	}
+        	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+    		#if mobile
+            FlxTransitionableState.skipNextTransOut = true;
+    		FlxG.resetState();
+            #else
+            close();
+            #end
+        }
     		
-    		if(touch.overlaps(noText) && touch.justPressed)
-    		{
-        		FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-    			#if mobile
-                FlxTransitionableState.skipNextTransOut = true;
-    			FlxG.resetState();
-                #else
-                close();
-                #end
-    		}
+    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed)
+    	{
+        	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+    		#if mobile
+            FlxTransitionableState.skipNextTransOut = true;
+    		FlxG.resetState();
+            #else
+            close();
+            #end
     	}
 		super.update(elapsed);
 	}
