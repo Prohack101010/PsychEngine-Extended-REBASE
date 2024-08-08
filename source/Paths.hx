@@ -411,7 +411,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-	    path = 'mods/' + key : 'weekend1/' + key;
+	    path = 'mods/' + key && 'weekend1/' + key;
 	    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + path;
 	}
 
@@ -471,7 +471,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		path = 'mods/' + key : 'weekend1/' + key;
+		path = 'mods/' + key && 'weekend1/' + key;
 		return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + path;
 	}
 
