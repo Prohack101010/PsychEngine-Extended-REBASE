@@ -123,7 +123,8 @@ class CreditsState extends MusicBeatState
 		for (i in 0...creditsStuff.length)
 		{
 			var isSelectable:Bool = !unselectableCheck(i);
-			optionText = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
+			optionText = new Alphabet(FlxG.width / 2, 300, "", !isSelectable);
+			optionText.text = creditsStuff[i][0];
 			optionText.isMenuItem = true;
 			optionText.targetY = i;
 			optionText.changeX = false;
@@ -225,7 +226,7 @@ class CreditsState extends MusicBeatState
             
             for (item in grpOptions.members)
 		    {
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || FlxG.mouse.overlaps(optionText[curSelected]) && FlxG.mouse.justPressed) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || FlxG.mouse.overlaps(optionText[curSelected]) && !unselectableCheck(bullShit-1) && FlxG.mouse.justPressed) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
     		}
