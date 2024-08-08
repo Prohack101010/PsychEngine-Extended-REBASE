@@ -230,16 +230,11 @@ class Paths
 	    
 	    experimentaltools = ClientPrefs.getGameplaySetting('experimentaltools', false);
 	    
-	    if (experimentaltools)
-	    {
-	        var songKey:String = '${formatToSongPath(song)}/Voices-' + diff;
-	    }
-	    else
-	    {
-	        var songKey:String = '${formatToSongPath(song)}/Voices';
-	    }
+	    var songKeyPlus:String = '${formatToSongPath(song)}/Voices-' + diff;
+	    var songKey:String = '${formatToSongPath(song)}/Voices';
 		    
-		var voices = returnSound('songs', songKey);
+		if (experimentaltools) { var voices = returnSound('songs', songKeyPlus); }
+		else { var voices = returnSound('songs', songKey); }
 		return voices;
 	}
 
@@ -250,16 +245,11 @@ class Paths
 	    
 	    experimentaltools = ClientPrefs.getGameplaySetting('experimentaltools', false);
 	    
-	    if (experimentaltools)
-	    {
-	        var songKey:String = '${formatToSongPath(song)}/Inst-' + diff;
-	    }
-	    else
-	    {
-	        var songKey:String = '${formatToSongPath(song)}/Inst';
-	    }
-		    
-		var inst = returnSound('songs', songKey);
+	    var songKey:String = '${formatToSongPath(song)}/Inst-' + diff;
+	    var songKeyPlus:String = '${formatToSongPath(song)}/Inst';
+
+		if (experimentaltools) { var inst = returnSound('songs', songKeyPlus); }
+		else { var inst = returnSound('songs', songKey); }
 		return inst;
 	}
 
