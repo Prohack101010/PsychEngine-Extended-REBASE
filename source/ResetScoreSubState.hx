@@ -168,5 +168,6 @@ class ResetScoreSubState extends MusicBeatSubstate
 		noText.alpha = 1.25;
 		noText.scale.set(1, 1);
 		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
+		#end
 	}
 }
