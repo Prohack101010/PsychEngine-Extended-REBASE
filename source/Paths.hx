@@ -228,8 +228,9 @@ class Paths
 	    var diff = CoolUtil.getDifficultyFilePath(curDifficulty);
 	    var songKey:String = '${formatToSongPath(song)}/Voices';
 	    
-	    if (FileSystem.exists('${formatToSongPath(song)}/Voices' + '${CoolUtil.getDifficultyFilePath(curDifficulty)}')
-		    songKey = '${formatToSongPath(song)}/Voices' + '${CoolUtil.getDifficultyFilePath(curDifficulty)}';
+	    if (FileSystem.exists('${formatToSongPath(song)}/Voices-$diff') {
+		    songKey = '${formatToSongPath(song)}/Voices-$diff';
+		}
 		    
 		var voices = returnSound('songs', songKey);
 		return voices;
@@ -240,8 +241,9 @@ class Paths
 	    var diff = CoolUtil.getDifficultyFilePath(curDifficulty);
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	    
-	    if (FileSystem.exists('${formatToSongPath(song)}/Inst' + '${CoolUtil.getDifficultyFilePath(curDifficulty)}')
-		    songKey = '${formatToSongPath(song)}/Inst' + '${CoolUtil.getDifficultyFilePath(curDifficulty)}';
+	    if (FileSystem.exists('${formatToSongPath(song)}/Inst-$diff') {
+		    songKey = '${formatToSongPath(song)}/Inst-$diff';
+		}
 		    
 		var inst = returnSound('songs', songKey);
 		return inst;
