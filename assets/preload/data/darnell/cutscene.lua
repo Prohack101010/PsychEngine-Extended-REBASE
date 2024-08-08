@@ -35,7 +35,7 @@ function onCreate()
 	setObjectCamera('cutsceneOpenBlack', 'other');
 	setProperty('cutsceneOpenBlack.alpha', 1);
 
-	makeLuaText('cutText', '[SPACE] to Start', 300, 500, 700)
+	makeLuaText('cutText', '[BACK] to Start', 300, 500, 700)
 	setTextSize('cutText', 17);
 	setTextFont('cutText', 'vcr2.ttf')
 	addLuaText('cutText')
@@ -56,7 +56,7 @@ function onCreate()
 end
 
 function onUpdate()
-if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.SPACE') and isStoryMode and cutscene1 or getPropertyFromClass('flixel.FlxG', 'keys.justPressed.ENTER') and cutscene1 and isStoryMode then
+if backJustReleased and isStoryMode and cutscene1 then
 runTimer('videoWait', 2);
 setProperty('cutText.visible', false)
 cutscene1 = false

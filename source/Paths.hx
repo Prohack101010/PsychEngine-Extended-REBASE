@@ -29,7 +29,6 @@ class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
-	public var experimental:Bool = false;
 
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
@@ -227,14 +226,14 @@ class Paths
 	inline static public function voices(song:String):Any
 	{
 	    var diff = CoolUtil.difficultyString();
-	    /*
-	    experimental = ClientPrefs.getGameplaySetting('experimental', false);
+	    public var experimentaltools:Bool = false;
 	    
-	    if (experimental)
+	    experimentaltools = ClientPrefs.getGameplaySetting('experimentaltools', false);
+	    
+	    if (experimentaltools)
 	        var songKey:String = '${formatToSongPath(song)}/Voices-' + diff;
-	    else
-	    */
-	    var songKey:String = '${formatToSongPath(song)}/Voices';
+	    else  
+	        var songKey:String = '${formatToSongPath(song)}/Voices';
 		    
 		var voices = returnSound('songs', songKey);
 		return voices;
@@ -243,14 +242,14 @@ class Paths
 	inline static public function inst(song:String):Any
 	{
 	    var diff = CoolUtil.difficultyString();
-	    /*
-	    experimental = ClientPrefs.getGameplaySetting('experimental', false);
+	    public var experimentaltools:Bool = false;
 	    
-	    if (experimental)
+	    experimentaltools = ClientPrefs.getGameplaySetting('experimentaltools', false);
+	    
+	    if (experimentaltools)
 	        var songKey:String = '${formatToSongPath(song)}/Inst-' + diff;
 	    else
-	    */
-	    var songKey:String = '${formatToSongPath(song)}/Inst';
+	        var songKey:String = '${formatToSongPath(song)}/Inst';
 		    
 		var inst = returnSound('songs', songKey);
 		return inst;
@@ -326,11 +325,11 @@ class Paths
 		#if MODS_ALLOWED
 		var imageLoaded:FlxGraphic = returnGraphic(key);
 		var xmlExists:Bool = false;
-		if(FileSystem.exists(assetsXml(key))) {
+		if(FileSystem.exists(modsXml(key))) {
 			xmlExists = true;
 		}
 
-		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(assetsXml(key)) : file('images/$key.xml', library)));
+		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(modsXml(key)) : file('images/$key.xml', library)));
 		#else
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 		#end
@@ -341,11 +340,11 @@ class Paths
 		#if MODS_ALLOWED
 		var imageLoaded:FlxGraphic = returnAssetsGraphic(key);
 		var xmlExists:Bool = false;
-		if(FileSystem.exists(modsXml(key))) {
+		if(FileSystem.exists(assetsXml(key))) {
 			xmlExists = true;
 		}
 
-		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(modsXml(key)) : file('images/$key.xml', library)));
+		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(assetsXml(key)) : file('images/$key.xml', library)));
 		#else
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 		#end
