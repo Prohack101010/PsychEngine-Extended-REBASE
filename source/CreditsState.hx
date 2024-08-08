@@ -224,7 +224,7 @@ class CreditsState extends MusicBeatState
             
             for (item in grpOptions.members)
 		    {
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || FlxG.mouse.overlaps(optionText[curSelected]) && FlxG.mouse.justPressed) {
+    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || FlxG.mouse.overlaps(var optionText[curSelected]) && FlxG.mouse.justPressed) {
     				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     			}
     		}
