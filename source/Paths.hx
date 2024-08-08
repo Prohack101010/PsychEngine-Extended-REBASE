@@ -227,12 +227,14 @@ class Paths
 	inline static public function voices(song:String):Any
 	{
 	    var diff = CoolUtil.difficultyString();
+	    /*
 	    experimental = ClientPrefs.getGameplaySetting('experimental', false);
 	    
 	    if (experimental)
 	        var songKey:String = '${formatToSongPath(song)}/Voices-' + diff;
 	    else
-	        var songKey:String = '${formatToSongPath(song)}/Voices';
+	    */
+	    var songKey:String = '${formatToSongPath(song)}/Voices';
 		    
 		var voices = returnSound('songs', songKey);
 		return voices;
@@ -241,12 +243,14 @@ class Paths
 	inline static public function inst(song:String):Any
 	{
 	    var diff = CoolUtil.difficultyString();
+	    /*
 	    experimental = ClientPrefs.getGameplaySetting('experimental', false);
 	    
 	    if (experimental)
 	        var songKey:String = '${formatToSongPath(song)}/Inst-' + diff;
 	    else
-	        var songKey:String = '${formatToSongPath(song)}/Inst';
+	    */
+	    var songKey:String = '${formatToSongPath(song)}/Inst';
 		    
 		var inst = returnSound('songs', songKey);
 		return inst;
@@ -514,9 +518,13 @@ class Paths
 	inline static public function assetsXml(key:String) {
 		return Sys.getCwd() + 'assets/images/' + key + '.xml';
 	}
-
+	
 	inline static public function modsTxt(key:String) {
 		return modFolders('images/' + key + '.txt');
+	}
+
+	inline static public function assetsTxt(key:String) {
+		return Sys.getCwd() + 'assets/images/' + key + '.txt';
 	}
 
 	/* Goes unused for now
