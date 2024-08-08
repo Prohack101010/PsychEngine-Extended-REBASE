@@ -207,13 +207,16 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 			if(usesCheckbox)
 			{
-				if(controls.ACCEPT || FlxG.mouse.overlaps(optionsArray[curSelected]) && FlxG.mouse.justPressed)
+			for (touch in FlxG.touches.list)
+	        {
+				if(controls.ACCEPT || touch.overlaps(optionsArray[curSelected]) && touch.justPressed)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
 					curOption.change();
 					reloadCheckboxes();
 				}
+			}
 			} else {
 				if(controls.UI_LEFT || controls.UI_RIGHT) {
 					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
