@@ -226,10 +226,10 @@ class Paths
 	inline static public function voices(song:String):Any
 	{
 	    var diff = CoolUtil.getDifficultyFilePath(curDifficulty);
+	    var songKey:String = '${formatToSongPath(song)}/Voices';
+	    
 	    if (FileSystem.exists('${formatToSongPath(song)}/Voices-$diff')
-		    var songKey:String = '${formatToSongPath(song)}/Voices-$diff';
-		else
-		    var songKey:String = '${formatToSongPath(song)}/Voices;
+		    songKey = '${formatToSongPath(song)}/Voices-$diff';
 		    
 		var voices = returnSound('songs', songKey);
 		return voices;
@@ -238,10 +238,10 @@ class Paths
 	inline static public function inst(song:String):Any
 	{
 	    var diff = CoolUtil.getDifficultyFilePath(curDifficulty);
+	    var songKey:String = '${formatToSongPath(song)}/Inst';
+	    
 	    if (FileSystem.exists('${formatToSongPath(song)}/Inst-$diff')
-		    var songKey:String = '${formatToSongPath(song)}/Inst-$diff';
-		else
-		    var songKey:String = '${formatToSongPath(song)}/Inst';
+		    songKey = '${formatToSongPath(song)}/Inst-$diff';
 		    
 		var inst = returnSound('songs', songKey);
 		return inst;

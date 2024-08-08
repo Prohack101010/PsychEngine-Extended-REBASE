@@ -20,7 +20,6 @@ using StringTools;
 class CopyState extends MusicBeatState
 {
 	public static var locatedFiles:Array<String> = [];
-	public static var locatedweekend1Files:Array<String> = [];
 	public static var maxLoopTimes:Int = 0;
 	public static final IGNORE_FOLDER_FILE_NAME:String = "ignore.txt";
 
@@ -40,7 +39,6 @@ class CopyState extends MusicBeatState
 	override function create()
 	{
 		locatedFiles = [];
-		locatedweekend1Files = [];
 		maxLoopTimes = 0;
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
@@ -110,7 +108,6 @@ class CopyState extends MusicBeatState
 	public function copyAsset()
 	{
 		var file = locatedFiles[loopTimes];
-		var weekend1file = locatedweekend1Files[loopTimes];
 		loopTimes++;
 		if (!FileSystem.exists(file))
 		{
@@ -136,33 +133,6 @@ class CopyState extends MusicBeatState
 			{
 				failedFiles.push('${getFile(file)} (${e.message})');
 				failedFilesStack.push('${getFile(file)} (${e.stack})');
-			}
-		}
-		
-		if (!FileSystem.exists(weekend1file))
-		{
-			var directory = Path.directory(weekend1file);
-			if (!FileSystem.exists(directory))
-				SUtil.mkDirs(directory);
-			try
-			{
-				if (OpenFLAssets.exists(getFile(weekend1file)))
-				{
-					if (textFilesExtensions.contains(Path.extension(weekend1file)))
-						createContentFromInternal(weekend1file);
-					else
-						File.saveBytes(weekend1file, getFileBytes(getFile(weekend1file)));
-				}
-				else
-				{
-					failedFiles.push(getFile(weekend1file) + " (File Dosen't Exist)");
-					failedFilesStack.push('Asset ${getFile(weekend1file)} does not exist.');
-				}
-			}
-			catch (e:haxe.Exception)
-			{
-				failedFiles.push('${getFile(weekend1file)} (${e.message})');
-				failedFilesStack.push('${getFile(weekend1file)} (${e.stack})');
 			}
 		}
 	}
@@ -214,14 +184,13 @@ class CopyState extends MusicBeatState
 	public static function checkExistingFiles():Bool
 	{
 		locatedFiles = OpenFLAssets.list();
-		locatedweekend1Files = OpenFLAssets.list();
 		
 		// removes unwanted assets
 		var assets = locatedFiles.filter(folder -> folder.startsWith('assets/'));
 		var mods = locatedFiles.filter(folder -> folder.startsWith('mods/'));
 		var weekend1 = locatedFiles.filter(folder -> folder.startsWith('weekend1/'));
 		locatedFiles = assets.concat(mods);
-		locatedweekend1Files = assets.concat(weekend1);
+		locatedFiles = assets.concat(weekend1);
 
 		var filesToRemove:Array<String> = [];
 
@@ -232,22 +201,11 @@ class CopyState extends MusicBeatState
 				filesToRemove.push(file);
 			}
 		}
-		
-		for (weekend1file in locatedweekend1Files)
-		{
-			if (FileSystem.exists(weekend1file) || OpenFLAssets.exists(getFile(Path.join([Path.directory(getFile(weekend1file)), IGNORE_FOLDER_FILE_NAME]))))
-			{
-				filesToRemove.push(weekend1file);
-			}
-		}
 
 		for (file in filesToRemove)
 			locatedFiles.remove(file);
-			
-		for (weekend1file in filesToRemove)
-			locatedweekend1Files.remove(weekend1file);
 
-		maxLoopTimes = locatedFiles.length + locatedweekend1Files.length;
+		maxLoopTimes = locatedFiles.length;
 
 		return (maxLoopTimes <= 0);
 	}
