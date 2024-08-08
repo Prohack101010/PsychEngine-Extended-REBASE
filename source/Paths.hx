@@ -226,7 +226,7 @@ class Paths
 	inline static public function voices(song:String):Any
 	{
 	    var diff = CoolUtil.difficultyString();
-	    public var experimentaltools:Bool = false;
+	    var experimentaltools:Bool = false;
 	    
 	    experimentaltools = ClientPrefs.getGameplaySetting('experimentaltools', false);
 	    
@@ -242,7 +242,7 @@ class Paths
 	inline static public function inst(song:String):Any
 	{
 	    var diff = CoolUtil.difficultyString();
-	    public var experimentaltools:Bool = false;
+	    var experimentaltools:Bool = false;
 	    
 	    experimentaltools = ClientPrefs.getGameplaySetting('experimentaltools', false);
 	    
