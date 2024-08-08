@@ -34,7 +34,6 @@ class CreditsState extends MusicBeatState
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 	var descBox:AttachedSprite;
-	var optionText:Alphabet;
 
 	var offsetThing:Float = -75;
 
@@ -123,8 +122,7 @@ class CreditsState extends MusicBeatState
 		for (i in 0...creditsStuff.length)
 		{
 			var isSelectable:Bool = !unselectableCheck(i);
-			optionText = new Alphabet(FlxG.width / 2, 300, "", !isSelectable);
-			optionText.text = creditsStuff[i][0];
+			var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
 			optionText.isMenuItem = true;
 			optionText.targetY = i;
 			optionText.changeX = false;
@@ -224,11 +222,8 @@ class CreditsState extends MusicBeatState
 				}
 			}
             
-            for (item in grpOptions.members)
-		    {
-    			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4) || FlxG.mouse.overlaps(optionText[curSelected]) && !unselectableCheck(bullShit-1) && FlxG.mouse.justPressed) {
-    				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
-    			}
+    		if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
+    			CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     		}
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end #if mobile || SwipeUtil.swipeRight #end)
 			{
