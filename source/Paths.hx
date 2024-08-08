@@ -409,13 +409,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-	var weekend1 = 0;
-	if (weekend1 == 0) {
-	    weekend1 = 1;
 	    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
-	}
-	else {
-	    weekend1 = 0;
 	    return Sys.getCwd() + 'weekend1/' + key;
 	}
 
@@ -475,15 +469,8 @@ class Paths
 				return fileToCheck;
 
 		}
-		var weekend1 = 0;
-	    if (weekend1 == 0) {
-	        weekend1 = 1;
-		    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
-		}
-		else {
-		    weekend1 = 0;
-		    return Sys.getCwd() + 'weekend1/' + key;
-		}
+		return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
+		return Sys.getCwd() + 'weekend1/' + key;
 	}
 
 	public static var globalMods:Array<String> = [];
