@@ -1,6 +1,6 @@
 function onCreatePost()
 if not lowQuality then
-makeLuaSprite("overlay", "shaders/street", -1000, -1250)
+makeLuaAssetsSprite("overlay", "shaders/street", -1000, -1250)
 setProperty("overlay.alpha", 0.45)
 scaleObject('overlay', 1.5, 1.5);
 setBlendMode('overlay', 'normal')
@@ -9,11 +9,11 @@ addLuaSprite("overlay", true)
 end
 
 function onCreate()
-	makeLuaSprite('skyAdditive', 'phillyBlazin/skyBlur', -600, -175);
+	makeLuaAssetsSprite('skyAdditive', 'phillyBlazin/skyBlur', -600, -175);
 	scaleObject('skyAdditive', 1.75, 1.75);
 	setScrollFactor('skyAdditive', 0, 0);
 
-	makeAnimatedLuaSprite('lightning', 'phillyBlazin/lightning', 50, -300);
+	makeAnimatedLuaAssetsSprite('lightning', 'phillyBlazin/lightning', 50, -300);
 	addAnimationByPrefix('lightning', 'strike', 'lightning0', 24, false);
 	setProperty('lightning.flipX', false);
 	scaleObject('lightning', 1.75, 1.75);
@@ -21,15 +21,15 @@ function onCreate()
 	setProperty('lightning.alpha', 0);
 	runTimer('lightningTimer', getRandomInt(7, 15));
 
-	makeLuaSprite('phillyForegroundCity', 'phillyBlazin/streetBlur', -600, -175);
+	makeLuaAssetsSprite('phillyForegroundCity', 'phillyBlazin/streetBlur', -600, -175);
 	scaleObject('phillyForegroundCity', 1.75, 1.75);
 	setScrollFactor('phillyForegroundCity', 0, 0);
 
-	makeLuaSprite('foregroundMultiply', 'phillyBlazin/', -600, -175);
+	makeLuaAssetsSprite('foregroundMultiply', 'phillyBlazin/', -600, -175);
 	scaleObject('foregroundMultiply', 1, 1);
 	setScrollFactor('foregroundMultiply', 1, 1);
 
-	makeLuaSprite('additionalLighten', 'empty', -600, -175);
+	makeLuaAssetsSprite('additionalLighten', 'empty', -600, -175);
 	makeGraphic('additionalLighten', 2500, 2500, 'FFFFFF');
 	setScrollFactor('additionalLighten', 0, 0);
 	setProperty('additionalLighten.alpha', 0);

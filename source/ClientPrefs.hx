@@ -67,6 +67,7 @@ class ClientPrefs {
 		'instakill' => false,
 		'practice' => false,
 		'botplay' => false,
+		'experimental' => false,
 		'opponentplay' => false
 	];
 

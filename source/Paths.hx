@@ -29,6 +29,7 @@ class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
+	public var experimental:Bool = false;
 
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
@@ -226,10 +227,12 @@ class Paths
 	inline static public function voices(song:String):Any
 	{
 	    var diff = CoolUtil.difficultyString();
-	    var songKey:String = '${formatToSongPath(song)}/Voices';
+	    experimental = ClientPrefs.getGameplaySetting('experimental', false);
 	    
-	    if (FileSystem.exists('${formatToSongPath(song)}/Voices-$diff'))
-		    songKey = '${formatToSongPath(song)}/Voices-$diff';
+	    if (experimental)
+	        var songKey:String = '${formatToSongPath(song)}/Voices-' + diff;
+	    else
+	        var songKey:String = '${formatToSongPath(song)}/Voices';
 		    
 		var voices = returnSound('songs', songKey);
 		return voices;
@@ -238,10 +241,12 @@ class Paths
 	inline static public function inst(song:String):Any
 	{
 	    var diff = CoolUtil.difficultyString();
-	    var songKey:String = '${formatToSongPath(song)}/Inst';
+	    experimental = ClientPrefs.getGameplaySetting('experimental', false);
 	    
-	    if (FileSystem.exists('${formatToSongPath(song)}/Inst-$diff'))
-		    songKey = '${formatToSongPath(song)}/Inst-$diff';
+	    if (experimental)
+	        var songKey:String = '${formatToSongPath(song)}/Inst-' + diff;
+	    else
+	        var songKey:String = '${formatToSongPath(song)}/Inst';
 		    
 		var inst = returnSound('songs', songKey);
 		return inst;
@@ -251,6 +256,13 @@ class Paths
 	{
 		// streamlined the assets process more
 		var returnAsset:FlxGraphic = returnGraphic(key, library);
+		return returnAsset;
+	}
+	
+	inline static public function assetsimage(key:String, ?library:String):FlxGraphic
+	{
+		// streamlined the assets process more
+		var returnAsset:FlxGraphic = returnAssetsGraphic(key, library);
 		return returnAsset;
 	}
 
@@ -310,6 +322,21 @@ class Paths
 		#if MODS_ALLOWED
 		var imageLoaded:FlxGraphic = returnGraphic(key);
 		var xmlExists:Bool = false;
+		if(FileSystem.exists(assetsXml(key))) {
+			xmlExists = true;
+		}
+
+		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(assetsXml(key)) : file('images/$key.xml', library)));
+		#else
+		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
+		#end
+	}
+
+    inline static public function getAssetsSparrowAtlas(key:String, ?library:String):FlxAtlasFrames
+	{
+		#if MODS_ALLOWED
+		var imageLoaded:FlxGraphic = returnAssetsGraphic(key);
+		var xmlExists:Bool = false;
 		if(FileSystem.exists(modsXml(key))) {
 			xmlExists = true;
 		}
@@ -319,7 +346,6 @@ class Paths
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 		#end
 	}
-
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{
@@ -331,6 +357,21 @@ class Paths
 		}
 
 		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key, library)), (txtExists ? File.getContent(modsTxt(key)) : file('images/$key.txt', library)));
+		#else
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
+		#end
+	}
+	
+	inline static public function getAssetsPackerAtlas(key:String, ?library:String)
+	{
+		#if MODS_ALLOWED
+		var imageLoaded:FlxGraphic = returnAssetsGraphic(key);
+		var txtExists:Bool = false;
+		if(FileSystem.exists(assetsTxt(key))) {
+			txtExists = true;
+		}
+
+		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key, library)), (txtExists ? File.getContent(assetsTxt(key)) : file('images/$key.txt', library)));
 		#else
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
 		#end
@@ -349,6 +390,36 @@ class Paths
 	public static function returnGraphic(key:String, ?library:String) {
 		#if MODS_ALLOWED
 		var modKey:String = modsImages(key);
+		if(FileSystem.exists(modKey)) {
+			if(!currentTrackedAssets.exists(modKey)) {
+				var newBitmap:BitmapData = BitmapData.fromFile(modKey);
+				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(newBitmap, false, modKey);
+				newGraphic.persist = true;
+				currentTrackedAssets.set(modKey, newGraphic);
+			}
+			localTrackedAssets.push(modKey);
+			return currentTrackedAssets.get(modKey);
+		}
+		#end
+
+		var path = getPath('images/$key.png', IMAGE, library);
+		//trace(path);
+		if (OpenFlAssets.exists(path, IMAGE)) {
+			if(!currentTrackedAssets.exists(path)) {
+				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, path);
+				newGraphic.persist = true;
+				currentTrackedAssets.set(path, newGraphic);
+			}
+			localTrackedAssets.push(path);
+			return currentTrackedAssets.get(path);
+		}
+		trace('oh no its returning null NOOOO');
+		return null;
+	}
+	
+	public static function returnAssetsGraphic(key:String, ?library:String) {
+		#if MODS_ALLOWED
+		var modKey:String = assetsImages(key);
 		if(FileSystem.exists(modKey)) {
 			if(!currentTrackedAssets.exists(modKey)) {
 				var newBitmap:BitmapData = BitmapData.fromFile(modKey);
@@ -409,15 +480,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-	var weekend1 = 0;
-	if (weekend1 == 0) {
-	    weekend1 = 1;
 	    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
-	}
-	else {
-	    weekend1 = 0;
-	    return Sys.getCwd() + 'weekend1/' + key;
-	}
 	}
 
 	inline static public function modsFont(key:String) {
@@ -439,9 +502,17 @@ class Paths
 	inline static public function modsImages(key:String) {
 		return modFolders('images/' + key + '.png');
 	}
+	
+	inline static public function assetsImages(key:String) {
+		return Sys.getCwd() + 'assets/images/' + key + '.png';
+	}
 
 	inline static public function modsXml(key:String) {
 		return modFolders('images/' + key + '.xml');
+	}
+	
+	inline static public function assetsXml(key:String) {
+		return Sys.getCwd() + 'assets/images/' + key + '.xml';
 	}
 
 	inline static public function modsTxt(key:String) {
@@ -476,15 +547,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		var weekend1 = 0;
-	    if (weekend1 == 0) {
-	        weekend1 = 1;
-		    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
-		}
-		else {
-		    weekend1 = 0;
-		    return Sys.getCwd() + 'weekend1/' + key;
-		}
+		return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
 	}
 
 	public static var globalMods:Array<String> = [];

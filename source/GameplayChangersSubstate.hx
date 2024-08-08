@@ -98,6 +98,9 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		
 		var option:GameplayOption = new GameplayOption('Play as Opponent', 'opponentplay', 'bool', false);
 		optionsArray.push(option);
+		
+		var option:GameplayOption = new GameplayOption('Experimental Features', 'experimental', 'bool', false);
+		optionsArray.push(option);
 	}
 
 	public function getOptionByName(name:String)

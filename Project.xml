@@ -110,7 +110,6 @@
 	<section if="MODS_ALLOWED">
 		<assets path='example_mods' rename='mods' embed='false'/>
 		<assets path='example_modpack' rename='modpack' embed='false'/>
-		<assets path='weekend1luaport' rename='weekend1' embed='false'/>
 	</section>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<!-- <template path='mods' /> -->

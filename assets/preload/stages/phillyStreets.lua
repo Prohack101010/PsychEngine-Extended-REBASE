@@ -1,6 +1,6 @@
 function onCreatePost()
 if not lowQuality then
-makeLuaSprite("overlay", "shaders/street", -1000, -1050)
+makeLuaAssetsSprite("overlay", "shaders/street", -1000, -1050)
 setProperty("overlay.alpha", 0.5)
 scaleObject('overlay', 1.5, 1.5);
 setBlendMode('overlay', 'normal')
@@ -12,47 +12,47 @@ end
 function onCreate()
 	playSound("traffic", 1, 'lol')
 
-	makeLuaSprite('phillySkybox', 'phillyStreets/phillySkybox', -650, -375);
+	makeLuaAssetsSprite('phillySkybox', 'phillyStreets/phillySkybox', -650, -375);
 	setScrollFactor('phillySkybox', 0.1, 0.1);
 	setProperty('phillySkybox.alpha', 1);
 
-	makeLuaSprite('phillySkyline', 'phillyStreets/phillySkyline', -545, -273);
+	makeLuaAssetsSprite('phillySkyline', 'phillyStreets/phillySkyline', -545, -273);
 	scaleObject('phillySkyline', 1, 1);
 	setScrollFactor('phillySkyline', 0.2, 0.2);
 	setProperty('phillySkyline.alpha', 1);
 
-	makeLuaSprite('phillyForegroundCity', 'phillyStreets/phillyForegroundCity', 625, 94);
+	makeLuaAssetsSprite('phillyForegroundCity', 'phillyStreets/phillyForegroundCity', 625, 94);
 	scaleObject('phillyForegroundCity', 1, 1);
 	setScrollFactor('phillyForegroundCity', 0.3, 0.3);
 	setProperty('phillyForegroundCity.alpha', 1);
 
-	makeLuaSprite('phillyConstruction', 'phillyStreets/phillyConstruction', 1800, 364);
+	makeLuaAssetsSprite('phillyConstruction', 'phillyStreets/phillyConstruction', 1800, 364);
 	scaleObject('phillyConstruction', 1, 1);
 	setScrollFactor('phillyConstruction', 0.7, 1);
 	setProperty('phillyConstruction.alpha', 1);
 
-	makeLuaSprite('phillyHighwayLights', 'phillyStreets/phillyHighwayLights', 284, 305);
+	makeLuaAssetsSprite('phillyHighwayLights', 'phillyStreets/phillyHighwayLights', 284, 305);
 	scaleObject('phillyHighwayLights', 1, 1);
 	setScrollFactor('phillyHighwayLights', 1, 1);
 	setProperty('phillyHighwayLights.alpha', 1);
 
-	makeLuaSprite('phillyHighwayLights_lightmap', 'phillyStreets/phillyHighwayLights_lightmap', 284, 305);
+	makeLuaAssetsSprite('phillyHighwayLights_lightmap', 'phillyStreets/phillyHighwayLights_lightmap', 284, 305);
 	scaleObject('phillyHighwayLights_lightmap', 1, 1);
 	setScrollFactor('phillyHighwayLights_lightmap', 1, 1);
 	setProperty('phillyHighwayLights_lightmap.alpha', 1);
 	setBlendMode('phillyHighwayLights_lightmap','add')
 
-	makeLuaSprite('phillyHighway', 'phillyStreets/phillyHighway', 139, 209);
+	makeLuaAssetsSprite('phillyHighway', 'phillyStreets/phillyHighway', 139, 209);
 	scaleObject('phillyHighway', 1, 1);
 	setScrollFactor('phillyHighway', 1, 1);
 	setProperty('phillyHighway.alpha', 1);
 
-	makeLuaSprite('phillySmog', 'phillyStreets/phillySmog', -6, 245);
+	makeLuaAssetsSprite('phillySmog', 'phillyStreets/phillySmog', -6, 245);
 	scaleObject('phillySmog', 1, 1);
 	setScrollFactor('phillySmog', 1, 1);
 	setProperty('phillySmog.alpha', 1);
 
-	makeAnimatedLuaSprite('phillyCars1', 'phillyStreets/phillyCars', 1748, 818);
+	makeAnimatedLuaAssetsSprite('phillyCars1', 'phillyStreets/phillyCars', 1748, 818);
 	addAnimationByPrefix('phillyCars1', 'car1', 'car1', 24, false);
 	addAnimationByPrefix('phillyCars1', 'car2', 'car2', 24, false);
 	addAnimationByPrefix('phillyCars1', 'car3', 'car3', 24, false);
@@ -62,7 +62,7 @@ function onCreate()
 	setScrollFactor('phillyCars1', 1, 1);
 	setProperty('phillyCars1.alpha', 1);
 
-	makeAnimatedLuaSprite('phillyCars2', 'phillyStreets/phillyCars', 1748, 818);
+	makeAnimatedLuaAssetsSprite('phillyCars2', 'phillyStreets/phillyCars', 1748, 818);
 	addAnimationByPrefix('phillyCars2', 'car1', 'car1', 24, false);
 	addAnimationByPrefix('phillyCars2', 'car2', 'car2', 24, false);
 	addAnimationByPrefix('phillyCars2', 'car3', 'car3', 24, false);
@@ -72,7 +72,7 @@ function onCreate()
 	setScrollFactor('phillyCars2', 1, 1);
 	setProperty('phillyCars2.alpha', 1);
 
-	makeAnimatedLuaSprite('phillyTraffic', 'phillyStreets/phillyTraffic', 1840, 608);
+	makeAnimatedLuaAssetsSprite('phillyTraffic', 'phillyStreets/phillyTraffic', 1840, 608);
 	addAnimationByPrefix('phillyTraffic', 'tored', 'greentored', 24, false);
 	addAnimationByPrefix('phillyTraffic', 'togreen', 'redtogreen', 24, false);
 	setProperty('phillyTraffic.flipX', false);
@@ -82,27 +82,27 @@ function onCreate()
 	runTimer('greentoredTimer', 11);
 	playAnim('phillyTraffic', 'togreen', false);
 
-	makeLuaSprite('phillyTraffic_lightmap', 'phillyStreets/phillyTraffic_lightmap', 1840, 608);
+	makeLuaAssetsSprite('phillyTraffic_lightmap', 'phillyStreets/phillyTraffic_lightmap', 1840, 608);
 	scaleObject('phillyTraffic_lightmap', 1, 1);
 	setScrollFactor('phillyTraffic_lightmap', 0.9, 1);
 	setProperty('phillyTraffic_lightmap.alpha', 1);
 	setBlendMode('phillyTraffic_lightmap','add')
 
-	makeLuaSprite('phillyForeground', 'phillyStreets/phillyForeground', 88, 317);
+	makeLuaAssetsSprite('phillyForeground', 'phillyStreets/phillyForeground', 88, 317);
 	scaleObject('phillyForeground', 1, 1);
 	setScrollFactor('phillyForeground', 1, 1);
 	setProperty('phillyForeground.alpha', 1);
 
-	makeAnimatedLuaSprite('Spraycan1', 'wked1_cutscene_1_can', 1000, 730)
+	makeAnimatedLuaAssetsSprite('Spraycan1', 'wked1_cutscene_1_can', 1000, 730)
 	addAnimationByPrefix('Spraycan1', 'start', 'can kicked up', 24, false)
 	addAnimationByPrefix('Spraycan1', 'start1', 'can kick quick', 10, false)
 	setProperty('Spraycan1.alpha', 0);
 
-	makeAnimatedLuaSprite('Spraycan2', 'SpraypaintExplosion', 1000, 100)
+	makeAnimatedLuaAssetsSprite('Spraycan2', 'SpraypaintExplosion', 1000, 100)
 	addAnimationByPrefix('Spraycan2', 'i', 'Explosion 1 movie', 24, false)
 	setProperty('Spraycan2.alpha', 0);
 
-	makeLuaSprite('spraycanPile', 'SpraycanPile', 920, 1045);
+	makeLuaAssetsSprite('spraycanPile', 'SpraycanPile', 920, 1045);
 	scaleObject('spraycanPile', 1, 1);
 	setScrollFactor('spraycanPile', 1, 1);
 	setProperty('spraycanPile.alpha', 1);
