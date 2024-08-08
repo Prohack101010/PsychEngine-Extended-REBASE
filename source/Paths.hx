@@ -225,7 +225,7 @@ class Paths
 
 	inline static public function voices(song:String):Any
 	{
-	    var diff = CoolUtil.getDifficultyFilePath(Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName))));
+	    var diff = CoolUtil.difficultyString();
 	    var songKey:String = '${formatToSongPath(song)}/Voices';
 	    
 	    if (FileSystem.exists('${formatToSongPath(song)}/Voices-$diff'))
@@ -237,7 +237,7 @@ class Paths
 
 	inline static public function inst(song:String):Any
 	{
-	    var diff = CoolUtil.getDifficultyFilePath(Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName))));
+	    var diff = CoolUtil.difficultyString();
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	    
 	    if (FileSystem.exists('${formatToSongPath(song)}/Inst-$diff'))
@@ -409,7 +409,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-	    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key && 'weekend1/' + key;
+	    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key && Sys.getCwd() + 'weekend1/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -468,7 +468,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key && 'weekend1/' + key;
+		return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key && Sys.getCwd() + 'weekend1/' + key;
 	}
 
 	public static var globalMods:Array<String> = [];
