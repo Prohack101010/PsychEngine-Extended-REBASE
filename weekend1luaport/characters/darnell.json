@@ -1,0 +1,219 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Idle0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				1,
+				0
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Pose Left0",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				1,
+				0
+			],
+			"anim": "singLEFT-loop",
+			"fps": 24,
+			"name": "Left Flame Loop0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-3
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Pose Down0",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				-3
+			],
+			"anim": "singDOWN-loop",
+			"fps": 24,
+			"name": "Down Flame Loop0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				8,
+				5
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Pose Up0",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				8,
+				5
+			],
+			"anim": "singUP-loop",
+			"fps": 24,
+			"name": "Up Flame Loop0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				3
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Pose Right0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				3
+			],
+			"anim": "singRIGHT-loop",
+			"fps": 24,
+			"name": "Right Flame Loop0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "laugh",
+			"fps": 24,
+			"name": "Laugh0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "laughCutscene",
+			"fps": 24,
+			"name": "Laugh0",
+			"indices": [
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				0,
+				1,
+				2,
+				3,
+				4,
+				5
+			]
+		},
+		{
+			"loop": false,
+			"offsets": [
+				8,
+				1
+			],
+			"anim": "lightCan",
+			"fps": 24,
+			"name": "Light Can0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				15,
+				9
+			],
+			"anim": "kickCan",
+			"fps": 24,
+			"name": "Kick Up0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				7,
+				-1
+			],
+			"anim": "kneeCan",
+			"fps": 24,
+			"name": "Knee Forward0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "pissed",
+			"fps": 24,
+			"name": "Gets Pissed0",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/darnell",
+	"position": [
+		20,
+		220
+	],
+	"healthicon": "darnell",
+	"flip_x": false,
+	"healthbar_colors": [
+		115,
+		94,
+		176
+	],
+	"camera_position": [
+		-150,
+		0
+	],
+	"sing_duration": 8,
+	"scale": 1
+}

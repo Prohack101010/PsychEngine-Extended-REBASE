@@ -1,0 +1,58 @@
+{
+	"songs": [
+		[
+			"Darnell",
+			"darnell",
+			[
+				61,
+				59,
+				41
+			]
+		],
+		[
+			"Lit Up",
+			"darnell",
+			[
+				61,
+				59,
+				41
+			]
+		],
+		[
+			"2hot",
+			"darnell",
+			[
+				61,
+				59,
+				41
+			]
+		],
+		[
+			"Blazin",
+			"darnell",
+			[
+				61,
+				59,
+				41
+			]
+		]
+	],
+	"hideFreeplay": false,
+	"weekBackground": "phillyStreets",
+	"difficulties": "easy,normal,hard,erect,nightmare",
+	"weekCharacters": [
+		"darnell",
+		"pico-player",
+		"nene"
+	],
+	"storyName": "DUE DEBTS",
+	"weekName": "weekend 1",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "week7",
+	"startUnlocked": true
+}

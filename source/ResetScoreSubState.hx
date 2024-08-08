@@ -156,10 +156,17 @@ class ResetScoreSubState extends MusicBeatSubstate
 		var alphas:Array<Float> = [0.6, 1.25];
 		var confirmInt:Int = onYes ? 1 : 0;
 
+        #if desktop
 		yesText.alpha = alphas[confirmInt];
 		yesText.scale.set(scales[confirmInt], scales[confirmInt]);
 		noText.alpha = alphas[1 - confirmInt];
 		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
+		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
+		#else
+		yesText.alpha = 1.25;
+		yesText.scale.set(1, 1);
+		noText.alpha = 1.25;
+		noText.scale.set(1, 1);
 		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
 	}
 }

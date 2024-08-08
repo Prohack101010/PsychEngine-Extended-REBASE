@@ -165,8 +165,11 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		changeSelection();
 		reloadCheckboxes();
 
-		#if mobile
+		#if ios
 		addVirtualPad(LEFT_RIGHT, A_B_C);
+		addPadCamera();
+		#elseif android
+		addVirtualPad(LEFT_RIGHT, A_C);
 		addPadCamera();
 		#end
 	}
@@ -207,16 +210,13 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 			if(usesCheckbox)
 			{
-			for (touch in FlxG.touches.list)
-	        {
-				if(controls.ACCEPT || touch.overlaps(optionsArray[curSelected]) && touch.justPressed)
+				if(controls.ACCEPT)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
 					curOption.change();
 					reloadCheckboxes();
 				}
-			}
 			} else {
 				if(controls.UI_LEFT || controls.UI_RIGHT) {
 					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
