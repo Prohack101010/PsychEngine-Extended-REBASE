@@ -1930,14 +1930,14 @@ class FunkinLua {
 			}
 
 			var mySprite:FunkinLua = new FunkinLua(x, y);
-			if(loadFolder != null) FunkinLua.loadAtlasCustom(mySprite, loadFolder);
+			if(loadFolder != null) loadAtlasCustom(mySprite, loadFolder);
 			PlayState.instance.variables.set(tag, mySprite);
 			mySprite.active = true;
 		});
 		
 		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
 			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
-			if(spr != null) FunkinLua.loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
+			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
 		});
 
 		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
@@ -1956,7 +1956,7 @@ class FunkinLua {
 		
 		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
 			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
-			if(spr != null) FunkinLua.loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
+			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
 		});
 		
 		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
@@ -2063,16 +2063,16 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playAnim", function(obj:String, name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
 		{
 			if(PlayState.instance.getLuaObject(obj, false) != null) {
-				var luaObj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
+				var obj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
 				if(obj.animation.getByName(name) != null)
 				{
 				    if(obj.animation != null) obj.animation.play(name, forced, reverse, startFrame); //FlxAnimate
 					else obj.animation.play(name, forced, reverse, startFrame);
-					if(Std.isOfType(luaObj, ModchartSprite))
+					if(Std.isOfType(obj, ModchartSprite))
 					{
-						//convert luaObj to ModchartSprite
-						var obj:Dynamic = luaObj;
-						var luaObj:ModchartSprite = obj;
+						//convert obj to ModchartSprite
+						var obj:Dynamic = obj;
+						var obj:ModchartSprite = obj;
 
 						var daOffset = obj.animOffsets.get(name);
 						if (obj.animOffsets.exists(name))
@@ -2132,7 +2132,7 @@ class FunkinLua {
 			if(PlayState.instance.modchartSprites.exists(tag)) mySprite = PlayState.instance.modchartSprites.get(tag);
 			else if(PlayState.instance.variables.exists(tag)) mySprite = PlayState.instance.variables.get(tag);
 
-            if(!mySprite.wasAdded && mySprite != null) {
+            if(mySprite != null) {
     			if(front)
     				getInstance().add(mySprite);
     		    else
@@ -2152,7 +2152,6 @@ class FunkinLua {
 						PlayState.instance.insert(position, mySprite);
 					}
 				}
-				mySprite.wasAdded = true;
 				//trace('added a thing: ' + tag);
 			}
 		});
@@ -3377,12 +3376,13 @@ class FunkinLua {
 		super(x, y, path, settings);
 	}
 
-	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
+	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0):Void
 	{
-		animation.play(name, forced, reverse, startFrame);
+		anim.play(name, forced, reverse, startFrame);
 
 		var daOffset = animOffsets.get(name);
-		if (animOffsets.exists(name)) offset.set(daOffset[0], daOffset[1]);
+		if (animOffsets.exists(name)) 
+		    offset.set(daOffset[0], daOffset[1]);
 	}
 
 	public function addOffset(name:String, x:Float, y:Float)
@@ -3813,7 +3813,7 @@ class CustomSubstate extends MusicBeatSubstate
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 	
-	private static function loadAtlasCustom(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
+	public function loadAtlasCustom(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
 	{
 		var changedAnimJson = false;
 		var changedAtlasJson = false;
@@ -3885,7 +3885,7 @@ class CustomSubstate extends MusicBeatSubstate
 	private static function getContentFromFile(path:String):String
 	{
 		var onAssets:Bool = false;
-		var path:String = Paths.getPath(path, TEXT, true);
+		var path:String = Paths.getPath(path, TEXT, library);
 		if(FileSystem.exists(path) || (onAssets = true && Assets.exists(path, TEXT)))
 		{
 			// trace('Found text: $path');
