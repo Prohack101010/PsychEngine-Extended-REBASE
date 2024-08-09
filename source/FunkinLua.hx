@@ -3792,7 +3792,7 @@ class CustomSubstate extends MusicBeatSubstate
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 	
-	public function loadAtlasCustom(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
+	public static function loadAtlasCustom(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
 	{
 		var changedAnimJson = false;
 		var changedAtlasJson = false;
@@ -3864,7 +3864,7 @@ class CustomSubstate extends MusicBeatSubstate
 	private static function getContentFromFile(path:String):String
 	{
 		var onAssets:Bool = false;
-		var path:String = Paths.getPath(path, TEXT, library);
+		var path:String = Paths.getPath(path, TEXT);
 		if(FileSystem.exists(path) || (onAssets = true && Assets.exists(path, TEXT)))
 		{
 			// trace('Found text: $path');
