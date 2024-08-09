@@ -727,7 +727,6 @@ class CharacterEditorState extends MusicBeatState
 		});
 		
 		reloadAnimationDropDown();
-		animationDropDown.selectedLabel = anims[0] != null ? anims[0].anim : '';
 
 		tab_group.add(new FlxText(animationDropDown.x, animationDropDown.y - 18, 0, 'Animations:'));
 		tab_group.add(new FlxText(ghostDropDown.x, ghostDropDown.y - 18, 0, 'Animation Ghost:'));
@@ -1028,7 +1027,7 @@ class CharacterEditorState extends MusicBeatState
 		ghostChar.antialiasing = char.antialiasing;
 	}
 	
-	function addAnimation(anim:String, name:String, fps:Float, loop:Bool, indices:Array<Int>)
+	function addAnimation(anim:String, name:String, fps:Int, loop:Bool, indices:Array<Int>)
 	{
 		if(!char.isAnimateAtlas)
 		{
