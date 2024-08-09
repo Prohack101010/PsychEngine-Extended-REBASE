@@ -1,5 +1,6 @@
 package;
 
+import flixel.text.FlxText;
 import flixel.util.FlxSave;
 import flixel.FlxG;
 import openfl.utils.Assets;

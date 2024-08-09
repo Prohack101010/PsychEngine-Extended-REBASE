@@ -1986,7 +1986,7 @@ class FunkinLua {
 				var luaObj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
 				if(luaObj.animation.getByName(name) != null)
 				{
-					if(luaObj.anim != null) luaObj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
+					if(luaObj.animation != null) luaObj.animation.play(name, forced, reverse, startFrame); //FlxAnimate
 				else luaObj.animation.play(name, forced, reverse, startFrame);
 					if(Std.isOfType(luaObj, ModchartSprite))
 					{
@@ -3640,6 +3640,7 @@ class ModchartSprite extends FlxSprite
 	public var wasAdded:Bool = false;
 	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
 	//public var isInFront:Bool = false;
+	public var lua:State = null;
 
 	public function new(?x:Float = 0, ?y:Float = 0)
 	{
@@ -3650,6 +3651,7 @@ class ModchartSprite extends FlxSprite
 
 class ModchartText extends FlxText
 {
+    public var lua:State = null;
 	public var wasAdded:Bool = false;
 	public function new(x:Float, y:Float, text:String, width:Float)
 	{
@@ -3663,6 +3665,7 @@ class ModchartText extends FlxText
 
 class DebugLuaText extends FlxText
 {
+    public var lua:State = null;
 	private var disableTime:Float = 6;
 	public var parentGroup:FlxTypedGroup<DebugLuaText>;
 	public function new(text:String, parentGroup:FlxTypedGroup<DebugLuaText>, color:FlxColor) {
@@ -3683,6 +3686,7 @@ class DebugLuaText extends FlxText
 
 class CustomSubstate extends MusicBeatSubstate
 {
+    public var lua:State = null;
 	public static var name:String = 'unnamed';
 	public static var instance:CustomSubstate;
 
@@ -3719,6 +3723,7 @@ class CustomSubstate extends MusicBeatSubstate
 #if hscript
 class HScript
 {
+    public var lua:State = null;
 	public static var parser:Parser = new Parser();
 	public var interp:Interp;
 
@@ -3787,6 +3792,7 @@ class HScript
 #if flxanimate
 class FlxAnimateFunctions
 {
+    public var lua:State = null;
 	public static function implement(funk:FunkinLua)
 	{
 		Lua_helper.add_callback(lua, "makeFlxAnimateSprite", function(tag:String, ?x:Float = 0, ?y:Float = 0, ?loadFolder:String = null) {
@@ -3815,8 +3821,8 @@ class FlxAnimateFunctions
 			var luaObj:Dynamic = PlayState.instance.variables.get(tag);
 			if(cast (luaObj, FlxAnimate) == null) return false;
 
-			luaObj.anim.addBySymbol(name, symbol, framerate, loop, matX, matY);
-			if(luaObj.anim.lastPlayedAnim == null)
+			luaObj.animation.addBySymbol(name, symbol, framerate, loop, matX, matY);
+			if(luaObj.animation.lastPlayedAnim == null)
 			{
 				if(luaObj.playAnim != null) luaObj.playAnim(name, true); //is ModchartAnimateSprite
 				else luaObj.animation.play(name, true);
@@ -3841,8 +3847,8 @@ class FlxAnimateFunctions
 				indices = myIndices;
 			}
 
-			luaObj.anim.addBySymbolIndices(name, symbol, indices, framerate, loop, matX, matY);
-			if(luaObj.anim.lastPlayedAnim == null)
+			luaObj.animation.addBySymbolIndices(name, symbol, indices, framerate, loop, matX, matY);
+			if(luaObj.animation.lastPlayedAnim == null)
 			{
 				if(luaObj.playAnim != null) luaObj.playAnim(name, true); //is ModchartAnimateSprite
 				else luaObj.animation.play(name, true);
@@ -3937,11 +3943,12 @@ class FlxAnimateFunctions
 #if flxanimate
 class ModchartAnimateSprite extends FlxAnimate
 {
+    public var lua:State = null;
 	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
 	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
 	{
 		super(x, y, path, settings);
-		antialiasing = ClientPrefs.data.antialiasing;
+		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
