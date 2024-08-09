@@ -2059,9 +2059,17 @@ class FunkinLua {
         			else
         			{
         				if(!PlayState.instance.isDead)
-        					PlayState.instance.insert(PlayState.instance.members.indexOf(LuaUtils.getLowestCharacterGroup()), mySprite);
-					else
-					    GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), mySprite);
+        				{
+							var position:Int = PlayState.instance.members.indexOf(PlayState.instance.gfGroup);
+							if(PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup) < position) {
+								position = PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup);
+							} else if(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) < position) {
+								position = PlayState.instance.members.indexOf(PlayState.instance.dadGroup);
+							}
+							PlayState.instance.insert(position, shit);
+						}
+					    else
+					        GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), mySprite);
 					}
 					return true;
 		});
@@ -3942,7 +3950,7 @@ class ModchartAnimateSprite extends FlxAnimate
 	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
 	{
 		super(x, y, path, settings);
-		antialiasing = ClientPrefs.data.antialiasing;
+		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
