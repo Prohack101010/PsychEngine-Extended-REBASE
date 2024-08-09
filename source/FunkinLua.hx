@@ -15,7 +15,7 @@ import android.Tools as AndroidTools;
 import mobile.PsychJNI;
 #end
 
-import animateatlas.AtlasFrameMaker;
+// import animateatlas.AtlasFrameMaker;
 import flixel.FlxG;
 import flixel.addons.effects.FlxTrail;
 import flixel.input.keyboard.FlxKey;
@@ -3374,11 +3374,11 @@ class FunkinLua {
 	{
 		switch(spriteType.toLowerCase().trim())
 		{
-			case "texture" | "textureatlas" | "tex":
-				spr.frames = AtlasFrameMaker.construct(image);
+			// case "texture" | "textureatlas" | "tex":
+				// spr.frames = AtlasFrameMaker.construct(image);
 
-			case "texture_noaa" | "textureatlas_noaa" | "tex_noaa":
-				spr.frames = AtlasFrameMaker.construct(image, null, true);
+			// case "texture_noaa" | "textureatlas_noaa" | "tex_noaa":
+				// spr.frames = AtlasFrameMaker.construct(image, null, true);
 
 			case "packer" | "packeratlas" | "pac":
 				spr.frames = Paths.getPackerAtlas(image);
