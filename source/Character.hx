@@ -158,7 +158,7 @@ class Character extends FlxSprite
 			atlas.showPivot = false;
 			try
 			{
-				Sys.getCwd() + Paths.loadAnimateAtlas(atlas, json.image);
+				Paths.loadAnimateAtlas(atlas, json.image);
 			}
 			catch(e:Dynamic)
 			{
