@@ -96,7 +96,7 @@ class Character extends FlxSprite
 			default:
 				var characterPath:String = 'characters/$curCharacter.json';
 
-                var path:String = Paths.getPath(characterPath, TEXT);
+                var path:String = Sys.getCwd() + Paths.getPath(characterPath, TEXT);
 				#if MODS_ALLOWED
 				if (!FileSystem.exists(path))
 				#else
@@ -141,7 +141,7 @@ class Character extends FlxSprite
 		isAnimateAtlas = false;
 
 		#if flxanimate
-		var animToFind:String = Paths.getPath('images/' + json.image + '/Animation.json', TEXT);
+		var animToFind:String = Sys.getCwd() + Paths.getPath('images/' + json.image + '/Animation.json', TEXT);
 		if (#if MODS_ALLOWED FileSystem.exists(animToFind) || #end Assets.exists(animToFind))
 			isAnimateAtlas = true;
 		#end
@@ -150,7 +150,7 @@ class Character extends FlxSprite
 		updateHitbox();
 
 		if(!isAnimateAtlas)
-			frames = Paths.getAtlas(json.image);
+			frames = Sys.getCwd() + Paths.getAtlas(json.image);
 		#if flxanimate
 		else
 		{
@@ -158,7 +158,7 @@ class Character extends FlxSprite
 			atlas.showPivot = false;
 			try
 			{
-				Paths.loadAnimateAtlas(atlas, json.image);
+				Sys.getCwd() + Paths.loadAnimateAtlas(atlas, json.image);
 			}
 			catch(e:Dynamic)
 			{
