@@ -523,7 +523,7 @@ class CharacterEditorState extends MusicBeatState
 		imageInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		var reloadImage:FlxButton = new FlxButton(imageInputText.x + 210, imageInputText.y - 3, "Reload Image", function()
 		{
-		    var lastAnim = character.getAnimationName();
+		    var lastAnim = char.getAnimationName();
 			char.imageFile = imageInputText.text;
 			reloadCharacterImage();
 			if(!char.isAnimationNull()) {
@@ -675,10 +675,10 @@ class CharacterEditorState extends MusicBeatState
 			for (anim in char.animationsArray) {
 				if(animationInputText.text == anim.anim) {
 					lastOffsets = anim.offsets;
-					if(character.animOffsets.exists(animationInputText.text))
+					if(char.animOffsets.exists(animationInputText.text))
 					{
-						if(!character.isAnimateAtlas) character.animation.remove(animationInputText.text);
-						else @:privateAccess character.atlas.anim.animsMap.remove(animationInputText.text);
+						if(!char.isAnimateAtlas) char.animation.remove(animationInputText.text);
+						else @:privateAccess char.atlas.anim.animsMap.remove(animationInputText.text);
 					}
 					char.animationsArray.remove(anim);
 				}
@@ -709,7 +709,7 @@ class CharacterEditorState extends MusicBeatState
 					if(anim.anim == char.getAnimationName()) resetAnim = true;
 					if(char.animOffsets.exists(anim.anim))
 					{
-						if(!character.isAnimateAtlas) char.animation.remove(anim.anim);
+						if(!char.isAnimateAtlas) char.animation.remove(anim.anim);
 						else @:privateAccess char.atlas.anim.animsMap.remove(anim.anim);
 						char.animOffsets.remove(anim.anim);
 						char.animationsArray.remove(anim);
@@ -818,25 +818,25 @@ class CharacterEditorState extends MusicBeatState
 	function reloadCharacterImage() {
 	    var lastAnim:String = char.getAnimationName();
 		var anims:Array<AnimArray> = char.animationsArray.copy();
-		character.destroyAtlas();
-		character.isAnimateAtlas = false;
+		char.destroyAtlas();
+		char.isAnimateAtlas = false;
 
-		if(Paths.fileExists('images/' + character.imageFile + '/Animation.json', TEXT))
+		if(Paths.fileExists('images/' + char.imageFile + '/Animation.json', TEXT))
 		{
-			character.atlas = new FlxAnimate();
-			character.atlas.showPivot = false;
+			char.atlas = new FlxAnimate();
+			char.atlas.showPivot = false;
 			try
 			{
-				Paths.loadAnimateAtlas(character.atlas, character.imageFile);
+				Paths.loadAnimateAtlas(char.atlas, char.imageFile);
 			}
 			catch(e:Dynamic)
 			{
-				FlxG.log.warn('Could not load atlas ${character.imageFile}: $e');
+				FlxG.log.warn('Could not load atlas ${char.imageFile}: $e');
 			}
-			character.isAnimateAtlas = true;
+			char.isAnimateAtlas = true;
 		}
-		else if(Paths.fileExists('images/' + character.imageFile + '.txt', TEXT)) character.frames = Paths.getPackerAtlas(character.imageFile);
-		else character.frames = Paths.getSparrowAtlas(character.imageFile);
+		else if(Paths.fileExists('images/' + char.imageFile + '.txt', TEXT)) char.frames = Paths.getPackerAtlas(char.imageFile);
+		else char.frames = Paths.getSparrowAtlas(char.imageFile);
 
 		if(char.animationsArray != null && char.animationsArray.length > 0) {
 			for (anim in char.animationsArray) {

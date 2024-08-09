@@ -1,6 +1,7 @@
 package;
 
-import animateatlas.AtlasFrameMaker;
+// import animateatlas.AtlasFrameMaker;
+import flixel.util.FlxDestroyUtil;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.effects.FlxTrail;
