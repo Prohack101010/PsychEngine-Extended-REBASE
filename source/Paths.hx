@@ -225,31 +225,31 @@ class Paths
 
 	inline static public function voices(song:String):Any
 	{
-	    var diff = CoolUtil.difficultyString();
-	    var experimentaltools:Bool = false;
-	    
-	    experimentaltools = ClientPrefs.getGameplaySetting('experimentaltools', false);
-	    
-	    var songKeyPlus:String = '${formatToSongPath(song)}/Voices-' + diff;
 	    var songKey:String = '${formatToSongPath(song)}/Voices';
-		    
-		if (experimentaltools) { var voices = returnSound('songs', songKeyPlus); }
-		else { var voices = returnSound('songs', songKey); }
+		var voices = returnSound('songs', songKey);
+		return voices;
+	}
+	
+	inline static public function voicesplus(song:String):Any
+	{
+	    var diff = CoolUtil.difficultyString();
+	    var songKey:String = '${formatToSongPath(song)}/Voices-' + diff;
+		var voices = returnSound('songs', songKey);
 		return voices;
 	}
 
 	inline static public function inst(song:String):Any
 	{
+	    var songKey:String = '${formatToSongPath(song)}/Inst';
+		var inst = returnSound('songs', songKey);
+		return inst;
+	}
+	
+	inline static public function instplus(song:String):Any
+	{
 	    var diff = CoolUtil.difficultyString();
-	    var experimentaltools:Bool = false;
-	    
-	    experimentaltools = ClientPrefs.getGameplaySetting('experimentaltools', false);
-	    
 	    var songKey:String = '${formatToSongPath(song)}/Inst-' + diff;
-	    var songKeyPlus:String = '${formatToSongPath(song)}/Inst';
-
-		if (experimentaltools) { var inst = returnSound('songs', songKeyPlus); }
-		else { var inst = returnSound('songs', songKey); }
+		var inst = returnSound('songs', songKey);
 		return inst;
 	}
 
@@ -315,7 +315,25 @@ class Paths
 		if(OpenFlAssets.exists(getPath(key, type))) {
 			return true;
 		}
+		
+		if (FileSystem.exists(mods('$key'))) {
+			return true;
+		}
+				
 		return false;
+	}
+	
+	static public function getAtlas(key:String, ?library:String):FlxAtlasFrames
+	{
+		#if MODS_ALLOWED
+		if(FileSystem.exists(modsXml(key)) || OpenFlAssets.exists(file('images/$key.xml', library), TEXT))
+		#else
+		if(OpenFlAssets.exists(file('images/$key.xml', library)))
+		#end
+		{
+			return getSparrowAtlas(key, library);
+		}
+		return getPackerAtlas(key, library);
 	}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String):FlxAtlasFrames

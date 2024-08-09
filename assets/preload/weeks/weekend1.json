@@ -39,7 +39,6 @@
 	],
 	"hideFreeplay": false,
 	"weekBackground": "phillyStreets",
-	"difficulties": "easy,normal,hard,erect,nightmare",
 	"weekCharacters": [
 		"darnell",
 		"pico-player",

@@ -25,6 +25,12 @@
       "url": "https://github.com/Prohack101010/flixel-0.6.3_ex"
     },
     {
+      "name": "flxanimate",
+      "type": "git",
+      "ref": "dev",
+      "url": "https://github.com/ShadowMario/flxanimate"
+    },
+    {
       "name": "flixel-addons",
       "type": "haxelib",
       "version": "2.11.0"

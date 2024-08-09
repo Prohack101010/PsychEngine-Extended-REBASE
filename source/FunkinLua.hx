@@ -1918,6 +1918,86 @@ class FunkinLua {
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});
+		
+		Lua_helper.add_callback(lua, "makeFlxAnimateSprite", function(tag:String, ?x:Float = 0, ?y:Float = 0, ?loadFolder:String = null) {
+			tag = tag.replace('.', '');
+			var lastSprite = PlayState.instance.variables.get(tag);
+			if(lastSprite != null)
+			{
+				lastSprite.kill();
+				PlayState.instance.remove(lastSprite);
+				lastSprite.destroy();
+			}
+
+			var mySprite:ModchartAnimateSprite = new ModchartAnimateSprite(x, y);
+			if(loadFolder != null) loadAtlasCustom(mySprite, loadFolder);
+			PlayState.instance.variables.set(tag, mySprite);
+			mySprite.active = true;
+		});
+		
+		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
+			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
+			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
+		});
+
+		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
+		{
+			var obj:Dynamic = PlayState.instance.variables.get(tag);
+			if(cast (obj, FlxAnimate) == null) return false;
+
+			obj.anim.addBySymbol(name, symbol, framerate, loop, matX, matY);
+			if(obj.anim.lastPlayedAnim == null)
+			{
+				if(obj.playAnim != null) obj.playAnim(name, true); //is ModchartAnimateSprite
+				else obj.animation.play(name, true);
+			}
+			return true;
+		});
+		
+		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
+			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
+			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
+		});
+		
+		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
+		{
+			var obj:Dynamic = PlayState.instance.variables.get(tag);
+			if(cast (obj, FlxAnimate) == null) return false;
+
+			obj.anim.addBySymbol(name, symbol, framerate, loop, matX, matY);
+			if(obj.anim.curSymbol == null)
+			{
+				if(obj.playAnim != null) obj.playAnim(name, true); //is ModchartAnimateSprite
+				else obj.animation.play(name, true);
+			}
+			return true;
+		});
+
+		Lua_helper.add_callback(lua, "addAnimationBySymbolIndices", function(tag:String, name:String, symbol:String, ?indices:Any = null, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
+		{
+			var obj:Dynamic = PlayState.instance.variables.get(tag);
+			if(cast (obj, FlxAnimate) == null) return false;
+
+			if(indices == null)
+				indices = [0];
+			else if(Std.isOfType(indices, String))
+			{
+				var strIndices:Array<String> = cast (indices, String).trim().split(',');
+				var myIndices:Array<Int> = [];
+				for (i in 0...strIndices.length) {
+					myIndices.push(Std.parseInt(strIndices[i]));
+				}
+				indices = myIndices;
+			}
+
+			obj.anim.addBySymbolIndices(name, symbol, indices, framerate, loop, matX, matY);
+			if(obj.anim.lastPlayedAnim == null)
+			{
+				if(obj.playAnim != null) obj.playAnim(name, true); //is ModchartAnimateSprite
+				else obj.animation.play(name, true);
+			}
+			return true;
+		});
 
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int, height:Int, color:String) {
 			var colorNum:Int = Std.parseInt(color);
@@ -1984,19 +2064,20 @@ class FunkinLua {
 		{
 			if(PlayState.instance.getLuaObject(obj, false) != null) {
 				var luaObj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
-				if(luaObj.animation.getByName(name) != null)
+				if(obj.animation.getByName(name) != null)
 				{
-					luaObj.animation.play(name, forced, reverse, startFrame);
+				    if(obj.anim != null) obj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
+					else obj.animation.play(name, forced, reverse, startFrame);
 					if(Std.isOfType(luaObj, ModchartSprite))
 					{
 						//convert luaObj to ModchartSprite
 						var obj:Dynamic = luaObj;
 						var luaObj:ModchartSprite = obj;
 
-						var daOffset = luaObj.animOffsets.get(name);
-						if (luaObj.animOffsets.exists(name))
+						var daOffset = obj.animOffsets.get(name);
+						if (obj.animOffsets.exists(name))
 						{
-							luaObj.offset.set(daOffset[0], daOffset[1]);
+							obj.offset.set(daOffset[0], daOffset[1]);
 						}
 					}
 				}
@@ -2047,32 +2128,34 @@ class FunkinLua {
 			}
 		});
 		Lua_helper.add_callback(lua, "addLuaSprite", function(tag:String, front:Bool = false) {
-			if(PlayState.instance.modchartSprites.exists(tag)) {
-				var shit:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
-				if(!shit.wasAdded) {
-					if(front)
+		    var mySprite:FlxSprite = null;
+			if(game.modchartSprites.exists(tag)) mySprite = game.modchartSprites.get(tag);
+			else if(game.variables.exists(tag)) mySprite = game.variables.get(tag);
+
+    		if(mySprite == null) return false;
+    
+            if(!shit.wasAdded) {
+    			    if(front)
+    				getInstance().add(shit);
+    		    else
+				{
+					if(PlayState.instance.isDead)
 					{
-						getInstance().add(shit);
+						GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
 					}
 					else
 					{
-						if(PlayState.instance.isDead)
-						{
-							GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
+						var position:Int = PlayState.instance.members.indexOf(PlayState.instance.gfGroup);
+						if(PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup) < position) {
+							position = PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup);
+						} else if(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) < position) {
+							position = PlayState.instance.members.indexOf(PlayState.instance.dadGroup);
 						}
-						else
-						{
-							var position:Int = PlayState.instance.members.indexOf(PlayState.instance.gfGroup);
-							if(PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup) < position) {
-								position = PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup);
-							} else if(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) < position) {
-								position = PlayState.instance.members.indexOf(PlayState.instance.dadGroup);
-							}
-							PlayState.instance.insert(position, shit);
-						}
+						PlayState.instance.insert(position, shit);
 					}
-					shit.wasAdded = true;
-					//trace('added a thing: ' + tag);
+				}
+				shit.wasAdded = true;
+				//trace('added a thing: ' + tag);
 				}
 			}
 		});
@@ -3289,6 +3372,28 @@ class FunkinLua {
 				return Reflect.getProperty(leArray, variable);
 		};
 	}
+	
+	#if flxanimate
+	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
+	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
+	{
+		super(x, y, path, settings);
+		antialiasing = ClientPrefs.data.antialiasing;
+	}
+
+	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
+	{
+		anim.play(name, forced, reverse, startFrame);
+
+		var daOffset = animOffsets.get(name);
+		if (animOffsets.exists(name)) offset.set(daOffset[0], daOffset[1]);
+	}
+
+	public function addOffset(name:String, x:Float, y:Float)
+	{
+		animOffsets.set(name, [x, y]);
+	}
+	#end
 
 	function loadFrames(spr:FlxSprite, image:String, spriteType:String)
 	{
@@ -3711,6 +3816,87 @@ class CustomSubstate extends MusicBeatSubstate
 		CustomSubstate.name = name;
 		super();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+	}
+	
+	private static function loadAtlasCustom(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
+	{
+		var changedAnimJson = false;
+		var changedAtlasJson = false;
+		var changedImage = false;
+
+		if(spriteJson != null)
+		{
+			changedAtlasJson = true;
+			spriteJson = File.getContent(spriteJson);
+		}
+
+		if(animationJson != null) 
+		{
+			changedAnimJson = true;
+			animationJson = File.getContent(animationJson);
+		}
+
+		// is folder or image path
+		if(Std.isOfType(folderOrImg, String))
+		{
+			var originalPath:String = folderOrImg;
+			for (i in 0...10)
+			{
+				var st:String = '$i';
+				if(i == 0) st = '';
+
+				if(!changedAtlasJson)
+				{
+					spriteJson = getContentFromFile('images/$originalPath/spritemap$st.json');
+					if(spriteJson != null)
+					{
+						//trace('found Sprite Json');
+						changedImage = true;
+						changedAtlasJson = true;
+						folderOrImg = Paths.image('$originalPath/spritemap$st');
+						break;
+					}
+				}
+				else if(Paths.fileExists('images/$originalPath/spritemap$st.png', IMAGE))
+				{
+					//trace('found Sprite PNG');
+					changedImage = true;
+					folderOrImg = Paths.image('$originalPath/spritemap$st');
+					break;
+				}
+			}
+
+			if(!changedImage)
+			{
+				//trace('Changing folderOrImg to FlxGraphic');
+				changedImage = true;
+				folderOrImg = Paths.image(originalPath);
+			}
+
+			if(!changedAnimJson)
+			{
+				//trace('found Animation Json');
+				changedAnimJson = true;
+				animationJson = getContentFromFile('images/$originalPath/Animation.json');
+			}
+		}
+
+		//trace(folderOrImg);
+		//trace(spriteJson);
+		//trace(animationJson);
+		spr.loadAtlasEx(folderOrImg, spriteJson, animationJson);
+	}
+
+	private static function getContentFromFile(path:String):String
+	{
+		var onAssets:Bool = false;
+		var path:String = Paths.getPath(path, TEXT, true);
+		if(FileSystem.exists(path) || (onAssets = true && Assets.exists(path, TEXT)))
+		{
+			// trace('Found text: $path');
+			return !onAssets ? File.getContent(path) : Assets.getText(path);
+		}
+		return null;
 	}
 	
 	override function update(elapsed:Float)

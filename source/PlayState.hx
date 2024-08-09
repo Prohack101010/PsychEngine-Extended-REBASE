@@ -331,6 +331,9 @@ class PlayState extends MusicBeatState
 	public var opponentDrain:Bool = false;
 	public static var opponentChart:Bool = false;
 	public var cpuControlled_opponent:Bool = false;
+	
+	// Extras
+	public var ExperimentalTools:Bool = false;
 
 	override public function create()
 	{
@@ -395,6 +398,7 @@ class PlayState extends MusicBeatState
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
+		ExperimentalTools = ClientPrefs.getGameplaySetting('experimentaltools', false);
 		opponentChart = ClientPrefs.getGameplaySetting('opponentplay', false);
 		cpuControlled_opponent = ClientPrefs.getGameplaySetting('opponentplay', false);
 
@@ -2471,14 +2475,19 @@ class PlayState extends MusicBeatState
 
 		curSong = songData.song;
 
-		if (SONG.needsVoices)
+		if (SONG.needsVoices && !ExperimentalTools)
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+		else if (SONG.needsVoices && ExperimentalTools)
+			vocals = new FlxSound().loadEmbedded(Paths.voicesplus(PlayState.SONG.song));
 		else
 			vocals = new FlxSound();
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
-		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
+		if (ExperimentalTools)
+		    FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.instplus(PlayState.SONG.song)));
+		else
+		    FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);

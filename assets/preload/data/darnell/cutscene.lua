@@ -2,6 +2,7 @@ local cutscene = true
 local neneIdle = true
 local video = true
 local cutscene1 = true
+local skipabble = false
 
 function onCreate()
 	setPropertyFromClass('GameOverSubstate', 'characterName', 'pico-dead')
@@ -46,6 +47,7 @@ function onCreate()
 
 	if not isStoryMode then
 	setProperty('cutText.visible', false)
+	skipabble = false
 	end
 
 	if cutscene and isStoryMode and not seenCutscene then
@@ -56,9 +58,10 @@ function onCreate()
 end
 
 function onUpdate()
-if backJustReleased and isStoryMode and cutscene1 then
+if backJustReleased and isStoryMode and cutscene1 and skipabble or getPropertyFromClass('flixel.FlxG', 'keys.justPressed.ENTER') and cutscene1 and skipabble and isStoryMode then
 runTimer('videoWait', 2);
 setProperty('cutText.visible', false)
+skipabble = false
 cutscene1 = false
 return Function_Continue;
 end

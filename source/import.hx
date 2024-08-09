@@ -3,6 +3,10 @@ import mobile.SUtil;
 import mobile.SwipeUtil;
 import mobile.TouchUtil;
 
+#if flxanimate
+import flxanimate.*;
+#end
+
 //Android
 #if android
 import android.content.Context as AndroidContext;
