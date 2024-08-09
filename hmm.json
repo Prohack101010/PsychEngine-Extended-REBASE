@@ -65,8 +65,9 @@
     },
     {
       "name": "openfl",
-      "type": "haxelib",
-      "version": "9.1.0"
+      "type": "git",
+      "ref": "develop",
+      "url": "https://github.com/Prohack101010/openfl-0.6.3"
     }
   ]
 }
