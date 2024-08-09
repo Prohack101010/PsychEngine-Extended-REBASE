@@ -1929,15 +1929,15 @@ class FunkinLua {
 				lastSprite.destroy();
 			}
 
-			var mySprite:FunkinLua = new FunkinLua(x, y);
-			if(loadFolder != null) loadAtlasCustom(mySprite, loadFolder);
+			var mySprite:ModchartAnimateSprite = new ModchartAnimateSprite(x, y);
+			if(loadFolder != null) CustomSubstate.loadAtlasCustom(mySprite, loadFolder);
 			PlayState.instance.variables.set(tag, mySprite);
 			mySprite.active = true;
 		});
 		
 		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
 			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
-			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
+			if(spr != null) CustomSubstate.loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
 		});
 
 		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
@@ -1956,7 +1956,7 @@ class FunkinLua {
 		
 		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
 			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
-			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
+			if(spr != null) CustomSubstate.loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
 		});
 		
 		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
@@ -3369,27 +3369,6 @@ class FunkinLua {
 		};
 	}
 	
-	#if flxanimate
-	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
-	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
-	{
-		super(x, y, path, settings);
-	}
-
-	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0):Void
-	{
-		anim.play(name, forced, reverse, startFrame);
-
-		var daOffset = animOffsets.get(name);
-		if (animOffsets.exists(name)) 
-		    offset.set(daOffset[0], daOffset[1]);
-	}
-
-	public function addOffset(name:String, x:Float, y:Float)
-	{
-		animOffsets.set(name, [x, y]);
-	}
-	#end
 
 	function loadFrames(spr:FlxSprite, image:String, spriteType:String)
 	{
@@ -3975,3 +3954,26 @@ class HScript
 	}
 }
 #end
+
+class ModchartAnimateSprite extends FlxAnimate
+{
+	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
+	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
+	{
+		super(x, y, path, settings);
+		antialiasing = ClientPrefs.data.antialiasing;
+	}
+
+	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
+	{
+		anim.play(name, forced, reverse, startFrame);
+		
+		var daOffset = animOffsets.get(name);
+		if (animOffsets.exists(name)) offset.set(daOffset[0], daOffset[1]);
+	}
+
+	public function addOffset(name:String, x:Float, y:Float)
+	{
+		animOffsets.set(name, [x, y]);
+	}
+}
