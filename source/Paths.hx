@@ -228,7 +228,8 @@ class Paths
 
 	inline static public function voices(song:String):Any
 	{
-	    var songKey:String = '${formatToSongPath(song)}/Voices';
+	    var diff = CoolUtil.difficultyString();
+	    var songKey:String = '${formatToSongPath(song)}/Voices-$diff';
 		var voices = returnSound('songs', songKey);
 		return voices;
 	}
@@ -243,7 +244,8 @@ class Paths
 
 	inline static public function inst(song:String):Any
 	{
-	    var songKey:String = '${formatToSongPath(song)}/Inst';
+	    var diff = CoolUtil.difficultyString();
+	    var songKey:String = '${formatToSongPath(song)}/Inst-$diff';
 		var inst = returnSound('songs', songKey);
 		return inst;
 	}
