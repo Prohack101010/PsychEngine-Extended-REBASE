@@ -3640,7 +3640,6 @@ class ModchartSprite extends FlxSprite
 	public var wasAdded:Bool = false;
 	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
 	//public var isInFront:Bool = false;
-	public var lua:State = null;
 
 	public function new(?x:Float = 0, ?y:Float = 0)
 	{
@@ -3651,7 +3650,6 @@ class ModchartSprite extends FlxSprite
 
 class ModchartText extends FlxText
 {
-    public var lua:State = null;
 	public var wasAdded:Bool = false;
 	public function new(x:Float, y:Float, text:String, width:Float)
 	{
@@ -3665,7 +3663,6 @@ class ModchartText extends FlxText
 
 class DebugLuaText extends FlxText
 {
-    public var lua:State = null;
 	private var disableTime:Float = 6;
 	public var parentGroup:FlxTypedGroup<DebugLuaText>;
 	public function new(text:String, parentGroup:FlxTypedGroup<DebugLuaText>, color:FlxColor) {
@@ -3686,7 +3683,6 @@ class DebugLuaText extends FlxText
 
 class CustomSubstate extends MusicBeatSubstate
 {
-    public var lua:State = null;
 	public static var name:String = 'unnamed';
 	public static var instance:CustomSubstate;
 
@@ -3723,7 +3719,6 @@ class CustomSubstate extends MusicBeatSubstate
 #if hscript
 class HScript
 {
-    public var lua:State = null;
 	public static var parser:Parser = new Parser();
 	public var interp:Interp;
 
@@ -3792,9 +3787,9 @@ class HScript
 #if flxanimate
 class FlxAnimateFunctions
 {
-    public var lua:State = null;
 	public static function implement(funk:FunkinLua)
 	{
+	    var lua:State = funk.lua;
 		Lua_helper.add_callback(lua, "makeFlxAnimateSprite", function(tag:String, ?x:Float = 0, ?y:Float = 0, ?loadFolder:String = null) {
 			tag = tag.replace('.', '');
 			var lastSprite = PlayState.instance.variables.get(tag);
@@ -3943,12 +3938,11 @@ class FlxAnimateFunctions
 #if flxanimate
 class ModchartAnimateSprite extends FlxAnimate
 {
-    public var lua:State = null;
 	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
 	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
 	{
 		super(x, y, path, settings);
-		antialiasing = ClientPrefs.globalAntialiasing;
+		antialiasing = ClientPrefs.data.antialiasing;
 	}
 
 	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
