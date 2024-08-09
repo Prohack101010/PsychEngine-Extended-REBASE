@@ -1929,15 +1929,15 @@ class FunkinLua {
 				lastSprite.destroy();
 			}
 
-			var mySprite:ModchartAnimateSprite = new ModchartAnimateSprite(x, y);
-			if(loadFolder != null) loadAtlasCustom(mySprite, loadFolder);
+			var mySprite:FunkinLua = new FunkinLua(x, y);
+			if(loadFolder != null) FunkinLua.loadAtlasCustom(mySprite, loadFolder);
 			PlayState.instance.variables.set(tag, mySprite);
 			mySprite.active = true;
 		});
 		
 		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
 			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
-			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
+			if(spr != null) FunkinLua.loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
 		});
 
 		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
@@ -1945,8 +1945,8 @@ class FunkinLua {
 			var obj:Dynamic = PlayState.instance.variables.get(tag);
 			if(cast (obj, FlxAnimate) == null) return false;
 
-			obj.anim.addBySymbol(name, symbol, framerate, loop, matX, matY);
-			if(obj.anim.lastPlayedAnim == null)
+			obj.animation.addBySymbol(name, symbol, framerate, loop, matX, matY);
+			if(obj.animation.lastPlayedAnim == null)
 			{
 				if(obj.playAnim != null) obj.playAnim(name, true); //is ModchartAnimateSprite
 				else obj.animation.play(name, true);
@@ -1956,7 +1956,7 @@ class FunkinLua {
 		
 		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
 			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
-			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
+			if(spr != null) FunkinLua.loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
 		});
 		
 		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
@@ -1964,8 +1964,8 @@ class FunkinLua {
 			var obj:Dynamic = PlayState.instance.variables.get(tag);
 			if(cast (obj, FlxAnimate) == null) return false;
 
-			obj.anim.addBySymbol(name, symbol, framerate, loop, matX, matY);
-			if(obj.anim.curSymbol == null)
+			obj.animation.addBySymbol(name, symbol, framerate, loop, matX, matY);
+			if(obj.animation.curSymbol == null)
 			{
 				if(obj.playAnim != null) obj.playAnim(name, true); //is ModchartAnimateSprite
 				else obj.animation.play(name, true);
@@ -1990,8 +1990,8 @@ class FunkinLua {
 				indices = myIndices;
 			}
 
-			obj.anim.addBySymbolIndices(name, symbol, indices, framerate, loop, matX, matY);
-			if(obj.anim.lastPlayedAnim == null)
+			obj.animation.addBySymbolIndices(name, symbol, indices, framerate, loop, matX, matY);
+			if(obj.animation.lastPlayedAnim == null)
 			{
 				if(obj.playAnim != null) obj.playAnim(name, true); //is ModchartAnimateSprite
 				else obj.animation.play(name, true);
@@ -2066,7 +2066,7 @@ class FunkinLua {
 				var luaObj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
 				if(obj.animation.getByName(name) != null)
 				{
-				    if(obj.anim != null) obj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
+				    if(obj.animation != null) obj.animation.play(name, forced, reverse, startFrame); //FlxAnimate
 					else obj.animation.play(name, forced, reverse, startFrame);
 					if(Std.isOfType(luaObj, ModchartSprite))
 					{
@@ -2129,19 +2129,17 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "addLuaSprite", function(tag:String, front:Bool = false) {
 		    var mySprite:FlxSprite = null;
-			if(game.modchartSprites.exists(tag)) mySprite = game.modchartSprites.get(tag);
-			else if(game.variables.exists(tag)) mySprite = game.variables.get(tag);
+			if(PlayState.instance.modchartSprites.exists(tag)) mySprite = PlayState.instance.modchartSprites.get(tag);
+			else if(PlayState.instance.variables.exists(tag)) mySprite = PlayState.instance.variables.get(tag);
 
-    		if(mySprite == null) return false;
-    
-            if(!shit.wasAdded) {
+            if(!mySprite.wasAdded && mySprite != null) {
     			if(front)
-    				getInstance().add(shit);
+    				getInstance().add(mySprite);
     		    else
 				{
 					if(PlayState.instance.isDead)
 					{
-						GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
+						GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), mySprite);
 					}
 					else
 					{
@@ -2151,10 +2149,10 @@ class FunkinLua {
 						} else if(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) < position) {
 							position = PlayState.instance.members.indexOf(PlayState.instance.dadGroup);
 						}
-						PlayState.instance.insert(position, shit);
+						PlayState.instance.insert(position, mySprite);
 					}
 				}
-				shit.wasAdded = true;
+				mySprite.wasAdded = true;
 				//trace('added a thing: ' + tag);
 			}
 		});
@@ -3377,12 +3375,11 @@ class FunkinLua {
 	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
 	{
 		super(x, y, path, settings);
-		antialiasing = ClientPrefs.data.antialiasing;
 	}
 
 	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
 	{
-		anim.play(name, forced, reverse, startFrame);
+		animation.play(name, forced, reverse, startFrame);
 
 		var daOffset = animOffsets.get(name);
 		if (animOffsets.exists(name)) offset.set(daOffset[0], daOffset[1]);
@@ -3759,7 +3756,6 @@ class ModchartSprite extends FlxSprite
 	public function new(?x:Float = 0, ?y:Float = 0)
 	{
 		super(x, y);
-		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 }
 
@@ -3789,7 +3785,7 @@ class DebugLuaText extends FlxText
 	}
 
 	override function update(elapsed:Float) {
-		super.update(elapsed);
+		// super.update(elapsed);
 		disableTime -= elapsed;
 		if(disableTime < 0) disableTime = 0;
 		if(disableTime < 1) alpha = disableTime;
