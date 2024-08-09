@@ -2135,7 +2135,7 @@ class FunkinLua {
     		if(mySprite == null) return false;
     
             if(!shit.wasAdded) {
-    			    if(front)
+    			if(front)
     				getInstance().add(shit);
     		    else
 				{
@@ -2156,7 +2156,6 @@ class FunkinLua {
 				}
 				shit.wasAdded = true;
 				//trace('added a thing: ' + tag);
-				}
 			}
 		});
 		Lua_helper.add_callback(lua, "setGraphicSize", function(obj:String, x:Int, y:Int = 0, updateHitbox:Bool = true) {
