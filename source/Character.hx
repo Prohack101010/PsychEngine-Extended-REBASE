@@ -150,7 +150,7 @@ class Character extends FlxSprite
 		updateHitbox();
 
 		if(!isAnimateAtlas)
-			frames = Sys.getCwd() + Paths.getAtlas(json.image);
+			frames = Paths.getAtlas(json.image);
 		#if flxanimate
 		else
 		{
