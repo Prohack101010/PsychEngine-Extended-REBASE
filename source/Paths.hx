@@ -124,7 +124,7 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	public static function mod(file:String, ?type:AssetType = TEXT, ?library:Null<String> = null, ?modsAllowed:Bool = false):String
+	public static function getPath(file:String, ?type:AssetType = TEXT, ?library:Null<String> = null, ?modsAllowed:Bool = false):String
 	{
 	    #if MODS_ALLOWED
 		if(modsAllowed)
