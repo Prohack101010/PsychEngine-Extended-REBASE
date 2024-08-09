@@ -1935,7 +1935,7 @@ class FunkinLua {
 			mySprite.active = true;
 		});
 		
-		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
+		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
 			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
 			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
 		});
