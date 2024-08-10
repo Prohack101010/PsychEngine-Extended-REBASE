@@ -228,15 +228,17 @@ class Paths
 	}
 
 	inline static public function voices(song:String):Any
-	{	    
-		var songKeyDiff:String = '${formatToSongPath(song)}/Voices-$diff';
+	{	 
+	    var diff = CoolUtil.difficultyString();
+	      
+		var songKeyErect:String = '${formatToSongPath(song)}/Voices-Erect';
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 	    
-		var voicesDiff = returnSound('songs', songKeyDiff);
+		var voicesErect = returnSound('songs', songKeyErect);
 		var voices = returnSound('songs', songKey);
 		
 		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
-		    return voicesDiff;
+		    return voicesErect;
 		else
 		    return voices;
 	}
@@ -245,14 +247,14 @@ class Paths
 	{
 	    var diff = CoolUtil.difficultyString();
 	    
-		var songKeyDiff:String = '${formatToSongPath(song)}/Inst-$diff';
+		var songKeyErect:String = '${formatToSongPath(song)}/Inst-Erect';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	        
-		var instDiff = returnSound('songs', songKeyDiff);
+		var instErect = returnSound('songs', songKeyDiff);
 		var inst = returnSound('songs', songKey);
 		
 		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
-		    return instDiff;
+		    return instErect;
 		else
 		    return inst;
 	}
