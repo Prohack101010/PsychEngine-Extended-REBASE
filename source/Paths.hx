@@ -232,14 +232,9 @@ class Paths
 	    var modsvoicescheck:String = Paths.mods(Paths.currentModDirectory + '/songs/${formatToSongPath(song)}/Voices-$diff');
 	    var assetsvoicescheck:String = Sys.getCwd() + 'assets/songs/${formatToSongPath(song)}/Voices-$diff';
 	    
-		if(FileSystem.exists(modsvoicescheck || assetsvoicescheck))
+		if(FileSystem.exists(modsvoicescheck))
 		   var songKey:String = '${formatToSongPath(song)}/Voices-$diff';
 		else
-		/*if (diff == 'erect')
-		    var songKey:String = '${formatToSongPath(song)}/Voices-erect';
-		else if (diff == 'nightmare')
-		    var songKey:String = '${formatToSongPath(song)}/Voices-nightmare';
-		else*/
 		    var songKey:String = '${formatToSongPath(song)}/Voices';
 	    
 		var voices = returnSound('songs', songKey);
@@ -252,14 +247,9 @@ class Paths
 	    var modsinstcheck:String = Paths.mods(Paths.currentModDirectory + '/songs/${formatToSongPath(song)}/Inst-$diff');
 	    var assetsinstcheck:String = Sys.getCwd() + 'assets/songs/${formatToSongPath(song)}/Inst-$diff';
 	    
-	    if(FileSystem.exists(modsinstcheck || assetsinstcheck))
+	    if(FileSystem.exists(modsinstcheck))
 		    var songKey:String = '${formatToSongPath(song)}/Inst-$diff';
 		else
-		/*if (diff == 'erect')
-	        var songKey:String = '${formatToSongPath(song)}/Inst-erect';
-	    else if (diff == 'nightmare')
-	        var songKey:String = '${formatToSongPath(song)}/Inst-nightmare';
-	    else*/
 	        var songKey:String = '${formatToSongPath(song)}/Inst';
 	        
 		var inst = returnSound('songs', songKey);
