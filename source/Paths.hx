@@ -226,7 +226,7 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String, ?erect:Bool = false):Any
+	static public function voices(song:String, ?erect:Bool = false):Any
 	{
 		if (erect)
 		    var songKey:String = '${formatToSongPath(song)}/Voices-erect';
@@ -237,7 +237,7 @@ class Paths
 		return voices;
 	}
 
-	inline static public function inst(song:String, ?erect:Bool = false):Any
+	static public function inst(song:String, ?erect:Bool = false):Any
 	{
 		if (erect)
 	        var songKey:String = '${formatToSongPath(song)}/Inst-erect';
