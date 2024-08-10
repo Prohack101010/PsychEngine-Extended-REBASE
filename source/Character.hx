@@ -105,7 +105,6 @@ class Character extends FlxSprite
 				{
 					path = Sys.getCwd() + Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 				}
-				singDuration = json.sing_duration;
 
 				try
 				{
@@ -121,7 +120,6 @@ class Character extends FlxSprite
 				{
 					trace('Error loading character file of "$character": $e');
 				}
-				singDuration = json.sing_duration;
 				//trace('Loaded file to character ' + curCharacter);
 		}
 
@@ -141,6 +139,11 @@ class Character extends FlxSprite
 	public function loadCharacterFile(json:CharacterFile)
 	{
 		isAnimateAtlas = false;
+		#if MODS_ALLOWED
+		json = cast Json.parse(File.getContent(path));
+		#else
+		json = cast Json.parse(Assets.getText(path));
+		#end
 
 		#if flxanimate
 		var animToFind:String = Paths.getPath('images/' + json.image + '/Animation.json', TEXT, null, true);
