@@ -226,37 +226,23 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String):Any
+	inline static public function voices(song:String, ?erect:Bool = false):Any
 	{
-	    var diff = CoolUtil.difficultyString(); 
-	    
-		if (diff == 'erect') {
+		if (erect)
 		    var songKey:String = '${formatToSongPath(song)}/Voices-erect';
-		}
-		else if (diff == 'nightmare') {
-		    var songKey:String = '${formatToSongPath(song)}/Voices-erect';
-		}
-		else {
+		else
 		    var songKey:String = '${formatToSongPath(song)}/Voices';
-		}
 	    
 		var voices = returnSound('songs', songKey);
 		return voices;
 	}
 
-	inline static public function inst(song:String):Any
+	inline static public function inst(song:String, ?erect:Bool = false):Any
 	{
-	    var diff = CoolUtil.difficultyString();
-	    
-		if (diff == 'erect') {
+		if (erect)
 	        var songKey:String = '${formatToSongPath(song)}/Inst-erect';
-	    }
-	    else if (diff == 'nightmare') {
-	        var songKey:String = '${formatToSongPath(song)}/Inst-erect';
-	    }
-	    else {
+	    else
 	        var songKey:String = '${formatToSongPath(song)}/Inst';
-	    }
 	        
 		var inst = returnSound('songs', songKey);
 		return inst;
