@@ -139,11 +139,6 @@ class Character extends FlxSprite
 	public function loadCharacterFile(json:CharacterFile)
 	{
 		isAnimateAtlas = false;
-		#if MODS_ALLOWED
-		json = cast Json.parse(File.getContent(path));
-		#else
-		json = cast Json.parse(Assets.getText(path));
-		#end
 
 		#if flxanimate
 		var animToFind:String = Paths.getPath('images/' + json.image + '/Animation.json', TEXT, null, true);
