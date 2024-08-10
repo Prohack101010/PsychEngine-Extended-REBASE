@@ -231,11 +231,12 @@ class Paths
 	    var diff = CoolUtil.difficultyString(); 
 	    var modsvoicescheck:String = Paths.mods(Paths.currentModDirectory + '/songs/${formatToSongPath(song)}/Voices-$diff');
 	    var assetsvoicescheck:String = Sys.getCwd() + 'assets/songs/${formatToSongPath(song)}/Voices-$diff';
+	    var songKey:String = '';
 	    
 		if(FileSystem.exists(modsvoicescheck))
-		   var songKey:String = '${formatToSongPath(song)}/Voices-$diff';
+		   songKey = '${formatToSongPath(song)}/Voices-$diff';
 		else
-		    var songKey:String = '${formatToSongPath(song)}/Voices';
+		    songKey = '${formatToSongPath(song)}/Voices';
 	    
 		var voices = returnSound('songs', songKey);
 		return voices;
@@ -246,11 +247,12 @@ class Paths
 	    var diff = CoolUtil.difficultyString();
 	    var modsinstcheck:String = Paths.mods(Paths.currentModDirectory + '/songs/${formatToSongPath(song)}/Inst-$diff');
 	    var assetsinstcheck:String = Sys.getCwd() + 'assets/songs/${formatToSongPath(song)}/Inst-$diff';
+	    var songKey:String = '';
 	    
 	    if(FileSystem.exists(modsinstcheck))
-		    var songKey:String = '${formatToSongPath(song)}/Inst-$diff';
+		    songKey = '${formatToSongPath(song)}/Inst-$diff';
 		else
-	        var songKey:String = '${formatToSongPath(song)}/Inst';
+	        songKey = '${formatToSongPath(song)}/Inst';
 	        
 		var inst = returnSound('songs', songKey);
 		return inst;
