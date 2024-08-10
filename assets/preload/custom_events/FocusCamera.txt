@@ -1,0 +1,3 @@
+Focuses camera
+value 1 is character (0 - bf, 1 - dad, 2 - gf)
+value 2 idk

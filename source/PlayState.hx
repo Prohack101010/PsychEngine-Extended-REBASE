@@ -2493,8 +2493,10 @@ class PlayState extends MusicBeatState
 		if(diff != 'ERECT' || diff != 'Erect' || diff != 'erect' || diff != 'NIGHTMARE' || diff != 'Nightmare' || diff != 'nightmare')
 		    var file:String = Paths.json(songName + '/events');
 		    
+		if (FileSystem.exists(Paths.modsJson(songName + '/events')) && (diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare') || diff != 'ERECT' || diff != 'Erect' || diff != 'erect' || diff != 'NIGHTMARE' || diff != 'Nightmare' || diff != 'nightmare')
+		{
 		#if MODS_ALLOWED
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) if(diff != 'ERECT' || diff != 'Erect' || diff != 'erect' || diff != 'NIGHTMARE' || diff != 'Nightmare' || diff != 'nightmare') { ||  FileSystem.exists(Sys.getCwd() + file) }) {
+		if (FileSystem.exists(Paths.modsJson(songName + '/events')) ||  FileSystem.exists(Sys.getCwd() + file)) {
 		#else
 		if (OpenFlAssets.exists(file)) {
 		#end
@@ -2514,6 +2516,7 @@ class PlayState extends MusicBeatState
 					eventPushed(subEvent);
 				}
 			}
+		}
 		}
 
 		for (section in noteData)
