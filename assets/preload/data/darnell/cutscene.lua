@@ -56,9 +56,7 @@ function onCreate()
 end
 
 function onUpdate()
-if not isStoryMode then
 setProperty('cutText.visible', false)
-end
 if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.ALT') and isStoryMode and cutscene1 then
 runTimer('videoWait', 2);
 setProperty('cutText.visible', false)

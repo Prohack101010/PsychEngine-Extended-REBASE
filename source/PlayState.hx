@@ -1076,20 +1076,6 @@ class PlayState extends MusicBeatState
 
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
-		
-		#if mobile
-		addMobileControls();
-		if (ClientPrefs.hitboxmode == 'Classic') {
-		MusicBeatState.mobilec.visible = false;
-		}
-	        if (ClientPrefs.hitboxmode == 'New') {
-		MusicBeatState.mobilec.visible = true;
-		if (!ClientPrefs.hitboxhint) {
-		MusicBeatState.mobilec.alpha = 0.000001;
-		}
-		}
-		
-		#end
 
 		// startCountdown();
 
@@ -1221,6 +1207,18 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
+		
+		#if mobile
+		addMobileControls();
+		MusicBeatState.mobilec.visible = false;
+	    if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
+		MusicBeatState.mobilec.alpha = 0.000001;
+		}
+		if (ClientPrefs.hitboxhint){
+		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox_hint'));
+		add(hitbox_hint);
+		}
+		#end
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -2138,6 +2136,9 @@ class PlayState extends MusicBeatState
 		var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
+			#if mobile
+			MusicBeatState.mobilec.visible = true;
+			#end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 			for (i in 0...playerStrums.length) {
@@ -2150,12 +2151,7 @@ class PlayState extends MusicBeatState
 				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 			}
 
-			#if mobile
-			startedCountdown = MusicBeatState.mobilec.visible = true;
-			if (checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
-			#else
 			startedCountdown = true;
-			#end
 			Conductor.songPosition = -Conductor.crochet * 5;
 			setOnLuas('startedCountdown', true);
 			callOnLuas('onCountdownStarted', []);
@@ -3994,9 +3990,6 @@ class PlayState extends MusicBeatState
 
 		#if mobile
 		MusicBeatState.mobilec.visible = false;
-		if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
-		MusicBeatState.mobilec.alpha = 0.00001;
-		}
 		#end
 		timeBarBG.visible = false;
 		timeBar.visible = false;
