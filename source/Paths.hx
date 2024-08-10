@@ -226,26 +226,30 @@ class Paths
 		return file;
 	}
 
-	static public function voices(song:String, ?erect:Bool = false)
+	inline static public function voices(song:String, ?erect:Bool = false):Any
 	{
-		if (erect)
-		    var songKey:String = '${formatToSongPath(song)}/Voices-erect';
-		else
-		    var songKey:String = '${formatToSongPath(song)}/Voices';
+		var songKeyErect:String = '${formatToSongPath(song)}/Voices-erect';
+		var songKey:String = '${formatToSongPath(song)}/Voices';
 	    
+		var voicesErect = returnSound('songs', songKeyErect);
 		var voices = returnSound('songs', songKey);
-		return voices;
+		if (erect)
+		    return voicesErect;
+		else
+		    return voices;
 	}
 
-	static public function inst(song:String, ?erect:Bool = false):Any
+	inline static public function inst(song:String, ?erect:Bool = false):Any
 	{
-		if (erect)
-	        var songKey:String = '${formatToSongPath(song)}/Inst-erect';
-	    else
-	        var songKey:String = '${formatToSongPath(song)}/Inst';
+	    var songKeyErect:String = '${formatToSongPath(song)}/Inst-erect';
+	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	        
 		var inst = returnSound('songs', songKey);
-		return inst;
+		var instErect = returnSound('songs', songKeyErect);
+		if (erect)
+		    return instErect;
+		else
+		    return inst;
 	}
 
 	inline static public function image(key:String, ?library:String):FlxGraphic
