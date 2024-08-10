@@ -105,6 +105,7 @@ class Character extends FlxSprite
 				{
 					path = Sys.getCwd() + Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 				}
+				singDuration = json.sing_duration;
 
 				try
 				{
@@ -114,14 +115,13 @@ class Character extends FlxSprite
 					loadCharacterFile(cast Json.parse(Assets.getText(path)));
 					#end
 				}
-				
-				singDuration = json.sing_duration;
 
 				
 				catch(e:Dynamic)
 				{
 					trace('Error loading character file of "$character": $e');
 				}
+				singDuration = json.sing_duration;
 				//trace('Loaded file to character ' + curCharacter);
 		}
 
