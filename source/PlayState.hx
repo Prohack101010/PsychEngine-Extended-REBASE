@@ -2487,13 +2487,9 @@ class PlayState extends MusicBeatState
 		var playerCounter:Int = 0;
 
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
-		var diff = CoolUtil.difficultyString();
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
-		    
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) && (diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare') || diff != 'ERECT' || diff != 'Erect' || diff != 'erect' || diff != 'NIGHTMARE' || diff != 'Nightmare' || diff != 'nightmare')
-		{
 		#if MODS_ALLOWED
 		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(Sys.getCwd() + file)) {
 		#else
@@ -2515,7 +2511,6 @@ class PlayState extends MusicBeatState
 					eventPushed(subEvent);
 				}
 			}
-		}
 		}
 
 		for (section in noteData)

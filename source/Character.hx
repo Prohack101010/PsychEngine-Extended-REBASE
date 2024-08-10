@@ -114,6 +114,8 @@ class Character extends FlxSprite
 					loadCharacterFile(cast Json.parse(Assets.getText(path)));
 					#end
 				}
+				
+				singDuration = json.sing_duration;
 
 				
 				catch(e:Dynamic)

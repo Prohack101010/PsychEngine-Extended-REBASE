@@ -1,2 +1,0 @@
-Value 1 is duration, ease
-Value 2 is zoom, stage

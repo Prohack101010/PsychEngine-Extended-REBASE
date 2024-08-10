@@ -29,7 +29,6 @@ class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
-	public static var diff = CoolUtil.difficultyString();
 
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
@@ -229,34 +228,38 @@ class Paths
 
 	inline static public function voices(song:String):Any
 	{	 
-	    var diff = CoolUtil.difficultyString();
+	    // var diff = CoolUtil.difficultyString();
 	      
-		var songKeyErect:String = '${formatToSongPath(song)}/Voices-Erect';
+		// var songKeyErect:String = '${formatToSongPath(song)}/Voices-Erect';
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 	    
-		var voicesErect = returnSound('songs', songKeyErect);
+		// var voicesErect = returnSound('songs', songKeyErect);
 		var voices = returnSound('songs', songKey);
 		
+		/*
 		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
 		    return voicesErect;
 		else
-		    return voices;
+		*/
+		return voices;
 	}
 
 	inline static public function inst(song:String):Any
 	{
-	    var diff = CoolUtil.difficultyString();
+	    // var diff = CoolUtil.difficultyString();
 	    
-		var songKeyErect:String = '${formatToSongPath(song)}/Inst-Erect';
+		// var songKeyErect:String = '${formatToSongPath(song)}/Inst-Erect';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	        
-		var instErect = returnSound('songs', songKeyErect);
+		// var instErect = returnSound('songs', songKeyErect);
 		var inst = returnSound('songs', songKey);
 		
+		/*
 		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
 		    return instErect;
 		else
-		    return inst;
+		*/
+		return inst;
 	}
 
 	inline static public function image(key:String, ?library:String):FlxGraphic
