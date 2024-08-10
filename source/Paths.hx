@@ -29,6 +29,7 @@ class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
+	inline public static var diff = CoolUtil.difficultyString();
 
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
@@ -227,16 +228,14 @@ class Paths
 	}
 
 	inline static public function voices(song:String):Any
-	{
-	    var diff = CoolUtil.difficultyString(); 
-	    
-		var songKeyDiff:String = '${formatToSongPath(song)}/Voices-Erect';
+	{	    
+		var songKeyDiff:String = '${formatToSongPath(song)}/Voices-$diff';
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 	    
 		var voicesDiff = returnSound('songs', songKeyDiff);
 		var voices = returnSound('songs', songKey);
 		
-		if(diff == 'erect' || diff == 'nightmare')
+		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
 		    return voicesDiff;
 		else
 		    return voices;
@@ -246,13 +245,13 @@ class Paths
 	{
 	    var diff = CoolUtil.difficultyString();
 	    
-		var songKeyDiff:String = '${formatToSongPath(song)}/Inst-Erect';
+		var songKeyDiff:String = '${formatToSongPath(song)}/Inst-$diff';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	        
 		var instDiff = returnSound('songs', songKeyDiff);
 		var inst = returnSound('songs', songKey);
 		
-		if(diff == 'erect' || diff == 'nightmare')
+		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
 		    return instDiff;
 		else
 		    return inst;
