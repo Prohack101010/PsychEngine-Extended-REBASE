@@ -226,28 +226,38 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String, ?erect:Bool = false):Any
+	inline static public function voices(song:String):Any
 	{
-		var songKeyErect:String = '${formatToSongPath(song)}/Voices-erect';
+	    var diff = CoolUtil.difficultyString(); 
+	    var modscheck:String = Paths.mods(Paths.currentModDirectory + '/songs/${formatToSongPath(song)}/Voices-$diff');
+	    var assetscheck:String = Sys.getCwd() + 'assets/songs/${formatToSongPath(song)}/Voices-$diff';
+	    
+		var songKeyDiff:String = '${formatToSongPath(song)}/Voices-$diff';
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 	    
-		var voicesErect = returnSound('songs', songKeyErect);
+		var voicesDiff = returnSound('songs', songKeyDiff);
 		var voices = returnSound('songs', songKey);
-		if (erect)
-		    return voicesErect;
+		
+		if(FileSystem.exists(modscheck) || FileSystem.exists(assetscheck))
+		    return voicesDiff;
 		else
 		    return voices;
 	}
 
-	inline static public function inst(song:String, ?erect:Bool = false):Any
+	inline static public function inst(song:String):Any
 	{
-	    var songKeyErect:String = '${formatToSongPath(song)}/Inst-erect';
+	    var diff = CoolUtil.difficultyString();
+	    var modscheck:String = Paths.mods(Paths.currentModDirectory + '/songs/${formatToSongPath(song)}/Inst-$diff');
+	    var assetscheck:String = Sys.getCwd() + 'assets/songs/${formatToSongPath(song)}/Inst-$diff';
+	    
+		var songKeyDiff:String = '${formatToSongPath(song)}/Inst-$diff';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	        
+		var instDiff = returnSound('songs', songKeyDiff);
 		var inst = returnSound('songs', songKey);
-		var instErect = returnSound('songs', songKeyErect);
-		if (erect)
-		    return instErect;
+		
+		if(FileSystem.exists(modscheck) || FileSystem.exists(assetscheck))
+		    return instDiff;
 		else
 		    return inst;
 	}

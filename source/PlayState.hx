@@ -2402,16 +2402,11 @@ class PlayState extends MusicBeatState
 	function startSong():Void
 	{
 		startingSong = false;
-		var erectsong:String = CoolUtil.getDifficultyFilePath();
 
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
-        if (erectsong == 'erect' || erectsong == 'nightmare')
-		    FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song, true), 1, false);
-		else
-		    FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		    
+		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.pitch = playbackRate;
 		FlxG.sound.music.onComplete = finishSong.bind();
 		vocals.play();
@@ -2469,25 +2464,17 @@ class PlayState extends MusicBeatState
 
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm);
-		var erectsong:String = CoolUtil.getDifficultyFilePath();
 
 		curSong = songData.song;
 
 		if (SONG.needsVoices)
-    		if (erectsong == 'erect' || erectsong == 'nightmare')
-    		    vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, true));
-    		else
-    			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 		else
 			vocals = new FlxSound();
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
-		
-		if (erectsong == 'erect' || erectsong == 'nightmare')
-		    FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song, true)));
-		else
-		    FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
+		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
