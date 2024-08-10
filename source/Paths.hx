@@ -250,7 +250,7 @@ class Paths
 		var songKeyErect:String = '${formatToSongPath(song)}/Inst-Erect';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	        
-		var instErect = returnSound('songs', songKeyDiff);
+		var instErect = returnSound('songs', songKeyErect);
 		var inst = returnSound('songs', songKey);
 		
 		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
