@@ -1,1 +1,0 @@
-Paste these files into your own PsychEngine Source Code and Compile.

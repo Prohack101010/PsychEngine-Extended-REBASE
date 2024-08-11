@@ -45,7 +45,6 @@
 	
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
 	<define name="WEEKEND1_ENABLED" if="mobile"/>
-	<define name="SONGS_ENABLED" if="desktop"/>
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" if="desktop || mobile" />
@@ -58,9 +57,7 @@
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
-	<assets path="weekend1_assets/preload" rename="assets" exclude="*.mp3"  if="WEEKEND1_ENABLED"   unless="web"/>
-	<assets path="weekend1_assets/shared" rename="assets/shared" exclude="*.mp3"  if="WEEKEND1_ENABLED"   unless="web"/>
-	<assets path="songs_assets" rename="assets" exclude="*.mp3"  if="SONGS_ENABLED"   unless="web"/>
+	<assets path="weekend1_assets/preload" rename="assets" exclude="*.mp3"  if="WEEKEND1_ENABLED"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets" exclude="*.ogg" if="web"/>
 		<assets path="assets/secrets" rename="assets" exclude="*.mp3"  unless="web"/>
