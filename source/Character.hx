@@ -1,5 +1,6 @@
 package;
 
+import animation.PsychAnimationController;
 // import animateatlas.AtlasFrameMaker;
 import flixel.util.FlxDestroyUtil;
 import flixel.FlxG;
@@ -83,6 +84,8 @@ class Character extends FlxSprite
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false)
 	{
 		super(x, y);
+		
+		animation = new PsychAnimationController(this);
 
 		animOffsets = new Map<String, Array<Dynamic>>();
 		curCharacter = character;
