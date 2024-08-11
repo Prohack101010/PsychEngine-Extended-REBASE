@@ -612,21 +612,21 @@ class Paths
 
 				if(!changedAtlasJson)
 				{
-					spriteJson = getTextFromFile('images/$originalPath/spritemap$st.json');
+					spriteJson = getTextFromFile('images/$originalPath/spritemap1.json'); //I used spritemap1 because spritemap$st doesn't work.
 					if(spriteJson != null)
 					{
 						//trace('found Sprite Json');
 						changedImage = true;
 						changedAtlasJson = true;
-						folderOrImg = Paths.image('$originalPath/spritemap$st');
+						folderOrImg = Paths.image('$originalPath/spritemap1');
 						break;
 					}
 				}
-				else if(Paths.fileExists('images/$originalPath/spritemap$st.png', IMAGE))
+				else if(Paths.fileExists('images/$originalPath/spritemap1.png', IMAGE))
 				{
 					//trace('found Sprite PNG');
 					changedImage = true;
-					folderOrImg = Paths.image('$originalPath/spritemap$st');
+					folderOrImg = Paths.image('$originalPath/spritemap1');
 					break;
 				}
 			}
