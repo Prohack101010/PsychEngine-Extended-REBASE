@@ -1,10 +1,10 @@
-package animateatlasold.displayobject;
+package animateatlas.displayobject;
 
 import openfl.display.Sprite;
-import animateatlasold.HelperEnums.LoopMode;
-import animateatlasold.HelperEnums.SymbolType;
+import animateatlas.HelperEnums.LoopMode;
+import animateatlas.HelperEnums.SymbolType;
 
-@:access(animateatlasold.displayobject.SpriteSymbol)
+@:access(animateatlas.displayobject.SpriteSymbol)
 class SpriteMovieClip extends Sprite {
 	public var framerate(get, set):Float;
 	public var currentLabel(get, set):String;

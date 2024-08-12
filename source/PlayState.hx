@@ -217,6 +217,7 @@ class PlayState extends MusicBeatState
 	public var cpuControlled:Bool = false;
 	public var cpuControlled_opponent:Bool = false;
 	public static var opponentChart:Bool = false;
+	public static var MoveOption:Bool;
 	public var practiceMode:Bool = false;
 
 	public var botplaySine:Float = 0;

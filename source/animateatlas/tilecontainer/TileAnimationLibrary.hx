@@ -1,32 +1,33 @@
-package animateatlasold.displayobject;
+package animateatlas.tilecontainer;
 
+import openfl.display.Tileset;
+import haxe.Constraints.Constructible;
 import openfl.display.BitmapData;
-import animateatlasold.JSONData.AnimationData;
-import animateatlasold.JSONData.ElementData;
-import animateatlasold.JSONData.LayerFrameData;
-import animateatlasold.JSONData.LayerData;
-import animateatlasold.JSONData.SymbolTimelineData;
-import animateatlasold.JSONData.Matrix3DData;
-import animateatlasold.JSONData.AtlasData;
-import animateatlasold.JSONData.SymbolData;
-import animateatlasold.JSONData.SpriteData;
-import animateatlasold.HelperEnums.LoopMode;
-import animateatlasold.HelperEnums.SymbolType;
+import animateatlas.JSONData.AnimationData;
+import animateatlas.JSONData.ElementData;
+import animateatlas.JSONData.LayerFrameData;
+import animateatlas.JSONData.LayerData;
+import animateatlas.JSONData.SymbolTimelineData;
+import animateatlas.JSONData.Matrix3DData;
+import animateatlas.JSONData.AtlasData;
+import animateatlas.JSONData.SymbolData;
+import animateatlas.JSONData.SpriteData;
+import animateatlas.HelperEnums.LoopMode;
+import animateatlas.HelperEnums.SymbolType;
 import openfl.errors.ArgumentError;
 
 /**
- * Performance will be REALLY BAD.
- * Consider using TileAnimationLibrary whenever possible.
+ * Since we can extract symbols from the exported timeline and instance them separatedly, this keeps track of all symbols.
+ * Also, this is a "more readable" way of understanding the AnimationData
  */
-class SpriteAnimationLibrary {
+class TileAnimationLibrary {
 	public var frameRate:Float;
 
 	private var _atlas:Map<String, SpriteData>;
 	private var _symbolData:Map<String, SymbolData>;
-	private var _symbolPool:Map<String, Array<SpriteSymbol>>;
+	private var _symbolPool:Map<String, Array<TileContainerSymbol>>;
 	private var _defaultSymbolName:String;
-	private var _texture:BitmapData;
-	public var smoothing:Bool = true;
+	private var _texture:Tileset;
 
 	public static inline var BITMAP_SYMBOL_NAME:String = "___atlas_sprite___";
 
@@ -52,7 +53,7 @@ class SpriteAnimationLibrary {
 	public function new(data:AnimationData, atlas:AtlasData, texture:BitmapData) {
 		parseAnimationData(data);
 		parseAtlasData(atlas);
-		_texture = texture;
+		_texture = new Tileset(texture);
 		_symbolPool = new Map();
 	}
 
@@ -60,13 +61,12 @@ class SpriteAnimationLibrary {
 		return hasSymbol(name);
 	}
 
-	public function createAnimation(noAntialiasing:Bool, symbol:String = null):SpriteMovieClip {
-		this.smoothing = !noAntialiasing;
+	public function createAnimation(symbol:String = null):TileContainerMovieClip {
 		symbol = (symbol != null) ? symbol : _defaultSymbolName;
 		if (!hasSymbol(symbol)) {
 			throw new ArgumentError("Symbol not found: " + symbol);
 		}
-		return new SpriteMovieClip(getSymbol(symbol));
+		return new TileContainerMovieClip(getSymbol(symbol));
 	}
 
 	public function getAnimationNames(prefix:String = ""):Array<String> {
@@ -105,27 +105,24 @@ class SpriteAnimationLibrary {
 	// todo migrate this to lime pool
 
 	@:access(animateatlas)
-	@:allow(AtlasFrameMaker)
-	private function getSymbol(name:String):SpriteSymbol {
-		var pool:Array<SpriteSymbol> = getSymbolPool(name);
+	private function getSymbol(name:String):TileContainerSymbol {
+		var pool:Array<TileContainerSymbol> = getSymbolPool(name);
 		if (pool.length == 0) {
-			var symbol:SpriteSymbol = new SpriteSymbol(getSymbolData(name), this, _texture);
-			symbol.smoothing = smoothing;
-			return symbol;
+			return new TileContainerSymbol(getSymbolData(name), this, _texture);
 		} else {
 			return pool.pop();
 		}
 	}
 
-	private function putSymbol(symbol:SpriteSymbol):Void {
+	private function putSymbol(symbol:TileContainerSymbol):Void {
 		symbol.reset();
-		var pool:Array<SpriteSymbol> = getSymbolPool(symbol.symbolName);
+		var pool:Array<TileContainerSymbol> = getSymbolPool(symbol.symbolName);
 		pool.push(symbol);
 		symbol.currentFrame = 0;
 	}
 
-	private function getSymbolPool(name:String):Array<SpriteSymbol> {
-		var pool:Array<SpriteSymbol> = _symbolPool.get(name);
+	private function getSymbolPool(name:String):Array<TileContainerSymbol> {
+		var pool:Array<TileContainerSymbol> = _symbolPool.get(name);
 		if (pool == null) {
 			pool = [];
 			_symbolPool.set(name, pool);
