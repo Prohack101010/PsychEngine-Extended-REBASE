@@ -638,7 +638,7 @@ class FreeplayState extends MusicBeatState
 			if (FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonZ.pressed #end){
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else{
-				LoadingState.loadAndSwitchState(new PlayState());
+				LoadingState.loadAndSwitchPlayState(new PlayState());
 			}
 
 			FlxG.sound.music.volume = 0;
