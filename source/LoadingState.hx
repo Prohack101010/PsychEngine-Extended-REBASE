@@ -150,15 +150,6 @@ class LoadingState extends MusicBeatState
 		MusicBeatState.switchState(getNextState(target, stopMusic));
 	}
 	
-	inline static public function loadAndSwitchPlayState(target:FlxState, stopMusic = false)
-	{
-		MusicBeatState.switchState(getNextState(target, stopMusic));
-		PlayState.instance.paused = true; // For lua
-		FlxG.sound.music.volume = 0;
-		PlayState.instance.vocals.volume = 0;
-		MusicBeatState.resetState();
-	}
-	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
 	{
 		var directory:String = 'shared';
