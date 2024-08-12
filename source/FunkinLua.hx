@@ -58,7 +58,10 @@ import Discord;
 #end
 
 #if android
-import android.Hardware;
+import android.widget.Toast as AndroidToast;
+import android.Tools as AndroidTools;
+//import android.os.BatteryManager as AndroidBatteryManager;
+import mobile.PsychJNI;
 #end
 
 using StringTools;
@@ -525,7 +528,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -578,7 +581,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -630,7 +633,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -668,7 +671,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -750,7 +753,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -790,7 +793,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -835,7 +838,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -2142,7 +2145,7 @@ class FunkinLua {
 			path = Paths.modsJson(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			if(!FileSystem.exists(path))
 			#end
-				path = SUtil.getPath() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
+				path = Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 
 			luaTrace('startDialogue: Trying to load dialogue: ' + path);
 
@@ -2883,7 +2886,7 @@ class FunkinLua {
 			return true;
 		}
 
-		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('shaders/')];
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('shaders/')];
 
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 
@@ -3278,6 +3281,18 @@ class FunkinLua {
 		//trace(spriteJson);
 		//trace(animationJson);
 		spr.loadAtlasEx(folderOrImg, spriteJson, animationJson);
+	}
+	
+	private static function getContentFromFile(path:String):String
+	{
+		var onAssets:Bool = false;
+		var path:String = Paths.getPath(path, TEXT, true);
+		if(FileSystem.exists(path) || (onAssets = true && Assets.exists(path, TEXT)))
+		{
+			// trace('Found text: $path');
+			return !onAssets ? File.getContent(path) : Assets.getText(path);
+		}
+		return null;
 	}
 
 	public static function getPropertyLoopThingWhatever(killMe:Array<String>, ?checkForTextsToo:Bool = true, ?getProperty:Bool=true):Dynamic
