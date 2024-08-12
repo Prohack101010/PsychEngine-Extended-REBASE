@@ -536,7 +536,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Sys.getCwd() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -589,7 +589,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Sys.getCwd() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -641,7 +641,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Sys.getCwd() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -679,7 +679,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Sys.getCwd() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -761,7 +761,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Sys.getCwd() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -801,7 +801,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Sys.getCwd() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -846,7 +846,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Sys.getCwd() + Paths.getPreloadPath(cervix);
+				cervix = Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -2323,7 +2323,7 @@ class FunkinLua {
 			path = Paths.modsJson(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			if(!FileSystem.exists(path))
 			#end
-				path = Sys.getCwd() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
+				path = Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 
 			luaTrace('startDialogue: Trying to load dialogue: ' + path);
 
@@ -3220,7 +3220,7 @@ class FunkinLua {
 			return true;
 		}
 
-		var foldersToCheck:Array<String> = [Sys.getCwd() + Paths.getPreloadPath('shaders/')];
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('shaders/')];
 
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 

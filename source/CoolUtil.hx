@@ -153,25 +153,6 @@ class CoolUtil
 			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 	
-	inline public static function openFolder(folder:String, absolute:Bool = false) {
-		#if sys
-			#if linux
-			// TO DO: get linux command
-			//Sys.command('explorer.exe $folder');
-			#else
-			if(!absolute) folder =  Sys.getCwd() + '$folder';
-
-			folder = folder.replace('/', '\\');
-			if(folder.endsWith('/')) folder.substr(0, folder.length - 1);
-
-			Sys.command('explorer.exe $folder');
-			trace('explorer.exe $folder');
-			#end
-		#else
-			FlxG.error("Platform is not supported for CoolUtil.openFolder");
-		#end
-	}
-	
 	public static function setTextBorderFromString(text:FlxText, border:String)
 	{
 		switch(border.toLowerCase().trim())
