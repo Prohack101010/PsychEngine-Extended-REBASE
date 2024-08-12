@@ -1,4 +1,4 @@
-package animateatlas;
+package animateatlasold;
 
 enum abstract LoopMode(String) from String to String {
 	public static inline var LOOP:String = "loop";

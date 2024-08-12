@@ -1,4 +1,4 @@
-package animateatlas.displayobject;
+package animateatlasold.displayobject;
 
 import openfl.filters.GlowFilter;
 import openfl.filters.BlurFilter;
@@ -10,20 +10,20 @@ import openfl.display.Sprite;
 import openfl.errors.ArgumentError;
 import openfl.geom.Rectangle;
 import openfl.errors.Error;
-import animateatlas.JSONData.ElementData;
-import animateatlas.HelperEnums.LoopMode;
-import animateatlas.HelperEnums.SymbolType;
+import animateatlasold.JSONData.ElementData;
+import animateatlasold.HelperEnums.LoopMode;
+import animateatlasold.HelperEnums.SymbolType;
 import openfl.display.FrameLabel;
-import animateatlas.JSONData.SymbolData;
-import animateatlas.JSONData.SymbolInstanceData;
-import animateatlas.JSONData.LayerData;
-import animateatlas.JSONData.BitmapPosData;
-import animateatlas.JSONData.Matrix3DData;
-import animateatlas.JSONData.LayerFrameData;
-import animateatlas.JSONData.ColorData;
+import animateatlasold.JSONData.SymbolData;
+import animateatlasold.JSONData.SymbolInstanceData;
+import animateatlasold.JSONData.LayerData;
+import animateatlasold.JSONData.BitmapPosData;
+import animateatlasold.JSONData.Matrix3DData;
+import animateatlasold.JSONData.LayerFrameData;
+import animateatlasold.JSONData.ColorData;
 import openfl.geom.Matrix;
 import openfl.geom.ColorTransform;
-import animateatlas.JSONData.FilterData;
+import animateatlasold.JSONData.FilterData;
 
 class SpriteSymbol extends Sprite {
 	public var currentLabel(get, never):String;

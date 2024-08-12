@@ -1,4 +1,4 @@
-package animateatlas;
+package animateatlasold;
 
 //Soon
 typedef AnimationData = {

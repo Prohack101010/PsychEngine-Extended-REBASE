@@ -1,21 +1,21 @@
 package;
 
-import animateatlas.JSONData.AtlasData;
+import animateatlasold.JSONData.AtlasData;
 import openfl.display.BitmapData;
-import animateatlas.JSONData.AnimationData;
+import animateatlasold.JSONData.AnimationData;
 import openfl.display.FPS;
 import openfl.Lib;
 import openfl.events.MouseEvent;
-import animateatlas.HelperEnums.LoopMode;
+import animateatlasold.HelperEnums.LoopMode;
 import openfl.events.Event;
 import openfl.display.Tilemap;
 import openfl.display.Tileset;
 import openfl.Assets;
 import haxe.Json;
-import animateatlas.tilecontainer.TileAnimationLibrary;
-import animateatlas.tilecontainer.TileContainerMovieClip;
-import animateatlas.displayobject.SpriteAnimationLibrary;
-import animateatlas.displayobject.SpriteMovieClip;
+import animateatlasold.tilecontainer.TileAnimationLibrary;
+import animateatlasold.tilecontainer.TileContainerMovieClip;
+import animateatlasold.displayobject.SpriteAnimationLibrary;
+import animateatlasold.displayobject.SpriteMovieClip;
 import openfl.display.Sprite;
 
 class Main extends Sprite {

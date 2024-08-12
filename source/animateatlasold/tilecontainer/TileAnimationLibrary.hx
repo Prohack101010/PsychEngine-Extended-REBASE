@@ -1,19 +1,19 @@
-package animateatlas.tilecontainer;
+package animateatlasold.tilecontainer;
 
 import openfl.display.Tileset;
 import haxe.Constraints.Constructible;
 import openfl.display.BitmapData;
-import animateatlas.JSONData.AnimationData;
-import animateatlas.JSONData.ElementData;
-import animateatlas.JSONData.LayerFrameData;
-import animateatlas.JSONData.LayerData;
-import animateatlas.JSONData.SymbolTimelineData;
-import animateatlas.JSONData.Matrix3DData;
-import animateatlas.JSONData.AtlasData;
-import animateatlas.JSONData.SymbolData;
-import animateatlas.JSONData.SpriteData;
-import animateatlas.HelperEnums.LoopMode;
-import animateatlas.HelperEnums.SymbolType;
+import animateatlasold.JSONData.AnimationData;
+import animateatlasold.JSONData.ElementData;
+import animateatlasold.JSONData.LayerFrameData;
+import animateatlasold.JSONData.LayerData;
+import animateatlasold.JSONData.SymbolTimelineData;
+import animateatlasold.JSONData.Matrix3DData;
+import animateatlasold.JSONData.AtlasData;
+import animateatlasold.JSONData.SymbolData;
+import animateatlasold.JSONData.SpriteData;
+import animateatlasold.HelperEnums.LoopMode;
+import animateatlasold.HelperEnums.SymbolType;
 import openfl.errors.ArgumentError;
 
 /**

@@ -1,10 +1,10 @@
-package animateatlas.tilecontainer;
+package animateatlasold.tilecontainer;
 
-import animateatlas.HelperEnums.LoopMode;
-import animateatlas.HelperEnums.SymbolType;
+import animateatlasold.HelperEnums.LoopMode;
+import animateatlasold.HelperEnums.SymbolType;
 import openfl.display.TileContainer;
 
-@:access(animateatlas.tilecontainer.TileContainerSymbol)
+@:access(animateatlasold.tilecontainer.TileContainerSymbol)
 class TileContainerMovieClip extends TileContainer {
 	public var framerate(get, set):Float;
 	public var currentLabel(get, set):String;

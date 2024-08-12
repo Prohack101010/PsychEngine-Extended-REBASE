@@ -1,4 +1,4 @@
-package animateatlas;
+package animateatlasold;
 
 /**
  * All data needed for the json importer + some extra for after parsing.
