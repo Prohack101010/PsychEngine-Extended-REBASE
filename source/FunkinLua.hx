@@ -8,14 +8,7 @@ import llua.State;
 import llua.Convert;
 #end
 
-#if android
-import android.widget.Toast as AndroidToast;
-import android.Tools as AndroidTools;
-//import android.os.BatteryManager as AndroidBatteryManager;
-import mobile.PsychJNI;
-#end
-
-// import animateatlas.AtlasFrameMaker;
+import animateatlas.AtlasFrameMaker;
 import flixel.FlxG;
 import flixel.addons.effects.FlxTrail;
 import flixel.input.keyboard.FlxKey;
@@ -64,6 +57,10 @@ import hscript.Expr;
 import Discord;
 #end
 
+#if android
+import android.Hardware;
+#end
+
 using StringTools;
 
 class FunkinLua {
@@ -98,11 +95,11 @@ class FunkinLua {
 			var resultStr:String = Lua.tostring(lua, result);
 			if(resultStr != null && result != 0) {
 				trace('Error on lua script! ' + resultStr);
-				#if android
-                SUtil.showPopUp("Error on .LUA script!", resultStr);
-                #else
-                luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
-                #end
+				#if (windows || android)
+				lime.app.Application.current.window.alert(resultStr, 'Error on lua script!');
+				#else
+				luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
+				#end
 				lua = null;
 				return;
 			}
@@ -178,13 +175,7 @@ class FunkinLua {
 		set('healthLossMult', PlayState.instance.healthLoss);
 		set('playbackRate', PlayState.instance.playbackRate);
 		set('instakillOnMiss', PlayState.instance.instakillOnMiss);
-		set('OpponentMode', PlayState.instance.cpuControlled_opponent);
-		
-		if (PlayState.opponentChart)
-		    set('botPlay', PlayState.instance.cpuControlled_opponent);
-		else
-		    set('botPlay', PlayState.instance.cpuControlled);
-		    
+		set('botPlay', PlayState.instance.cpuControlled);
 		set('practice', PlayState.instance.practiceMode);
 
 		for (i in 0...4) {
@@ -235,8 +226,6 @@ class FunkinLua {
 		set('buildTarget', 'browser');
 		#elseif android
 		set('buildTarget', 'android');
-		#elseif ios
-		set('buildTarget', 'ios');
 		#else
 		set('buildTarget', 'unknown');
 		#end
@@ -536,7 +525,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -589,7 +578,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -641,7 +630,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -679,7 +668,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -761,7 +750,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -801,7 +790,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -846,7 +835,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -1042,76 +1031,7 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
-			var myClass:Dynamic = Type.resolveClass(classVar);
 			var killMe:Array<String> = variable.split('.');
-			// hyperlink heal system su-
-			// I'm kidding
-		   #if mobile // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
-           if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
-			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                
-                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                
-                if (variable == 'keys.justPressed.Q' && MusicBeatState.mobilec.newhbox.buttonQ.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.pressed.Q' && MusicBeatState.mobilec.newhbox.buttonQ.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.justReleased.Q' && MusicBeatState.mobilec.newhbox.buttonQ.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                
-                if (variable == 'keys.justPressed.E' && MusicBeatState.mobilec.newhbox.buttonE.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.pressed.E' && MusicBeatState.mobilec.newhbox.buttonE.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.justReleased.E' && MusicBeatState.mobilec.newhbox.buttonE.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
-                }
-           }
-           
-           if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
-			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
-    			    return getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
-                    return getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
-                    return getVarInArray(myClass, variable);
-                }
-                
-                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
-    			    return getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
-                    return getVarInArray(myClass, variable);
-                }
-                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
-                    return getVarInArray(myClass, variable);
-                }
-           }
-           #end
-           
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
 				for (i in 1...killMe.length-1) {
@@ -1471,87 +1391,14 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "keyboardJustPressed", function(name:String)
 		{
-		    #if mobile // Extend for check control for android
-            if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
-    			    return true;
-                }
-                if (name == 'SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
-    			    return true;
-                }
-                if (name == 'Q' && MusicBeatState.mobilec.newhbox.buttonQ.justPressed){
-    			    return true;
-                }
-                if (name == 'E' && MusicBeatState.mobilec.newhbox.buttonE.justPressed){
-    			    return true;
-                }
-            }
-            
-            if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
-    			    return true;
-                }                                
-                if (name == 'SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
-    			    return true;
-                }
-            }
-            #end
 			return Reflect.getProperty(FlxG.keys.justPressed, name);
 		});
 		Lua_helper.add_callback(lua, "keyboardPressed", function(name:String)
 		{
-		     #if mobile // Extend for check control for android
-           if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
-    			    return true;
-                }
-                if (name == 'SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
-    			    return true;
-                }
-                if (name == 'Q' && MusicBeatState.mobilec.newhbox.buttonQ.pressed){
-    			    return true;
-                }
-                if (name == 'E' && MusicBeatState.mobilec.newhbox.buttonE.pressed){
-    			    return true;
-                }
-           }
-           if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
-    			    return true;
-                }                                
-                if (name == 'SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
-    			    return true;
-                }
-           }
-           #end
 			return Reflect.getProperty(FlxG.keys.pressed, name);
 		});
 		Lua_helper.add_callback(lua, "keyboardReleased", function(name:String)
 		{
-		    #if mobile // Extend for check control for android
-           if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
-    			    return true;
-                }
-                if (name == 'SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
-    			    return true;
-                }
-                if (name == 'Q' && MusicBeatState.mobilec.newhbox.buttonQ.justReleased){
-    			    return true;
-                }
-                if (name == 'E' && MusicBeatState.mobilec.newhbox.buttonE.justReleased){
-    			    return true;
-                }
-           }
-           if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
-    			    return true;
-                }                                
-                if (name == 'SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
-    			    return true;
-                }
-           }
-           #end
 			return Reflect.getProperty(FlxG.keys.justReleased, name);
 		});
 
@@ -1625,10 +1472,7 @@ class FunkinLua {
 				case 'back': key = PlayState.instance.getControl('BACK');
 				case 'pause': key = PlayState.instance.getControl('PAUSE');
 				case 'reset': key = PlayState.instance.getControl('RESET');
-				case 'shift': key = (PlayState.instance.getControl('SHIFT_P') || FlxG.keys.justPressed.SHIFT);//an extra key for convinience
-				case 'space': key = (PlayState.instance.getControl('SPACE_P') || FlxG.keys.justPressed.SPACE);//an extra key for convinience			
-				case 'Q': key = (PlayState.instance.getControl('Q_P') || FlxG.keys.justPressed.Q);//an extra key for convinience
-				case 'E': key = (PlayState.instance.getControl('E_P') || FlxG.keys.justPressed.E);//an extra key for convinience
+				case 'space': key = FlxG.keys.justPressed.SPACE;//an extra key for convinience
 			}
 			return key;
 		});
@@ -1639,10 +1483,7 @@ class FunkinLua {
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN');
 				case 'up': key = PlayState.instance.getControl('NOTE_UP');
 				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT');
-				case 'shift': key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT);//an extra key for convinience
-				case 'space': key = (PlayState.instance.getControl('SPACE') || FlxG.keys.pressed.SPACE);//an extra key for convinience
-				case 'Q': key = (PlayState.instance.getControl('Q') || FlxG.keys.pressed.Q);//an extra key for convinience
-				case 'E': key = (PlayState.instance.getControl('E') || FlxG.keys.pressed.E);//an extra key for convinience
+				case 'space': key = FlxG.keys.pressed.SPACE;//an extra key for convinience
 			}
 			return key;
 		});
@@ -1653,10 +1494,7 @@ class FunkinLua {
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_R');
 				case 'up': key = PlayState.instance.getControl('NOTE_UP_R');
 				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT_R');
-				case 'shift': key = (PlayState.instance.getControl('SHIFT_R') || FlxG.keys.justReleased.SHIFT);//an extra key for convinience
-				case 'space': key = (PlayState.instance.getControl('SPACE_R') || FlxG.keys.justReleased.SPACE);//an extra key for convinience			
-				case 'Q': key = (PlayState.instance.getControl('Q_R') || FlxG.keys.justReleased.Q);//an extra key for convinience
-				case 'E': key = (PlayState.instance.getControl('E_R') || FlxG.keys.justReleased.E);//an extra key for convinience
+				case 'space': key = FlxG.keys.justReleased.SPACE;//an extra key for convinience
 			}
 			return key;
 		});
@@ -1887,34 +1725,12 @@ class FunkinLua {
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
 		});
-		Lua_helper.add_callback(lua, "makeLuaAssetsSprite", function(tag:String, image:String, x:Float, y:Float) {
-			tag = tag.replace('.', '');
-			resetSpriteTag(tag);
-			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(image != null && image.length > 0)
-			{
-				leSprite.loadGraphic(Paths.assetsimage(image));
-			}
-			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
-			PlayState.instance.modchartSprites.set(tag, leSprite);
-			leSprite.active = true;
-		});
 		Lua_helper.add_callback(lua, "makeAnimatedLuaSprite", function(tag:String, image:String, x:Float, y:Float, ?spriteType:String = "sparrow") {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 
 			loadFrames(leSprite, image, spriteType);
-			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
-			PlayState.instance.modchartSprites.set(tag, leSprite);
-		});
-		
-		Lua_helper.add_callback(lua, "makeAnimatedLuaAssetsSprite", function(tag:String, image:String, x:Float, y:Float, ?spriteType:String = "sparrow") {
-			tag = tag.replace('.', '');
-			resetSpriteTag(tag);
-			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-
-			loadAssetsFrames(leSprite, image, spriteType);
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});
@@ -1986,8 +1802,7 @@ class FunkinLua {
 				var luaObj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
 				if(luaObj.animation.getByName(name) != null)
 				{
-					if(luaObj.animation != null) luaObj.animation.play(name, forced, reverse, startFrame); //FlxAnimate
-				else luaObj.animation.play(name, forced, reverse, startFrame);
+					luaObj.animation.play(name, forced, reverse, startFrame);
 					if(Std.isOfType(luaObj, ModchartSprite))
 					{
 						//convert luaObj to ModchartSprite
@@ -2048,30 +1863,34 @@ class FunkinLua {
 			}
 		});
 		Lua_helper.add_callback(lua, "addLuaSprite", function(tag:String, front:Bool = false) {
-					var mySprite:FlxSprite = null;
-        			if(PlayState.instance.modchartSprites.exists(tag)) mySprite = PlayState.instance.modchartSprites.get(tag);
-        			else if(PlayState.instance.variables.exists(tag)) mySprite = PlayState.instance.variables.get(tag);
-        
-        			if(mySprite == null) return false;
-        
-        			if(front)
-        				getInstance().add(mySprite);
-        			else
-        			{
-        				if(!PlayState.instance.isDead)
-        				{
+			if(PlayState.instance.modchartSprites.exists(tag)) {
+				var shit:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
+				if(!shit.wasAdded) {
+					if(front)
+					{
+						getInstance().add(shit);
+					}
+					else
+					{
+						if(PlayState.instance.isDead)
+						{
+							GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
+						}
+						else
+						{
 							var position:Int = PlayState.instance.members.indexOf(PlayState.instance.gfGroup);
 							if(PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup) < position) {
 								position = PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup);
 							} else if(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) < position) {
 								position = PlayState.instance.members.indexOf(PlayState.instance.dadGroup);
 							}
-							PlayState.instance.insert(position, mySprite);
+							PlayState.instance.insert(position, shit);
 						}
-					    else
-					        GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), mySprite);
 					}
-					return true;
+					shit.wasAdded = true;
+					//trace('added a thing: ' + tag);
+				}
+			}
 		});
 		Lua_helper.add_callback(lua, "setGraphicSize", function(obj:String, x:Int, y:Int = 0, updateHitbox:Bool = true) {
 			if(PlayState.instance.getLuaObject(obj)!=null) {
@@ -2323,7 +2142,7 @@ class FunkinLua {
 			path = Paths.modsJson(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			if(!FileSystem.exists(path))
 			#end
-				path = Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
+				path = SUtil.getPath() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 
 			luaTrace('startDialogue: Trying to load dialogue: ' + path);
 
@@ -2486,6 +2305,12 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "changePresence", function(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
 			#if desktop
 			DiscordClient.changePresence(details, state, smallImageKey, hasStartTimestamp, endTimestamp);
+			#end
+		});
+
+		Lua_helper.add_callback(lua, "vibration", function(milliseconds:Int) {
+			#if android
+			Hardware.vibrate(milliseconds);
 			#end
 		});
 
@@ -2928,83 +2753,6 @@ class FunkinLua {
 			#end
 			return list;
 		});
-		
-		Lua_helper.add_callback(lua, "vibrate", (duration:Null<Int>, ?period:Null<Int>) ->
-		{
-			if (duration == null)
-				return luaTrace('vibrate: No duration specified.');
-			else if (period == null)
-				period = 0;
-			return lime.ui.Haptic.vibrate(period, duration);
-		});
-		
-		#if android
-		//static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
-		//Lua_helper.add_callback(lua, "isRooted", AndroidTools.isRooted());
-		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
-		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
-		Lua_helper.add_callback(lua, "isTablet", AndroidTools.isTablet());
-		Lua_helper.add_callback(lua, "isChromebook", AndroidTools.isChromebook());
-		Lua_helper.add_callback(lua, "isDeXMode", AndroidTools.isDeXMode());
-		Lua_helper.add_callback(lua, "backJustPressed", FlxG.android.justPressed.BACK);
-		Lua_helper.add_callback(lua, "backPressed", FlxG.android.pressed.BACK);
-		Lua_helper.add_callback(lua, "backJustReleased", FlxG.android.justReleased.BACK);
-		Lua_helper.add_callback(lua, "menuJustPressed", FlxG.android.justPressed.MENU);
-		Lua_helper.add_callback(lua, "menuPressed", FlxG.android.pressed.MENU);
-		Lua_helper.add_callback(lua, "menuJustReleased", FlxG.android.justReleased.MENU);
-		Lua_helper.add_callback(lua, "getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
-		Lua_helper.add_callback(lua, "setOrientation", function(hint:Null<String>):Void
-		{
-			switch (hint.toLowerCase())
-			{
-				case 'portrait':
-					hint = 'Portrait';
-				case 'portraitupsidedown' | 'upsidedownportrait' | 'upsidedown':
-					hint = 'PortraitUpsideDown';
-				case 'landscapeleft' | 'leftlandscape':
-					hint = 'LandscapeLeft';
-				case 'landscaperight' | 'rightlandscape' | 'landscape':
-					hint = 'LandscapeRight';
-				default:
-					hint = null;
-			}
-			if (hint == null)
-				return luaTrace('setOrientation: No orientation specified.');
-			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, hint);
-		});
-		Lua_helper.add_callback(lua, "minimizeWindow", () -> AndroidTools.minimizeWindow());
-		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>)
-		{
-			if (text == null)
-				return luaTrace('showToast: No text specified.');
-			else if (duration == null)
-				return luaTrace('showToast: No duration specified.');
-
-			if (xOffset == null)
-				xOffset = 0;
-			if (yOffset == null)
-				yOffset = 0;
-
-			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
-		});
-		Lua_helper.add_callback(lua, "isScreenKeyboardShown", () -> PsychJNI.isScreenKeyboardShown());
-
-		Lua_helper.add_callback(lua, "clipboardHasText", () -> PsychJNI.clipboardHasText());
-		Lua_helper.add_callback(lua, "clipboardGetText", () -> PsychJNI.clipboardGetText());
-		Lua_helper.add_callback(lua, "clipboardSetText", function(text:Null<String>):Void
-		{
-			if (text != null) return luaTrace('clipboardSetText: No text specified.');
-			PsychJNI.clipboardSetText(text);
-		});
-
-		Lua_helper.add_callback(lua, "manualBackButton", () -> PsychJNI.manualBackButton());
-
-		Lua_helper.add_callback(lua, "setActivityTitle", function(text:Null<String>):Void
-		{
-			if (text != null) return luaTrace('setActivityTitle: No text specified.');
-			PsychJNI.setActivityTitle(text);
-		});
-		#end
 
 		call('onCreate', []);
 		#end
@@ -3070,91 +2818,6 @@ class FunkinLua {
 	}
 	public static function getVarInArray(instance:Dynamic, variable:String):Any
 	{
-		#if mobile //Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
-	        var pressCheck:Dynamic;
-	        if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
-			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
-    			    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                
-                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
-    			    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                
-                if (variable == 'keys.justPressed.Q' && MusicBeatState.mobilec.newhbox.buttonQ.justPressed){
-    			    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.pressed.Q' && MusicBeatState.mobilec.newhbox.buttonQ.pressed){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.justReleased.Q' && MusicBeatState.mobilec.newhbox.buttonQ.justReleased){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                
-                if (variable == 'keys.justPressed.E' && MusicBeatState.mobilec.newhbox.buttonE.justPressed){
-    			    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.pressed.E' && MusicBeatState.mobilec.newhbox.buttonE.pressed){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.justReleased.E' && MusicBeatState.mobilec.newhbox.buttonE.justReleased){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-            }
-            
-            if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
-			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
-    			    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                
-                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
-    			    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-            }
-        #end
-        
 		var shit:Array<String> = variable.split('[');
 		if(shit.length > 1)
 		{
@@ -3220,7 +2883,7 @@ class FunkinLua {
 			return true;
 		}
 
-		var foldersToCheck:Array<String> = [Paths.getPreloadPath('shaders/')];
+		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('shaders/')];
 
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 
@@ -3291,35 +2954,17 @@ class FunkinLua {
 	{
 		switch(spriteType.toLowerCase().trim())
 		{
-			// case "texture" | "textureatlas" | "tex":
-				// spr.frames = AtlasFrameMaker.construct(image);
+			case "texture" | "textureatlas" | "tex":
+				spr.frames = AtlasFrameMaker.construct(image);
 
-			// case "texture_noaa" | "textureatlas_noaa" | "tex_noaa":
-				// spr.frames = AtlasFrameMaker.construct(image, null, true);
+			case "texture_noaa" | "textureatlas_noaa" | "tex_noaa":
+				spr.frames = AtlasFrameMaker.construct(image, null, true);
 
 			case "packer" | "packeratlas" | "pac":
 				spr.frames = Paths.getPackerAtlas(image);
 
 			default:
 				spr.frames = Paths.getSparrowAtlas(image);
-		}
-	}
-	
-	function loadAssetsFrames(spr:FlxSprite, image:String, spriteType:String)
-	{
-		switch(spriteType.toLowerCase().trim())
-		{
-			// case "texture" | "textureatlas" | "tex":
-				// spr.frames = AtlasFrameMaker.construct(image);
-
-			// case "texture_noaa" | "textureatlas_noaa" | "tex_noaa":
-				// spr.frames = AtlasFrameMaker.construct(image, null, true);
-
-			case "packer" | "packeratlas" | "pac":
-				spr.frames = Paths.getAssetsPackerAtlas(image);
-
-			default:
-				spr.frames = Paths.getAssetsSparrowAtlas(image);
 		}
 	}
 
@@ -3565,6 +3210,75 @@ class FunkinLua {
 		}
 		return false;
 	}
+	
+	private static function loadAtlasCustom(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
+	{
+		var changedAnimJson = false;
+		var changedAtlasJson = false;
+		var changedImage = false;
+
+		if(spriteJson != null)
+		{
+			changedAtlasJson = true;
+			spriteJson = File.getContent(spriteJson);
+		}
+
+		if(animationJson != null) 
+		{
+			changedAnimJson = true;
+			animationJson = File.getContent(animationJson);
+		}
+
+		// is folder or image path
+		if(Std.isOfType(folderOrImg, String))
+		{
+			var originalPath:String = folderOrImg;
+			for (i in 0...10)
+			{
+				var st:String = '$i';
+				if(i == 0) st = '';
+
+				if(!changedAtlasJson)
+				{
+					spriteJson = getContentFromFile('images/$originalPath/spritemap$st.json');
+					if(spriteJson != null)
+					{
+						//trace('found Sprite Json');
+						changedImage = true;
+						changedAtlasJson = true;
+						folderOrImg = Paths.image('$originalPath/spritemap$st');
+						break;
+					}
+				}
+				else if(Paths.fileExists('images/$originalPath/spritemap$st.png', IMAGE))
+				{
+					//trace('found Sprite PNG');
+					changedImage = true;
+					folderOrImg = Paths.image('$originalPath/spritemap$st');
+					break;
+				}
+			}
+
+			if(!changedImage)
+			{
+				//trace('Changing folderOrImg to FlxGraphic');
+				changedImage = true;
+				folderOrImg = Paths.image(originalPath);
+			}
+
+			if(!changedAnimJson)
+			{
+				//trace('found Animation Json');
+				changedAnimJson = true;
+				animationJson = getContentFromFile('images/$originalPath/Animation.json');
+			}
+		}
+
+		//trace(folderOrImg);
+		//trace(spriteJson);
+		//trace(animationJson);
+		spr.loadAtlasEx(folderOrImg, spriteJson, animationJson);
+	}
 
 	public static function getPropertyLoopThingWhatever(killMe:Array<String>, ?checkForTextsToo:Bool = true, ?getProperty:Bool=true):Dynamic
 	{
@@ -3759,7 +3473,6 @@ class HScript
 		#end
 		interp.variables.set('ShaderFilter', openfl.filters.ShaderFilter);
 		interp.variables.set('StringTools', StringTools);
-		interp.variables.set('SUtil', SUtil);
 
 		interp.variables.set('setVar', function(name:String, value:Dynamic)
 		{
@@ -3788,182 +3501,6 @@ class HScript
 		HScript.parser.line = 1;
 		HScript.parser.allowTypes = true;
 		return interp.execute(HScript.parser.parseString(codeToRun));
-	}
-}
-#end
-
-#if flxanimate
-class FlxAnimateFunctions
-{
-	public static function implement(funk:FunkinLua)
-	{
-	    var lua:State = funk.lua;
-		Lua_helper.add_callback(lua, "makeFlxAnimateSprite", function(tag:String, ?x:Float = 0, ?y:Float = 0, ?loadFolder:String = null) {
-			tag = tag.replace('.', '');
-			var lastSprite = PlayState.instance.variables.get(tag);
-			if(lastSprite != null)
-			{
-				lastSprite.kill();
-				PlayState.instance.remove(lastSprite);
-				lastSprite.destroy();
-			}
-
-			var mySprite:ModchartAnimateSprite = new ModchartAnimateSprite(x, y);
-			if(loadFolder != null) loadAtlasCustom(mySprite, loadFolder);
-			PlayState.instance.variables.set(tag, mySprite);
-			mySprite.active = true;
-		});
-
-		Lua_helper.add_callback(lua, "loadAnimateAtlas", function(tag:String, folderOrImg:Dynamic, ?spriteJson:Dynamic = null, ?animationJson:Dynamic = null) {
-			var spr:FlxAnimate = PlayState.instance.variables.get(tag);
-			if(spr != null) loadAtlasCustom(spr, folderOrImg, spriteJson, animationJson);
-		});
-
-		Lua_helper.add_callback(lua, "addAnimationBySymbol", function(tag:String, name:String, symbol:String, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
-		{
-			var luaObj:Dynamic = PlayState.instance.variables.get(tag);
-			if(cast (luaObj, FlxAnimate) == null) return false;
-
-			luaObj.animation.addBySymbol(name, symbol, framerate, loop, matX, matY);
-			if(luaObj.animation.lastPlayedAnim == null)
-			{
-				if(luaObj.playAnim != null) luaObj.playAnim(name, true); //is ModchartAnimateSprite
-				else luaObj.animation.play(name, true);
-			}
-			return true;
-		});
-
-		Lua_helper.add_callback(lua, "addAnimationBySymbolIndices", function(tag:String, name:String, symbol:String, ?indices:Any = null, ?framerate:Float = 24, ?loop:Bool = false, ?matX:Float = 0, ?matY:Float = 0)
-		{
-			var luaObj:Dynamic = PlayState.instance.variables.get(tag);
-			if(cast (luaObj, FlxAnimate) == null) return false;
-
-			if(indices == null)
-				indices = [0];
-			else if(Std.isOfType(indices, String))
-			{
-				var strIndices:Array<String> = cast (indices, String).trim().split(',');
-				var myIndices:Array<Int> = [];
-				for (i in 0...strIndices.length) {
-					myIndices.push(Std.parseInt(strIndices[i]));
-				}
-				indices = myIndices;
-			}
-
-			luaObj.animation.addBySymbolIndices(name, symbol, indices, framerate, loop, matX, matY);
-			if(luaObj.animation.lastPlayedAnim == null)
-			{
-				if(luaObj.playAnim != null) luaObj.playAnim(name, true); //is ModchartAnimateSprite
-				else luaObj.animation.play(name, true);
-			}
-			return true;
-		});
-	}
-
-	private static function loadAtlasCustom(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
-	{
-		var changedAnimJson = false;
-		var changedAtlasJson = false;
-		var changedImage = false;
-
-		if(spriteJson != null)
-		{
-			changedAtlasJson = true;
-			spriteJson = File.getContent(spriteJson);
-		}
-
-		if(animationJson != null) 
-		{
-			changedAnimJson = true;
-			animationJson = File.getContent(animationJson);
-		}
-
-		// is folder or image path
-		if(Std.isOfType(folderOrImg, String))
-		{
-			var originalPath:String = folderOrImg;
-			for (i in 0...10)
-			{
-				var st:String = '$i';
-				if(i == 0) st = '';
-
-				if(!changedAtlasJson)
-				{
-					spriteJson = getContentFromFile('images/$originalPath/spritemap$st.json');
-					if(spriteJson != null)
-					{
-						//trace('found Sprite Json');
-						changedImage = true;
-						changedAtlasJson = true;
-						folderOrImg = Paths.image('$originalPath/spritemap$st');
-						break;
-					}
-				}
-				else if(Paths.fileExists('images/$originalPath/spritemap$st.png', IMAGE))
-				{
-					//trace('found Sprite PNG');
-					changedImage = true;
-					folderOrImg = Paths.image('$originalPath/spritemap$st');
-					break;
-				}
-			}
-
-			if(!changedImage)
-			{
-				//trace('Changing folderOrImg to FlxGraphic');
-				changedImage = true;
-				folderOrImg = Paths.image(originalPath);
-			}
-
-			if(!changedAnimJson)
-			{
-				//trace('found Animation Json');
-				changedAnimJson = true;
-				animationJson = getContentFromFile('images/$originalPath/Animation.json');
-			}
-		}
-
-		//trace(folderOrImg);
-		//trace(spriteJson);
-		//trace(animationJson);
-		spr.loadAtlasEx(folderOrImg, spriteJson, animationJson);
-	}
-
-	private static function getContentFromFile(path:String):String
-	{
-		var onAssets:Bool = false;
-		var path:String = Paths.getPath(path, TEXT, true);
-		if(FileSystem.exists(path) || (onAssets = true && Assets.exists(path, TEXT)))
-		{
-			// trace('Found text: $path');
-			return !onAssets ? File.getContent(path) : Assets.getText(path);
-		}
-		return null;
-	}
-}
-#end
-
-#if flxanimate
-class ModchartAnimateSprite extends FlxAnimate
-{
-	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
-	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
-	{
-		super(x, y, path, settings);
-		antialiasing = ClientPrefs.globalAntialiasing;
-	}
-
-	public function playAnim(name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
-	{
-		anim.play(name, forced, reverse, startFrame);
-
-		var daOffset = animOffsets.get(name);
-		if (animOffsets.exists(name)) offset.set(daOffset[0], daOffset[1]);
-	}
-
-	public function addOffset(name:String, x:Float, y:Float)
-	{
-		animOffsets.set(name, [x, y]);
 	}
 }
 #end
