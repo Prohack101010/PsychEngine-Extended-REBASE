@@ -1042,54 +1042,53 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
-			#if mobile // Extend for check control for mobile,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
-		    var myClass:Dynamic = Type.resolveClass(classVar);
-            if (MusicBeatState.mobilec.newhbox != null){ //check for mobile control and dont check for keyboard
+			#if mobile // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
+			var myClass:Dynamic = Type.resolveClass(classVar);
+           if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
+    			    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
+                    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
+                    return getVarInArray(myClass, variable);
                 }
                 
                 if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
+    			    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
+                    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
+                    return getVarInArray(myClass, variable);
                 }
-            }
+           }
             
-            if (MusicBeatState.mobilec.vpad != null){ //check for mobile control and dont check for keyboard
+           if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
+    			    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
+                    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
+                    return getVarInArray(myClass, variable);
                 }
                 
                 if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable);
+    			    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable);
+                    return getVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable);
+                    return getVarInArray(myClass, variable);
                 }
-            }
-            #end
-            
-            var killMe:Array<String> = variable.split('.');
+           }
+           #end
+			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
 				for (i in 1...killMe.length-1) {
@@ -2973,22 +2972,6 @@ class FunkinLua {
 		call('onCreate', []);
 		#end
 	}
-	
-	public static function classCheck(className:String):Dynamic
-	{
-	    var classType:Array<String> = ['mobile', 'options', ''];
-
-	    for (i in 0...classType.length - 1){
-	        var newClass:Dynamic = Type.resolveClass(classType[i] + '.' + className);
-
-	        if(newClass != null)
-			{				
-				return newClass;
-			}
-	    }
-
-	    return Type.resolveClass(className);
-	}
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{
@@ -3050,6 +3033,65 @@ class FunkinLua {
 	}
 	public static function getVarInArray(instance:Dynamic, variable:String):Any
 	{
+	    #if mobile //Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
+	        var pressCheck:Dynamic;
+	        if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
+			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
+    			    pressCheck = true;
+                    return pressCheck;
+                }
+                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
+                    pressCheck = true;
+                    return pressCheck;
+                }
+                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
+                    pressCheck = true;
+                    return pressCheck;
+                }
+                
+                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
+    			    pressCheck = true;
+                    return pressCheck;
+                }
+                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
+                    pressCheck = true;
+                    return pressCheck;
+                }
+                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
+                    pressCheck = true;
+                    return pressCheck;
+                }
+            }
+            
+            if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
+			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
+    			    pressCheck = true;
+                    return pressCheck;
+                }
+                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
+                    pressCheck = true;
+                    return pressCheck;
+                }
+                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
+                    pressCheck = true;
+                    return pressCheck;
+                }
+                
+                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
+    			    pressCheck = true;
+                    return pressCheck;
+                }
+                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
+                    pressCheck = true;
+                    return pressCheck;
+                }
+                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
+                    pressCheck = true;
+                    return pressCheck;
+                }
+            }
+        #end
+        
 		var shit:Array<String> = variable.split('[');
 		if(shit.length > 1)
 		{
