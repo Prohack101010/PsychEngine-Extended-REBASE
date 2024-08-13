@@ -1055,45 +1055,45 @@ class FunkinLua {
 		   var myClass:Dynamic = classCheck(classVar);
            if (MusicBeatState.mobilec.newhbox != null){ //check for mobile control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
-    			    return getVarInArray(myClass, variable);
+    			    return getVarInArray(classVar, variable);
                 }
                 else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
-                    return getVarInArray(myClass, variable);
+                    return getVarInArray(classVar, variable);
                 }
                 else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
-                    return getVarInArray(myClass, variable);
+                    return getVarInArray(classVar, variable);
                 }
                 
                 if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
-    			    return getVarInArray(myClass, variable);
+    			    return getVarInArray(classVar, variable);
                 }
                 else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
-                    return getVarInArray(myClass, variable);
+                    return getVarInArray(classVar, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
-                    return getVarInArray(myClass, variable);
+                    return getVarInArray(classVar, variable);
                 }
            }
             
            if (MusicBeatState.mobilec.vpad != null){ //check for mobile control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
-    			    return getVarInArray(myClass, variable);
+    			    return getVarInArray(classVar, variable);
                 }
                 else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
-                    return getVarInArray(myClass, variable);
+                    return getVarInArray(classVar, variable);
                 }
                 else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
-                    return getVarInArray(myClass, variable);
+                    return getVarInArray(classVar, variable);
                 }
                 
                 if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
-    			    return getVarInArray(myClass, variable);
+    			    return getVarInArray(classVar, variable);
                 }
                 else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
-                    return getVarInArray(myClass, variable);
+                    return getVarInArray(classVar, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
-                    return getVarInArray(myClass, variable);
+                    return getVarInArray(classVar, variable);
                 }
            }
            #end
