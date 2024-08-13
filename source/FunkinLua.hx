@@ -2974,6 +2974,22 @@ class FunkinLua {
 		call('onCreate', []);
 		#end
 	}
+	
+	public static function classCheck(className:String):Dynamic
+	{
+	    var classType:Array<String> = ['mobile', 'options', ''];
+
+	    for (i in 0...classType.length - 1){
+	        var newClass:Dynamic = Type.resolveClass(classType[i] + '.' + className);
+
+	        if(newClass != null)
+			{				
+				return newClass;
+			}
+	    }
+
+	    return Type.resolveClass(className);
+	}
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{
