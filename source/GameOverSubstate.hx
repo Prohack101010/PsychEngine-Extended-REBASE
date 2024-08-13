@@ -32,6 +32,14 @@ class GameOverSubstate extends MusicBeatSubstate
 		deathSoundName = 'fnf_loss_sfx';
 		loopSoundName = 'gameOver';
 		endSoundName = 'gameOverEnd';
+		var _song = PlayState.SONG;
+		if(_song != null)
+		{
+			if(_song.gameOverChar != null && _song.gameOverChar.trim().length > 0) characterName = _song.gameOverChar;
+			if(_song.gameOverSound != null && _song.gameOverSound.trim().length > 0) deathSoundName = _song.gameOverSound;
+			if(_song.gameOverLoop != null && _song.gameOverLoop.trim().length > 0) loopSoundName = _song.gameOverLoop;
+			if(_song.gameOverEnd != null && _song.gameOverEnd.trim().length > 0) endSoundName = _song.gameOverEnd;
+		}
 		vibrationTime = 500;
 	}
 
@@ -40,6 +48,16 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function create()
 	{
 		instance = this;
+		PlayState.instance.callOnLuas('onGameOverStart', []);
+
+		super.create();
+	}
+
+	public function new(x:Float, y:Float, camX:Float, camY:Float)
+	{
+		super();
+
+		PlayState.instance.setOnLuas('inGameOver', true);
 
 		Conductor.songPosition = 0;
 
@@ -59,16 +77,11 @@ class GameOverSubstate extends MusicBeatSubstate
 		camFollow.setPosition(boyfriend.getGraphicMidpoint().x + boyfriend.cameraPosition[0], boyfriend.getGraphicMidpoint().y + boyfriend.cameraPosition[1]);
 		FlxG.camera.focusOn(new FlxPoint(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2)));
 		add(camFollow);
-		
-		PlayState.instance.setOnLuas('inGameOver', true);
-		PlayState.instance.callOnLuas('onGameOverStart', []);
-		
+
 		#if mobile
 		addVirtualPad(NONE, A_B);
 		addPadCamera();
 		#end
-
-		super.create();
 	}
 
     public var startedDeath:Bool = false;
