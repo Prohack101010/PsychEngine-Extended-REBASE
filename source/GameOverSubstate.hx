@@ -60,8 +60,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.focusOn(new FlxPoint(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2)));
 		add(camFollow);
 		
-		PlayState.instance.setOnScripts('inGameOver', true);
-		PlayState.instance.callOnScripts('onGameOverStart', []);
+		PlayState.instance.setOnLuas('inGameOver', true);
+		PlayState.instance.callOnLuas('onGameOverStart', []);
 		
 		#if mobile
 		addVirtualPad(NONE, A_B);
