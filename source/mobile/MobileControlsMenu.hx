@@ -142,6 +142,24 @@ class MobileControlsMenu extends MusicBeatState
 		exit.label.x = ((exit.width - exit.label.width) / 2) + exit.x;
 		exit.label.offset.y = -10; // WHY THE FUCK I CAN'T CHANGE THE LABEL Y
 		add(exit);
+		
+		var KeyboardControls = new UIButton(exit.x, exit.y + 100, "Keyboard Controls", () ->
+		{
+			save();
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			removeVirtualPad();
+			openSubState(new options.ControlsSubState());
+		});
+		KeyboardControls.color = FlxColor.GRAY;
+		KeyboardControls.setGraphicSize(Std.int(KeyboardControls.width) * 3);
+		KeyboardControls.updateHitbox();
+		KeyboardControls.x = FlxG.width - KeyboardControls.width - 70;
+		KeyboardControls.label.setFormat(Paths.font('vcr.ttf'), 28, FlxColor.WHITE, FlxTextAlign.CENTER);
+		KeyboardControls.label.fieldWidth = KeyboardControls.width;
+		KeyboardControls.label.x = ((KeyboardControls.width - KeyboardControls.label.width) / 2) + KeyboardControls.x;
+		KeyboardControls.label.offset.y = -10; // WHY THE FUCK I CAN'T CHANGE THE LABEL Y
+		add(KeyboardControls);
 		#end
 
 		changeSelection(0);
