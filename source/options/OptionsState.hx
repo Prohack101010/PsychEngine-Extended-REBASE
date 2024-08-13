@@ -31,6 +31,7 @@ using StringTools;
 class OptionsState extends MusicBeatState
 {
 	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end];
+	var optionsmobile:Array<String> = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -93,8 +94,6 @@ class OptionsState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
-		
-		(ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -107,12 +106,24 @@ class OptionsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
+        (ClientPrefs.VirtualPadAlpha == 0) {
 		for (i in 0...options.length)
 		{
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
 			grpOptions.add(optionText);
+		}
+		}
+		else
+		{
+		for (i in 0...optionsmobile.length)
+		{
+			var optionText:Alphabet = new Alphabet(0, 0, optionsmobile[i], true);
+			optionText.screenCenter();
+			optionText.y += (100 * (i - (optionsmobile.length / 2))) + 50;
+			grpOptions.add(optionText);
+		}
 		}
 
 		selectorLeft = new Alphabet(0, 0, '>', true);
@@ -175,16 +186,27 @@ class OptionsState extends MusicBeatState
 		#end
 
 		if (controls.ACCEPT) {
+		(ClientPrefs.VirtualPadAlpha == 0) {
 			openSelectedSubstate(options[curSelected]);
+		}
 		}
 	}
 	
 	function changeSelection(change:Int = 0) {
 		curSelected += change;
+		(ClientPrefs.VirtualPadAlpha == 0) {
 		if (curSelected < 0)
 			curSelected = options.length - 1;
 		if (curSelected >= options.length)
 			curSelected = 0;
+		}
+		else
+		{
+		if (curSelected < 0)
+			curSelected = optionsmobile.length - 1;
+		if (curSelected >= optionsmobile.length)
+			curSelected = 0;
+		}
 
 		var bullShit:Int = 0;
 
