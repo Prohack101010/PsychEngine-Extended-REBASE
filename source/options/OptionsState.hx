@@ -42,6 +42,10 @@ class OptionsState extends MusicBeatState
 				removeVirtualPad();
 				#end
 				openSubState(new options.NotesSubState());
+			case 'Mobile Controls':
+    			FlxTransitionableState.skipNextTransIn = true;
+    			FlxTransitionableState.skipNextTransOut = true;
+    			MusicBeatState.switchState(new mobile.MobileControlsMenu());
 			case 'Controls':
 				#if mobile
 				if (ClientPrefs.VirtualPadAlpha == 0) { removeVirtualPad(); }
@@ -89,6 +93,8 @@ class OptionsState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
+		
+		(ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -116,19 +122,6 @@ class OptionsState extends MusicBeatState
 
 		changeSelection();
 		ClientPrefs.saveSettings();
-
-		#if mobile
-		var tipText:FlxText = new FlxText(10, 12, 0, 'Press X to Go In Mobile Controls Menu', 16);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2;
-		tipText.scrollFactor.set();
-		add(tipText);
-		var tipText:FlxText = new FlxText(10, 32, 0, 'Press Y to Go In Mobile Options Menu', 16);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2;
-		tipText.scrollFactor.set();
-		add(tipText);
-		#end
 
 		changeSelection();
 		ClientPrefs.saveSettings();
