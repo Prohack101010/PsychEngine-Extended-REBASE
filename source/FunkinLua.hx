@@ -3061,6 +3061,8 @@ class FunkinLua {
 				return retVal;
 		}
 		
+		return Reflect.getProperty(instance, variable);
+		
 		#if mobile //Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
 	        var pressCheck:Dynamic;
 	        if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
@@ -3119,8 +3121,6 @@ class FunkinLua {
                 }
             }
         #end
-
-		return Reflect.getProperty(instance, variable);
 	}
 
 	inline static function getTextObject(name:String):FlxText
