@@ -1052,6 +1052,7 @@ class FunkinLua {
 			}
 			
 		   #if mobile // Extend for check control for mobile,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
+		   var myClass:Dynamic = classCheck(classVar);
            if (MusicBeatState.mobilec.newhbox != null){ //check for mobile control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
     			    return getVarInArray(myClass, variable);
