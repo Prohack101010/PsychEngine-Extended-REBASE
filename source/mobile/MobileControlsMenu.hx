@@ -143,7 +143,7 @@ class MobileControlsMenu extends MusicBeatState
 		exit.label.offset.y = -10; // WHY THE FUCK I CAN'T CHANGE THE LABEL Y
 		add(exit);
 		
-		var KeyboardControls = new UIButton(exit.x, exit.y + 100, "Keyboard Controls", () ->
+		var KeyboardControls = new UIButton(exit.x, exit.y + 100, "Keyboard", () ->
 		{
 			save();
 			FlxTransitionableState.skipNextTransIn = true;
