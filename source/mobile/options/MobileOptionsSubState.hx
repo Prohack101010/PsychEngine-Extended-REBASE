@@ -68,7 +68,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			2);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0;
-		option.maxValue = 4;
+		option.maxValue = 2; // Limited to just 2 extra controls for now. You can set it to 4 if you want
 		option.changeValue = 1;
 		option.decimals = 1;
 		addOption(option);

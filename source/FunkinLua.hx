@@ -1043,6 +1043,53 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
 			var killMe:Array<String> = variable.split('.');
+			#if mobile // Extend for check control for mobile,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
+		    var myClass:Dynamic = Type.resolveClass(classVar);
+            if (MusicBeatState.mobilec.newhbox != null){ //check for mobile control and dont check for keyboard
+			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
+    			    return getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
+                    return getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
+                    return getVarInArray(myClass, variable);
+                }
+                
+                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
+    			    return getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
+                    return getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
+                    return getVarInArray(myClass, variable);
+                }
+            }
+            
+            if (MusicBeatState.mobilec.vpad != null){ //check for mobile control and dont check for keyboard
+			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
+    			    return getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
+                    return getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
+                    return getVarInArray(myClass, variable);
+                }
+                
+                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
+    			    return getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
+                    return getVarInArray(myClass, variable);
+                }
+                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
+                    return getVarInArray(myClass, variable);
+                }
+            }
+            #end
+            
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
 				for (i in 1...killMe.length-1) {
@@ -1050,54 +1097,6 @@ class FunkinLua {
 				}
 				return getVarInArray(coverMeInPiss, killMe[killMe.length-1]);
 			}
-			
-		   #if mobile // Extend for check control for mobile,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
-		   var myClass:Dynamic = classCheck(classVar);
-           if (MusicBeatState.mobilec.newhbox != null){ //check for mobile control and dont check for keyboard
-			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
-    			    return getVarInArray(classVar, variable);
-                }
-                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
-                    return getVarInArray(classVar, variable);
-                }
-                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
-                    return getVarInArray(classVar, variable);
-                }
-                
-                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
-    			    return getVarInArray(classVar, variable);
-                }
-                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
-                    return getVarInArray(classVar, variable);
-                }
-                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
-                    return getVarInArray(classVar, variable);
-                }
-           }
-            
-           if (MusicBeatState.mobilec.vpad != null){ //check for mobile control and dont check for keyboard
-			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
-    			    return getVarInArray(classVar, variable);
-                }
-                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
-                    return getVarInArray(classVar, variable);
-                }
-                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
-                    return getVarInArray(classVar, variable);
-                }
-                
-                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
-    			    return getVarInArray(classVar, variable);
-                }
-                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
-                    return getVarInArray(classVar, variable);
-                }
-                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
-                    return getVarInArray(classVar, variable);
-                }
-           }
-           #end
-			
 			return getVarInArray(Type.resolveClass(classVar), variable);
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
