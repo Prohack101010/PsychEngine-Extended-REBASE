@@ -1402,14 +1402,80 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "keyboardJustPressed", function(name:String)
 		{
+		    name = name.toLowerCase();
+
+		   #if mobile // Extend for check control for mobile
+           if (MusicBeatState.mobilec.newhbox != null){ //check for mobile control and dont check for keyboard
+			    if (name == 'SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
+    			    return true;
+                }
+                if (name == 'SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
+    			    return true;
+                }
+           }
+
+           if (MusicBeatState.mobilec.vpad != null){ //check for mobile control and dont check for keyboard
+			    if (name == 'SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
+    			    return true;
+                }                                
+                if (name == 'SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
+    			    return true;
+                }
+           }
+           #end
+           
 			return Reflect.getProperty(FlxG.keys.justPressed, name);
 		});
 		Lua_helper.add_callback(lua, "keyboardPressed", function(name:String)
 		{
+		    name = name.toLowerCase();
+
+		   #if mobile // Extend for check control for mobile
+           if (MusicBeatState.mobilec.newhbox != null){ //check for mobile control and dont check for keyboard
+			    if (name == 'SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
+    			    return true;
+                }
+                if (name == 'SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
+    			    return true;
+                }
+           }
+
+           if (MusicBeatState.mobilec.vpad != null){ //check for mobile control and dont check for keyboard
+			    if (name == 'SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
+    			    return true;
+                }                                
+                if (name == 'SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
+    			    return true;
+                }
+           }
+           #end
+           
 			return Reflect.getProperty(FlxG.keys.pressed, name);
 		});
 		Lua_helper.add_callback(lua, "keyboardReleased", function(name:String)
 		{
+		    name = name.toLowerCase();
+
+		   #if mobile // Extend for check control for mobile
+           if (MusicBeatState.mobilec.newhbox != null){ //check for mobile control and dont check for keyboard
+			    if (name == 'SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
+    			    return true;
+                }
+                if (name == 'SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
+    			    return true;
+                }
+           }
+
+           if (MusicBeatState.mobilec.vpad != null){ //check for mobile control and dont check for keyboard
+			    if (name == 'SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
+    			    return true;
+                }                                
+                if (name == 'SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
+    			    return true;
+                }
+           }
+           #end
+           
 			return Reflect.getProperty(FlxG.keys.justReleased, name);
 		});
 		Lua_helper.add_callback(lua, "anyGamepadJustPressed", function(name:String)
@@ -1482,7 +1548,7 @@ class FunkinLua {
 				case 'back': key = PlayState.instance.getControl('BACK');
 				case 'pause': key = PlayState.instance.getControl('PAUSE');
 				case 'reset': key = PlayState.instance.getControl('RESET');
-				case 'space': key = FlxG.keys.justPressed.SPACE;//an extra key for convinience
+				case 'space': return (PlayState.instance.getControl('SPACE_P') || FlxG.keys.justPressed.SPACE);//an extra key for convinience
 			}
 			return key;
 		});
@@ -1493,7 +1559,7 @@ class FunkinLua {
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN');
 				case 'up': key = PlayState.instance.getControl('NOTE_UP');
 				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT');
-				case 'space': key = FlxG.keys.pressed.SPACE;//an extra key for convinience
+				case 'space': return (PlayState.instance.getControl('SPACE') || FlxG.keys.pressed.SPACE);//an extra key for convinience
 			}
 			return key;
 		});
@@ -1504,7 +1570,7 @@ class FunkinLua {
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_R');
 				case 'up': key = PlayState.instance.getControl('NOTE_UP_R');
 				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT_R');
-				case 'space': key = FlxG.keys.justReleased.SPACE;//an extra key for convinience
+				case 'space': return (PlayState.instance.getControl('SPACE_R') || FlxG.keys.justReleased.SPACE);//an extra key for convinience
 			}
 			return key;
 		});
