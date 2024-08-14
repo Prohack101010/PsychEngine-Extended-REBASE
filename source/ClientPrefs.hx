@@ -11,6 +11,7 @@ class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
+	public static var breakgetvarinarray:Bool = false;
 	public static var coloredvpad:Bool = true;
 	public static var VPadSpaceExtend:Bool = true;
 	public static var VPadShiftExtend:Bool = true;
@@ -115,6 +116,7 @@ class ClientPrefs {
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
+		FlxG.save.data.breakgetvarinarray = breakgetvarinarray;
 		FlxG.save.data.coloredvpad = coloredvpad;
 		FlxG.save.data.VPadSpaceExtend = VPadSpaceExtend;
 		FlxG.save.data.VPadShiftExtend = VPadShiftExtend;
@@ -184,6 +186,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.touchmenus != null) {
 			touchmenus = FlxG.save.data.touchmenus;
+		}
+		if(FlxG.save.data.breakgetvarinarray != null) {
+			breakgetvarinarray = FlxG.save.data.breakgetvarinarray;
 		}
 		if(FlxG.save.data.Modpack != null) {
 			Modpack = FlxG.save.data.Modpack;

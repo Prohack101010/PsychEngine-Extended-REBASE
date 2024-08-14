@@ -92,12 +92,12 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		if(week == -1) icon.alpha += elapsed * 2.5;
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P || SwipeUtil.swipeLeft || SwipeUtil.swipeRight) {
+		if(controls.UI_LEFT_P || controls.UI_RIGHT_P || ClientPrefs.touchmenus && SwipeUtil.swipeLeft || ClientPrefs.touchmenus && SwipeUtil.swipeRight) {
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK #if android || FlxG.android.justReleased.BACK #end #if mobile || SwipeUtil.swipeRight #end) {
+		if(controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			#if mobile
                         FlxTransitionableState.skipNextTransOut = true;

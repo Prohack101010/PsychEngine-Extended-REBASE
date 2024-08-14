@@ -1214,10 +1214,6 @@ class PlayState extends MusicBeatState
 	    if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
 		MusicBeatState.mobilec.alpha = 0.000001;
 		}
-		if (ClientPrefs.hitboxhint){
-		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
-		add(hitbox_hint);
-		}
 		#end
 
 		// if (SONG.song == 'South')

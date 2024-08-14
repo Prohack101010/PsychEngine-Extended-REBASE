@@ -158,6 +158,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 		
+		var option:Option = new Option('Break getVarInArray',
+			'This option breaks getVarInArray, allowing to run songs over 1500mb on devices with 4gb ram',
+			'breakgetvarinarray',
+			'bool',
+			false);
+		addOption(option);
+		
 		var option:Option = new Option('Modpack Folder',
 			'If checked, game uses modpack folder instead of mods folder.',
 			'Modpack',
