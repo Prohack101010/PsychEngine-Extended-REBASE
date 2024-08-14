@@ -5,7 +5,8 @@ import flixel.graphics.frames.FlxTileFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxDestroyUtil;
-import flixel.ui.FlxButton;
+import mobile.flixel.FlxButton;
+import flixel.ui.FlxButton as FlxButtonOld;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.FlxGraphic;
 
