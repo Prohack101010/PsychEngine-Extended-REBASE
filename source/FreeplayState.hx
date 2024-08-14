@@ -457,7 +457,7 @@ class FreeplayState extends MusicBeatState
 		changeSelection(0, false);
 		persistentUpdate = true;
 		removeVirtualPad();
-		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
+		addVirtualPad(FULL, A_B_C_X_Y_Z);
 		super.closeSubState();
 	}
 
