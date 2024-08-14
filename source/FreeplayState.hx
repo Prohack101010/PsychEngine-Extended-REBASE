@@ -456,9 +456,6 @@ class FreeplayState extends MusicBeatState
 	override function closeSubState() {
 		changeSelection(0, false);
 		persistentUpdate = true;
-		removeVirtualPad();
-		addVirtualPad(FULL, A_B_C_X_Y_Z);
-		addPadCamera2();
 		super.closeSubState();
 	}
 

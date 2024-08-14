@@ -205,19 +205,6 @@ class StoryMenuState extends MusicBeatState
 	override function closeSubState() {
 		persistentUpdate = true;
 		changeWeek();
-		removeVirtualPad();
-		#if android
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, X_Y);
-        else
-            addVirtualPad(NONE, A_X_Y);
-        #elseif ios
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, B_X_Y);
-        else
-            addVirtualPad(NONE, A_B_X_Y);
-        #end
-        addPadCamera2();
 		super.closeSubState();
 	}
 

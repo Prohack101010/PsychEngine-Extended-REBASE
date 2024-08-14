@@ -154,7 +154,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 	    var guh:Float = ClientPrefs.hitboxalpha;
 		var shape:Shape = new Shape();
 		shape.graphics.beginFill(Color);
-		if (ClientPrefs.hitboxtype == "No Gradient" && ClientPrefs.hitboxmode != "Classic")
+		if (ClientPrefs.hitboxtype == "No Gradient")
 		{
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox(Width, Height, 0, 0, 0);
@@ -163,13 +163,13 @@ class FlxNewHitbox extends FlxSpriteGroup
 			shape.graphics.drawRect(0, 0, Width, Height);
 			shape.graphics.endFill();
 		}
-		else if (ClientPrefs.hitboxtype == "No Gradient (Old)" && ClientPrefs.hitboxmode != "Classic")
+		else if (ClientPrefs.hitboxtype == "No Gradient (Old)")
 		{
 			shape.graphics.lineStyle(10, Color, 1);
 			shape.graphics.drawRect(0, 0, Width, Height);
 			shape.graphics.endFill();
 		}
-		else if (ClientPrefs.hitboxtype == "Gradient" && ClientPrefs.hitboxmode != "Classic")
+		else if (ClientPrefs.hitboxtype == "Gradient")
 		{
 			shape.graphics.lineStyle(3, Color, 1);
 			shape.graphics.drawRect(0, 0, Width, Height);

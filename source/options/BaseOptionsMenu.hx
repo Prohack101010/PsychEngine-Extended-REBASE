@@ -151,7 +151,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
+			#if mobile
+			FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
+			#else
 			close();
+			#end
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 

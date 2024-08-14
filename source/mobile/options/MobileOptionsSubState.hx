@@ -150,6 +150,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
+		option.onChange = onChangeVirtualPadSkin;
 		
 		var option:Option = new Option('Touch Screens (WIP)',
 			'Still WIP',

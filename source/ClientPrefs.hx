@@ -51,6 +51,7 @@ class ClientPrefs {
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = 0.7; //someone request this lol
 	public static var VirtualPadAlpha:Float = 0.75;
+	public static var mobileCAlpha:Float = FlxG.onMobile ? 0.6 : 0;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -166,6 +167,7 @@ class ClientPrefs {
                 FlxG.save.data.hitboxhint = hitboxhint;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
+		FlxG.save.data.mobileCAlpha = mobileCAlpha;
 	
 	
 		FlxG.save.flush();
@@ -180,6 +182,9 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
+		}
+		if(FlxG.save.data.mobileCAlpha != null) {
+			mobileCAlpha = FlxG.save.data.mobileCAlpha;
 		}
 		if(FlxG.save.data.VirtualPadSkin != null) {
 			VirtualPadSkin = FlxG.save.data.VirtualPadSkin;
