@@ -11,9 +11,9 @@ import flixel.input.FlxPointer;
 import flixel.input.IFlxInput;
 import flixel.input.touch.FlxTouch;
 import flixel.math.FlxPoint;
-import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.util.FlxDestroyUtil;
+import flixel.system.FlxSound;
 
 /**
  * A simple button class that calls a function when clicked by the touch.
@@ -41,6 +41,11 @@ class FlxButton extends FlxTypedButton<FlxText>
 	public var text(get, set):String;
 
 	/**
+	 * A small invisible bounds used for colision
+	**/
+	public var bounds:FlxSprite = new FlxSprite();
+
+	/**
 	 * Creates a new `FlxButton` object with a gray background
 	 * and a callback function on the UI thread.
 	 *
@@ -49,7 +54,7 @@ class FlxButton extends FlxTypedButton<FlxText>
 	 * @param   Text      The text that you want to appear on the button.
 	 * @param   OnClick   The function to call whenever the button is clicked.
 	 */
-	public function new(X:Float = 0, Y:Float = 0, ?Text:String, ?OnClick:Void->Void)
+	public function new(X:Float = 0, Y:Float = 0, ?Text:String, ?OnClick:Void->Void):Void
 	{
 		super(X, Y, OnClick);
 
@@ -97,6 +102,16 @@ class FlxButton extends FlxTypedButton<FlxText>
 			label.text = Text;
 		return Text;
 	}
+
+	public inline function centerInBounds()
+	{
+		setPosition(bounds.x + ((100 - frameWidth) / 2), bounds.y + ((55 - frameHeight) / 2));
+	}
+
+	public inline function centerBounds()
+	{
+		bounds.setPosition(x + ((frameWidth - 100) / 2), y + ((frameHeight - 55) / 2));
+	}
 }
 
 /**
@@ -134,6 +149,11 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 * If false, the input has to be pressed while hovering over the button.
 	 */
 	public var allowSwiping:Bool = true;
+
+	/**
+	 * Whether the button can use multiple fingers on it.
+	 */
+	public var multiTouch:Bool = false;
 
 	/**
 	 * Maximum distance a pointer can move to still trigger event handlers.
@@ -197,7 +217,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 * @param   Y         The y position of the button.
 	 * @param   OnClick   The function to call whenever the button is clicked.
 	 */
-	public function new(X:Float = 0, Y:Float = 0, ?OnClick:Void->Void)
+	public function new(X:Float = 0, Y:Float = 0, ?OnClick:Void->Void):Void
 	{
 		super(X, Y);
 
@@ -208,7 +228,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		onOver = new FlxButtonEvent();
 		onOut = new FlxButtonEvent();
 
-		status = FlxButton.NORMAL;
+		status = multiTouch ? FlxButton.NORMAL : FlxButton.HIGHLIGHT;
 
 		// Since this is a UI element, the default scrollFactor is (0, 0)
 		scrollFactor.set();
@@ -224,7 +244,6 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		super.graphicLoaded();
 
 		setupAnimation('normal', FlxButton.NORMAL);
-		setupAnimation('highlight', FlxButton.HIGHLIGHT);
 		setupAnimation('pressed', FlxButton.PRESSED);
 	}
 
@@ -234,7 +253,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	function setupAnimation(animationName:String, frameIndex:Int):Void
 	{
 		// make sure the animation doesn't contain an invalid frame
-		frameIndex = Std.int(Math.min(frameIndex, animation.frames - 1));
+		frameIndex = Std.int(Math.min(frameIndex, #if (flixel < "5.3.0") animation.frames #else animation.numFrames #end - 1));
 		animation.add(animationName, [frameIndex]);
 	}
 
@@ -432,7 +451,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	function onUpHandler():Void
 	{
-		status = FlxButton.HIGHLIGHT;
+		status = FlxButton.NORMAL;
 		input.release();
 		currentInput = null;
 		onUp.fire(); // Order matters here, because onUp.fire() could cause a state change and destroy this object.
@@ -546,7 +565,7 @@ private class FlxButtonEvent implements IFlxDestroyable
 	 * @param   Callback   The callback function to call when this even fires.
 	 * @param   sound      The sound to play when this event fires.
 	 */
-	public function new(?Callback:Void->Void, ?sound:FlxSound)
+	public function new(?Callback:Void->Void, ?sound:FlxSound):Void
 	{
 		callback = Callback;
 
