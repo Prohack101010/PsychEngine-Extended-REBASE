@@ -39,7 +39,6 @@ class MusicBeatSubstate extends FlxSubState
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end
 	
-	var virtualPad:FlxVirtualPad;
 	var trackedInputsVirtualPad:Array<FlxActionInput> = [];
 	
 	#if mobile
@@ -57,8 +56,8 @@ class MusicBeatSubstate extends FlxSubState
 		if (trackedInputsVirtualPad.length > 0)
 			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
 
-		if (virtualPad != null)
-			remove(virtualPad);
+		if (_virtualpad != null)
+			remove(_virtualpad);
 	}
 	#end
 
@@ -77,8 +76,8 @@ class MusicBeatSubstate extends FlxSubState
 
 		super.destroy();
 
-		if (virtualPad != null)
-			virtualPad = FlxDestroyUtil.destroy(virtualPad);
+		if (_virtualpad != null)
+			_virtualpad = FlxDestroyUtil.destroy(_virtualpad);
 	}
 
 	override function update(elapsed:Float)

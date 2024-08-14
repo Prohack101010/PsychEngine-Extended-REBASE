@@ -68,8 +68,8 @@ class MusicBeatState extends FlxUIState
 		if (trackedInputsVirtualPad.length > 0)
 			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
 
-		if (virtualPad != null)
-			remove(virtualPad);
+		if (_virtualpad != null)
+			remove(_virtualpad);
 	}
 	#end
 
@@ -127,8 +127,8 @@ class MusicBeatState extends FlxUIState
 
 		super.destroy();
 
-		if (virtualPad != null)
-			virtualPad = FlxDestroyUtil.destroy(virtualPad);
+		if (_virtualpad != null)
+			_virtualpad = FlxDestroyUtil.destroy(_virtualpad);
 
 		if (MobileControls != null)
 			MobileControls = FlxDestroyUtil.destroy(MobileControls);
