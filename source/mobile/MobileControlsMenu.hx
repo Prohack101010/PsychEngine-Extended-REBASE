@@ -11,7 +11,8 @@ import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxNewHitbox;
 import mobile.MobileControls.Config;
 import mobile.flixel.FlxVirtualPad;
-import flixel.ui.FlxButton as UIButton;
+import flixel.ui.FlxButton as UIButtonOld;
+import mobile.flixel.FlxButton as UIButton;
 
 using StringTools;
 
