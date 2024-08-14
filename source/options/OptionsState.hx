@@ -135,6 +135,9 @@ class OptionsState extends MusicBeatState
 
 	override function closeSubState() {
 		super.closeSubState();
+		removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B_C);
+		persistentUpdate = true;
 		ClientPrefs.saveSettings();
 	}
 
