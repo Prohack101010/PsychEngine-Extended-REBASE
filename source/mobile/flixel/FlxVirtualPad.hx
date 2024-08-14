@@ -265,7 +265,6 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		return Paths.getPackerAtlas('mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
 	}
 	
-	/*
 	override public function destroy():Void
 	{
 		super.destroy();
@@ -273,8 +272,8 @@ class FlxVirtualPad extends FlxSpriteGroup {
 			if (Std.isOfType(Reflect.field(this, field), FlxButton))
 				Reflect.setField(this, field, FlxDestroyUtil.destroy(Reflect.field(this, field)));
 	}
-	*/
 
+    /*
 	override public function destroy():Void {
 		super.destroy();
 
@@ -317,6 +316,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		buttonCEUp_M = null;
 		buttonCEDown_M = null;
 	}
+	*/
 }
 
 enum FlxDPadMode {
