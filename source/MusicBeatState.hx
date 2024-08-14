@@ -70,7 +70,7 @@ class MusicBeatState extends FlxUIState
 	#if mobile
 	public function removeVirtualPad() {
 		if (trackedinputsUI.length > 0)
-			controls.removeFlxInput(trackedinputsUI);
+			controls.removeVirtualControlsInput(trackedinputsUI);
 
 		if (_virtualpad != null)
 			remove(_virtualpad);
@@ -130,10 +130,10 @@ class MusicBeatState extends FlxUIState
 	
 	override function destroy() {
 		if (trackedinputsNOTES.length > 0)
-			controls.removeFlxInput(trackedinputsNOTES);
+			controls.removeVirtualControlsInput(trackedinputsNOTES);
 
 		if (trackedinputsUI.length > 0)
-			controls.removeFlxInput(trackedinputsUI);
+			controls.removeVirtualControlsInput(trackedinputsUI);
 
 		super.destroy();
 
