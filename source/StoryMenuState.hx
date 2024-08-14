@@ -217,6 +217,7 @@ class StoryMenuState extends MusicBeatState
         else
             addVirtualPad(NONE, A_B_X_Y);
         #end
+        addPadCamera2();
 		super.closeSubState();
 	}
 
