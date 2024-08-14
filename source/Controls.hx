@@ -398,7 +398,7 @@ class Controls extends FlxActionSet
 		action.add(input);
 	}
 
-	public function addButtonUI(action:FlxActionDigital, button:FlxButton, state:FlxInputState):Void
+	public function addButtonUI(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState):Void
 	{
 		if (button == null)
 			return;

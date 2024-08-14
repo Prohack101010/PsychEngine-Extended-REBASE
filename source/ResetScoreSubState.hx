@@ -99,12 +99,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		if(controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-			#if mobile
-                        FlxTransitionableState.skipNextTransOut = true;
-			FlxG.resetState();
-                        #else
-                        close();
-                        #end
+            close();
 		} else if(controls.ACCEPT) {
 			if(onYes) {
 				if(week == -1) {
