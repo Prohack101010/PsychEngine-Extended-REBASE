@@ -39,14 +39,12 @@ class MusicBeatSubstate extends FlxSubState
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end
 	
-	var trackedInputsVirtualPad:Array<FlxActionInput> = [];
-	
 	#if mobile
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
 		add(_virtualpad);
 		controls.setVirtualPadUI(_virtualpad, DPad, Action);
-		trackedInputsVirtualPad = controls.trackedInputsUI;
+		trackedinputsUI = controls.trackedInputsUI;
 		controls.trackedInputsUI = [];
 	}
 	#end
