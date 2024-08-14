@@ -452,6 +452,10 @@ class FreeplayState extends MusicBeatState
 		super.create();
 		CustomFadeTransition.nextCamera = camBlackFade;
 	}
+	
+	override function closeMenu() {
+		persistentUpdate = true;
+	}
 
 	override function closeSubState() {
 		changeSelection(0, false);

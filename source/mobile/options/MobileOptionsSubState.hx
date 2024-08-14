@@ -158,8 +158,8 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 		
-		var option:Option = new Option('Break getVarInArray',
-			'This option breaks getVarInArray, allowing to run songs over 1500mb on devices with 4gb ram',
+		var option:Option = new Option('Fix High-end Mods',
+			'If checked, will cause some objects not to load\n(If you are experiencing crashes in High-End mods, try this)',
 			'breakgetvarinarray',
 			'bool',
 			false);
