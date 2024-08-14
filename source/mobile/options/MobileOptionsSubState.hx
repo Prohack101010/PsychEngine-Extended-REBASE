@@ -151,6 +151,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 		
+		var option:Option = new Option('Touch Screens (WIP)',
+			'Still WIP',
+			'touchmenus',
+			'bool',
+			false);
+		addOption(option);
+		
 		var option:Option = new Option('Modpack Folder',
 			'If checked, game uses modpack folder instead of mods folder.',
 			'Modpack',
@@ -205,19 +212,4 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	    removeVirtualPad();
 		openSubState(new MobileOptionsSubState());
 	}
-
-/*
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-			#if android
-		if (FlxG.android.justReleased.BACK)
-		{
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new options.OptionsState());
-	}
-		#end
-		}
-	*/ //why this exists?!?¡
 }

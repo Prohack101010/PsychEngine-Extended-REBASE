@@ -71,9 +71,14 @@ class AchievementsMenuState extends MusicBeatState
 		add(descText);
 		changeSelection();
 
-                #if ios
-                addVirtualPad(NONE, A_B);
-                #end
+        #if mobile
+        #if ios
+        if (ClientPrefs.touchmenus)
+            addVirtualPad(NONE, A_B);
+        #end
+        if (!ClientPrefs.touchmenus)
+            addVirtualPad(UP_DOWN, A_B);
+        #end
 
 		super.create();
 	}
@@ -81,14 +86,14 @@ class AchievementsMenuState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.UI_UP_P || SwipeUtil.swipeUp) {
+		if (controls.UI_UP_P || ClientPrefs.touchmenus && SwipeUtil.swipeUp) {
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P || SwipeUtil.swipeDown) {
+		if (controls.UI_DOWN_P || ClientPrefs.touchmenus && SwipeUtil.swipeDown) {
 			changeSelection(1);
 		}
 
-		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end #if mobile || SwipeUtil.swipeRight #end) {
+		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}

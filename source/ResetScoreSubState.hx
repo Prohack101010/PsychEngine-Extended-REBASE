@@ -71,10 +71,13 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(noText);
 		updateOptions();
 
-               #if mobile
-                addVirtualPad(NONE, NONE);
-                addPadCamera();
-                #end
+        #if mobile
+        if (ClientPrefs.touchmenus)
+            addVirtualPad(NONE, NONE);
+        else
+            addVirtualPad(LEFT_RIGHT, A_B);
+        addPadCamera();
+        #end
 
 	}
 
@@ -119,7 +122,7 @@ class ResetScoreSubState extends MusicBeatSubstate
                         #end
 		}
 		
-    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed)
+    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.touchmenus)
     	{
     		onYes = true;
     		if(onYes) {
@@ -138,7 +141,7 @@ class ResetScoreSubState extends MusicBeatSubstate
             #end
         }
     		
-    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed)
+    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.touchmenus)
     	{
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
     		#if mobile
@@ -156,18 +159,19 @@ class ResetScoreSubState extends MusicBeatSubstate
 		var alphas:Array<Float> = [0.6, 1.25];
 		var confirmInt:Int = onYes ? 1 : 0;
 
-        #if desktop
+        if (!ClientPrefs.touchmenus) (
 		yesText.alpha = alphas[confirmInt];
 		yesText.scale.set(scales[confirmInt], scales[confirmInt]);
 		noText.alpha = alphas[1 - confirmInt];
 		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
 		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
-		#else
+		}
+		else {
 		yesText.alpha = 1.25;
 		yesText.scale.set(1, 1);
 		noText.alpha = 1.25;
 		noText.scale.set(1, 1);
 		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
-		#end
+		}
 	}
 }

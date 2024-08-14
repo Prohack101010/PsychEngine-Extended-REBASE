@@ -165,11 +165,16 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		changeSelection();
 		reloadCheckboxes();
 
+        #if mobile
 		#if ios
-		addVirtualPad(LEFT_RIGHT, A_B_C);
-		addPadCamera();
+		if (ClientPrefs.touchmenus)
+		    addVirtualPad(LEFT_RIGHT, A_B_C);
 		#elseif android
-		addVirtualPad(LEFT_RIGHT, A_C);
+		if (ClientPrefs.touchmenus)
+		    addVirtualPad(LEFT_RIGHT, A_C);
+		#end
+		if (!ClientPrefs.touchmenus)
+		    addVirtualPad(FULL, A_B_C);
 		addPadCamera();
 		#end
 	}
@@ -179,16 +184,16 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P || SwipeUtil.swipeUp)
+		if (controls.UI_UP_P || ClientPrefs.touchmenus && SwipeUtil.swipeUp)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P || SwipeUtil.swipeDown)
+		if (controls.UI_DOWN_P || ClientPrefs.touchmenus && SwipeUtil.swipeDown)
 		{
 			changeSelection(1);
 		}
 
-		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end #if mobile || SwipeUtil.swipeRight #end) {
+		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
 			
 			#if mobile
 			FlxTransitionableState.skipNextTransOut = true;

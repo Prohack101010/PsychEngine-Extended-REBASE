@@ -9,6 +9,7 @@ import Controls;
 class ClientPrefs {
     public static var VirtualPadSkin:String = 'original';
 	public static var downScroll:Bool = false;
+	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
 	public static var coloredvpad:Bool = true;
 	public static var VPadSpaceExtend:Bool = true;
@@ -112,6 +113,7 @@ class ClientPrefs {
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
+		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
 		FlxG.save.data.coloredvpad = coloredvpad;
 		FlxG.save.data.VPadSpaceExtend = VPadSpaceExtend;
@@ -179,6 +181,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.VirtualPadSkin != null) {
 			VirtualPadSkin = FlxG.save.data.VirtualPadSkin;
+		}
+		if(FlxG.save.data.touchmenus != null) {
+			touchmenus = FlxG.save.data.touchmenus;
 		}
 		if(FlxG.save.data.Modpack != null) {
 			Modpack = FlxG.save.data.Modpack;

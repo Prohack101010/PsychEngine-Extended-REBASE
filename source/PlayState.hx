@@ -1215,7 +1215,7 @@ class PlayState extends MusicBeatState
 		MusicBeatState.mobilec.alpha = 0.000001;
 		}
 		if (ClientPrefs.hitboxhint){
-		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox_hint'));
+		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
 		add(hitbox_hint);
 		}
 		#end
