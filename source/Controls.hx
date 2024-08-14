@@ -16,7 +16,8 @@ import flixel.group.FlxGroup;
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxNewHitbox;
 import mobile.flixel.FlxVirtualPad;
-import flixel.ui.FlxButton;
+import mobile.flixel.FlxButton;
+import flixel.ui.FlxButton as FlxButtonOld;
 import mobile.flixel.FlxButton as FlxNewButton;
 #end
 

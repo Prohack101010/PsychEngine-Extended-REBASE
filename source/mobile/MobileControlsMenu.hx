@@ -2,7 +2,7 @@ package mobile;
 
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
-import flixel.ui.FlxButton;
+import mobile.flixel.FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxSprite;
