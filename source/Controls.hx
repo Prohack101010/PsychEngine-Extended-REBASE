@@ -408,7 +408,7 @@ class Controls extends FlxActionSet
 		action.add(input);
 	}
 	
-	public function addbuttonuNOTES(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState) 
+	public function addbuttonuNOTES(action:FlxActionDigital, button:FlxButton, state:FlxInputState) 
 	{
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedInputsNOTES.push(input);
