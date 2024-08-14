@@ -264,6 +264,16 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	public static function getFrames():FlxAtlasFrames {
 		return Paths.getPackerAtlas('mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
 	}
+	
+	/*
+	override public function destroy():Void
+	{
+		super.destroy();
+		for (field in Reflect.fields(this))
+			if (Std.isOfType(Reflect.field(this, field), FlxButton))
+				Reflect.setField(this, field, FlxDestroyUtil.destroy(Reflect.field(this, field)));
+	}
+	*/
 
 	override public function destroy():Void {
 		super.destroy();

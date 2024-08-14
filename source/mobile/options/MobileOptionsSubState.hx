@@ -215,8 +215,9 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	
 	function onChangeVirtualPadSkin()
 	{
-	    ClientPrefs.saveSettings();
+	    // ClientPrefs.saveSettings();
 	    removeVirtualPad();
-		openSubState(new MobileOptionsSubState());
+	    addVirtualPad(FULL, A_B_C);
+		// openSubState(new MobileOptionsSubState());
 	}
 }
