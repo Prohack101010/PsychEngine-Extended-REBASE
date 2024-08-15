@@ -9,6 +9,8 @@ import mobile.flixel.FlxButton;
 import flixel.ui.FlxButton as FlxButtonOld;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.FlxGraphic;
+import openfl.display.BitmapData;
+import openfl.utils.Assets;
 
 class FlxVirtualPad extends FlxSpriteGroup {
 	//Actions
