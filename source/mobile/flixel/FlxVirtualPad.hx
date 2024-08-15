@@ -250,21 +250,21 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		}
 	}
 
-	public function createButton(x:Float, y:Float, width:Int, height:Int, frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
-		var graphic:FlxGraphic;
+	public function createButton(x:Float, y:Float, width:Int, height:Int, Frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
+		var frames:FlxGraphic;
 
-		final path:String = 'shared:assets/shared/images/virtualpad/$Graphic.png';
+		final path:String = 'shared:assets/shared/images/virtualpad/$Frames.png';
 		#if MODS_ALLOWED
-		final modsPath:String = Paths.modsImages('virtualpad/$Graphic');
+		final modsPath:String = Paths.modsImages('virtualpad/$Frames');
 		if(sys.FileSystem.exists(modsPath))
-			graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
+			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
 		else #end if(Assets.exists(path))
-			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
 		else
-			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/default.png'));
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/default.png'));
 
 		var button:FlxButton = new FlxButton(X, Y);
-		button.frames = FlxTileFrames.fromGraphic(graphic, FlxPoint.get(Std.int(graphic.width / 2), graphic.height));
+		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
 		button.solid = false;
 		button.immovable = true;
 		button.moves = false;
