@@ -257,14 +257,17 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		var frames:FlxGraphic;
 
 		final path:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames.png';
+		final defaultkey:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/default.png';
 		#if MODS_ALLOWED
 		final modsPath:String = Paths.modsImages('virtualpad' + ClientPrefs.VirtualPadSkin + '/$Frames');
 		if(sys.FileSystem.exists(modsPath))
 			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
 		else #end if(Assets.exists(path))
 			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
+		else if(!Assets.exists(defaultkey)) //null fix
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/original/default.png'));
 		else
-			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/default.png'));
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(defaultkey));
 
 		var button:FlxButton = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));

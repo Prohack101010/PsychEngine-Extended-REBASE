@@ -176,7 +176,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
-		option.onChange = CheckOption;
+		option.onChange = ResetOptions;
 		
 		var option:Option = new Option('Modpack Folder',
 			'If checked, game uses modpack folder instead of mods folder.',
@@ -226,12 +226,10 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
 	}
 	
-	function CheckOption()
+	function ResetOptions()
 	{
-	    if (!ClientPrefs.OldVirtualPad)
-		    virtualpadSkinList = CoolUtil.coolTextFile('shared:assets/shared/images/virtualpad/virtualpadSkinList.txt');
-		else
-		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
+	    ClientPrefs.saveSettings();
+	    openSubState(new MobileOptionsSubState());
 	}
 	
 	function onChangeVirtualPadSkin()
