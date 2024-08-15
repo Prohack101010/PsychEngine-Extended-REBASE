@@ -45,7 +45,6 @@
 	
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
 	<define name="WEEKEND1_ENABLED" if="mobile"/>
-	<define name="NEW_VIRTUALPAD" if="mobile"/>
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" if="desktop || mobile" />

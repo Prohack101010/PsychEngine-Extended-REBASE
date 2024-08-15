@@ -9,6 +9,7 @@ import Controls;
 class ClientPrefs {
     public static var VirtualPadSkin:String = 'original';
 	public static var downScroll:Bool = false;
+	public static var OldVirtualPad:Bool = false;
 	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
 	public static var breakgetvarinarray:Bool = false;
@@ -51,7 +52,6 @@ class ClientPrefs {
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = 0.7; //someone request this lol
 	public static var VirtualPadAlpha:Float = 0.75;
-	public static var mobileCAlpha:Float = FlxG.onMobile ? 0.6 : 0;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -114,6 +114,7 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
+		FlxG.save.data.OldVirtualPad = OldVirtualPad;
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
@@ -167,7 +168,6 @@ class ClientPrefs {
                 FlxG.save.data.hitboxhint = hitboxhint;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
-		FlxG.save.data.mobileCAlpha = mobileCAlpha;
 	
 	
 		FlxG.save.flush();
@@ -183,8 +183,8 @@ class ClientPrefs {
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}
-		if(FlxG.save.data.mobileCAlpha != null) {
-			mobileCAlpha = FlxG.save.data.mobileCAlpha;
+		if(FlxG.save.data.OldVirtualPad != null) {
+			OldVirtualPad = FlxG.save.data.OldVirtualPad;
 		}
 		if(FlxG.save.data.VirtualPadSkin != null) {
 			VirtualPadSkin = FlxG.save.data.VirtualPadSkin;

@@ -45,11 +45,15 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	#end
 	
 	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
+	var virtualpadSkinListModsFolder:Array<String> = CoolUtil.coolTextFile(Paths.modsImages('virtualpad/virtualpadSkinList.txt'));
 	
 	public function new()
 	{
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
+		
+		if (!ClientPrefs.OldVirtualPad)
+		    virtualpadSkinList = CoolUtil.coolTextFile('shared:assets/shared/images/virtualpad/virtualpadSkinList.txt');
 		
 		var option:Option = new Option('VirtualPad Skin',
 			"Choose VirtualPad Skin",
@@ -166,6 +170,14 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 		
+		var option:Option = new Option('Use Old VirtualPad',
+			'If checked, VirtualPad uses VirtualPad.png instead of VirtualPad/skin/Key.png',
+			'OldVirtualPad',
+			'bool',
+			false);
+		addOption(option);
+		option.onChange = CheckOption;
+		
 		var option:Option = new Option('Modpack Folder',
 			'If checked, game uses modpack folder instead of mods folder.',
 			'Modpack',
@@ -214,11 +226,17 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
 	}
 	
+	function CheckOption()
+	{
+	    if (!ClientPrefs.OldVirtualPad)
+		    virtualpadSkinList = CoolUtil.coolTextFile('shared:assets/shared/images/virtualpad/virtualpadSkinList.txt');
+		else
+		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'))
+	}
+	
 	function onChangeVirtualPadSkin()
 	{
-	    // ClientPrefs.saveSettings();
 	    removeVirtualPad();
 	    addVirtualPad(FULL, A_B_C);
-		// openSubState(new MobileOptionsSubState());
 	}
 }

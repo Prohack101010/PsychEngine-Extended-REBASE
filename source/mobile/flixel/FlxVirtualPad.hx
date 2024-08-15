@@ -253,18 +253,18 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public function createButton(x:Float, y:Float, width:Int, height:Int, Frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
-	    #if NEW_VIRTUALPAD
+	if (!ClientPrefs.OldVirtualPad) {
 		var frames:FlxGraphic;
 
-		final path:String = 'shared:assets/shared/images/virtualpad/$Frames.png';
+		final path:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames.png';
 		#if MODS_ALLOWED
-		final modsPath:String = Paths.modsImages('virtualpad/$Frames');
+		final modsPath:String = Paths.modsImages('virtualpad' + ClientPrefs.VirtualPadSkin + '/$Frames');
 		if(sys.FileSystem.exists(modsPath))
 			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
 		else #end if(Assets.exists(path))
 			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
 		else
-			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/default.png'));
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/default.png'));
 
 		var button:FlxButton = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
@@ -279,9 +279,9 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		button.ignoreDrawDebug = true;
 		#end
 		return button;
-		
-		#else
-		
+	}
+	else
+	{
 		var button = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromFrame(getFrames().getByName(Frames), FlxPoint.get(width, height));
 		button.resetSizeFromFrame();
@@ -296,6 +296,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		#end
 		return button;
 		#end
+	}
 	}
 
 	public static function getFrames():FlxAtlasFrames {
