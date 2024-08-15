@@ -29,6 +29,7 @@ class PauseSubState extends MusicBeatSubstate
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
+	public static var inPause:Bool = false;
 	//var botplayText:FlxText;
 
 	public static var songName:String = '';
@@ -265,6 +266,8 @@ class PauseSubState extends MusicBeatSubstate
 					MusicBeatState.switchState(new options.OptionsState());
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				case "Change Gameplay Settings":
+				    persistentUpdate = false;
+					removeVirtualPad();
 					openSubState(new GameplayChangersSubstate());
 					GameplayChangersSubstate.inThePauseMenu = true;
 				case "Exit to menu":
@@ -305,6 +308,14 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		skipTimeText = null;
 		skipTimeTracker = null;
+	}
+	
+	override function closeSubState() {
+		persistentUpdate = true;
+		super.closeSubState();
+		removeVirtualPad();
+		addVirtualPad(FULL, A);
+		addPadCamera();
 	}
 
 	public static function restartSong(noTrans:Bool = false)
