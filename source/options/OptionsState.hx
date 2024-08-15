@@ -36,6 +36,10 @@ class OptionsState extends MusicBeatState
 	public static var menuBG:FlxSprite;
 
 	function openSelectedSubstate(label:String) {
+	    if (label != "Adjust Delay and Combo"){
+			removeVirtualPad();
+			persistentUpdate = false;
+		}
 		switch(label) {
 			case 'Note Colors':
 				#if mobile
@@ -135,6 +139,9 @@ class OptionsState extends MusicBeatState
 
 	override function closeSubState() {
 		super.closeSubState();
+		removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B);
+		persistentUpdate = true;
 		ClientPrefs.saveSettings();
 	}
 

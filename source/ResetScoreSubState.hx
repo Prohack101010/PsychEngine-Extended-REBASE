@@ -109,12 +109,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 				}
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-			#if mobile
-                        FlxTransitionableState.skipNextTransOut = true;
-			FlxG.resetState();
-                        #else
                         close();
-                        #end
 		}
 		
     	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.touchmenus)
@@ -128,23 +123,13 @@ class ResetScoreSubState extends MusicBeatSubstate
         		}
         	}
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-    		#if mobile
-            FlxTransitionableState.skipNextTransOut = true;
-    		FlxG.resetState();
-            #else
             close();
-            #end
         }
     		
     	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.touchmenus)
     	{
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-    		#if mobile
-            FlxTransitionableState.skipNextTransOut = true;
-    		FlxG.resetState();
-            #else
             close();
-            #end
     	}
 		super.update(elapsed);
 	}
