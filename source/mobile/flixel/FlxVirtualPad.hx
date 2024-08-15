@@ -253,6 +253,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public function createButton(x:Float, y:Float, width:Int, height:Int, Frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
+	    #if NEW_VIRTUALPAD
 		var frames:FlxGraphic;
 
 		final path:String = 'shared:assets/shared/images/virtualpad/$Frames.png';
@@ -265,7 +266,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		else
 			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/default.png'));
 
-		var button:FlxButton = new FlxButton(X, Y);
+		var button:FlxButton = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
 		button.solid = false;
 		button.immovable = true;
@@ -278,6 +279,23 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		button.ignoreDrawDebug = true;
 		#end
 		return button;
+		
+		#else
+		
+		var button = new FlxButton(x, y);
+		button.frames = FlxTileFrames.fromFrame(getFrames().getByName(Frames), FlxPoint.get(width, height));
+		button.resetSizeFromFrame();
+		button.solid = false;
+		button.immovable = true;
+		button.scrollFactor.set();
+		button.alpha = orgAlpha;
+		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
+		button.antialiasing = orgAntialiasing;
+		#if FLX_DEBUG
+		button.ignoreDrawDebug = true;
+		#end
+		return button;
+		#end
 	}
 
 	public static function getFrames():FlxAtlasFrames {
