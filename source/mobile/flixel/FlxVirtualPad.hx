@@ -251,11 +251,23 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public function createButton(x:Float, y:Float, width:Int, height:Int, frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
-		var button = new FlxButton(x, y);
-		button.frames = FlxTileFrames.fromFrame(getFrames().getByName(frames), FlxPoint.get(width, height));
-		button.resetSizeFromFrame();
+		var graphic:FlxGraphic;
+
+		final path:String = 'shared:assets/shared/images/virtualpad/$Graphic.png';
+		#if MODS_ALLOWED
+		final modsPath:String = Paths.modsImages('virtualpad/$Graphic');
+		if(sys.FileSystem.exists(modsPath))
+			graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
+		else #end if(Assets.exists(path))
+			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
+		else
+			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/default.png'));
+
+		var button:FlxButton = new FlxButton(X, Y);
+		button.frames = FlxTileFrames.fromGraphic(graphic, FlxPoint.get(Std.int(graphic.width / 2), graphic.height));
 		button.solid = false;
 		button.immovable = true;
+		button.moves = false;
 		button.scrollFactor.set();
 		button.alpha = orgAlpha;
 		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
