@@ -54,7 +54,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 		
-		if (!ClientPrefs.OldVirtualPad)
+		if (ClientPrefs.virtualpadType == 'New')
 		    virtualpadSkinList = CoolUtil.coolTextFile('shared:assets/shared/images/virtualpad/virtualpadSkinList.txt');
 		
 		var option:Option = new Option('VirtualPad Skin',
@@ -179,7 +179,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			null,
 			virtualpadTypes);
 		addOption(option);
-		option.onChange = ResetOptions;
 		
 		var option:Option = new Option('Modpack Folder',
 			'If checked, game uses modpack folder instead of mods folder.',
