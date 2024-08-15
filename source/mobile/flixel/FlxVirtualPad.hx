@@ -253,7 +253,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public function createButton(x:Float, y:Float, width:Int, height:Int, Frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
-	if (!ClientPrefs.OldVirtualPad) {
+	if (ClientPrefs.virtualpadType == 'New') {
 		var frames:FlxGraphic;
 
 		final path:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames.png';

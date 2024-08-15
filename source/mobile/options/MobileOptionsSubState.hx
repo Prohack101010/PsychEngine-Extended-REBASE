@@ -44,6 +44,8 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 	
+	var virtualpadTypes:Array<String> = ["Old", "New"];
+	final lastVirtualPadType:String = ClientPrefs.virtualpadType;
 	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	var virtualpadSkinListModsFolder:Array<String> = CoolUtil.coolTextFile(Paths.modsImages('virtualpad/virtualpadSkinList.txt'));
 	
@@ -123,7 +125,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 		
 		var option:Option = new Option('Hitbox Opacity', //mariomaster was here again
-			'Changes opacity -omg',
+			'Changes hitbox opacity -omg',
 			'hitboxalpha',
 			'float',
 			0.7);
@@ -135,7 +137,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 		
 		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
-			'Changes VirtualPad Alpha',
+			'Changes VirtualPad Alpha -cool feature',
 			'VirtualPadAlpha',
 			'float',
 			0.75);
@@ -157,7 +159,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		option.onChange = onChangeVirtualPadSkin;
 		
 		var option:Option = new Option('Touch Screens (WIP)',
-			'Still WIP',
+			'WIP',
 			'touchmenus',
 			'bool',
 			false);
@@ -170,11 +172,12 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 		
-		var option:Option = new Option('Use Old VirtualPad',
-			'If checked, VirtualPad uses VirtualPad.png instead of VirtualPad/skin/Key.png',
-			'OldVirtualPad',
-			'bool',
-			false);
+		var option:Option = new Option('VirtualPad Type',
+			'Which VirtualPad should use??',
+			'virtualpadType',
+			'string',
+			null,
+			virtualpadTypes);
 		addOption(option);
 		option.onChange = ResetOptions;
 		
@@ -217,6 +220,12 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			lime.system.System.exit(0);
 		}
 		#end
+		
+		if (ClientPrefs.virtualpadType != lastVirtualPadType) {
+		    ClientPrefs.saveSettings();
+		    SUtil.showPopUp('Notice!', 'VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+		    lime.system.System.exit(0);
+		}
 	}
 	
 	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
@@ -226,9 +235,11 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
 	}
 	
-	function ResetOptions()
+	// useless
+	function VirtualPadTypeChanges()
 	{
 	    ClientPrefs.saveSettings();
+	    close();
 	    openSubState(new MobileOptionsSubState());
 	}
 	

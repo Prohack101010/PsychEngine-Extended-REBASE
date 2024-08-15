@@ -9,7 +9,6 @@ import Controls;
 class ClientPrefs {
     public static var VirtualPadSkin:String = 'original';
 	public static var downScroll:Bool = false;
-	public static var OldVirtualPad:Bool = false;
 	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
 	public static var breakgetvarinarray:Bool = false;
@@ -42,6 +41,7 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
+	public static var virtualpadType:String = "New";
 	#if android
 	public static var storageType:String = "EXTERNAL";
 	#end
@@ -114,7 +114,6 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
-		FlxG.save.data.OldVirtualPad = OldVirtualPad;
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
@@ -161,6 +160,7 @@ class ClientPrefs {
         #if android
 		FlxG.save.data.storageType = storageType;
 		#end
+		FlxG.save.data.virtualpadType = virtualpadType;
 		FlxG.save.data.hitboxExtend = hitboxExtend;
 	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
@@ -182,9 +182,6 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
-		}
-		if(FlxG.save.data.OldVirtualPad != null) {
-			OldVirtualPad = FlxG.save.data.OldVirtualPad;
 		}
 		if(FlxG.save.data.VirtualPadSkin != null) {
 			VirtualPadSkin = FlxG.save.data.VirtualPadSkin;
@@ -310,6 +307,9 @@ class ClientPrefs {
 			storageType = FlxG.save.data.storageType;
 		}
 		#end
+		if(FlxG.save.data.virtualpadType != null) {
+			virtualpadType = FlxG.save.data.virtualpadType;
+		}
 		if(FlxG.save.data.hitboxmode != null) {
 			hitboxmode = FlxG.save.data.hitboxmode;
 		}
