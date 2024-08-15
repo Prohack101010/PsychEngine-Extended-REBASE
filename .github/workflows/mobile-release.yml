@@ -1,4 +1,4 @@
-name: Mobile + Release
+name: Android + Release
 on: workflow_dispatch
 jobs:
   Android:
@@ -71,8 +71,8 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: true
-          automatic_release_tag: "1.0.0-prerelease"
-          title: "1.0.0 PreRelease"
+          automatic_release_tag: "1.0.0-prerelease-bugfix"
+          title: "BugFix"
           files: |
             /home/runner/*.apk
             /home/runner/*.zip
