@@ -231,7 +231,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	    if (!ClientPrefs.OldVirtualPad)
 		    virtualpadSkinList = CoolUtil.coolTextFile('shared:assets/shared/images/virtualpad/virtualpadSkinList.txt');
 		else
-		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'))
+		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	}
 	
 	function onChangeVirtualPadSkin()
