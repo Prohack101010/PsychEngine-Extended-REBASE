@@ -271,25 +271,34 @@ class FlxVirtualPad extends FlxSpriteGroup {
 
 		var button:FlxButton = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
+		button.solid = false;
+		button.immovable = true;
 		button.moves = false;
+		button.scrollFactor.set();
+		button.alpha = orgAlpha;
+		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
+		button.antialiasing = orgAntialiasing;
+		#if FLX_DEBUG
+		button.ignoreDrawDebug = true;
+		#end
+		return button;
 	}
 	else // you can still use the old controls if you want
 	{
 		var button = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromFrame(getFrames().getByName(Frames), FlxPoint.get(width, height));
 		button.resetSizeFromFrame();
+		button.solid = false;
+		button.immovable = true;
+		button.scrollFactor.set();
+		button.alpha = orgAlpha;
+		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
+		button.antialiasing = orgAntialiasing;
+		#if FLX_DEBUG
+		button.ignoreDrawDebug = true;
+		#end
+		return button;
 	}
-	// both
-	button.solid = false;
-	button.immovable = true;
-	button.scrollFactor.set();
-	button.alpha = orgAlpha;
-	if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
-	button.antialiasing = orgAntialiasing;
-	#if FLX_DEBUG
-	button.ignoreDrawDebug = true;
-	#end
-	return button;
 	}
 
 	public static function getFrames():FlxAtlasFrames {
