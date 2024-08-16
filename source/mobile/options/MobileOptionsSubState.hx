@@ -55,7 +55,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		rpcTitle = 'Mobile Options Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 		
 		if (ClientPrefs.virtualpadType == 'New')
-		    virtualpadSkinList = CoolUtil.coolTextFile('shared:assets/shared/images/virtualpad/virtualpadSkinList.txt');
+		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getSharedPath('images/virtualpad/virtualpadSkinList.txt'));
 		
 		var option:Option = new Option('VirtualPad Skin',
 			"Choose VirtualPad Skin",

@@ -445,6 +445,11 @@ class Paths
 		return null;
 	}
 	
+	inline public static function getSharedPath(file:String = '')
+	{
+		return 'assets/shared/$file';
+	}
+	
 	public static function returnAssetsGraphic(key:String, ?library:String) {
 		#if MODS_ALLOWED
 		var modKey:String = assetsImages(key);
