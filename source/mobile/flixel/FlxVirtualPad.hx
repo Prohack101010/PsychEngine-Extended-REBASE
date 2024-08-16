@@ -302,7 +302,13 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public static function getFrames():FlxAtlasFrames {
+	final oldvpadpath:String = 'mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin + '.png''
+	final oldvpadpath2:String = 'mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin'
+	
+	if(sys.FileSystem.exists(getPreloadPath(oldvpadpath) || sys.FileSystem.exists(getPreloadPath(oldvpadpath2))
 		return Paths.getPackerAtlas('mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
+	else
+	    return Paths.getPackerAtlas('mobilecontrols/virtualpad/original');
 	}
 	
 	override public function destroy():Void

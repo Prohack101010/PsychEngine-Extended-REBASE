@@ -235,16 +235,24 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	}
 	
 	// useless
-	function VirtualPadTypeChanges()
+	function VirtualPadChanged()
 	{
 	    ClientPrefs.saveSettings();
-	    close();
-	    openSubState(new MobileOptionsSubState());
+		SUtil.showPopUp('Notice!', 'VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+		lime.system.System.exit(0);
 	}
 	
 	function onChangeVirtualPadSkin()
 	{
+	    if (ClientPrefs.virtualpadType != lastVirtualPadType) {
+	        ClientPrefs.saveSettings();
+		    SUtil.showPopUp('Notice!', 'If you want to change virtualpad skin you needed restart the game!!\nPress OK to close the game.');
+		    lime.system.System.exit(0);
+		}
+		else
+		{
 	    removeVirtualPad();
 	    addVirtualPad(FULL, A_B_C);
+	    }
 	}
 }
