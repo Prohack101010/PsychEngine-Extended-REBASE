@@ -258,56 +258,42 @@ class FlxVirtualPad extends FlxSpriteGroup {
 
 		final path:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames.png';
 		final defaultkey:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/default.png';
-		final vetpath:String = Paths.getSharedPath('images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames');
-		final vetdefaultkey:String = Paths.getSharedPath('images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/default');
 		#if MODS_ALLOWED
-		final modsPath:String = Paths.modsImages('virtualpad' + ClientPrefs.VirtualPadSkin + '/$Frames');
+		final modsPath:String = Paths.mods('virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames');
 		if(sys.FileSystem.exists(modsPath))
 			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
-		else #end if(sys.FileSystem.exists(vetpath))
-			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(vetpath));
-		else if(!sys.FileSystem.exists(vetdefaultkey)) //null fix
+		else #end if(Assets.exists(path))
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
+		else if(!Assets.exists(defaultkey)) //null fix
 			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/original/default.png'));
 		else
-			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(vetdefaultkey));
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(defaultkey));
 
 		var button:FlxButton = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
-		button.solid = false;
-		button.immovable = true;
 		button.moves = false;
-		button.scrollFactor.set();
-		button.alpha = orgAlpha;
-		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
-		button.antialiasing = orgAntialiasing;
-		#if FLX_DEBUG
-		button.ignoreDrawDebug = true;
-		#end
-		return button;
 	}
-	else
+	else // you can still use the old controls if you want
 	{
 		var button = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromFrame(getFrames().getByName(Frames), FlxPoint.get(width, height));
 		button.resetSizeFromFrame();
-		button.solid = false;
-		button.immovable = true;
-		button.scrollFactor.set();
-		button.alpha = orgAlpha;
-		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
-		button.antialiasing = orgAntialiasing;
-		#if FLX_DEBUG
-		button.ignoreDrawDebug = true;
-		#end
-		return button;
 	}
+	// both
+	button.solid = false;
+	button.immovable = true;
+	button.scrollFactor.set();
+	button.alpha = orgAlpha;
+	if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
+	button.antialiasing = orgAntialiasing;
+	#if FLX_DEBUG
+	button.ignoreDrawDebug = true;
+	#end
+	return button;
 	}
 
 	public static function getFrames():FlxAtlasFrames {
-	if(sys.FileSystem.exists(Paths.getPreloadPath('images/mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin)))
 		return Paths.getPackerAtlas('mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
-	else
-	    return Paths.getPackerAtlas('mobilecontrols/virtualpad/original');
 	}
 	
 	override public function destroy():Void

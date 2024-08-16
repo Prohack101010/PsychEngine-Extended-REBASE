@@ -56,6 +56,12 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		
 		if (ClientPrefs.virtualpadType == 'New')
 		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getSharedPath('images/virtualpad/virtualpadSkinList.txt'));
+		    
+		#if MODS_ALLOWED
+		final modsPath:String = Paths.mods('virtualpad/virtualpadSkinList');
+		if(sys.FileSystem.exists(modsPath) && ClientPrefs.virtualpadType == 'New')
+		    CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList.txt'));
+		#end
 		
 		var option:Option = new Option('VirtualPad Skin',
 			"Choose VirtualPad Skin",
@@ -172,6 +178,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 		
+		/* not now (maybe later)
 		var option:Option = new Option('VirtualPad Type',
 			'Which VirtualPad should use??',
 			'virtualpadType',
@@ -179,6 +186,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			null,
 			virtualpadTypes);
 		addOption(option);
+		*/
 		
 		var option:Option = new Option('Modpack Folder',
 			'If checked, game uses modpack folder instead of mods folder.',
@@ -220,11 +228,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		}
 		#end
 		
+		/*
 		if (ClientPrefs.virtualpadType != lastVirtualPadType) {
 		    ClientPrefs.saveSettings();
 		    SUtil.showPopUp('Notice!', 'VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.');
 		    lime.system.System.exit(0);
 		}
+		*/
 	}
 	
 	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
@@ -234,16 +244,9 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
 	}
 	
-	// useless
-	function VirtualPadChanged()
-	{
-	    ClientPrefs.saveSettings();
-		SUtil.showPopUp('Notice!', 'VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.');
-		lime.system.System.exit(0);
-	}
-	
 	function onChangeVirtualPadSkin()
 	{
+	/*
 	    if (ClientPrefs.virtualpadType != lastVirtualPadType) {
 	        ClientPrefs.saveSettings();
 		    SUtil.showPopUp('Notice!', 'If you want to change virtualpad skin you needed restart the game!!\nPress OK to close the game.');
@@ -251,8 +254,9 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		}
 		else
 		{
+	*/
 	    removeVirtualPad();
 	    addVirtualPad(FULL, A_B_C);
-	    }
+	//  }
 	}
 }
