@@ -20,7 +20,6 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup;
 import flixel.addons.ui.FlxInputText;
 import flixel.util.FlxStringUtil;
-import flixel.sound.FlxSound;
 import flixel.ui.FlxBar;
 
 #if MODS_ALLOWED

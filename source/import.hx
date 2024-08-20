@@ -19,6 +19,7 @@ import flixel.tweens.FlxEase;
 import flixel.system.FlxSound;
 import flixel.addons.display.FlxBackdrop;
 import flixel.FlxCamera;
+import flixel.util.FlxTimer;
 
 using StringTools;
 
