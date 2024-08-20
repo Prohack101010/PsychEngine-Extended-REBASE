@@ -2,6 +2,9 @@ import Paths;
 import mobile.SUtil;
 import mobile.SwipeUtil;
 import mobile.TouchUtil;
+import Difficulty;
+
+using StringTools;
 
 #if flxanimate
 import flxanimate.*;

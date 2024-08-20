@@ -79,11 +79,12 @@ class CreditsState extends MusicBeatState
 			pushModCreditsToList(folder);
 		}
 		#end
+		
+		// ['DarkVerseKing', 	    'Dark',			    'Helper and Useful Person',		            'https://youtube.com/@darkverseking', '444444'],
 
-		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['Psych Extended'],
-			['KralOyuncu',		    'KralOyuncuV2',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'9E29CF'],
-			['DarkVerseKing', 	    'Dark',			    'Helper and Useful Person',		            'https://youtube.com/@darkverseking', '444444'],
+			['KralOyuncu',		    'KralOyuncuV3',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'378FC7'],
 			[''],
 			['Psych Engine Android Team'],
 			['MaysLastPlay',		'MaysLastPlay',		'Android Porter',							'https://www.youtube.com/channel/UCx0LxtFR8ROd9sFAq-UxDfw',	'5DE7FF'],
@@ -115,7 +116,7 @@ class CreditsState extends MusicBeatState
 			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
 		];
 		
-		for(i in pisspoop){
+		for(i in defaultList){
 			creditsStuff.push(i);
 		}
 	
@@ -135,7 +136,9 @@ class CreditsState extends MusicBeatState
 					Paths.currentModDirectory = creditsStuff[i][5];
 				}
 
-				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
+				var str:String = 'credits/missing_icon';
+				if (Paths.image('credits/' + creditsStuff[i][1]) != null) str = 'credits/' + creditsStuff[i][1];
+				var icon:AttachedSprite = new AttachedSprite(str);
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
 	
