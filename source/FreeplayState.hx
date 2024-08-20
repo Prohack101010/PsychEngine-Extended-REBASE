@@ -1,4 +1,9 @@
-package states;
+package;
+
+// openfl
+import lime.utils.Assets;
+import openfl.utils.Assets as OpenFlAssets;
+import openfl.Lib;
 
 #if desktop
 import Discord.DiscordClient;
@@ -197,16 +202,16 @@ class FreeplayState extends MusicBeatState
 		Mods.loadTopMod();
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 		
-		bgMove = new FlxBackdrop(Paths.image('mainmenu_sprite/backdrop'), XY, 0, 0);
+		bgMove = new FlxBackdrop(Paths.image('mainmenu_sprite/backdrop'), 0, 0);
 		bgMove.alpha = 0.1;
 		bgMove.color = ColorArray[currentColor];
 		bgMove.screenCenter();
 		bgMove.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		bgMove.antialiasing = ClientPrefs.data.antialiasing;
+		bgMove.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bgMove);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
@@ -298,7 +303,7 @@ class FreeplayState extends MusicBeatState
 		searchInput.backgroundColor = FlxColor.TRANSPARENT;
 		searchInput.fieldBorderColor = FlxColor.TRANSPARENT;
 		searchInput.font = Paths.font("vcr.ttf");
-		searchInput.antialiasing = ClientPrefs.data.antialiasing;
+		searchInput.antialiasing = ClientPrefs.globalAntialiasing;
 		searchInput.cameras = [camSearch];
 		
 		lineText = new FlxText(showX + 50, showY + 20, showWidth - 100, 'Song Name For Search', 30);
@@ -306,13 +311,13 @@ class FreeplayState extends MusicBeatState
 		lineText.scrollFactor.set();
 		lineText.alpha = 0.6;
 		lineText.visible = true;
-		lineText.antialiasing = ClientPrefs.data.antialiasing;
+		lineText.antialiasing = ClientPrefs.globalAntialiasing;
 		lineText.cameras = [camSearch];
 		
 		notFoundSongText = new FlxText(showX, showY + 100 + 40 * 2, showWidth, 'Not Found Song!', 30);
 		notFoundSongText.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.RED, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		notFoundSongText.scrollFactor.set();
-		notFoundSongText.antialiasing = ClientPrefs.data.antialiasing;
+		notFoundSongText.antialiasing = ClientPrefs.globalAntialiasing;
 		notFoundSongText.cameras = [camSearch];
 		
 		var lineHeight:Int = 3;
@@ -366,7 +371,7 @@ class FreeplayState extends MusicBeatState
 		    searchSongNamesText.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		    searchSongNamesText.scrollFactor.set();
 			searchSongNamesText.ID = textNum;
-			searchSongNamesText.antialiasing = ClientPrefs.data.antialiasing;
+			searchSongNamesText.antialiasing = ClientPrefs.globalAntialiasing;
 			searchSongNamesTexts.add(searchSongNamesText);
 			searchSongNamesText.cameras = [camSearch];
         }
@@ -391,7 +396,7 @@ class FreeplayState extends MusicBeatState
 		showCaseText = new FlxText(FlxG.width - CHsize, CH_Y + CHsize * 2 - 50 + CHsize / 2 - text1size / 2, CHsize, '<<', text1size);
 		showCaseText.setFormat(Paths.font("vcr.ttf"), text1size, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		showCaseText.scrollFactor.set();
-		showCaseText.antialiasing = ClientPrefs.data.antialiasing;
+		showCaseText.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		reduceDataBG = new FlxSprite(FlxG.width, CH_Y).makeGraphic(CHsize , CHsize, 0xFFFFFFFF);
 		reduceDataBG.alpha = 0.6;
@@ -400,7 +405,7 @@ class FreeplayState extends MusicBeatState
 		reduceDataText = new FlxText(FlxG.width, CH_Y + CHsize / 2 - text2size / 2, CHsize, 'UP', text2size);
 		reduceDataText.setFormat(Paths.font("vcr.ttf"), text2size, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		reduceDataText.scrollFactor.set();
-		reduceDataText.antialiasing = ClientPrefs.data.antialiasing;
+		reduceDataText.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		addDataBG = new FlxSprite(FlxG.width + CHsize, CH_Y).makeGraphic(CHsize , CHsize, 0xFFFFFFFF);
 		addDataBG.alpha = 0.6;
@@ -409,7 +414,7 @@ class FreeplayState extends MusicBeatState
 		addDataText = new FlxText(FlxG.width + CHsize, CH_Y + CHsize / 2 - text2size / 2, CHsize, 'DOWN', text2size);
 		addDataText.setFormat(Paths.font("vcr.ttf"), text2size, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		addDataText.scrollFactor.set();
-		addDataText.antialiasing = ClientPrefs.data.antialiasing;
+		addDataText.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		centerLine = new FlxSprite(FlxG.width + CHsize - 0.5, CH_Y).makeGraphic(1 , CHsize, FlxColor.WHITE);
 		upLine = new FlxSprite(FlxG.width, CH_Y - 0.5).makeGraphic(CHsize * 2, 1, FlxColor.WHITE);
@@ -431,7 +436,7 @@ class FreeplayState extends MusicBeatState
         add(leftLine);
         
 		#if PRELOAD_ALL
-		#if android
+		#if mobile
 		var leText:String = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
 		var size:Int = 16;
 		#else
@@ -445,7 +450,7 @@ class FreeplayState extends MusicBeatState
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, CENTER);
 		text.scrollFactor.set();
-		text.antialiasing = ClientPrefs.data.antialiasing;
+		text.antialiasing = ClientPrefs.globalAntialiasing;
 		text.screenCenter(X);
 		add(text);
 		
@@ -455,7 +460,7 @@ class FreeplayState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		#end
 		
-		#if android
+		#if mobile
         addVirtualPad(FULL, A_B_C_X_Y_Z);
         #end
                 
@@ -466,6 +471,8 @@ class FreeplayState extends MusicBeatState
 	override function closeSubState() {
 		changeSelection(0, false);
 		persistentUpdate = true;
+		removeVirtualPad();
+		addVirtualPad(FULL, A_B_C_X_Y_Z);
 		super.closeSubState();
 	}
 
@@ -528,7 +535,7 @@ class FreeplayState extends MusicBeatState
 		positionHighscore();
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT  #if android || MusicBeatState._virtualpad.buttonZ.pressed #end) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT  #if mobile || _virtualpad.buttonZ.pressed #end) shiftMult = 3;
 
 		if(songs.length > 1)
 		{
@@ -583,7 +590,7 @@ class FreeplayState extends MusicBeatState
 			_updateSongLastDifficulty();
 		}
 
-		if (FlxG.keys.justPressed.ESCAPE #if android || MusicBeatState._virtualpad.buttonB.justPressed #end)
+		if (FlxG.keys.justPressed.ESCAPE #if mobile || _virtualpad.buttonB.justPressed #end)
 		{
 			persistentUpdate = false;
 			if(colorTween != null) {
@@ -593,12 +600,12 @@ class FreeplayState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if(FlxG.keys.justPressed.CONTROL #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
+		if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonC.justPressed #end)
 		{
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		else if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonX.justPressed #end)
+		else if(FlxG.keys.justPressed.SPACE #if mobile || _virtualpad.buttonX.justPressed #end)
 		{		    			
 		    
 			if(instPlaying != curSelected)
@@ -624,7 +631,7 @@ class FreeplayState extends MusicBeatState
 				if (PlayState.SONG.needsVoices)needsVoices = true;				
 					
 				persistentUpdate = false;
-				openSubState(new OSTtoNew(needsVoices,PlayState.SONG.bpm));
+				openSubState(new OSTSubstate(needsVoices,PlayState.SONG.bpm));
 			}
 			
 			
@@ -674,7 +681,7 @@ class FreeplayState extends MusicBeatState
 				return;
 			}
 			
-			if (FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonZ.pressed #end){
+			if (FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonZ.pressed #end){
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else{
 				LoadingState.loadAndSwitchState(new PlayState());
@@ -688,9 +695,9 @@ class FreeplayState extends MusicBeatState
 			DiscordClient.loadModRPC();
 			#end
 		}
-		else if(controls.RESET #if android || MusicBeatState._virtualpad.buttonY.justPressed #end)
+		else if(controls.RESET #if mobile || _virtualpad.buttonY.justPressed #end)
 		{
-		    #if android
+		    #if mobile
 			removeVirtualPad();
 			#end
 			persistentUpdate = false;

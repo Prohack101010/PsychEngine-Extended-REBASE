@@ -61,9 +61,9 @@ class MainMenuState extends MusicBeatState
 	override function create()
 	{
 		#if MODS_ALLOWED
-		Paths.pushGlobalMods();
+		Mods.pushGlobalMods();
 		#end
-		WeekData.loadTheFirstEnabledMod();
+		Mods.loadTheFirstEnabledMod();
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence

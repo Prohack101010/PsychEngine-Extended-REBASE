@@ -3,6 +3,7 @@ import mobile.SUtil;
 import mobile.SwipeUtil;
 import mobile.TouchUtil;
 import Difficulty;
+#if MODS_ALLOWED import Mods; #end
 
 using StringTools;
 

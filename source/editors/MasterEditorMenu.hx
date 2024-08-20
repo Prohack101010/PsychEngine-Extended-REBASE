@@ -70,12 +70,12 @@ class MasterEditorMenu extends MusicBeatState
 		directoryTxt.scrollFactor.set();
 		add(directoryTxt);
 		
-		for (folder in Paths.getModDirectories())
+		for (folder in Mods.getModDirectories())
 		{
 			directories.push(folder);
 		}
 
-		var found:Int = directories.indexOf(Paths.currentModDirectory);
+		var found:Int = directories.indexOf(Mods.currentModDirectory);
 		if(found > -1) curDirectory = found;
 		changeDirectory();
 		#end
@@ -186,8 +186,8 @@ class MasterEditorMenu extends MusicBeatState
 			directoryTxt.text = '< No Mod Directory Loaded >';
 		else
 		{
-			Paths.currentModDirectory = directories[curDirectory];
-			directoryTxt.text = '< Loaded Mod Directory: ' + Paths.currentModDirectory + ' >';
+			Mods.currentModDirectory = directories[curDirectory];
+			directoryTxt.text = '< Loaded Mod Directory: ' + Mods.currentModDirectory + ' >';
 		}
 		directoryTxt.text = directoryTxt.text.toUpperCase();
 	}
