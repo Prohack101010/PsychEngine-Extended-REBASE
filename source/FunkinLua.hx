@@ -3403,7 +3403,7 @@ class FunkinLua {
 
 		if(Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
 
-			foldersToCheck.insert(0, Mods.mods(Mods.currentModDirectory + '/shaders/'));
+			foldersToCheck.insert(0, Paths.mods(Mods.currentModDirectory + '/shaders/'));
 
 		for(mod in Mods.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
