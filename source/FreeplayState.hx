@@ -517,9 +517,6 @@ class FreeplayState extends MusicBeatState {
 	
 	override function update(elapsed:Float)
 	{		
-	    if (ClientPrefs.FreeplayStyle == 'Psych')
-		    MusicBeatState.switchState(new FreeplayStatePsych());
-		    
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -1228,6 +1225,8 @@ class FreeplayState extends MusicBeatState {
 		
 					return;
 				}
+				destroyFreeplayVocals();
+				FlxG.sound.music.stop();
 				LoadingState.loadAndSwitchState(new PlayState());
 				FlxG.mouse.visible = false;
 		

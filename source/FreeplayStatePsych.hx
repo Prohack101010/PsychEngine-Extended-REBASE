@@ -5,7 +5,7 @@ import Highscore;
 import Song;
 
 import HealthIcon;
-import Music.MusicPlayer;
+import MusicPlayer;
 
 import FreeplayState.SongMetadata;
 
