@@ -127,7 +127,6 @@ class FreeplayState extends MusicBeatState {
 	var lookingTheTutorial:Bool = false;
 	override function create()
 	{
-	if (ClientPrefs.FreeplayStyle != 'Psych')
 		persistentUpdate = persistentDraw = true;
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
@@ -506,7 +505,6 @@ class FreeplayState extends MusicBeatState {
 		
 		camSong.scroll.x = FlxMath.lerp(-(curSelected) * 20 * 0.75, camSong.scroll.x, 0);
 		camSong.scroll.y = FlxMath.lerp((curSelected) * 75 * 0.75, camSong.scroll.y, 0);
-	}
 	}
 	
 	var startMouseY:Float;
