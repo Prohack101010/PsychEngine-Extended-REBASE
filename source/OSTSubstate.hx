@@ -6,6 +6,7 @@ import haxe.format.JsonParser;
 import haxe.io.Bytes;
 
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxSort;

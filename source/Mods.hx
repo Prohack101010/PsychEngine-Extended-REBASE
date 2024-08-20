@@ -145,7 +145,25 @@ class Mods
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
 	}
-
+	
+	// 0.7x custom menus support
+	public static function loadTopMod()
+	{
+		Mods.currentModDirectory = '';
+		
+		#if MODS_ALLOWED
+		var list:Array<String> = Mods.parseList().enabled;
+		if(list != null && list[0] != null)
+			Mods.currentModDirectory = list[0];
+		#end
+	}
+    
+    #if MODS_ALLOWED
+    inline static public function mods(key:String = '') {
+	    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
+	}
+	#end
+    
 	public static function loadTheFirstEnabledMod()
 	{
 		Mods.currentModDirectory = '';

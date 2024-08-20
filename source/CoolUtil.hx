@@ -81,6 +81,20 @@ class CoolUtil
 		}
 		return maxKey;
 	}
+	
+	// 0.7x custom menus support
+	public static function floorDecimal(value:Float, decimals:Int):Float
+	{
+		if(decimals < 1)
+			return Math.floor(value);
+
+		var tempMult:Float = 1;
+		for (i in 0...decimals)
+			tempMult *= 10;
+
+		var newValue:Float = Math.floor(value * tempMult);
+		return newValue / tempMult;
+	}
 
 	public static function numberArray(max:Int, ?min = 0):Array<Int>
 	{
