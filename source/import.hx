@@ -2,6 +2,8 @@
 import Paths;
 
 // 0.7x Support
+import FreeplayStatePsych;
+import FreeplayState;
 import Difficulty;
 import Mods;
 

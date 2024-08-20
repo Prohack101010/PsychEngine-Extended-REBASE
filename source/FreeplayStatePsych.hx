@@ -50,7 +50,7 @@ import flixel.ui.FlxButton;
         
     */
     
-class FreeplayState extends MusicBeatState
+class FreeplayStatePsych extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
 
