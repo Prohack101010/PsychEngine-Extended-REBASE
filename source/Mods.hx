@@ -147,16 +147,6 @@ class Mods
 	}
 	
 	// 0.7x custom menus support
-	public static function loadTopMod()
-	{
-		Mods.currentModDirectory = '';
-		
-		#if MODS_ALLOWED
-		var list:Array<String> = Mods.parseList().enabled;
-		if(list != null && list[0] != null)
-			Mods.currentModDirectory = list[0];
-		#end
-	}
 	
 	public static function loadTopMod()
 	{
