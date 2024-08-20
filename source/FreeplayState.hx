@@ -1225,7 +1225,6 @@ class FreeplayState extends MusicBeatState {
 		
 					return;
 				}
-				LoadingState.prepareToSong();
 				LoadingState.loadAndSwitchState(new PlayState());
 				FlxG.mouse.visible = false;
 		
