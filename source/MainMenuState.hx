@@ -365,8 +365,8 @@ class MainMenuState extends MusicBeatState
 	
 	function openCustomFreeplayMenu()
 	{
-	    if (ClientPrefs.FreeplayStyle == 'Psych') MusicBeatState.switchStatePlus(new FreeplayStatePsych());
-		else MusicBeatState.switchStatePlus(new FreeplayState());
+	    if (ClientPrefs.FreeplayStyle == 'Psych') MusicBeatState.switchState(new FreeplayStatePsych());
+		else MusicBeatState.switchState(new FreeplayState());
     }
 
 	function changeItem(change:Int = 0)
