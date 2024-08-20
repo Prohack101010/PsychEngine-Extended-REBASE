@@ -322,9 +322,15 @@ class MainMenuState extends MusicBeatState
 						{
 							case 'story_mode':
 								MusicBeatState.switchState(new StoryMenuState());
+								
+							if (ClientPrefs.FreeplayStyle != 'Psych') (
 							case 'freeplay':
-							if (ClientPrefs.FreeplayStyle != 'Psych') MusicBeatState.switchState(new FreeplayState());
-								else MusicBeatState.switchState(new FreeplayStatePsych());
+							    MusicBeatState.switchState(new FreeplayState());
+							}
+							else {
+							case 'freeplay':
+							    MusicBeatState.switchState(new FreeplayStatePsych());
+							}
 
 							#if MODS_ALLOWED
 							case 'mods':
