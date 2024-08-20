@@ -231,46 +231,43 @@ class MusicBeatState extends FlxUIState
 		curStep = lastChange.stepTime + Math.floor(shit);
 	}
 
-	public static function switchState(nextState:FlxState = null) {
-		if(nextState == null) nextState = FlxG.state;
-		if(nextState == FlxG.state)
-		{
-			resetState();
+	public static function switchState(nextState:FlxState) {
+		// Custom made Trans in
+		var curState:Dynamic = FlxG.state;
+		var leState:MusicBeatState = curState;
+		if(!FlxTransitionableState.skipNextTransIn) {
+			leState.openSubState(new CustomFadeTransition(0.6, false));
+			if(nextState == FlxG.state) {
+				CustomFadeTransition.finishCallback = function() {
+					FlxG.resetState();
+				};
+				//trace('resetted');
+			} else {
+				CustomFadeTransition.finishCallback = function() {
+				if (nextState == new FreeplayState() && ClientPrefs.FreeplayStyle == 'Psych')
+				    FlxG.switchState(new FreeplayStatePsych());
+				else
+					FlxG.switchState(nextState);
+				};
+				//trace('changed state');
+			}
 			return;
 		}
-		
-		if(FlxTransitionableState.skipNextTransIn)
-		{
-			FlxG.switchState(nextState);
-		}
-		else startTransition(nextState);
+		FlxTransitionableState.skipNextTransIn = false;
+		if (nextState == new FreeplayState() && ClientPrefs.FreeplayStyle == 'Psych')
+		    FlxG.switchState(new FreeplayState());
+		else
+		    FlxG.switchState(nextState);
 	}
 
 	public static function resetState() {
-		if(FlxTransitionableState.skipNextTransIn)
-		{
-			FlxG.resetState();
-		}
-		else startTransition();
-	}
-
-	// Custom made Trans in
-	public static function startTransition(nextState:FlxState = null)
-	{
-		if(nextState == null)
-			nextState = FlxG.state;
-
-		FlxTransitionableState.skipNextTransIn = false;
-		FlxG.state.openSubState(new CustomFadeTransition(0.6, false));
-		trace(nextState == FlxG.state);
-		if(nextState == FlxG.state)
-			CustomFadeTransition.finishCallback = function() FlxG.resetState();
-		else
-			CustomFadeTransition.finishCallback = function() FlxG.switchState(nextState);
+		MusicBeatState.switchState(FlxG.state);
 	}
 
 	public static function getState():MusicBeatState {
-		return cast (FlxG.state, MusicBeatState);
+		var curState:Dynamic = FlxG.state;
+		var leState:MusicBeatState = curState;
+		return leState;
 	}
 
 	public function stepHit():Void
