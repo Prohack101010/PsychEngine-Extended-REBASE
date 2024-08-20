@@ -278,7 +278,7 @@ class MultiCallback
 		this.logId = logId;
 	}
 	
-	public static function prepareToSong()
+	public function prepareToSong()
 	{
 		return;
 	}

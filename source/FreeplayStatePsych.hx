@@ -166,10 +166,11 @@ class FreeplayStatePsych extends MusicBeatState
 		add(bottomBG);
 
         var leText:String;
-        if (controls.mobileC)
+        #if mobile
 			leText = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
-        else
+        #else
 			leText = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+	    #end
 		
 		bottomString = leText;
 		var size:Int = 16;
@@ -210,7 +211,6 @@ class FreeplayStatePsych extends MusicBeatState
 
 	var instPlaying:Int = -1;
 	public static var vocals:FlxSound = null;
-	public static var opponentVocals:FlxSound = null;
 	var holdTime:Float = 0;
 
 	var stopMusicPlay:Bool = false;
@@ -235,7 +235,7 @@ class FreeplayStatePsych extends MusicBeatState
 			ratingSplit[1] += '0';
 
 		var shiftMult:Int = 1;
-        if((FlxG.keys.pressed.SHIFT || virtualPad.buttonZ.pressed) && !player.playingMusic) shiftMult = 3;
+        if((FlxG.keys.pressed.SHIFT || _virtualpad.buttonZ.pressed) && !player.playingMusic) shiftMult = 3;
 
 		if (!player.playingMusic)
 		{
@@ -319,75 +319,32 @@ class FreeplayStatePsych extends MusicBeatState
 			}
 		}
 
-        if((FlxG.keys.justPressed.CONTROL || virtualPad.buttonC.justPressed) && !player.playingMusic)
+        if((FlxG.keys.justPressed.CONTROL || _virtualpad.buttonC.justPressed) && !player.playingMusic)
 		{
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 			removeVirtualPad();
 		}
-        else if(FlxG.keys.justPressed.SPACE || virtualPad.buttonX.justPressed)
+        else if(FlxG.keys.justPressed.SPACE || _virtualpad.buttonX.justPressed)
 		{
 			if(instPlaying != curSelected && !player.playingMusic)
 			{
 				destroyFreeplayVocals();
 				FlxG.sound.music.volume = 0;
-
-				Mods.currentModDirectory = songs[curSelected].folder;
+				Paths.currentModDirectory = songs[curSelected].folder;
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				if (PlayState.SONG.needsVoices)
-				{
+					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+				else
 					vocals = new FlxSound();
-					try
-					{
-						var playerVocals:String = getVocalFromCharacter(PlayState.SONG.player1);
-						var loadedVocals = Paths.voices(PlayState.SONG.song, (playerVocals != null && playerVocals.length > 0) ? playerVocals : 'Player');
-						if(loadedVocals == null) loadedVocals = Paths.voices(PlayState.SONG.song);
-						
-						if(loadedVocals != null)
-						{
-							vocals.loadEmbedded(loadedVocals);
-							FlxG.sound.list.add(vocals);
-							vocals.persist = vocals.looped = true;
-							vocals.volume = 0.8;
-							vocals.play();
-							vocals.pause();
-						}
-						else vocals = FlxDestroyUtil.destroy(vocals);
-					}
-					catch(e:Dynamic)
-					{
-						vocals = FlxDestroyUtil.destroy(vocals);
-					}
-					
-					opponentVocals = new FlxSound();
-					try
-					{
-						//trace('please work...');
-						var oppVocals:String = getVocalFromCharacter(PlayState.SONG.player2);
-						var loadedVocals = Paths.voices(PlayState.SONG.song, (oppVocals != null && oppVocals.length > 0) ? oppVocals : 'Opponent');
-						
-						if(loadedVocals != null)
-						{
-							opponentVocals.loadEmbedded(loadedVocals);
-							FlxG.sound.list.add(opponentVocals);
-							opponentVocals.persist = opponentVocals.looped = true;
-							opponentVocals.volume = 0.8;
-							opponentVocals.play();
-							opponentVocals.pause();
-							//trace('yaaay!!');
-						}
-						else opponentVocals = FlxDestroyUtil.destroy(opponentVocals);
-					}
-					catch(e:Dynamic)
-					{
-						//trace('FUUUCK');
-						opponentVocals = FlxDestroyUtil.destroy(opponentVocals);
-					}
-				}
 
-				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.8);
-				FlxG.sound.music.pause();
+				FlxG.sound.list.add(vocals);
+				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+				vocals.play();
+				vocals.persist = true;
+				vocals.looped = true;
+				vocals.volume = 0.7;
 				instPlaying = curSelected;
 
 				player.playingMusic = true;
@@ -442,7 +399,7 @@ class FreeplayStatePsych extends MusicBeatState
 			DiscordClient.loadModRPC();
 			#end
 		}
-        else if((controls.RESET || virtualPad.buttonY.justPressed) && !player.playingMusic)
+        else if((controls.RESET || _virtualpad.buttonY.justPressed) && !player.playingMusic)
 		{
 			persistentUpdate = false;
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
@@ -470,11 +427,11 @@ class FreeplayStatePsych extends MusicBeatState
 	}
 
 	public static function destroyFreeplayVocals() {
-		if(vocals != null) vocals.stop();
-		vocals = FlxDestroyUtil.destroy(vocals);
-
-		if(opponentVocals != null) opponentVocals.stop();
-		opponentVocals = FlxDestroyUtil.destroy(opponentVocals);
+		if(vocals != null) {
+			vocals.stop();
+			vocals.destroy();
+		}
+		vocals = null;
 	}
 
 	function changeDiff(change:Int = 0)
