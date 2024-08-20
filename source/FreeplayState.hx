@@ -25,7 +25,7 @@ import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
 import flixel.addons.display.FlxBackdrop;
 import WeekData;
-import OSTSubstate as OST;
+import OSTSubstate;
 import flixel.FlxCamera;
 #if MODS_ALLOWED
 import sys.FileSystem;
@@ -631,7 +631,7 @@ class FreeplayState extends MusicBeatState
 				if (PlayState.SONG.needsVoices)needsVoices = true;				
 					
 				persistentUpdate = false;
-				openSubState(new OST(needsVoices,PlayState.SONG.bpm));
+				openSubState(new OSTSubstate(needsVoices,PlayState.SONG.bpm));
 			}
 			
 			

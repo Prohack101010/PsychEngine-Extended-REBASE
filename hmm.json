@@ -46,6 +46,11 @@
       "version": "2.4.0"
     },
     {
+      "name": "tjson",
+      "type": "haxelib",
+      "version": null
+    },
+    {
       "name": "hxCodec",
       "type": "git",
       "ref": "main",
