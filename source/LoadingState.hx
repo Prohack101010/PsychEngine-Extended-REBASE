@@ -278,6 +278,11 @@ class MultiCallback
 		this.logId = logId;
 	}
 	
+	public static function prepareToSong()
+	{
+		return;
+	}
+	
 	public function add(id = "untitled")
 	{
 		id = '$length:$id';
