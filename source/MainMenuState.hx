@@ -322,15 +322,8 @@ class MainMenuState extends MusicBeatState
 						{
 							case 'story_mode':
 								MusicBeatState.switchState(new StoryMenuState());
-								
-							if (ClientPrefs.FreeplayStyle != 'Psych') (
 							case 'freeplay':
-							    MusicBeatState.switchState(new FreeplayState());
-							}
-							else {
-							case 'freeplay':
-							    MusicBeatState.switchState(new FreeplayStatePsych());
-							}
+							    openCustomFreeplayMenu();
 
 							#if MODS_ALLOWED
 							case 'mods':
@@ -369,6 +362,12 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 	}
+	
+	function openCustomFreeplayMenu()
+	{
+	    if (ClientPrefs.FreeplayStyle == 'Psych') MusicBeatState.switchState(new FreeplayStatePsych());
+		else MusicBeatState.switchState(new FreeplayState());
+    }
 
 	function changeItem(change:Int = 0)
 	{
