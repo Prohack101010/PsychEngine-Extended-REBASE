@@ -168,7 +168,7 @@ class FreeplayStatePsych extends MusicBeatState
 		
 		camSearch.y = -300 - showOffset;
 		
-		Lib.application.window.title = "NF Engine - FreeplayState";		
+		Lib.application.window.title = "NF Engine - FreeplayStatePsych";		
 
 		#if desktop
 		// Updating Discord Rich Presence
