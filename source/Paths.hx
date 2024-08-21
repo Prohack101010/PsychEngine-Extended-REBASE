@@ -141,7 +141,7 @@ class Paths
 		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);
 	}
 
-	inline static function getLibraryPathForce(file:String, library:String)
+	inline static function getLibraryPathForce(file:String, library:String, ?level:String)
 	{
 		if(level == null) level = library;
 		var returnPath = '$library:assets/$level/$file';
