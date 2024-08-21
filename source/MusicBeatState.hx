@@ -244,14 +244,20 @@ class MusicBeatState extends FlxUIState
 				//trace('resetted');
 			} else {
 				CustomFadeTransition.finishCallback = function() {
-				FlxG.switchState(nextState);
+				if (nextState == new FreeplayState() && ClientPrefs.FreeplayStyle == 'Psych')
+				    FlxG.switchState(new FreeplayStatePsych());
+				else
+					FlxG.switchState(nextState);
 				};
 				//trace('changed state');
 			}
 			return;
 		}
 		FlxTransitionableState.skipNextTransIn = false;
-		FlxG.switchState(nextState);
+		if (nextState == new FreeplayState() && ClientPrefs.FreeplayStyle == 'Psych')
+		    FlxG.switchState(new FreeplayState());
+		else
+		    FlxG.switchState(nextState);
 	}
 
 	public static function resetState() {

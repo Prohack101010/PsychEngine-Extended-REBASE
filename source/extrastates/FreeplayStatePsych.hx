@@ -630,6 +630,7 @@ class FreeplayStatePsych extends MusicBeatState
 				var needsVoices:Bool = false;
 				if (PlayState.SONG.needsVoices)needsVoices = true;				
 					
+				removeVirtualPad();
 				persistentUpdate = false;
 				openSubState(new OSTSubstate(needsVoices,PlayState.SONG.bpm));
 			}
