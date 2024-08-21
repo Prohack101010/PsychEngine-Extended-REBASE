@@ -94,7 +94,7 @@ class FreeplayStatePsych extends MusicBeatState
 		Mods.loadTopMod();
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 
@@ -166,10 +166,11 @@ class FreeplayStatePsych extends MusicBeatState
 		add(bottomBG);
 
         var leText:String;
-        if (controls.mobileC)
-			leText = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
-        else
-			leText = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+        #if mobile
+		leText = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
+        #else
+		leText = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		#end
 		
 		bottomString = leText;
 		var size:Int = 16;
@@ -184,7 +185,7 @@ class FreeplayStatePsych extends MusicBeatState
 		changeSelection();
 		updateTexts();
 
-		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
+		addVirtualPad(FULL, A_B_C_X_Y_Z);
 		super.create();
 	}
 
@@ -194,7 +195,7 @@ class FreeplayStatePsych extends MusicBeatState
 		persistentUpdate = true;
 		super.closeSubState();
 		removeVirtualPad();
-		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
+		addVirtualPad(FULL, A_B_C_X_Y_Z);
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
@@ -398,11 +399,6 @@ class FreeplayStatePsych extends MusicBeatState
 				return;
 			}
 
-			LoadingState.prepareToSong();
-			if (ClientPrefs.data.loadingScreen) {
-			    FlxTransitionableState.skipNextTransIn = true;
-		        FlxTransitionableState.skipNextTransOut = true;
-		    }
 			LoadingState.loadAndSwitchState(new PlayState());
 			#if !SHOW_LOADING_SCREEN FlxG.sound.music.stop(); #end
 			stopMusicPlay = true;
@@ -561,7 +557,7 @@ class FreeplayStatePsych extends MusicBeatState
 	{
 		super.destroy();
 
-		FlxG.autoPause = ClientPrefs.data.autoPause;
+		FlxG.autoPause = true;
 		if (!FlxG.sound.music.playing && !stopMusicPlay)
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 	}	

@@ -103,7 +103,7 @@ class FreeplayState extends MusicBeatState {
 	var colorTween:FlxTween;
 	
 	var font = Paths.font('montserrat.ttf');
-	var filePath:String = 'menuExtend/FreePlayState/';
+	var filePath:String = 'menuExtend/FreeplayState/';
 	
 	private static var curSelected:Int = 0;
 	private static var curSelectedFloat:Float;
@@ -199,7 +199,7 @@ class FreeplayState extends MusicBeatState {
 		if(curSelected >= songs.length) curSelected = 0;
 		
 		Mods.currentModDirectory = songs[curSelected].folder;
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.assetsimage('menuDesat'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.camera = camGame;
 		add(bg);
@@ -218,7 +218,7 @@ class FreeplayState extends MusicBeatState {
 		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
 		camSong.scroll.x = -curSelected * 20 * 0.75;
 		
-		songBarSelected = new FlxSprite().loadGraphic(Paths.image(filePath + 'songBarSelected'));
+		songBarSelected = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'songBarSelected'));
 		songBarSelected.antialiasing = ClientPrefs.globalAntialiasing;
 		songBarSelected.camera = camUI;
 		add(songBarSelected);
@@ -240,7 +240,7 @@ class FreeplayState extends MusicBeatState {
 		songNameText.y = 348;
 		add(songNameText);
 		
-		rate = new FlxSprite().loadGraphic(Paths.image(filePath + 'rateBG'));
+		rate = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'rateBG'));
 		rate.antialiasing = ClientPrefs.globalAntialiasing;
 		rate.camera = camInfo;
 		rate.updateHitbox();
@@ -248,13 +248,13 @@ class FreeplayState extends MusicBeatState {
 		rate.y = 304;
 		//add(rate);
 		
-		difficultyRight = new FlxSprite().loadGraphic(Paths.image(filePath + 'difficultyRight'));
+		difficultyRight = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'difficultyRight'));
 		difficultyRight.antialiasing = ClientPrefs.globalAntialiasing;
 		difficultyRight.camera = camInfo;
 		difficultyRight.updateHitbox();
 		add(difficultyRight);
 		
-		difficultyLeft = new FlxSprite().loadGraphic(Paths.image(filePath + 'difficultyLeft'));
+		difficultyLeft = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'difficultyLeft'));
 		difficultyLeft.antialiasing = ClientPrefs.globalAntialiasing;
 		difficultyLeft.camera = camInfo;
 		difficultyLeft.updateHitbox();
@@ -262,7 +262,7 @@ class FreeplayState extends MusicBeatState {
 			
 		for (i in 1...9)
 		{
-			var back:FlxSprite = new FlxSprite().loadGraphic(Paths.image(filePath + 'infoBar' + i));
+			var back:FlxSprite = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'infoBar' + i));
 			back.antialiasing = ClientPrefs.globalAntialiasing;
 			back.camera = camInfo;
 			back.updateHitbox();
@@ -337,28 +337,28 @@ class FreeplayState extends MusicBeatState {
 		add(timeText);
 	
 		var alpha = 0;
-		bars1Option = new FlxSprite().loadGraphic(Paths.image(filePath + 'optionbar'));
+		bars1Option = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'optionbar'));
 		bars1Option.camera = camInfo;
 		bars1Option.scale.set(0.66, 0.65);
 		bars1Option.antialiasing = ClientPrefs.globalAntialiasing;
 		bars1Option.alpha = alpha;
 		add(bars1Option);
 		
-		bars2Option = new FlxSprite().loadGraphic(Paths.image(filePath + 'optionbar'));
+		bars2Option = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'optionbar'));
 		bars2Option.camera = camInfo;
 		bars2Option.scale.set(0.62, 0.65);
 		bars2Option.antialiasing = ClientPrefs.globalAntialiasing;
 		bars2Option.alpha = alpha;
 		add(bars2Option);
 		
-		bars3Option = new FlxSprite().loadGraphic(Paths.image(filePath + 'optionbar'));
+		bars3Option = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'optionbar'));
 		bars3Option.camera = camInfo;
 		bars3Option.scale.set(0.65, 0.65);
 		bars3Option.antialiasing = ClientPrefs.globalAntialiasing;
 		bars3Option.alpha = alpha;
 		add(bars3Option);
 		
-		bars4Option = new FlxSprite().loadGraphic(Paths.image(filePath + 'optionbar'));
+		bars4Option = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'optionbar'));
 		bars4Option.camera = camInfo;
 		bars4Option.scale.set(0.62, 0.65);
 		bars4Option.antialiasing = ClientPrefs.globalAntialiasing;
@@ -395,20 +395,20 @@ class FreeplayState extends MusicBeatState {
 		add(options);
 		
 		for (i in [0, 3]) {
-			var back:FlxSprite = new FlxSprite().loadGraphic(Paths.image(filePath + 'overlaps' + i));
+			var back:FlxSprite = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'overlaps' + i));
 			back.antialiasing = ClientPrefs.globalAntialiasing;
 			back.camera = camUI;
 			back.updateHitbox();
 			add(back);
 		}
 		
-		startButton = new FlxSprite().loadGraphic(Paths.image(filePath + 'overlaps2'));
+		startButton = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'overlaps2'));
 		startButton.antialiasing = ClientPrefs.globalAntialiasing;
 		startButton.camera = camUI;
 		startButton.updateHitbox();
 		add(startButton);
 		
-		backButton = new FlxSprite().loadGraphic(Paths.image(filePath + 'overlaps1'));
+		backButton = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'overlaps1'));
 		backButton.antialiasing = ClientPrefs.globalAntialiasing;
 		backButton.camera = camUI;
 		backButton.updateHitbox();
@@ -440,19 +440,19 @@ class FreeplayState extends MusicBeatState {
 		listenbg.alpha = 0.75;
 		add(listenbg);
 		
-		randomButton = new FlxSprite().loadGraphic(Paths.image(filePath + 'random'));
+		randomButton = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'random'));
 		randomButton.camera = camUI;
 		add(randomButton);
 		
-		musicButton = new FlxSprite().loadGraphic(Paths.image(filePath + 'musicplayer'));
+		musicButton = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'musicplayer'));
 		musicButton.camera = camUI;
 		add(musicButton);
 		
-		searchButton = new FlxSprite().loadGraphic(Paths.image(filePath + 'search'));
+		searchButton = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'search'));
 		searchButton.camera = camUI;
 		add(searchButton);
 		
-		infoButton = new FlxSprite().loadGraphic(Paths.image(filePath + 'info'));
+		infoButton = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'info'));
 		infoButton.camera = camUI;
 		add(infoButton);
 		
@@ -1532,7 +1532,7 @@ class FreeplayState extends MusicBeatState {
 			
 			Mods.currentModDirectory = songs[i].folder;
 			
-			var barShadow:FlxSprite = new FlxSprite().loadGraphic(Paths.image(filePath + 'songBarShadow'));
+			var barShadow:FlxSprite = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'songBarShadow'));
 			add(barShadow);
 			barShadow.camera = camSong;
 			barShadow.scale.set(1, 1);
@@ -1542,7 +1542,7 @@ class FreeplayState extends MusicBeatState {
 			barShadow.color = songs[i].color;
 			barsArray.push(barShadow);
 		
-			var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.image(filePath + 'songBar'));
+			var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'songBar'));
 			add(bar);
 			bar.camera = camSong;
 			bar.scale.set(1, 1);
@@ -1589,7 +1589,7 @@ class FreeplayState extends MusicBeatState {
 	   			
 			bgColorChange = FlxTween.color(bg, 0.35, bg.color, FlxColor.BLACK, {
 				onComplete: function(twn:FlxTween) {
-					bg.loadGraphic(Paths.image('menuDesat'));
+					bg.loadGraphic(Paths.assetsimage('menuDesat'));
 					bg.screenCenter();
 					
 					bgColorChange = FlxTween.color(bg, 0.35, FlxColor.BLACK, songs[curSelected].color);
@@ -1602,7 +1602,7 @@ class FreeplayState extends MusicBeatState {
 	  			if (bgColorChange != null) bgColorChange.cancel();
 				if (colorTween != null){
 					colorTween.cancel();
-					bg.loadGraphic(Paths.image('menuDesat'));
+					bg.loadGraphic(Paths.assetsimage('menuDesat'));
 					bg.screenCenter();
 				}
 				
@@ -1668,7 +1668,7 @@ class SongMetadata
 		this.songCharacter = songCharacter;
 		this.color = color;
 		this.folder = Mods.currentModDirectory;
-		this.bg = Paths.image('menuDesat');
+		this.bg = Paths.assetsimage('menuDesat');
 		this.searchnum = 0;
 		if(this.folder == null) this.folder = '';
 	}
