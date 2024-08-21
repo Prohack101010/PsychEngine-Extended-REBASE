@@ -105,7 +105,8 @@ class FlxAnimationController implements IFlxDestroyable
 		if (_curAnim != null)
 		{
 			var e:Float = elapsed;
-			if(followGlobalSpeed) e *= globalSpeed;
+			if (followGlobalSpeed)
+				e *= globalSpeed;
 
 			_curAnim.update(e);
 		}
@@ -167,6 +168,12 @@ class FlxAnimationController implements IFlxDestroyable
 		_animations = null;
 		callback = null;
 		_sprite = null;
+	}
+	
+	@:allow(flixel.animation.FlxAnimation)
+	function getFrameDuration(index:Int)
+	{
+		return _sprite.frames.frames[index].duration;
 	}
 
 	function clearPrerotated():Void
@@ -868,10 +875,13 @@ class FlxAnimationController implements IFlxDestroyable
 		return Value;
 	}
 
-	inline function get_frames():Int
+	inline function get_numFrames():Int
 	{
 		return _sprite.numFrames;
 	}
+	
+	inline function get_frames():Int
+		return numFrames;
 
   #if (flixel >= "5.3.0")
 	inline function get_numFrames():Int
