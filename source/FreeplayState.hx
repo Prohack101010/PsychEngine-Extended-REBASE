@@ -28,7 +28,6 @@ import sys.FileSystem;
 #end
 
 import FreeplayState;
-import Mods;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import MusicBeatState;
