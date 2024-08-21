@@ -49,6 +49,13 @@ class VisualsSubState extends BaseOptionsMenu
 			'1.0',
 			['1.0', '0.6.3']);
 		addOption(option);
+		
+		var option:Option = new Option('Classic 0.6.3 Main Menu',
+			"If checked, 0.6.3 Main Menu uses Classic Style.",
+			'ClassicMainMenu',
+			'bool',
+			false);
+		addOption(option);
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",

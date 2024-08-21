@@ -52,6 +52,19 @@ class MainMenuStateOld extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+		
+		if (ClientPrefs.ClassicMainMenu)
+		{
+		optionShit = [
+    		'story_mode',
+    		'freeplay',
+    		#if MODS_ALLOWED 'mods', #end
+    		#if ACHIEVEMENTS_ALLOWED 'awards', #end
+    	        'credits',
+    		//#if !switch 'donate', #end
+    		'options'
+    	];
+    	}
 
 		#if MODS_ALLOWED
 		Mods.pushGlobalMods();
@@ -165,7 +178,10 @@ class MainMenuStateOld extends MusicBeatState
 		#end
 
 		#if mobile
-		addVirtualPad(UP_DOWN, A_B_E_C_M);
+		if (ClientPrefs.ClassicMainMenu)
+		    addVirtualPad(UP_DOWN, A_B_E);
+		else
+		    addVirtualPad(UP_DOWN, A_B_E_C_M);
 		#end
 
 		super.create();
