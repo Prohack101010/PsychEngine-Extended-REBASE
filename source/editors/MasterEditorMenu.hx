@@ -113,7 +113,10 @@ class MasterEditorMenu extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.MainMenuStyle == '0.6.3')
+				MusicBeatState.switchState(new MainMenuStateOld());
+			else
+				MusicBeatState.switchState(new MainMenuState());
 		}
 
 		if (controls.ACCEPT)
@@ -135,7 +138,10 @@ class MasterEditorMenu extends MusicBeatState
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL
-			FreeplayState.destroyFreeplayVocals();
+			if (ClientPrefs.FreeplayStyle == 'Psych')
+			    FreeplayStatePsych.destroyFreeplayVocals();
+			else
+			    FreeplayState.destroyFreeplayVocals();
 			#end
 		}
 		

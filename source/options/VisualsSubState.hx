@@ -35,11 +35,19 @@ class VisualsSubState extends BaseOptionsMenu
 		rpcTitle = 'Visuals Settings Menu'; //for Discord Rich Presence
 		
 		var option:Option = new Option('Freeplay Menu Style:',
-			"What should the Time Bar display?",
+			"Choose your Freeplay Menu Style",
 			'FreeplayStyle',
 			'string',
 			'Psych',
 			['Psych', 'NovaFlare']);
+		addOption(option);
+		
+		var option:Option = new Option('Main Menu Style:',
+			"Choose your Main Menu Style",
+			'MainMenuStyle',
+			'string',
+			'1.0',
+			['1.0', '0.6.3']);
 		addOption(option);
 
 		var option:Option = new Option('Note Splashes',

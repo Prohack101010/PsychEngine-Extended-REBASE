@@ -597,7 +597,10 @@ class FreeplayStatePsych extends MusicBeatState
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.MainMenuStyle == '0.6.3')
+				MusicBeatState.switchState(new MainMenuStateOld());
+			else
+				MusicBeatState.switchState(new MainMenuState());
 		}
 
 		if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonC.justPressed #end)

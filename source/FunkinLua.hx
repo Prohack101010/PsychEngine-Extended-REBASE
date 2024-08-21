@@ -1766,6 +1766,8 @@ class FunkinLua {
 
 			if(PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
+			else if (ClientPrefs.FreeplayStyle == 'Psych')
+			    MusicBeatState.switchState(new FreeplayStatePsych());
 			else
 				MusicBeatState.switchState(new FreeplayState());
 

@@ -165,7 +165,10 @@ class OptionsState extends MusicBeatState
 				PlayState.MoveOption = false;
 			} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.MainMenuStyle == '0.6.3')
+				MusicBeatState.switchState(new MainMenuStateOld());
+			else
+				MusicBeatState.switchState(new MainMenuState());
 		    }
 		}
 

@@ -9,6 +9,7 @@ import Controls;
 class ClientPrefs {
     public static var VirtualPadSkin:String = 'original';
     public static var FreeplayStyle:String = 'Psych';
+    public static var MainMenuStyle:String = '1.0';
 	public static var downScroll:Bool = false;
 	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
@@ -117,6 +118,7 @@ class ClientPrefs {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.FreeplayStyle = FreeplayStyle;
+		FlxG.save.data.MainMenuStyle = MainMenuStyle;
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
 		FlxG.save.data.breakgetvarinarray = breakgetvarinarray;
@@ -190,6 +192,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.FreeplayStyle != null) {
 			FreeplayStyle = FlxG.save.data.FreeplayStyle;
+		}
+		if(FlxG.save.data.MainMenuStyle != null) {
+			MainMenuStyle = FlxG.save.data.MainMenuStyle;
 		}
 		if(FlxG.save.data.touchmenus != null) {
 			touchmenus = FlxG.save.data.touchmenus;

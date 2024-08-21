@@ -273,11 +273,13 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.seenCutscene = false;
 
 					Mods.loadTheFirstEnabledMod();
-					if(PlayState.isStoryMode) {
+					if(PlayState.isStoryMode)
 						MusicBeatState.switchState(new StoryMenuState());
-					} else {
+					else if (ClientPrefs.FreeplayStyle == 'Psych')
+					    MusicBeatState.switchState(new FreeplayStatePsych());
+					else
 						MusicBeatState.switchState(new FreeplayState());
-					}
+
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;
@@ -287,7 +289,10 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.seenCutscene = false;
 
 					Mods.loadTheFirstEnabledMod();
-					MusicBeatState.switchState(new MainMenuState());
+					if (ClientPrefs.MainMenuStyle == '0.6.3')
+					    MusicBeatState.switchState(new MainMenuStateOld());
+					else
+					    MusicBeatState.switchState(new MainMenuState());
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;
