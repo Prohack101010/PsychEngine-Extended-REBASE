@@ -14,6 +14,7 @@ import editors.ChartingState;
 
 import GameplayChangersSubstate;
 import ResetScoreSubState;
+import options.OptionsState;
 
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.transition.FlxTransitionableState;
@@ -603,7 +604,8 @@ class FreeplayState extends MusicBeatState {
 			    if (playingSong != -1 || playmusiconexit) {
 					if (waitTimer != null) waitTimer.cancel();
 					//FlxG.sound.music.volume = 0.1;
-				}				
+				}	
+				OptionsState.isFreeplay = true;
 				LoadingState.loadAndSwitchState(new OptionsState());
 			}
 			
@@ -1363,7 +1365,8 @@ class FreeplayState extends MusicBeatState {
 				    if (playingSong != -1 || playmusiconexit) {
     					if (waitTimer != null) waitTimer.cancel();
     					//FlxG.sound.music.volume = 0.1;
-    				}    				
+    				}  
+    				OptionsState.isFreeplay = true;		
 					LoadingState.loadAndSwitchState(new OptionsState());
 				case 1: // Gameplay Changer					
 					openSubState(new GameplayChangersSubstate());

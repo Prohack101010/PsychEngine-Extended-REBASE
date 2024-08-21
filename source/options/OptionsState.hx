@@ -24,6 +24,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import options.OptionsState;
 import Controls;
 
 using StringTools;
@@ -33,6 +34,7 @@ class OptionsState extends MusicBeatState
 	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
+	public static var isFreeplay:Bool = false;
 	public static var menuBG:FlxSprite;
 
 	function openSelectedSubstate(label:String) {
@@ -163,6 +165,10 @@ class OptionsState extends MusicBeatState
 			else if (PlayState.MoveOption) {
 				MusicBeatState.switchState(new PlayState());
 				PlayState.MoveOption = false;
+			}
+			else if (OptionsState.isFreeplay == true) {
+			    MusicBeatState.switchState(new PlayState());
+			    OptionsState.isFreeplay = false;
 			} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if (ClientPrefs.MainMenuStyle == '0.6.3')
