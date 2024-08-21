@@ -37,6 +37,11 @@ import android.Tools as AndroidTools;
 import android.os.BatteryManager as AndroidBatteryManager;
 #end
 
+// openfl
+import lime.utils.Assets;
+import openfl.utils.Assets as OpenFlAssets;
+import openfl.Lib;
+
 //Flixel
 import flixel.system.FlxSound;
 import flixel.FlxG;
