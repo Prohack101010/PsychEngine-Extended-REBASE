@@ -181,17 +181,37 @@ class Mods
 		return mergedList;
 	}
 	
-	// 0.7x custom menus support
-	
-	public static function loadTopMod()
+	inline public static function directoriesWithFile(path:String, fileToFind:String, mods:Bool = true)
 	{
-		Mods.currentModDirectory = '';
-		
-		#if MODS_ALLOWED
-		var list:Array<String> = Mods.parseList().enabled;
-		if(list != null && list[0] != null)
-			Mods.currentModDirectory = list[0];
+		var foldersToCheck:Array<String> = [];
+		#if sys
+		if(FileSystem.exists(path + fileToFind))
 		#end
+			foldersToCheck.push(path + fileToFind);
+
+		#if MODS_ALLOWED
+		if(mods)
+		{
+			// Global mods first
+			for(mod in Mods.getGlobalMods())
+			{
+				var folder:String = Paths.mods(mod + '/' + fileToFind);
+				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+			}
+
+			// Then "PsychEngine/mods/" main folder
+			var folder:String = Paths.mods(fileToFind);
+			if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(Paths.mods(fileToFind));
+
+			// And lastly, the loaded mod's folder
+			if(Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
+			{
+				var folder:String = Paths.mods(Mods.currentModDirectory + '/' + fileToFind);
+				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+			}
+		}
+		#end
+		return foldersToCheck;
 	}
     
 	public static function loadTheFirstEnabledMod()
