@@ -7,7 +7,7 @@ import flixel.util.FlxStringUtil;
 /**
  * Music player used for Freeplay
  */
-@:access(states.FreeplayStatePsych)
+@:access(extrastates.FreeplayStatePsych)
 class MusicPlayer extends FlxGroup 
 {
 	public var instance:FreeplayStatePsych;
@@ -197,7 +197,7 @@ class MusicPlayer extends FlxGroup
 		}
 		updatePlaybackTxt();
 
-		if (instance.virtualPad.buttonC.justPressed || instance.controls.RESET)
+		if (instance._virtualpad.buttonC.justPressed || instance.controls.RESET)
 		{
 			playbackRate = 1;
 			setPlaybackRate();
@@ -247,10 +247,11 @@ class MusicPlayer extends FlxGroup
 
 		if (playingMusic)
 		{
-			if (instance.controls.mobileC)
-				instance.bottomText.text = "Press X to Pause / Press B to Exit / Press C to Reset the Song";
-			else
-				instance.bottomText.text = "Press SPACE to Pause / Press ESCAPE to Exit / Press R to Reset the Song";
+			#if mobile
+			instance.bottomText.text = "Press X to Pause / Press B to Exit / Press C to Reset the Song";
+			#else
+			instance.bottomText.text = "Press SPACE to Pause / Press ESCAPE to Exit / Press R to Reset the Song";
+		    #end
 			positionSong();
 			
 			progressBar.setRange(0, FlxG.sound.music.length);
