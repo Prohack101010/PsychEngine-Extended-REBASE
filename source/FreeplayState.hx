@@ -200,7 +200,7 @@ class FreeplayState extends MusicBeatState {
 		if(curSelected >= songs.length) curSelected = 0;
 		
 		Mods.currentModDirectory = songs[curSelected].folder;
-		bg = new FlxSprite().loadGraphic(Paths.assetsimage('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.camera = camGame;
 		add(bg);
@@ -1592,7 +1592,7 @@ class FreeplayState extends MusicBeatState {
 	   			
 			bgColorChange = FlxTween.color(bg, 0.35, bg.color, FlxColor.BLACK, {
 				onComplete: function(twn:FlxTween) {
-					bg.loadGraphic(Paths.assetsimage('menuDesat'));
+					bg.loadGraphic(Paths.image('menuDesat'));
 					bg.screenCenter();
 					
 					bgColorChange = FlxTween.color(bg, 0.35, FlxColor.BLACK, songs[curSelected].color);
@@ -1605,7 +1605,7 @@ class FreeplayState extends MusicBeatState {
 	  			if (bgColorChange != null) bgColorChange.cancel();
 				if (colorTween != null){
 					colorTween.cancel();
-					bg.loadGraphic(Paths.assetsimage('menuDesat'));
+					bg.loadGraphic(Paths.image('menuDesat'));
 					bg.screenCenter();
 				}
 				
@@ -1671,7 +1671,7 @@ class SongMetadata
 		this.songCharacter = songCharacter;
 		this.color = color;
 		this.folder = Mods.currentModDirectory;
-		this.bg = Paths.assetsimage('menuDesat');
+		this.bg = Paths.image('menuDesat');
 		this.searchnum = 0;
 		if(this.folder == null) this.folder = '';
 	}
