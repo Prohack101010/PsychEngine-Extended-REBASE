@@ -199,7 +199,7 @@ class FreeplayState extends MusicBeatState {
 		
 		if(curSelected >= songs.length) curSelected = 0;
 		
-		Mods.currentModDirectory = songs[curSelected].folder;
+		Paths.currentModDirectory = songs[curSelected].folder;
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.camera = camGame;
@@ -1239,7 +1239,7 @@ class FreeplayState extends MusicBeatState {
 			} else if ((selectedThing == 'back' && FlxG.pixelPerfectOverlap(backButton, mousechecker, 25)) || controls.BACK) {
 				if (searching) {closeSearchMenu(); backText.text = 'EXIT'; return;}
 				if (listening) {closeListenMenu(); backText.text = 'EXIT'; return;}
-				Mods.loadTheFirstEnabledMod();
+				WeekData.loadTheFirstEnabledMod();
 				FlxG.mouse.visible = false;
 				if(colorTween != null) {
 					colorTween.cancel();
@@ -1386,7 +1386,7 @@ class FreeplayState extends MusicBeatState {
 		}
 	}
 	
-	var modCheck = Mods.currentModDirectory;
+	var modCheck = Paths.currentModDirectory;
 	
 	function changeSong(iiiiint:Int)
 	{
@@ -1396,7 +1396,7 @@ class FreeplayState extends MusicBeatState {
 		else if (curSelected < 0)
 			curSelected = songs.length-1;
 
-		Mods.currentModDirectory = songs[curSelected].folder;
+		Paths.currentModDirectory = songs[curSelected].folder;
 		PlayState.storyWeek = songs[curSelected].week;
 		Difficulty.loadFromWeek();
 		
@@ -1514,7 +1514,7 @@ class FreeplayState extends MusicBeatState {
 				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]));
 			}
 		}
-		Mods.loadTheFirstEnabledMod();
+		WeekData.loadTheFirstEnabledMod();
 	}
 	
 	function addSongTxt()
@@ -1533,7 +1533,7 @@ class FreeplayState extends MusicBeatState {
 			songText.offset.x += songText.width * (1 -songText.scale.x) / 2;
 			songtextsGroup.push(songText);
 			
-			Mods.currentModDirectory = songs[i].folder;
+			Paths.currentModDirectory = songs[i].folder;
 			
 			var barShadow:FlxSprite = new FlxSprite().loadGraphic(Paths.assetsimage(filePath + 'songBarShadow'));
 			add(barShadow);
@@ -1584,8 +1584,8 @@ class FreeplayState extends MusicBeatState {
 		if (bg.color == songs[curSelected].color)
 			return;
 			
-		if (modCheck != Mods.currentModDirectory){
-			modCheck = Mods.currentModDirectory;
+		if (modCheck != Paths.currentModDirectory){
+			modCheck = Paths.currentModDirectory;
 			
 			if (bgColorChange != null) bgColorChange.cancel();
 			if (colorTween != null) colorTween.cancel();
@@ -1670,7 +1670,7 @@ class SongMetadata
 		this.week = week;
 		this.songCharacter = songCharacter;
 		this.color = color;
-		this.folder = Mods.currentModDirectory;
+		this.folder = Paths.currentModDirectory;
 		this.bg = Paths.image('menuDesat');
 		this.searchnum = 0;
 		if(this.folder == null) this.folder = '';

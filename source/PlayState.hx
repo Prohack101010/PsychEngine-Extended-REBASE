@@ -882,10 +882,10 @@ class PlayState extends MusicBeatState
 
 		#if MODS_ALLOWED
 		foldersToCheck.insert(0, Paths.mods('scripts/'));
-		if(Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
-			foldersToCheck.insert(0, Paths.mods(Mods.currentModDirectory + '/scripts/'));
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/scripts/'));
 
-		for(mod in Mods.getGlobalMods())
+		for(mod in Paths.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/scripts/'));
 		#end
 
@@ -1251,10 +1251,10 @@ class PlayState extends MusicBeatState
 
 		#if MODS_ALLOWED
 		foldersToCheck.insert(0, Paths.mods('data/' + Paths.formatToSongPath(SONG.song) + '/'));
-		if(Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
-			foldersToCheck.insert(0, Paths.mods(Mods.currentModDirectory + '/data/' + Paths.formatToSongPath(SONG.song) + '/'));
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/data/' + Paths.formatToSongPath(SONG.song) + '/'));
 
-		for(mod in Mods.getGlobalMods())
+		for(mod in Paths.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/data/' + Paths.formatToSongPath(SONG.song) + '/' ));// using push instead of insert because these should run after everything else
 		#end
 
@@ -1436,11 +1436,11 @@ class PlayState extends MusicBeatState
 
 		var foldersToCheck:Array<String> = [Paths.getPreloadPath('shaders/')];
 
-		if(Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 
-			foldersToCheck.insert(0, Paths.mods(Mods.currentModDirectory + '/shaders/'));
+			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/shaders/'));
 
-		for(mod in Mods.getGlobalMods())
+		for(mod in Paths.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
 		
 		for (folder in foldersToCheck)
@@ -4044,7 +4044,7 @@ class PlayState extends MusicBeatState
 
 				if (storyPlaylist.length <= 0)
 				{
-					Mods.loadTheFirstEnabledMod();
+					WeekData.loadTheFirstEnabledMod();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 
 					cancelMusicFadeTween();
@@ -4109,13 +4109,12 @@ class PlayState extends MusicBeatState
 			else
 			{
 				trace('WENT BACK TO FREEPLAY??');
-				Mods.loadTheFirstEnabledMod();
+				WeekData.loadTheFirstEnabledMod();
 				cancelMusicFadeTween();
 				if(FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
-				if (ClientPrefs.FreeplayStyle == 'Psych') MusicBeatState.switchState(new FreeplayStatePsych());
-				    else MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
 			}

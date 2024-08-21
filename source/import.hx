@@ -8,7 +8,7 @@ import FreeplayState;
 
 // 0.7x Support
 import Difficulty;
-import Mods;
+// import Mods; it brokes TitleState
 
 #if flxanimate
 import flxanimate.*;

@@ -298,10 +298,7 @@ class StoryMenuState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			if (ClientPrefs.MainMenuStyle == '0.6.3')
-				MusicBeatState.switchState(new MainMenuStateOld());
-			else
-				MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new MainMenuState());
 		}
 
 		super.update(elapsed);
@@ -369,8 +366,7 @@ class StoryMenuState extends MusicBeatState
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
 				LoadingState.loadAndSwitchState(new PlayState(), true);
-				if (ClientPrefs.FreeplayStyle == 'Psych') FreeplayStatePsych.destroyFreeplayVocals();
-				else FreeplayState.destroyFreeplayVocals();
+				FreeplayState.destroyFreeplayVocals();
 			});
 		} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -391,7 +387,7 @@ class StoryMenuState extends MusicBeatState
 
 		var diff:String = Difficulty.getString(curDifficulty);
 		var newImage:FlxGraphic = Paths.image('menudifficulties/' + Paths.formatToSongPath(diff));
-		//trace(Mods.currentModDirectory + ', menudifficulties/' + Paths.formatToSongPath(diff));
+		//trace(Paths.currentModDirectory + ', menudifficulties/' + Paths.formatToSongPath(diff));
 
 		if(sprDifficulty.graphic != newImage)
 		{
@@ -455,9 +451,9 @@ class StoryMenuState extends MusicBeatState
 		}
 		PlayState.storyWeek = curWeek;
 
-		Difficulty.loadFromWeek();
+        Difficulty.loadFromWeek();
 		difficultySelectors.visible = unlocked;
-		
+
 		if(Difficulty.list.contains(Difficulty.getDefault()))
 			curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(Difficulty.getDefault())));
 		else

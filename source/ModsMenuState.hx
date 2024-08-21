@@ -89,8 +89,35 @@ class ModsMenuState extends MusicBeatState
 		noModsTxt.screenCenter();
 		visibleWhenNoMods.push(noModsTxt);
 
-		var list:ModsList = Mods.parseList();
-		for (mod in list.all) modsList.push([mod, list.enabled.contains(mod)]);
+		var path:String = 'modsList.txt';
+		if(FileSystem.exists(path))
+		{
+			var leMods:Array<String> = CoolUtil.coolTextFile(path);
+			for (i in 0...leMods.length)
+			{
+				if(leMods.length > 1 && leMods[0].length > 0) {
+					var modSplit:Array<String> = leMods[i].split('|');
+					if(!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()))
+					{
+						addToModsList([modSplit[0], (modSplit[1] == '1')]);
+						//trace(modSplit[1]);
+					}
+				}
+			}
+		}
+
+		// FIND MOD FOLDERS
+		var boolshit = true;
+		if (FileSystem.exists("modsList.txt")){
+			for (folder in Paths.getModDirectories())
+			{
+				if(!Paths.ignoreModFolders.contains(folder))
+				{
+					addToModsList([folder, true]); //i like it false by default. -bb //Well, i like it True! -Shadow
+				}
+			}
+		}
+		saveTxt();
 
 		selector = new AttachedSprite();
 		selector.xAdd = -205;
@@ -369,6 +396,18 @@ class ModsMenuState extends MusicBeatState
 		}
 		return arr;
 	}*/
+	function addToModsList(values:Array<Dynamic>)
+	{
+		for (i in 0...modsList.length)
+		{
+			if(modsList[i][0] == values[0])
+			{
+				//trace(modsList[i][0], values[0]);
+				return;
+			}
+		}
+		modsList.push(values);
+	}
 
 	function updateButtonToggle()
 	{
@@ -429,7 +468,7 @@ class ModsMenuState extends MusicBeatState
 
 		var path:String = 'modsList.txt';
 		File.saveContent(path, fileStr);
-		Mods.pushGlobalMods();
+		Paths.pushGlobalMods();
 	}
 
 	var noModsSine:Float = 0;
@@ -456,27 +495,16 @@ class ModsMenuState extends MusicBeatState
 				TitleState.initialized = false;
 				TitleState.closedState = false;
 				FlxG.sound.music.fadeOut(0.3);
-				if (ClientPrefs.FreeplayStyle != 'Psych'){
-    				if(FreeplayState.vocals != null)
-    				{
-    					FreeplayState.vocals.fadeOut(0.3);
-    					FreeplayState.vocals = null;
-    				}
-				} else {
-				    if(FreeplayStatePsych.vocals != null)
-    				{
-    					FreeplayStatePsych.vocals.fadeOut(0.3);
-    					FreeplayStatePsych.vocals = null;
-    				}				
+				if(FreeplayState.vocals != null)
+				{
+					FreeplayState.vocals.fadeOut(0.3);
+					FreeplayState.vocals = null;
 				}
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
 			}
 			else
 			{
-				if (ClientPrefs.MainMenuStyle == '0.6.3')
-    				MusicBeatState.switchState(new MainMenuStateOld());
-    			else
-    				MusicBeatState.switchState(new MainMenuState());
+				MusicBeatState.switchState(new MainMenuState());
 			}
 		}
 
@@ -708,29 +736,53 @@ class ModMetadata
 		this.restart = false;
 
 		//Try loading json
-		var pack:Dynamic = Mods.getPack(folder);
-		if(pack != null) {
-			//using reflects cuz for some odd reason my haxe hates the stuff.var shit
-			if(pack.name != null && pack.name.length > 0)
-			{
-				if(pack.name != 'Name')
-					this.name = pack.name;
-				else
-					this.name = pack.folder;
-			}
+		var path = Paths.mods(folder + '/pack.json');
+		if(FileSystem.exists(path)) {
+			var rawJson:String = File.getContent(path);
+			if(rawJson != null && rawJson.length > 0) {
+				var stuff:Dynamic = Json.parse(rawJson);
+					//using reflects cuz for some odd reason my haxe hates the stuff.var shit
+					var colors:Array<Int> = Reflect.getProperty(stuff, "color");
+					var description:String = Reflect.getProperty(stuff, "description");
+					var name:String = Reflect.getProperty(stuff, "name");
+					var restart:Bool = Reflect.getProperty(stuff, "restart");
 
-            if(pack.description != null && pack.description.length > 0)
-			{
-				if(pack.description != 'Description')
-					this.description = pack.description;
-				else
+				if(name != null && name.length > 0)
+				{
+					this.name = name;
+				}
+				if(description != null && description.length > 0)
+				{
+					this.description = description;
+				}
+				if(name == 'Name')
+				{
+					this.name = folder;
+				}
+				if(description == 'Description')
+				{
 					this.description = "No description provided.";
+				}
+				if(colors != null && colors.length > 2)
+				{
+					this.color = FlxColor.fromRGB(colors[0], colors[1], colors[2]);
+				}
+
+				this.restart = restart;
+				/*
+				if(stuff.name != null && stuff.name.length > 0)
+				{
+					this.name = stuff.name;
+				}
+				if(stuff.description != null && stuff.description.length > 0)
+				{
+					this.description = stuff.description;
+				}
+				if(stuff.color != null && stuff.color.length > 2)
+				{
+					this.color = FlxColor.fromRGB(stuff.color[0], stuff.color[1], stuff.color[2]);
+				}*/
 			}
-
-			if(pack.colors != null && pack.colors.length > 2)
-				this.color = FlxColor.fromRGB(pack.colors[0], pack.colors[1], pack.colors[2]);
-
-			this.restart = pack.restart;
 		}
 	}
 }

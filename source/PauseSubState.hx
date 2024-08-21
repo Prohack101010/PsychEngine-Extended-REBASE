@@ -272,14 +272,12 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 
-					Mods.loadTheFirstEnabledMod();
-					if(PlayState.isStoryMode)
+					WeekData.loadTheFirstEnabledMod();
+					if(PlayState.isStoryMode) {
 						MusicBeatState.switchState(new StoryMenuState());
-					else if (ClientPrefs.FreeplayStyle == 'Psych')
-					    MusicBeatState.switchState(new FreeplayStatePsych());
-					else
+					} else {
 						MusicBeatState.switchState(new FreeplayState());
-
+					}
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;
@@ -288,11 +286,8 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 
-					Mods.loadTheFirstEnabledMod();
-					if (ClientPrefs.MainMenuStyle == '0.6.3')
-					    MusicBeatState.switchState(new MainMenuStateOld());
-					else
-					    MusicBeatState.switchState(new MainMenuState());
+					WeekData.loadTheFirstEnabledMod();
+					MusicBeatState.switchState(new MainMenuState());
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;
@@ -329,10 +324,13 @@ class PauseSubState extends MusicBeatSubstate
 
 		if(noTrans)
 		{
-		    FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
 		}
-		MusicBeatState.resetState();
+		else
+		{
+			MusicBeatState.resetState();
+		}
 	}
 
 	override function destroy()

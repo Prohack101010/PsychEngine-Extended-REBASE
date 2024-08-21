@@ -101,11 +101,9 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.seenCutscene = false;
 			PlayState.chartingMode = false;
 
-			Mods.loadTheFirstEnabledMod();
+			WeekData.loadTheFirstEnabledMod();
 			if (PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
-			else if (ClientPrefs.FreeplayStyle == 'Psych')
-			    MusicBeatState.switchState(new FreeplayStatePsych());
 			else
 				MusicBeatState.switchState(new FreeplayState());
 

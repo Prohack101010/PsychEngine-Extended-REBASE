@@ -95,10 +95,10 @@ class TitleState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		#if LUA_ALLOWED
-		Mods.pushGlobalMods();
+		Paths.pushGlobalMods();
 		#end
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
-		Mods.loadTheFirstEnabledMod();
+		WeekData.loadTheFirstEnabledMod();
 
 		//trace(path, FileSystem.exists(path));
 
@@ -202,8 +202,7 @@ class TitleState extends MusicBeatState
 
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
-		if (ClientPrefs.FreeplayStyle == 'Psych') MusicBeatState.switchState(new FreeplayStatePsych());
-			else MusicBeatState.switchState(new FreeplayState());
+		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
@@ -330,7 +329,22 @@ class TitleState extends MusicBeatState
 		logoBl.shader = swagShader.shader;
 
 		titleText = new FlxSprite(titleJSON.startx, titleJSON.starty);
+		#if (desktop || android && MODS_ALLOWED)
+		var path = "mods/" + Paths.currentModDirectory + "/images/titleEnter.png";
+		//trace(path, FileSystem.exists(path));
+		if (!FileSystem.exists(path)){
+			path = "mods/images/titleEnter.png";
+		}
+		//trace(path, FileSystem.exists(path));
+		if (!FileSystem.exists(path)){
+			path = "assets/images/titleEnter.png";
+		}
+		//trace(path, FileSystem.exists(path));
+		titleText.frames = FlxAtlasFrames.fromSparrow(BitmapData.fromFile(path),File.getContent(StringTools.replace(path,".png",".xml")));
+		#else
+
 		titleText.frames = Paths.getSparrowAtlas('titleEnter');
+		#end
 		var animFrames:Array<FlxFrame> = [];
 		@:privateAccess {
 			titleText.animation.findByPrefix(animFrames, "ENTER IDLE");
@@ -487,10 +501,7 @@ class TitleState extends MusicBeatState
 					if (mustUpdate) {
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
-						if (ClientPrefs.MainMenuStyle == '0.6.3')
-            				MusicBeatState.switchState(new MainMenuStateOld());
-            			else
-            				MusicBeatState.switchState(new MainMenuState());
+						MusicBeatState.switchState(new MainMenuState());
 					}
 					closedState = true;
 				});
@@ -532,16 +543,10 @@ class TitleState extends MusicBeatState
 								}
 							});
 							FlxG.sound.music.fadeOut();
-							if (ClientPrefs.FreeplayStyle == 'Psych')
+							if(FreeplayState.vocals != null)
 							{
-							    if(FreeplayStatePsych.vocals != null)
-								    FreeplayStatePsych.vocals.fadeOut();
-						    }
-						    else
-						    {
-						        if(FreeplayState.vocals != null)
-								    FreeplayState.vocals.fadeOut();
-					        }
+								FreeplayState.vocals.fadeOut();
+							}
 							closedState = true;
 							transitioning = true;
 							playJingle = true;
@@ -765,16 +770,10 @@ class TitleState extends MusicBeatState
 				if(easteregg == 'SHADOW')
 				{
 					FlxG.sound.music.fadeOut();
-					if (ClientPrefs.FreeplayStyle == 'Psych')
+					if(FreeplayState.vocals != null)
 					{
-    					if(FreeplayStatePsych.vocals != null)
-    						FreeplayStatePsych.vocals.fadeOut();
-    				}
-    				else
-    				{
-    					if(FreeplayState.vocals != null)
-    						FreeplayState.vocals.fadeOut();
-    				}
+						FreeplayState.vocals.fadeOut();
+					}
 				}
 				#end
 			}

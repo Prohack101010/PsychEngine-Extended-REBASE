@@ -70,12 +70,12 @@ class MasterEditorMenu extends MusicBeatState
 		directoryTxt.scrollFactor.set();
 		add(directoryTxt);
 		
-		for (folder in Mods.getModDirectories())
+		for (folder in Paths.getModDirectories())
 		{
 			directories.push(folder);
 		}
 
-		var found:Int = directories.indexOf(Mods.currentModDirectory);
+		var found:Int = directories.indexOf(Paths.currentModDirectory);
 		if(found > -1) curDirectory = found;
 		changeDirectory();
 		#end
@@ -113,10 +113,7 @@ class MasterEditorMenu extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			if (ClientPrefs.MainMenuStyle == '0.6.3')
-				MusicBeatState.switchState(new MainMenuStateOld());
-			else
-				MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new MainMenuState());
 		}
 
 		if (controls.ACCEPT)
@@ -138,10 +135,7 @@ class MasterEditorMenu extends MusicBeatState
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL
-			if (ClientPrefs.FreeplayStyle == 'Psych')
-			    FreeplayStatePsych.destroyFreeplayVocals();
-			else
-			    FreeplayState.destroyFreeplayVocals();
+			FreeplayState.destroyFreeplayVocals();
 			#end
 		}
 		
@@ -192,8 +186,8 @@ class MasterEditorMenu extends MusicBeatState
 			directoryTxt.text = '< No Mod Directory Loaded >';
 		else
 		{
-			Mods.currentModDirectory = directories[curDirectory];
-			directoryTxt.text = '< Loaded Mod Directory: ' + Mods.currentModDirectory + ' >';
+			Paths.currentModDirectory = directories[curDirectory];
+			directoryTxt.text = '< Loaded Mod Directory: ' + Paths.currentModDirectory + ' >';
 		}
 		directoryTxt.text = directoryTxt.text.toUpperCase();
 	}

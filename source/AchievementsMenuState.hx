@@ -95,10 +95,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.MainMenuStyle == '0.6.3')
-				MusicBeatState.switchState(new MainMenuStateOld());
-			else
-				MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new MainMenuState());
 		}
 	}
 

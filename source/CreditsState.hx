@@ -53,14 +53,36 @@ class CreditsState extends MusicBeatState
 		add(grpOptions);
 
 		#if MODS_ALLOWED
-		for (mod in Mods.parseList().enabled) pushModCreditsToList(mod);
+		var path:String = 'modsList.txt';
+		if(FileSystem.exists(path))
+		{
+			var leMods:Array<String> = CoolUtil.coolTextFile(path);
+			for (i in 0...leMods.length)
+			{
+				if(leMods.length > 1 && leMods[0].length > 0) {
+					var modSplit:Array<String> = leMods[i].split('|');
+					if(!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()) && !modsAdded.contains(modSplit[0]))
+					{
+						if(modSplit[1] == '1')
+							pushModCreditsToList(modSplit[0]);
+						else
+							modsAdded.push(modSplit[0]);
+					}
+				}
+			}
+		}
+
+		var arrayOfFolders:Array<String> = Paths.getModDirectories();
+		arrayOfFolders.push('');
+		for (folder in arrayOfFolders)
+		{
+			pushModCreditsToList(folder);
+		}
 		#end
-		
-		// ['DarkVerseKing', 	    'Dark',			    'Helper and Useful Person',		            'https://youtube.com/@darkverseking', '444444'],
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['Psych Extended'],
-			['KralOyuncu',		    'KralOyuncuV3',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'378FC7'],
+			['KralOyuncu',		    'KralOyuncuV2',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'9E29CF'],
 			[''],
 			['Psych Engine Android Team'],
 			['MaysLastPlay',		'MaysLastPlay',		'Android Porter',							'https://www.youtube.com/channel/UCx0LxtFR8ROd9sFAq-UxDfw',	'5DE7FF'],
@@ -109,7 +131,7 @@ class CreditsState extends MusicBeatState
 			if(isSelectable) {
 				if(creditsStuff[i][5] != null)
 				{
-					Mods.currentModDirectory = creditsStuff[i][5];
+					Paths.currentModDirectory = creditsStuff[i][5];
 				}
 
 				var str:String = 'credits/missing_icon';
@@ -121,7 +143,7 @@ class CreditsState extends MusicBeatState
 				// using a FlxGroup is too much fuss!
 				iconArray.push(icon);
 				add(icon);
-				Mods.currentModDirectory = '';
+				Paths.currentModDirectory = '';
 
 				if(curSelected == -1) curSelected = i;
 			}
@@ -217,10 +239,7 @@ class CreditsState extends MusicBeatState
 					colorTween.cancel();
 				}
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				if (ClientPrefs.MainMenuStyle == '0.6.3')
-    				MusicBeatState.switchState(new MainMenuStateOld());
-    			else
-    				MusicBeatState.switchState(new MainMenuState());
+				MusicBeatState.switchState(new MainMenuState());
 				quitting = true;
 			}
 		}
@@ -296,8 +315,11 @@ class CreditsState extends MusicBeatState
 	}
 
 	#if MODS_ALLOWED
+	private var modsAdded:Array<String> = [];
 	function pushModCreditsToList(folder:String)
 	{
+		if(modsAdded.contains(folder)) return;
+
 		var creditsFile:String = null;
 		if(folder != null && folder.trim().length > 0) creditsFile = Paths.mods(folder + '/data/credits.txt');
 		else creditsFile = Paths.mods('data/credits.txt');
@@ -313,6 +335,7 @@ class CreditsState extends MusicBeatState
 			}
 			creditsStuff.push(['']);
 		}
+		modsAdded.push(folder);
 	}
 	#end
 

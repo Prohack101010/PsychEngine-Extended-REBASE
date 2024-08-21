@@ -521,8 +521,8 @@ class ChartingState extends MusicBeatState
 		stepperSpeed.name = 'song_speed';
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Mods.currentModDirectory + '/characters/'), Paths.getPreloadPath('characters/')];
-		for(mod in Mods.getGlobalMods())
+		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Paths.currentModDirectory + '/characters/'), Paths.getPreloadPath('characters/')];
+		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/characters/'));
 		#else
 		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
@@ -577,8 +577,8 @@ class ChartingState extends MusicBeatState
 		blockPressWhileScrolling.push(player2DropDown);
 
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Mods.currentModDirectory + '/stages/'), Paths.getPreloadPath('stages/')];
-		for(mod in Mods.getGlobalMods())
+		var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.currentModDirectory + '/stages/'), Paths.getPreloadPath('stages/')];
+		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/stages/'));
 		#else
 		var directories:Array<String> = [Paths.getPreloadPath('stages/')];
@@ -978,8 +978,8 @@ class ChartingState extends MusicBeatState
 
 		#if MODS_ALLOWED
 		directories.push(Paths.mods('custom_notetypes/'));
-		directories.push(Paths.mods(Mods.currentModDirectory + '/custom_notetypes/'));
-		for(mod in Mods.getGlobalMods())
+		directories.push(Paths.mods(Paths.currentModDirectory + '/custom_notetypes/'));
+		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/custom_notetypes/'));
 		#end
 
@@ -1040,8 +1040,8 @@ class ChartingState extends MusicBeatState
 
 		#if MODS_ALLOWED
 		directories.push(Paths.mods('custom_events/'));
-		directories.push(Paths.mods(Mods.currentModDirectory + '/custom_events/'));
-		for(mod in Mods.getGlobalMods())
+		directories.push(Paths.mods(Paths.currentModDirectory + '/custom_events/'));
+		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/custom_events/'));
 		#end
 

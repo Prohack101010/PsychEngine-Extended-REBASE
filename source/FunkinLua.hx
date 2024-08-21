@@ -223,7 +223,7 @@ class FunkinLua {
 		set('lowQuality', ClientPrefs.lowQuality);
 		set('shadersEnabled', ClientPrefs.shaders);
 		set('scriptName', scriptName);
-		set('currentModDirectory', Mods.currentModDirectory);
+		set('currentModDirectory', Paths.currentModDirectory);
 
 		#if windows
 		set('buildTarget', 'windows');
@@ -483,6 +483,7 @@ class FunkinLua {
 			var runningScripts:Array<String> = [];
 			for (idx in 0...PlayState.instance.luaArray.length)
 				runningScripts.push(PlayState.instance.luaArray[idx].scriptName);
+
 
 			return runningScripts;
 		});
@@ -1766,8 +1767,6 @@ class FunkinLua {
 
 			if(PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
-			else if (ClientPrefs.FreeplayStyle == 'Psych')
-			    MusicBeatState.switchState(new FreeplayStatePsych());
 			else
 				MusicBeatState.switchState(new FreeplayState());
 
@@ -1775,7 +1774,7 @@ class FunkinLua {
 			PlayState.changedDifficulty = false;
 			PlayState.chartingMode = false;
 			PlayState.instance.transitioning = true;
-			Mods.loadTheFirstEnabledMod();
+			WeekData.loadTheFirstEnabledMod();
 			return true;
 		});
 		Lua_helper.add_callback(lua, "getSongPosition", function() {
@@ -3403,11 +3402,11 @@ class FunkinLua {
 
 		var foldersToCheck:Array<String> = [Paths.getPreloadPath('shaders/')];
 
-		if(Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 
-			foldersToCheck.insert(0, Paths.mods(Mods.currentModDirectory + '/shaders/'));
+			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/shaders/'));
 
-		for(mod in Mods.getGlobalMods())
+		for(mod in Paths.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
 		
 		for (folder in foldersToCheck)

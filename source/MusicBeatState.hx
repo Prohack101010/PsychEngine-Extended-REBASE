@@ -147,7 +147,6 @@ class MusicBeatState extends FlxUIState
 	override function create() {
 		camBeat = FlxG.camera;
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
-		#if MODS_ALLOWED Mods.updatedOnState = false; #end
 		super.create();
 
 		if(!skip) {
@@ -244,7 +243,7 @@ class MusicBeatState extends FlxUIState
 				//trace('resetted');
 			} else {
 				CustomFadeTransition.finishCallback = function() {
-				FlxG.switchState(nextState);
+					FlxG.switchState(nextState);
 				};
 				//trace('changed state');
 			}
