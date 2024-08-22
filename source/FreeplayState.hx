@@ -25,6 +25,7 @@ import GameplayChangersSubstate;
 import ResetScoreSubState;
 
 import MainMenuState;
+import MusicBeatStatePlus;
 import PlayState;
 import LoadingState;
 import editors.ChartingState;

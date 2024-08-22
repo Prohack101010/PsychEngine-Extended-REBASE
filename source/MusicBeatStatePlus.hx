@@ -23,7 +23,7 @@ import mobile.flixel.FlxVirtualPad;
 import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;
 
-class MusicBeatState extends FlxUIState
+class MusicBeatStatePlus extends FlxState
 {
 	private var curSection:Int = 0;
 	private var stepsToDo:Int = 0;
