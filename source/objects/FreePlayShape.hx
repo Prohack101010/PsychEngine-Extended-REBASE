@@ -983,11 +983,13 @@ class SearchButton extends FlxSpriteGroup
         add(bg);
 
         search = new PsychUIInputText(5, 5, Std.int(width - 10), '', 30);
-        search.bg.visible = false;
-        search.behindText.alpha = 0;
+        search.visible = false;
+        // search.bg.visible = false;
+        // search.behindText.alpha = 0;
         // search.textObj.font = Paths.font('montserrat.ttf');
         // search.textObj.color = FlxColor.WHITE;
-        search.caret.color = 0x727E7E7E;
+        // search.caret.color = 0x727E7E7E;
+        search.color = 0x727E7E7E;
         search.onChange = function(old:String, cur:String) {
             if (cur == '') tapText.visible = true;
             else tapText.visible = false;
