@@ -2,6 +2,7 @@ package;
 
 import flixel.util.FlxSpriteUtil;
 import flixel.addons.transition.FlxTransitionableState;
+import backend.ui.*;
 
 import haxe.Json;
 import haxe.ds.ArraySort;
@@ -61,8 +62,8 @@ class FreeplayState extends MusicBeatState
 	var extraAudio:ExtraTopRect;
 	var extraHS:ExtraTopRect;
 
-	// var instDis:ExtraAudio;
-	// var voiceDis:ExtraAudio;
+	var instDis:ExtraAudio;
+	var voiceDis:ExtraAudio;
 	var voiceLine:MusicLine;
 
 	var infoRating:InfoText;
@@ -207,15 +208,15 @@ class FreeplayState extends MusicBeatState
 		FlxG.cameras.add(camAudio, false);
 		FlxG.cameras.add(camHS, false);
 
-		// voiceDis = new ExtraAudio(10, 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
-		// add(voiceDis);
-		// voiceDis.camera = camAudio;
-		// voiceDis.alpha = 0.7;
+		voiceDis = new ExtraAudio(10, 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
+		add(voiceDis);
+		voiceDis.camera = camAudio;
+		voiceDis.alpha = 0.7;
 
-		// instDis = new ExtraAudio(Std.int(camAudio.width) - 10 - Std.int(camAudio.width / 2 - 20), 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
-		// add(instDis);
-		// instDis.camera = camAudio;
-		// instDis.alpha = 0.7;
+		instDis = new ExtraAudio(Std.int(camAudio.width) - 10 - Std.int(camAudio.width / 2 - 20), 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
+		add(instDis);
+		instDis.camera = camAudio;
+		instDis.alpha = 0.7;
 
 		voiceLine = new MusicLine(10, 125, 545);
 		voiceLine.camera = camAudio;
@@ -593,9 +594,9 @@ class FreeplayState extends MusicBeatState
 				if (vocals != null) vocals.play();
 				if (opponentVocals != null) opponentVocals.play();
 				
-				// voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
-				// if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
-				// else instDis.audioDis.changeAnalyzer(FlxG.sound.music);
+				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
+				if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
+				else instDis.audioDis.changeAnalyzer(FlxG.sound.music);
 
 				musicMutex.release();
 			});

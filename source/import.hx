@@ -6,7 +6,6 @@ import extrastates.FreeplayStatePsych;
 import extrastates.MainMenuStateOld;
 import backend.ui.*; //Psych-UI
 import FreeplayState;
-import flixel.addons.ui.FlxInputText as PsychUIInputText;
 import flixel.addons.ui.*;
 
 // 0.7x Support

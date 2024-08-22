@@ -212,7 +212,7 @@ class ExtraAudio extends FlxSpriteGroup
 {
     var leftLine:FlxSprite;
     var downLine:FlxSprite;
-    // public var audioDis:AudioDisplay;
+    public var audioDis:AudioDisplay;
 
 	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, snd:FlxSound = null)
     {
@@ -224,8 +224,8 @@ class ExtraAudio extends FlxSpriteGroup
         downLine = new FlxSprite(0, Std.int(height) - 3).makeGraphic(Std.int(width), 3);
         add(downLine);
 
-        // audioDis = new AudioDisplay(snd, 5, height - 5, Std.int(width - 5), Std.int(height - 5), 40, 2, FlxColor.WHITE);
-        // add(audioDis);
+        audioDis = new AudioDisplay(snd, 5, height - 5, Std.int(width - 5), Std.int(height - 5), 40, 2, FlxColor.WHITE);
+        add(audioDis);
 	}
 }
 
@@ -342,10 +342,8 @@ class ExtraTopRect extends FlxSpriteGroup //play/back button
     {
         super.update(elapsed);
 
-        #if desktop
-        if(!ignoreCheck && !Controls.controllerMode)
+        if(!ignoreCheck && !Controls.instance.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
-        #end
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)
             onClick();
@@ -430,10 +428,8 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
     {
         super.update(elapsed);
 
-        #if desktop
-        if(!ignoreCheck && !Controls.controllerMode)
+        if(!ignoreCheck && !Controls.instance.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
-        #end
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)
             onClick();
@@ -983,21 +979,17 @@ class SearchButton extends FlxSpriteGroup
         add(bg);
 
         search = new PsychUIInputText(5, 5, Std.int(width - 10), '', 30);
-        search.visible = false;
-        // search.bg.visible = false;
-        // search.behindText.alpha = 0;
-        // search.textObj.font = Paths.font('montserrat.ttf');
-        // search.textObj.color = FlxColor.WHITE;
-        // search.caret.color = 0x727E7E7E;
-        search.color = 0x727E7E7E;
-        /*
+        search.bg.visible = false;
+        search.behindText.alpha = 0;
+        search.textObj.font = Paths.font('montserrat.ttf');
+        search.textObj.color = FlxColor.WHITE;
+        search.caret.color = 0x727E7E7E;
         search.onChange = function(old:String, cur:String) {
             if (cur == '') tapText.visible = true;
             else tapText.visible = false;
             FreeplayState.instance.updateSearch(cur);
             itemDis.text = Std.string(FreeplayState.instance.songs.length) + ' maps has found';
         }
-        */
         add(search);
         
         tapText = new FlxText(5, 5, 0, 'Tap here to search.', 30);
