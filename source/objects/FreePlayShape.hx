@@ -342,8 +342,10 @@ class ExtraTopRect extends FlxSpriteGroup //play/back button
     {
         super.update(elapsed);
 
-        if(!ignoreCheck && !Controls.instance.controllerMode)
+        #if desktop
+        if(!ignoreCheck && !Controls.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
+        #end
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)
             onClick();
@@ -428,8 +430,10 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
     {
         super.update(elapsed);
 
-        if(!ignoreCheck && !Controls.instance.controllerMode)
+        #if desktop
+        if(!ignoreCheck && !Controls.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
+        #end
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)
             onClick();

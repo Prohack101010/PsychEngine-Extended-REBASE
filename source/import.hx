@@ -4,7 +4,7 @@ import Paths;
 // Extra
 import extrastates.FreeplayStatePsych;
 import extrastates.MainMenuStateOld;
-import PsychUIInputText;
+import backend.ui.*; //Psych-UI
 import FreeplayState;
 
 // 0.7x Support
