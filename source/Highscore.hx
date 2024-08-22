@@ -22,7 +22,6 @@ class Highscore
 	{
 		var daSong:String = formatSong(song, diff);
 		setScore(daSong, 0);
-		setTime(daSong, 'N/A');
 		setRating(daSong, 0);
 	}
 
@@ -55,13 +54,11 @@ class Highscore
 		if (songScores.exists(daSong)) {
 			if (songScores.get(daSong) < score) {
 				setScore(daSong, score);
-				setTime(daSong, Date.now().toString());
 				if(rating >= 0) setRating(daSong, rating);
 			}
 		}
 		else {
 			setScore(daSong, score);
-			setTime(daSong, Date.now().toString());
 			if(rating >= 0) setRating(daSong, rating);
 		}
 	}
@@ -113,9 +110,8 @@ class Highscore
 	public static function getScore(song:String, diff:Int):Int
 	{
 		var daSong:String = formatSong(song, diff);
-		if (!songScores.exists(daSong)){
-			return 'N/A';
-        }
+		if (!songScores.exists(daSong))
+			setScore(daSong, 0);
 
 		return songScores.get(daSong);
 	}
