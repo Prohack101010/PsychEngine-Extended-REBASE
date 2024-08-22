@@ -101,7 +101,7 @@ class FreeplayState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		camGame = FlxCamera();
+		camGame = new FlxCamera();
 
 		for (i in 0...WeekData.weeksList.length)
 		{
@@ -628,6 +628,27 @@ class FreeplayState extends MusicBeatState
 		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
 	}
 	
+}
+
+class ExtraAudio extends FlxSpriteGroup
+{
+    var leftLine:FlxSprite;
+    var downLine:FlxSprite;
+    // public var audioDis:AudioDisplay;
+
+	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, snd:FlxSound = null)
+    {
+        super(X, Y);
+		
+        leftLine = new FlxSprite().makeGraphic(3, Std.int(height - 3));
+        add(leftLine);
+
+        downLine = new FlxSprite(0, Std.int(height) - 3).makeGraphic(Std.int(width), 3);
+        add(downLine);
+
+        // audioDis = new AudioDisplay(snd, 5, height - 5, Std.int(width - 5), Std.int(height - 5), 40, 2, FlxColor.WHITE);
+        // add(audioDis);
+	}
 }
 
 class SongMetadata
