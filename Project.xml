@@ -142,6 +142,8 @@
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/> 
 	<haxelib name="flxanimate"/>
 	<haxelib name="tjson"/>
+	<haxelib name="haxeui-core" /> 
+	<haxelib name="haxeui-flixel" />
 	
 	<haxelib name="funkin.vis"/>
 	<haxelib name="grig.audio" />
