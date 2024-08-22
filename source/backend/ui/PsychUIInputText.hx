@@ -38,6 +38,7 @@ class PsychUIInputText extends FlxSpriteGroup
 
 	static final KEY_TILDE = 126;
 	static final KEY_ACUTE = 180;
+	static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 
 	public static var focusOn(default, set):PsychUIInputText = null;
 
@@ -221,7 +222,6 @@ class PsychUIInputText extends FlxSpriteGroup
 			return;
 		}
 
-		static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 		if(ignored.contains(flxKey)) return;
 
 		var lastAccent = _nextAccent;
@@ -403,13 +403,11 @@ class PsychUIInputText extends FlxSpriteGroup
 				FlxG.stage.window.textInputEnabled = true;
 				caretIndex = 0;
 				var lastBound:Float = 0;
-				var textObjX:Float = textObj.getScreenPosition(camera).x;
-				var mousePosX:Float = FlxG.mouse.getScreenPosition(camera).x;
-				var txtX:Float = textObjX - textObj.textField.scrollH;
+				var txtX:Float = textObj.x - textObj.textField.scrollH;
 
 				for (i => bound in _boundaries)
 				{
-					if(mousePosX >= txtX + (bound - lastBound)/2)
+					if(FlxG.mouse.screenX >= txtX + (bound - lastBound)/2)
 					{
 						caretIndex = i+1;
 						txtX += bound - lastBound;
@@ -661,7 +659,7 @@ class PsychUIInputText extends FlxSpriteGroup
 
 		var letter:String = String.fromCharCode(charCode);
 		letter = filter(letter);
-		if(letter.length > 0 && (maxLength == 0 || (text.length + letter.length) <= maxLength))
+		if(letter.length > 0 && (maxLength == 0 || (text.length + letter.length) < maxLength))
 		{
 			var lastText = text;
 			//trace('Drawing character: $letter');
