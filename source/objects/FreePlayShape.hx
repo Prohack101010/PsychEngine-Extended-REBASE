@@ -990,12 +990,14 @@ class SearchButton extends FlxSpriteGroup
         // search.textObj.color = FlxColor.WHITE;
         // search.caret.color = 0x727E7E7E;
         search.color = 0x727E7E7E;
+        /*
         search.onChange = function(old:String, cur:String) {
             if (cur == '') tapText.visible = true;
             else tapText.visible = false;
             FreeplayState.instance.updateSearch(cur);
             itemDis.text = Std.string(FreeplayState.instance.songs.length) + ' maps has found';
         }
+        */
         add(search);
         
         tapText = new FlxText(5, 5, 0, 'Tap here to search.', 30);
