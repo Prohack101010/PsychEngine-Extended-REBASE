@@ -1,6 +1,6 @@
 package backend.ui;
 
-class ExtraAudio2 extends FlxSpriteGroup
+class ExtraAudio extends FlxSpriteGroup
 {
     var leftLine:FlxSprite;
     var downLine:FlxSprite;
