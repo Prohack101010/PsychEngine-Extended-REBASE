@@ -61,8 +61,8 @@ class FreeplayState extends MusicBeatState
 	var extraAudio:ExtraTopRect;
 	var extraHS:ExtraTopRect;
 
-	var instDis:ExtraAudio;
-	var voiceDis:ExtraAudio;
+	var instDis:ExtraAudio2;
+	var voiceDis:ExtraAudio2;
 	var voiceLine:MusicLine;
 
 	var infoRating:InfoText;
@@ -207,12 +207,12 @@ class FreeplayState extends MusicBeatState
 		FlxG.cameras.add(camAudio, false);
 		FlxG.cameras.add(camHS, false);
 
-		voiceDis = new ExtraAudio(10, 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
+		voiceDis = new ExtraAudio2(10, 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
 		add(voiceDis);
 		voiceDis.camera = camAudio;
 		voiceDis.alpha = 0.7;
 
-		instDis = new ExtraAudio(Std.int(camAudio.width) - 10 - Std.int(camAudio.width / 2 - 20), 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
+		instDis = new ExtraAudio2(Std.int(camAudio.width) - 10 - Std.int(camAudio.width / 2 - 20), 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
 		add(instDis);
 		instDis.camera = camAudio;
 		instDis.alpha = 0.7;

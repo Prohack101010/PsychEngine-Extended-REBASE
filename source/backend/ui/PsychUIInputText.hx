@@ -79,9 +79,7 @@ class PsychUIInputText extends FlxSpriteGroup
 		this.textObj.textField.wordWrap = false;
 		this.textObj.textField.multiline = false;
 		this.selection.color = FlxColor.BLUE;
-
-		@:bypassAccessor fieldWidth = wid;
-		setGraphicSize(wid + 2, this.textObj.height + 2);
+		setGraphicSize(fieldWidth + 2, this.textObj.height + 2);
 		updateHitbox();
 		this.text = text;
 
@@ -551,7 +549,7 @@ class PsychUIInputText extends FlxSpriteGroup
 		return v;
 	}
 
-	override public function setGraphicSize(width:Int = 0, height:Int = 0)
+	override public function setGraphicSize(:Int = 0, height:Int = 0)
 	{
 		super.setGraphicSize(width, height);
 		bg.setGraphicSize(width, height);

@@ -6,7 +6,7 @@ import extrastates.FreeplayStatePsych;
 import extrastates.MainMenuStateOld;
 import backend.ui.*; //Psych-UI
 import FreeplayState;
-import backend.ui.ExtraAudio;
+import backend.ui.ExtraAudio as ExtraAudio2;
 
 // 0.7x Support
 import Difficulty;
