@@ -7,7 +7,7 @@ class AudioDisplay extends FlxSpriteGroup
 {
     var analyzer:SpectralAnalyzer;
 
-    // public var snd:FlxSound;
+    public var snd:FlxSound;
     var _height:Int;
     var line:Int;
 
@@ -15,7 +15,7 @@ class AudioDisplay extends FlxSpriteGroup
     {
       super(X, Y);
   
-      // this.snd = snd;
+      this.snd = snd;
       this.line = line;
 
       for (i in 0...line)
@@ -26,25 +26,21 @@ class AudioDisplay extends FlxSpriteGroup
       }
       _height = Height;
 
-      /*
       @:privateAccess
       if (snd != null) 
       {
         analyzer = new SpectralAnalyzer(snd._channel.__audioSource, line, 1, 5);
         analyzer.fftN = 256;  
       }
-      */
     }
 
     override function update(elapsed:Float)
     {
-        /*
         addAnalyzer(snd);
         if (analyzer == null) {
           return;
         }  
         var levels = analyzer.getLevels();
-        */
 
         for (i in 0...members.length)
         {
@@ -58,7 +54,6 @@ class AudioDisplay extends FlxSpriteGroup
         super.update(elapsed);
     }
 
-    /*
     function addAnalyzer(snd:FlxSound) {
       @:privateAccess
       if (snd != null && analyzer == null) 
@@ -73,5 +68,4 @@ class AudioDisplay extends FlxSpriteGroup
       @:privateAccess
       analyzer.changeSnd(snd._channel.__audioSource);
     }
-    */
 }

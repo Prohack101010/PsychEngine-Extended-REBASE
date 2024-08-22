@@ -212,7 +212,7 @@ class ExtraAudio extends FlxSpriteGroup
 {
     var leftLine:FlxSprite;
     var downLine:FlxSprite;
-    public var audioDis:AudioDisplay;
+    // public var audioDis:AudioDisplay;
 
 	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, snd:FlxSound = null)
     {
@@ -224,8 +224,8 @@ class ExtraAudio extends FlxSpriteGroup
         downLine = new FlxSprite(0, Std.int(height) - 3).makeGraphic(Std.int(width), 3);
         add(downLine);
 
-        audioDis = new AudioDisplay(snd, 5, height - 5, Std.int(width - 5), Std.int(height - 5), 40, 2, FlxColor.WHITE);
-        add(audioDis);
+        // audioDis = new AudioDisplay(snd, 5, height - 5, Std.int(width - 5), Std.int(height - 5), 40, 2, FlxColor.WHITE);
+        // add(audioDis);
 	}
 }
 
@@ -342,7 +342,7 @@ class ExtraTopRect extends FlxSpriteGroup //play/back button
     {
         super.update(elapsed);
 
-        if(!ignoreCheck && !Controls.instance.controllerMode)
+        if(!ignoreCheck && !ClientPrefs.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)
@@ -428,7 +428,7 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
     {
         super.update(elapsed);
 
-        if(!ignoreCheck && !Controls.instance.controllerMode)
+        if(!ignoreCheck && !ClientPrefs.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)

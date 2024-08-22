@@ -389,7 +389,7 @@ class PsychUIInputText extends FlxSpriteGroup
 		return (focusOn = v);
 	}
 
-	override function update(elapsed:Int)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
