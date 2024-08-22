@@ -38,6 +38,7 @@ class PsychUIInputText extends FlxSpriteGroup
 
 	static final KEY_TILDE = 126;
 	static final KEY_ACUTE = 180;
+	static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 
 	public static var focusOn(default, set):PsychUIInputText = null;
 
@@ -221,7 +222,6 @@ class PsychUIInputText extends FlxSpriteGroup
 			return;
 		}
 
-		static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 		if(ignored.contains(flxKey)) return;
 
 		var lastAccent = _nextAccent;
