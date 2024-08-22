@@ -110,12 +110,11 @@ class Highscore
 		return Paths.formatToSongPath(song) + Difficulty.getFilePath(diff);
 	}
 
-	public static function getScore(song:String, diff:Int):String
+	public static function getScore(song:String, diff:Int):Int
 	{
 		var daSong:String = formatSong(song, diff);
-		if (!songScores.exists(daSong)){
-			return 'N/A';
-        }
+		if (!songScores.exists(daSong))
+			setScore(daSong, 0);
 
 		return songScores.get(daSong);
 	}
@@ -150,8 +149,9 @@ class Highscore
 	{
 		var daSong:String = formatSong(song, diff);
 		if (!songScores.exists(daSong) || songTimes.get(daSong) == '' || songTimes.get(daSong) == null){
-			setTime(daSong, 'N/A');			
+			setTime(daSong, 'N/A');	
         }
+
 		return songTimes.get(daSong);
 	}
 
