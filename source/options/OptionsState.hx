@@ -170,11 +170,12 @@ class OptionsState extends MusicBeatState
 			    MusicBeatState.switchState(new FreeplayState());
 			    OptionsState.isFreeplay = false;
 			} else {
+    			if (ClientPrefs.MainMenuStyle == '0.6.3')
+    				MusicBeatState.switchState(new MainMenuStateOld());
+    			else
+    				MusicBeatState.switchState(new MainMenuState());
+			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.MainMenuStyle == '0.6.3')
-				MusicBeatState.switchState(new MainMenuStateOld());
-			else
-				MusicBeatState.switchState(new MainMenuState());
 		}
 
 		#if mobile
