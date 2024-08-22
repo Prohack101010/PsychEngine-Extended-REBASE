@@ -61,7 +61,7 @@ class PsychUIInputText extends FlxSpriteGroup
 
 	public var selectedFormat:FlxTextFormat = new FlxTextFormat(FlxColor.WHITE);
 
-	public function new(x:Float = 0, y:Float = 0, wid:Int = 100, ?text:String = '', size:Int = 8)
+	public function new(x:Int = 0, y:Int = 0, wid:Int = 100, ?text:String = '', size:Int = 8)
 	{
 		super(x, y);
 		this.bg = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
@@ -91,7 +91,7 @@ class PsychUIInputText extends FlxSpriteGroup
 	
 	public var selectIndex:Int = -1;
 	public var caretIndex(default, set):Int = -1;
-	var _caretTime:Float = 0;
+	var _caretTime:Int = 0;
 
 	var _nextAccent:AccentCode = NONE;
 	public var inInsertMode:Bool = false;
@@ -389,7 +389,7 @@ class PsychUIInputText extends FlxSpriteGroup
 		return (focusOn = v);
 	}
 
-	override function update(elapsed:Float)
+	override function update(elapsed:Int)
 	{
 		super.update(elapsed);
 
@@ -402,8 +402,8 @@ class PsychUIInputText extends FlxSpriteGroup
 				focusOn = this;
 				FlxG.stage.window.textInputEnabled = true;
 				caretIndex = 0;
-				var lastBound:Float = 0;
-				var txtX:Float = textObj.x - textObj.textField.scrollH;
+				var lastBound:Int = 0;
+				var txtX:Int = textObj.x - textObj.textField.scrollH;
 
 				for (i => bound in _boundaries)
 				{
@@ -498,7 +498,7 @@ class PsychUIInputText extends FlxSpriteGroup
 
 			if(selection.x < textObj.x)
 			{
-				var diff:Float = textObj.x - selection.x;
+				var diff:Int = textObj.x - selection.x;
 				selection.x += diff;
 				selection.scale.x -= diff;
 			}
@@ -551,7 +551,7 @@ class PsychUIInputText extends FlxSpriteGroup
 		return v;
 	}
 
-	override public function setGraphicSize(width:Float = 0, height:Float = 0)
+	override public function setGraphicSize(width:Int = 0, height:Int = 0)
 	{
 		super.setGraphicSize(width, height);
 		bg.setGraphicSize(width, height);

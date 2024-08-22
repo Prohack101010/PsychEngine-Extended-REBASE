@@ -30,7 +30,7 @@ import LoadingState;
 import editors.ChartingState;
 import options.OptionsState;
 
-class FreeplayState extends MusicBeatState
+class FreeplayState extends MusicBeatStatePlus
 {
 	static public var instance:FreeplayState;
 
