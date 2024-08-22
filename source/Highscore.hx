@@ -110,7 +110,7 @@ class Highscore
 		return Paths.formatToSongPath(song) + Difficulty.getFilePath(diff);
 	}
 
-	public static function getScore(song:String, diff:Int):Int
+	public static function getScore(song:String, diff:Int):String
 	{
 		var daSong:String = formatSong(song, diff);
 		if (!songScores.exists(daSong)){
