@@ -94,6 +94,7 @@ class PsychUIInputText extends FlxSpriteGroup
 
 	var _nextAccent:AccentCode = NONE;
 	public var inInsertMode:Bool = false;
+	static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 	function onKeyDown(e:KeyboardEvent)
 	{
 		if(focusOn != this) return;
@@ -220,8 +221,7 @@ class PsychUIInputText extends FlxSpriteGroup
 			updateCaret();
 			return;
 		}
-
-		static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
+		
 		if(ignored.contains(flxKey)) return;
 
 		var lastAccent = _nextAccent;
