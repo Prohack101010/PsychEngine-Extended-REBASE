@@ -150,9 +150,8 @@ class Highscore
 	{
 		var daSong:String = formatSong(song, diff);
 		if (!songScores.exists(daSong) || songTimes.get(daSong) == '' || songTimes.get(daSong) == null){
-			setTime(daSong, 'N/A');
+			setTime(daSong, 'N/A');			
         }
-
 		return songTimes.get(daSong);
 	}
 
