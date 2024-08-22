@@ -19,6 +19,9 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets;
 import haxe.Json;
 import haxe.format.JsonParser;
+#if flxanimate
+import flxanimate.*;
+#end
 
 using StringTools;
 

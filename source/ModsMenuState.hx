@@ -495,16 +495,30 @@ class ModsMenuState extends MusicBeatState
 				TitleState.initialized = false;
 				TitleState.closedState = false;
 				FlxG.sound.music.fadeOut(0.3);
-				if(FreeplayState.vocals != null)
+				if (ClientPrefs.FreeplayStyle == 'Psych')
 				{
-					FreeplayState.vocals.fadeOut(0.3);
-					FreeplayState.vocals = null;
-				}
+    				if(FreeplayStatePsych.vocals != null)
+    				{
+    					FreeplayStatePsych.vocals.fadeOut(0.3);
+    					FreeplayStatePsych.vocals = null;
+    				}
+    			}
+				else
+				{
+    				if(FreeplayState.vocals != null)
+    				{
+    					FreeplayState.vocals.fadeOut(0.3);
+    					FreeplayState.vocals = null;
+    				}
+    			}
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
 			}
 			else
 			{
-				MusicBeatState.switchState(new MainMenuState());
+				if (ClientPrefs.MainMenuStyle == '0.6.3')
+    				MusicBeatState.switchState(new MainMenuStateOld());
+    			else
+    				MusicBeatState.switchState(new MainMenuState());
 			}
 		}
 

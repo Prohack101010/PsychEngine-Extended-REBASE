@@ -202,7 +202,10 @@ class TitleState extends MusicBeatState
 
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
-		MusicBeatState.switchState(new FreeplayState());
+		if (ClientPrefs.FreeplayStyle == 'Psych')
+		    MusicBeatState.switchState(new FreeplayStatePsych());
+		else
+		    MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
@@ -501,7 +504,10 @@ class TitleState extends MusicBeatState
 					if (mustUpdate) {
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
-						MusicBeatState.switchState(new MainMenuState());
+						if (ClientPrefs.MainMenuStyle == '0.6.3')
+            				MusicBeatState.switchState(new MainMenuStateOld());
+            			else
+            				MusicBeatState.switchState(new MainMenuState());
 					}
 					closedState = true;
 				});
@@ -543,10 +549,20 @@ class TitleState extends MusicBeatState
 								}
 							});
 							FlxG.sound.music.fadeOut();
-							if(FreeplayState.vocals != null)
+							if (ClientPrefs.FreeplayStyle == 'Psych')
 							{
-								FreeplayState.vocals.fadeOut();
-							}
+    							if(FreeplayStatePsych.vocals != null)
+    							{
+    								FreeplayStatePsych.vocals.fadeOut();
+    							}
+    						}
+    						else
+    						{
+    							if(FreeplayState.vocals != null)
+    							{
+    								FreeplayState.vocals.fadeOut();
+    							}
+    						}
 							closedState = true;
 							transitioning = true;
 							playJingle = true;
@@ -770,10 +786,20 @@ class TitleState extends MusicBeatState
 				if(easteregg == 'SHADOW')
 				{
 					FlxG.sound.music.fadeOut();
-					if(FreeplayState.vocals != null)
+					if (ClientPrefs.FreeplayStyle == 'Psych')
 					{
-						FreeplayState.vocals.fadeOut();
-					}
+    					if(FreeplayStatePsych.vocals != null)
+    					{
+    						FreeplayStatePsych.vocals.fadeOut();
+    					}
+    				}
+    				else
+					{
+    					if(FreeplayState.vocals != null)
+    					{
+    						FreeplayState.vocals.fadeOut();
+    					}
+    				}
 				}
 				#end
 			}

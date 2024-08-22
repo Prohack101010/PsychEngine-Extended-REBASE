@@ -1,6 +1,9 @@
 package;
 
 import openfl.utils.Assets;
+#if flxanimate
+import flxanimate.*;
+#end
 
 #if flxanimate
 class FlxAnimateFunctions

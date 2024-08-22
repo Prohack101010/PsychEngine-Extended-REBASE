@@ -10,9 +10,11 @@ import FreeplayState;
 import Difficulty;
 // import Mods; it brokes TitleState
 
+/*
 #if flxanimate
 import flxanimate.*;
 #end
+*/
 
 #if sys
 import sys.*;

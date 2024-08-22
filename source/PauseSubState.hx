@@ -276,7 +276,10 @@ class PauseSubState extends MusicBeatSubstate
 					if(PlayState.isStoryMode) {
 						MusicBeatState.switchState(new StoryMenuState());
 					} else {
-						MusicBeatState.switchState(new FreeplayState());
+						if (ClientPrefs.FreeplayStyle == 'Psych')
+            			    MusicBeatState.switchState(new FreeplayStatePsych());
+            			else
+            			    MusicBeatState.switchState(new FreeplayState());
 					}
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -287,7 +290,10 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.seenCutscene = false;
 
 					WeekData.loadTheFirstEnabledMod();
-					MusicBeatState.switchState(new MainMenuState());
+					if (ClientPrefs.MainMenuStyle == '0.6.3')
+        				MusicBeatState.switchState(new MainMenuStateOld());
+        			else
+        				MusicBeatState.switchState(new MainMenuState());
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;

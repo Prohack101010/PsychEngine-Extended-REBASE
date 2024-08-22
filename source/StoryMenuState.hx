@@ -298,7 +298,10 @@ class StoryMenuState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.MainMenuStyle == '0.6.3')
+				MusicBeatState.switchState(new MainMenuStateOld());
+			else
+				MusicBeatState.switchState(new MainMenuState());
 		}
 
 		super.update(elapsed);
@@ -366,7 +369,10 @@ class StoryMenuState extends MusicBeatState
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
 				LoadingState.loadAndSwitchState(new PlayState(), true);
-				FreeplayState.destroyFreeplayVocals();
+				if (ClientPrefs.FreeplayStyle == 'Psych')
+    				FreeplayStatePsych.destroyFreeplayVocals();
+    			else
+				    FreeplayState.destroyFreeplayVocals();
 			});
 		} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));

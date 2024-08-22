@@ -4,6 +4,9 @@ package editors;
 import Discord.DiscordClient;
 #end
 // import animateatlas.AtlasFrameMaker;
+#if flxanimate
+import flxanimate.*;
+#end
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;

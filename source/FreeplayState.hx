@@ -39,6 +39,9 @@ import MainMenuState;
 import options.OptionsState;
 
 /*
+    Note: This back port supports Psych Extended only
+    Backported by KralOyuncu 2010x
+    
 	create by TieGuo
 	artists, bug fix by Beihu & 487
 	

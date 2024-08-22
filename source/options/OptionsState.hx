@@ -167,7 +167,7 @@ class OptionsState extends MusicBeatState
 				PlayState.MoveOption = false;
 			}
 			else if (OptionsState.isFreeplay == true) {
-			    MusicBeatState.switchState(new PlayState());
+			    MusicBeatState.switchState(new FreeplayState());
 			    OptionsState.isFreeplay = false;
 			} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -175,7 +175,6 @@ class OptionsState extends MusicBeatState
 				MusicBeatState.switchState(new MainMenuStateOld());
 			else
 				MusicBeatState.switchState(new MainMenuState());
-		    }
 		}
 
 		#if mobile
