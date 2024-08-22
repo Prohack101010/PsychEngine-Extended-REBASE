@@ -79,11 +79,8 @@ class CreditsState extends MusicBeatState
 			pushModCreditsToList(folder);
 		}
 		#end
-
-		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			['Psych Extended'],
-			['KralOyuncu 2010X',		    'KralOyuncuV3',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'378FC7'],
-			[''],
+		
+		/* maybe later
 			['Psych Engine Android Team'],
 			['MaysLastPlay',		'MaysLastPlay',		'Android Porter',							'https://www.youtube.com/channel/UCx0LxtFR8ROd9sFAq-UxDfw',	'5DE7FF'],
 			['Nuno Filipe Studios',	'nuno',				'Android Porter',							'https://www.youtube.com/channel/UCq7G3p4msVN5SX2CpJ86tTw',	'989c99'],
@@ -93,6 +90,12 @@ class CreditsState extends MusicBeatState
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
 			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/RiverOaken',		'B42F71'],
 			['shubs',				'shubs',			'Additional Programmer of Psych Engine',						'https://twitter.com/yoshubs',			'5E99DF'],
+			[''],
+		*/
+
+		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			['Psych Extended'],
+			['KralOyuncu 2010X',		    'KralOyuncuV3',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'378FC7'],
 			[''],
 			['Former Engine Members'],
 			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								'https://twitter.com/bbsub3',			'3E813A'],
