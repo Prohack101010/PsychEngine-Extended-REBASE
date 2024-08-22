@@ -60,7 +60,7 @@ class PsychUIInputText extends FlxSpriteGroup
 
 	public var selectedFormat:FlxTextFormat = new FlxTextFormat(FlxColor.WHITE);
 
-	public function new(x:Float = 0, y:Float = 0, wid:Int = 100, ?text:String = '', size:Int = 8)
+	public function new(x:Int = 0, y:Int = 0, wid:Int = 100, ?text:String = '', size:Int = 8)
 	{
 		super(x, y);
 		this.bg = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
@@ -551,7 +551,7 @@ class PsychUIInputText extends FlxSpriteGroup
 		return v;
 	}
 
-	override public function setGraphicSize(width:Int = 0, height:Int = 0)
+	override public function setGraphicSize(width:Int = 0, {height}:Int = 0)
 	{
 		super.setGraphicSize(width, height);
 		bg.setGraphicSize(width, height);
