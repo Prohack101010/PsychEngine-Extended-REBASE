@@ -551,7 +551,7 @@ class PsychUIInputText extends FlxSpriteGroup
 		return v;
 	}
 
-	override public function setGraphicSize(width:Int = 0, {height}:Int = 0)
+	override public function setGraphicSize(width:Int = 0, height:Int = 0)
 	{
 		super.setGraphicSize(width, height);
 		bg.setGraphicSize(width, height);
