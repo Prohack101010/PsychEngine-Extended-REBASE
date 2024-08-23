@@ -201,22 +201,10 @@
 	
 	<haxedef name="message.reporting" value="pretty" />
 	<haxedef name='no-deprecation-warnings' />
-	
-	<section if="ios">
-			<define name='objc' />
-			<ios linker-flags='-ObjC' />
-		</section>
-
-	<!--Avoid memory leaks with for loops in HScript-->
-	<haxedef name="loop_unroll_max_cost" value="25" />
-	<haxedef name="DISABLED_MACRO_SUPERLATIVE" />
 
 	<!--Macro fixes-->
 	<haxeflag name="--macro" value="allowPackage('flash')" />
-	<haxeflag name="--macro" value="allowPackage('flash.geom.Point')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
-	<!-- not now -->
-	<!-- <haxeflag name="--macro" value="macros.Keep.keepClasses()" /> -->
 	
 	<!-- Do whatever you want I'm tired uninstall and install everytime -->
 	<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" if="android" unless="debug" />
