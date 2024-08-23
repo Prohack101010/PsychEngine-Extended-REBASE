@@ -1384,8 +1384,6 @@ class PlayState extends MusicBeatState
 		}
 		callOnLuas('onCreatePost', []);
 
-		super.create();
-
 		cacheCountdown();
 		cachePopUpScore();
 		for (key => type in precacheList)
@@ -1401,6 +1399,7 @@ class PlayState extends MusicBeatState
 					Paths.music(key);
 			}
 		}
+		super.create();
 		Paths.clearUnusedMemory();
 		
 		CustomFadeTransition.nextCamera = camOther;
@@ -2474,13 +2473,12 @@ class PlayState extends MusicBeatState
 
 		curSong = songData.song;
 
-		if (SONG.needsVoices)
-			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-		else
-			vocals = new FlxSound();
+		vocals = new FlxSound();
+		if (songData.needsVoices) vocals.loadEmbedded(Paths.voices(PlayState.SONG.song));
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
+		
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
 		notes = new FlxTypedGroup<Note>();
