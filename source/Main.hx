@@ -7,12 +7,12 @@ import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Assets;
 import openfl.Lib;
-import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import mobile.CopyState;
+import debug.FPSCounter;
 
 #if desktop
 import Discord.DiscordClient;
@@ -42,7 +42,7 @@ class Main extends Sprite
 		startFullscreen: false // if the game should start at fullscreen mode
 	};
 
-	public static var fpsVar:FPS;
+	public static var fpsVar:FPSCounter;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -117,7 +117,7 @@ class Main extends Sprite
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
-		fpsVar = new FPS(10, 3, 0xFFFFFF);
+		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;

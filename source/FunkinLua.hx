@@ -24,7 +24,6 @@ import flixel.tweens.FlxEase;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
-import flixel.system.FlxSound;
 import flixel.util.FlxTimer;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
@@ -176,7 +175,7 @@ class FunkinLua {
 		// Gameplay settings
 		set('healthGainMult', PlayState.instance.healthGain);
 		set('healthLossMult', PlayState.instance.healthLoss);
-		set('playbackRate', PlayState.instance.playbackRate);
+		#if FLX_PITCH set('playbackRate', PlayState.instance.playbackRate); #end
 		set('instakillOnMiss', PlayState.instance.instakillOnMiss);
 		set('OpponentMode', PlayState.instance.cpuControlled_opponent);
 		

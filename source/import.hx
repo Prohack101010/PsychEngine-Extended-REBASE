@@ -47,7 +47,7 @@ import openfl.utils.Assets as OpenFlAssets;
 import openfl.Lib;
 
 //Flixel
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
