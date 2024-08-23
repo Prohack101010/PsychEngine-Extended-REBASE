@@ -10,7 +10,7 @@
     {
       "name": "openfl",
       "type": "haxelib",
-      "version": "9.3.2"
+      "version": "9.3.3"
     },
     {
       "name": "flixel",
@@ -37,17 +37,12 @@
       "type": "git",
       "dir": null,
       "ref": "master",
-      "url": "https://github.com/beihu235/hxcpp"
+      "url": "https://github.com/mcagabe19-stuff/hxcpp"
     },
     {
       "name": "hxCodec",
       "type": "haxelib",
       "version": "2.6.0"
-    },
-    {
-      "name": "SScript",
-      "type": "haxelib",
-      "version": "8.1.6"
     },
     {
       "name": "hscript",
@@ -65,9 +60,11 @@
       "version": null
     },
     {
-      "name": "hxdiscord_rpc",
-      "type": "haxelib",
-      "version": null
+      "name": "discord_rpc",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/Aidan63/linc_discord-rpc"
     },
     {
       "name": "linc_luajit",
@@ -89,20 +86,6 @@
       "dir": null,
       "ref": "main",
       "url": "https://github.com/MAJigsaw77/extension-androidtools"
-    },
-    {
-      "name": "funkin.vis",
-      "type": "git",
-      "dir": null,
-      "ref": "38261833590773cb1de34ac5d11e0825696fc340",
-      "url": "https://github.com/FunkinCrew/funkVis"
-    },
-    {
-      "name": "grig.audio",
-      "type": "git",
-      "dir": "src",
-      "ref": "57f5d47f2533fd0c3dcd025a86cb86c0dfa0b6d2",
-      "url": "https://gitlab.com/haxe-grig/grig.audio.git"
     }
   ]
 }
