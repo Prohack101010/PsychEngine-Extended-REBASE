@@ -89,6 +89,11 @@ class TitleState extends MusicBeatState
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
+		
+		#if mobile
+		if (ClientPrefs.wideScreen)
+		    FlxG.scaleMode = new MobileScaleMode();
+		#end
 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
