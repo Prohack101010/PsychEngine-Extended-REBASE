@@ -14,7 +14,7 @@ class Triangle extends FlxSprite
         super(X, Y);
 		
         loadGraphic(drawHollowTriangle(Size, Inner));
-        antialiasing = ClientPrefs.data.antialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	public static function drawHollowTriangle(sideLength:Float, innerSide:Float):BitmapData {
@@ -66,7 +66,7 @@ class Rect extends FlxSprite
         super(X, Y);
 
         loadGraphic(drawRect(width, height, roundWidth, roundHeight));
-        antialiasing = ClientPrefs.data.antialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
         color = Color;
         alpha = Alpha;
     }
