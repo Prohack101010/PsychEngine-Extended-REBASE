@@ -42,12 +42,12 @@
     {
       "name": "hxCodec",
       "type": "haxelib",
-      "version": "2.5.1"
+      "version": "2.6.0"
     },
     {
       "name": "hscript",
       "type": "haxelib",
-      "version": "2.4.0"
+      "version": "2.5.0"
     },
     {
       "name": "hxcpp-debug-server",
@@ -86,20 +86,6 @@
       "dir": null,
       "ref": "main",
       "url": "https://github.com/MAJigsaw77/extension-androidtools"
-    },
-    {
-      "name": "funkin.vis",
-      "type": "git",
-      "dir": null,
-      "ref": "d5361037efa3a02c4ab20b5bd14ca11e7d00f519",
-      "url": "https://github.com/FunkinCrew/funkVis"
-    },
-    {
-      "name": "grig.audio",
-      "type": "git",
-      "dir": "src",
-      "ref": "cbf91e2180fd2e374924fe74844086aab7891666",
-      "url": "https://gitlab.com/haxe-grig/grig.audio.git"
     }
   ]
 }
