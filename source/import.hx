@@ -1,5 +1,7 @@
 // Psych
+#if !macro
 import Paths;
+#end
 import backend.ui.*;
 
 // Extra
