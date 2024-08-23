@@ -9,8 +9,8 @@
     {
       "name": "linc_luajit",
       "type": "git",
-      "ref": "main",
-      "url": "https://github.com/mcagabe19-stuff/linc_luajit-legacy"
+      "ref": "master",
+      "url": "https://github.com/superpowers04/linc_luajit.git"
     },
     {
       "name": "extension-androidtools",
