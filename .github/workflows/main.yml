@@ -6,14 +6,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@main
+        id: setup-ndk
+        with:
+          ndk-version: r21e
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@main
+        with:
+          distribution: 'temurin'
+          java-version: '11'
 
       - name: Setup Haxe
-        uses: krdlab/setup-haxe@v1.2.0
+        uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.2.5
+          haxe-version: 4.3.4
 
       - name: Install Libraries
         run: |
+          haxelib setup ~/haxelib
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
 
