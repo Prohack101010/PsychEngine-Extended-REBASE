@@ -34,28 +34,6 @@ class TouchUtil
   public static var touch(get, never):FlxTouch;
 
   /**
-   * Checks if the specified object overlaps with any touch.
-   *
-   * @param object The FlxBasic object to check against touches.
-   * @param camera Optional camera to use for overlap check. If null, object's camera is used.
-   *
-   * @return `true` if there is an overlap with any touch; `false` otherwise.
-   */
-  public static function overlaps(object:FlxBasic, ?camera:FlxCamera):Bool
-  {
-    if (object == null) return false;
-
-    #if FLX_TOUCH
-    for (touch in FlxG.touches.list)
-    {
-      if (touch.overlaps(object, camera ?? object.camera)) return true;
-    }
-    #end
-
-    return false;
-  }
-
-  /**
    * Checks if the specified object overlaps with any touch using precise point checks.
    *
    * @param object The FlxObject to check against touches.
