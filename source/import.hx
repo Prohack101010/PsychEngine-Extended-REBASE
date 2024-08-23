@@ -8,6 +8,11 @@ import backend.ui.*; //Psych-UI
 import FreeplayState;
 import flixel.addons.ui.*;
 
+#if (LUA_ALLOWED)
+import llua.*;
+import llua.Lua;
+#end
+
 // 0.7x Support
 import Difficulty;
 // import Mods; it brokes TitleState
