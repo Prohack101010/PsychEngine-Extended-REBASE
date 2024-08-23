@@ -101,7 +101,7 @@ class FreeplayState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		camGame = initPsychCamera();
+		camGame = new FlxCamera();
 
 		for (i in 0...WeekData.weeksList.length)
 		{
@@ -204,6 +204,7 @@ class FreeplayState extends MusicBeatState
 		camAudio.bgColor = 0x00;
 		camHS = new FlxCamera(Std.int(extraAudio.x), Std.int(extraAudio.y + extraAudio.height), Std.int(extraBG.width), Std.int(extraBG.height - extraAudio.height));
 		camHS.bgColor = 0x00;
+		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAudio, false);
 		FlxG.cameras.add(camHS, false);
 
@@ -592,10 +593,6 @@ class FreeplayState extends MusicBeatState
 				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.8);
 				if (vocals != null) vocals.play();
 				if (opponentVocals != null) opponentVocals.play();
-				
-				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
-				if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
-				else instDis.audioDis.changeAnalyzer(FlxG.sound.music);
 
 				musicMutex.release();
 			});
