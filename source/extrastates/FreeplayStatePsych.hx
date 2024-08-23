@@ -341,7 +341,6 @@ class FreeplayStatePsych extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				if (PlayState.SONG.needsVoices)
 				{
-				    var vocals = new FlxSound();
         		    try
         		    {
         			    vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));

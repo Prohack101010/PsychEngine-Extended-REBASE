@@ -141,6 +141,8 @@
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/> 
 	<haxelib name="flxanimate"/>
+	<haxelib name="funkin.vis"/>
+	<haxelib name="grig.audio" />
 	<haxelib name="tjson"/>
         <haxelib name="extension-androidtools" if="android"/>
 	<haxelib name="faxe" if='switch'/>
