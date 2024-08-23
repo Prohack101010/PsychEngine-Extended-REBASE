@@ -1,5 +1,6 @@
 package;
 
+import mobile.MobileScaleMode;
 import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
 import flixel.FlxGame;
@@ -37,8 +38,8 @@ class Main extends Sprite
 		initialState: TitleState, // initial game state
 		zoom: -1.0, // game state bounds
 		framerate: 60, // default framerate
-		skipSplash: true, // if the default flixel splash screen should be skipped
-		startFullscreen: true // if the game should start at fullscreen mode
+		skipSplash: false, // if the default flixel splash screen should be skipped
+		startFullscreen: false // if the game should start at fullscreen mode
 	};
 
 	public static var fpsVar:FPS;
@@ -96,6 +97,7 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
+	    #if (openfl <= "9.2.0")
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
@@ -107,6 +109,10 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
+		#else
+		if (game.zoom == -1.0)
+			game.zoom = 1.0;
+		#end
 	
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
@@ -126,6 +132,10 @@ class Main extends Sprite
 		
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK]; 
+		#end
+		
+		#if mobile
+		FlxG.scaleMode = new MobileScaleMode();
 		#end
 		
 		#if CRASH_HANDLER
