@@ -35,6 +35,7 @@ enum abstract CaseMode(Int) from Int from UInt to Int to UInt
 class PsychUIInputText extends FlxSpriteGroup
 {
 	public static final CHANGE_EVENT = "inputtext_change";
+	static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 
 	static final KEY_TILDE = 126;
 	static final KEY_ACUTE = 180;
@@ -221,7 +222,6 @@ class PsychUIInputText extends FlxSpriteGroup
 			return;
 		}
 
-		static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 		if(ignored.contains(flxKey)) return;
 
 		var lastAccent = _nextAccent;
