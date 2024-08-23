@@ -37,7 +37,7 @@
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": null
+      "version": "2.4.0"
     },
     {
       "name": "hscript",
@@ -74,8 +74,9 @@
     },
     {
       "name": "openfl",
-      "type": "haxelib",
-      "version": "9.3.2"
+      "type": "git",
+      "ref": "develop",
+      "url": "https://github.com/Prohack101010/openfl-0.6.3"
     }
   ]
 }
