@@ -1,6 +1,6 @@
 package;
 
-import flash.geom.Rectangle;
+import openfl.geom.Rectangle;
 import tjson.TJSON as Json;
 import haxe.format.JsonParser;
 import haxe.io.Bytes;
@@ -43,7 +43,7 @@ import AttachedSprite;
 import Prompt;
 
 #if sys
-import flash.media.Sound;
+import openfl.media.Sound;
 import sys.io.File;
 import sys.FileSystem;
 #end
