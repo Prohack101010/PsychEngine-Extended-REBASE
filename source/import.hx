@@ -15,11 +15,10 @@ import flixel.addons.ui.*;
 import Difficulty;
 // import Mods; it brokes TitleState
 
-/*
+// FlxAnimate
 #if flxanimate
 import flxanimate.*;
 #end
-*/
 
 #if sys
 import sys.*;
