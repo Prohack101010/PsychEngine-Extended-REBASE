@@ -299,7 +299,7 @@ class Paths
 				bitmap = BitmapData.fromFile(file);
 
 			else #end if (Assets.exists(file, IMAGE))
-				bitmap = Assets.getBitmapData(file);
+				bitmap = OpenFlAssets.getBitmapData(file);
 
 			if (bitmap == null)
 			{
