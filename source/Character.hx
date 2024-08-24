@@ -1,6 +1,5 @@
 package;
 
-import animation.PsychAnimationController;
 // import animateatlas.AtlasFrameMaker;
 import flixel.util.FlxDestroyUtil;
 import flixel.FlxG;

@@ -2,12 +2,13 @@
 #if !macro
 import Paths;
 #end
-import backend.ui.*;
+
+// Better than backend.animation.* and backend.ui.*
+import backend.*; //Psych-UI and PsychAnimationController
 
 // Extra
 import extrastates.FreeplayStatePsych;
 import extrastates.MainMenuStateOld;
-import backend.ui.*; //Psych-UI
 import FreeplayState;
 import flixel.addons.ui.*;
 

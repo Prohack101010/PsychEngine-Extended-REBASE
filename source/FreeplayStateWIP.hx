@@ -31,7 +31,7 @@ import options.OptionsState;
 
 class FreeplayStateWIP extends MusicBeatState
 {
-	static public var instance:FreeplayState;
+	static public var instance:FreeplayStateWIP;
 
 	var selector:FlxText;
 	static public var curSelected:Int = 0;
