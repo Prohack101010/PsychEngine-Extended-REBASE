@@ -266,22 +266,6 @@ class FunkinLua {
 		PlayState.instance.setOnHScript('customSubstate', instance);
 		PlayState.instance.setOnHScript('customSubstateName', name);
 	}
-	
-	override function openSubStatePlus(SubState:FlxSubState)
-	{
-		if (paused)
-		{
-			if (FlxG.sound.music != null)
-			{
-				FlxG.sound.music.pause();
-				vocals.pause();
-			}
-
-			if (!startTimer.finished)
-				startTimer.active = false;
-			if (finishTimer != null && !finishTimer.finished)
-				finishTimer.active = false;
-		}
 
 	public static function closeCustomSubstate()
 	{
@@ -2171,7 +2155,7 @@ class FunkinLua {
 					{
 						if(PlayState.instance.isDead)
 						{
-							openSubStatePlus(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
+							GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
 						}
 						else
 						{
