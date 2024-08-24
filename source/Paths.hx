@@ -1,8 +1,5 @@
 package;
 
-#if flxanimate
-import flxanimate.*;
-#end
 // import animateatlas.AtlasFrameMaker;
 import flixel.math.FlxPoint;
 import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
@@ -172,6 +169,11 @@ class Paths
 	{
 		return 'assets/$file';
 	}
+	
+	inline public static function getSharedPath(file:String = '')
+	{
+		return 'assets/shared/$file';
+	}
 
 	inline static public function txt(key:String, ?library:String)
 	{
@@ -231,10 +233,19 @@ class Paths
 
 	inline static public function voices(song:String):Any
 	{	 
+	    // var diff = CoolUtil.difficultyString();
+	      
+		// var songKeyErect:String = '${formatToSongPath(song)}/Voices-Erect';
 		var songKey:String = '${formatToSongPath(song)}/Voices';
-
+	    
+		// var voicesErect = returnSound('songs', songKeyErect);
 		var voices = returnSound('songs', songKey);
-
+		
+		/*
+		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
+		    return voicesErect;
+		else
+		*/
 		return voices;
 	}
 
@@ -710,9 +721,4 @@ class Paths
 		return list;
 	}
 	#end
-	
-	inline public static function getSharedPath(file:String = '')
-	{
-		return 'assets/shared/$file';
-	}
 }
