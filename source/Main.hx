@@ -72,10 +72,6 @@ class Main extends Sprite
 		if (!FileSystem.exists(SUtil.getStorageDirectory()))
 			FileSystem.createDirectory(SUtil.getStorageDirectory());
 	    #end
-	    
-	    #if mobile
-		FlxG.scaleMode = new MobileScaleMode();
-		#end
 			
 		super();
 

@@ -439,11 +439,6 @@ class Paths
 		return null;
 	}
 	
-	inline public static function getSharedPath(file:String = '')
-	{
-		return 'assets/shared/$file';
-	}
-	
 	public static function returnAssetsGraphic(key:String, ?library:String) {
 		#if MODS_ALLOWED
 		var modKey:String = assetsImages(key);
@@ -531,7 +526,7 @@ class Paths
 	}
 	
 	inline static public function assetsImages(key:String) {
-		return Sys.getCwd() + 'assets/images/' + key + '.png';
+		return 'assets/images/' + key + '.png';
 	}
 
 	inline static public function modsXml(key:String) {
@@ -539,7 +534,7 @@ class Paths
 	}
 	
 	inline static public function assetsXml(key:String) {
-		return Sys.getCwd() + 'assets/images/' + key + '.xml';
+		return 'assets/images/' + key + '.xml';
 	}
 	
 	inline static public function modsTxt(key:String) {
@@ -547,7 +542,7 @@ class Paths
 	}
 
 	inline static public function assetsTxt(key:String) {
-		return Sys.getCwd() + 'assets/images/' + key + '.txt';
+		return 'assets/images/' + key + '.txt';
 	}
 
 	/* Goes unused for now
@@ -715,4 +710,9 @@ class Paths
 		return list;
 	}
 	#end
+	
+	inline public static function getSharedPath(file:String = '')
+	{
+		return 'assets/shared/$file';
+	}
 }

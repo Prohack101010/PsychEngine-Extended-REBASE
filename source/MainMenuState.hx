@@ -66,6 +66,11 @@ class MainMenuState extends MusicBeatState
 		Paths.pushGlobalMods();
 		#end
 		WeekData.loadTheFirstEnabledMod();
+		
+		#if mobile
+		if (ClientPrefs.wideScreen)
+		    FlxG.scaleMode = new MobileScaleMode();
+		#end
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence

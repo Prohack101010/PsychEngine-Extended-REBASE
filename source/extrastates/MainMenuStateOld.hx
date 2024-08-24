@@ -54,6 +54,11 @@ class MainMenuStateOld extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
+		#if mobile
+		if (ClientPrefs.wideScreen)
+		    FlxG.scaleMode = new MobileScaleMode();
+		#end
+		
 		if (ClientPrefs.ClassicMainMenu)
 		{
 		optionShit = [
