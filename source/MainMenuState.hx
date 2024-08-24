@@ -336,6 +336,8 @@ class MainMenuState extends MusicBeatState
 							case 'freeplay':
 								if (ClientPrefs.FreeplayStyle == 'Psych')
                     			    MusicBeatState.switchState(new FreeplayStatePsych());
+                    			else if (ClientPrefs.FreeplayStyle == 'New Novaflare')
+                    			    MusicBeatState.switchState(new FreeplayStateWIP());
                     			else
                     			    MusicBeatState.switchState(new FreeplayState());
 

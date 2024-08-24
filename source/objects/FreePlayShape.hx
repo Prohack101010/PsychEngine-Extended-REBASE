@@ -11,7 +11,7 @@ import objects.ShapeEX;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxStringUtil;
 
-import FreeplayState;
+import states.FreeplayState;
 
 class SpecRect extends FlxSprite //freeplay bg rect
 {
@@ -224,7 +224,7 @@ class ExtraAudio extends FlxSpriteGroup
         downLine = new FlxSprite(0, Std.int(height) - 3).makeGraphic(Std.int(width), 3);
         add(downLine);
 
-        audioDis = new AudioDisplay(snd, 5, height - 5, Std.int(width - 5), Std.int(height - 5), 40, FlxColor.WHITE);
+        audioDis = new AudioDisplay(snd, 5, height - 5, Std.int(width - 5), Std.int(height - 5), 40, 2, FlxColor.WHITE);
         add(audioDis);
 	}
 }
@@ -1010,7 +1010,6 @@ class SearchButton extends FlxSpriteGroup
     }
 
 }
-
 
 
 

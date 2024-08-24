@@ -1,5 +1,6 @@
 package;
 
+import backend.animation.PsychAnimationController;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -164,6 +165,8 @@ class Note extends FlxSprite
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inEditor:Bool = false)
 	{
 		super();
+		
+		animation = new PsychAnimationController(this);
 
 		if (prevNote == null)
 			prevNote = this;

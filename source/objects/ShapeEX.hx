@@ -83,4 +83,3 @@ class Rect extends FlxSprite
         return bitmap;
     }
 }
-

@@ -39,7 +39,7 @@ class VisualsSubState extends BaseOptionsMenu
 			'FreeplayStyle',
 			'string',
 			'Psych',
-			['Psych', 'NovaFlare']);
+			['Psych', 'NovaFlare', 'New NovaFlare']);
 		addOption(option);
 		
 		var option:Option = new Option('Main Menu Style:',
