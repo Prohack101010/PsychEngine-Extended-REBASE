@@ -69,6 +69,7 @@ class FunkinLua {
 	public static var Function_Stop:Dynamic = "##PSYCHLUA_FUNCTIONSTOP";
 	public static var Function_Continue:Dynamic = "##PSYCHLUA_FUNCTIONCONTINUE";
 	public static var Function_StopLua:Dynamic = "##PSYCHLUA_FUNCTIONSTOPLUA";
+	public static var Function_StopAll:Dynamic = "##PSYCHLUA_FUNCTIONSTOPALL";
 
 	//public var errorHandler:String->Void;
 	#if LUA_ALLOWED
@@ -116,6 +117,7 @@ class FunkinLua {
 
 		// Lua shit
 		set('Function_StopLua', Function_StopLua);
+		set('Function_StopAll', Function_StopAll);
 		set('Function_Stop', Function_Stop);
 		set('Function_Continue', Function_Continue);
 		set('luaDebugMode', false);
@@ -241,29 +243,72 @@ class FunkinLua {
 		#end
 
 		// custom substate
-		Lua_helper.add_callback(lua, "openCustomSubstate", function(name:String, pauseGame:Bool = false) {
-			if(pauseGame)
-			{
-				PlayState.instance.persistentUpdate = false;
-				PlayState.instance.persistentDraw = true;
-				PlayState.instance.paused = true;
-				if(FlxG.sound.music != null) {
-					FlxG.sound.music.pause();
-					PlayState.instance.vocals.pause();
-				}
-			}
-			PlayState.instance.openSubState(new CustomSubstate(name));
-		});
+		Lua_helper.add_callback(lua, "openCustomSubstate", openCustomSubstate);
+		Lua_helper.add_callback(lua, "closeCustomSubstate", closeCustomSubstate);
+		Lua_helper.add_callback(lua, "insertToCustomSubstate", insertToCustomSubstate);
+		#end
+	}
 
-		Lua_helper.add_callback(lua, "closeCustomSubstate", function() {
-			if(CustomSubstate.instance != null)
+	public static function openCustomSubstate(name:String, ?pauseGame:Bool = false)
+	{
+		if(pauseGame)
+		{
+			FlxG.camera.followLerp = 0;
+			PlayState.instance.persistentUpdate = false;
+			PlayState.instance.persistentDraw = true;
+			PlayState.instance.paused = true;
+			if(FlxG.sound.music != null) {
+				FlxG.sound.music.pause();
+				PlayState.instance.vocals.pause();
+			}
+			}
+		PlayState.instance.openSubState(new CustomSubstate(name));
+		PlayState.instance.setOnHScript('customSubstate', instance);
+		PlayState.instance.setOnHScript('customSubstateName', name);
+	}
+	
+	override function openSubStatePlus(SubState:FlxSubState)
+	{
+		if (paused)
+		{
+			if (FlxG.sound.music != null)
 			{
-				PlayState.instance.closeSubState();
-				CustomSubstate.instance = null;
+				FlxG.sound.music.pause();
+				vocals.pause();
+			}
+
+			if (!startTimer.finished)
+				startTimer.active = false;
+			if (finishTimer != null && !finishTimer.finished)
+				finishTimer.active = false;
+		}
+
+	public static function closeCustomSubstate()
+	{
+		if(instance != null)
+		{
+			PlayState.instance.closeSubState();
+			instance = null;
+			return true;
+		}
+		return false;
+	}
+
+	public static function insertToCustomSubstate(tag:String, ?pos:Int = -1)
+	{
+		if(instance != null)
+		{
+			var tagObject:FlxObject = cast (PlayState.instance.variables.get(tag), FlxObject);
+			if(tagObject == null) tagObject = cast (PlayState.instance.modchartSprites.get(tag), FlxObject);
+
+		    if(tagObject != null)
+			{
+				if(pos < 0) instance.add(tagObject);
+				else instance.insert(pos, tagObject);
 				return true;
 			}
-			return false;
-		});
+		}
+		return false;
 
 		// shader shit
 		Lua_helper.add_callback(lua, "initLuaShader", function(name:String) {
@@ -485,6 +530,19 @@ class FunkinLua {
 
 
 			return runningScripts;
+		});
+		
+		Lua_helper.add_callback(lua, "setOnScripts", function(varName:String, arg:Dynamic, ?ignoreSelf:Bool = false, ?exclusions:Array<String> = null) {
+			if(exclusions == null) exclusions = [];
+			if(ignoreSelf && !exclusions.contains(scriptName)) exclusions.push(scriptName);
+			PlayState.instance.setOnScripts(varName, arg, exclusions);
+		});
+		
+		Lua_helper.add_callback(lua, "callOnScripts", function(funcName:String, ?args:Array<Dynamic> = null, ?ignoreStops=false, ?ignoreSelf:Bool = true, ?excludeScripts:Array<String> = null, ?excludeValues:Array<Dynamic> = null) {
+			if(excludeScripts == null) excludeScripts = [];
+			if(ignoreSelf && !excludeScripts.contains(scriptName)) excludeScripts.push(scriptName);
+			PlayState.instance.callOnScripts(funcName, args, ignoreStops, excludeScripts, excludeValues);
+			return true;
 		});
 
 		Lua_helper.add_callback(lua, "callOnLuas", function(?funcName:String, ?args:Array<Dynamic>, ignoreStops=false, ignoreSelf=true, ?exclusions:Array<String>){
@@ -2113,7 +2171,7 @@ class FunkinLua {
 					{
 						if(PlayState.instance.isDead)
 						{
-							GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
+							openSubStatePlus(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
 						}
 						else
 						{
@@ -3856,7 +3914,7 @@ class DebugLuaText extends FlxText
 	public var parentGroup:FlxTypedGroup<DebugLuaText>;
 	public function new(text:String, parentGroup:FlxTypedGroup<DebugLuaText>, color:FlxColor) {
 		this.parentGroup = parentGroup;
-		super(10, 10, 0, text, 16);
+		super(10, 10, FlxG.width - 20, text, 16);
 		setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scrollFactor.set();
 		borderSize = 1;
@@ -3879,9 +3937,9 @@ class CustomSubstate extends MusicBeatSubstate
 	{
 		instance = this;
 
-		PlayState.instance.callOnLuas('onCustomSubstateCreate', [name]);
+		PlayState.instance.callOnScripts('onCustomSubstateCreate', [name]);
 		super.create();
-		PlayState.instance.callOnLuas('onCustomSubstateCreatePost', [name]);
+		PlayState.instance.callOnScripts('onCustomSubstateCreatePost', [name]);
 	}
 	
 	public function new(name:String)
@@ -3893,14 +3951,18 @@ class CustomSubstate extends MusicBeatSubstate
 	
 	override function update(elapsed:Float)
 	{
-		PlayState.instance.callOnLuas('onCustomSubstateUpdate', [name, elapsed]);
+		PlayState.instance.callOnScripts('onCustomSubstateUpdate', [name, elapsed]);
 		super.update(elapsed);
-		PlayState.instance.callOnLuas('onCustomSubstateUpdatePost', [name, elapsed]);
+		PlayState.instance.callOnScripts('onCustomSubstateUpdatePost', [name, elapsed]);
 	}
 
 	override function destroy()
 	{
-		PlayState.instance.callOnLuas('onCustomSubstateDestroy', [name]);
+		PlayState.instance.callOnScripts('onCustomSubstateDestroy', [name]);
+		name = 'unnamed';
+
+		PlayState.instance.setOnHScript('customSubstate', null);
+		PlayState.instance.setOnHScript('customSubstateName', name);
 		super.destroy();
 	}
 }
