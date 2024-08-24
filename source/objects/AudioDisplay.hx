@@ -10,6 +10,7 @@ class AudioDisplay extends FlxSpriteGroup
     public var snd:FlxSound;
     var _height:Int;
     var line:Int;
+    var yoksay:Bool = true;
 
     public function new(snd:FlxSound = null, X:Float = 0, Y:Float = 0, Width:Int, Height:Int, line:Int, gap:Int, Color:FlxColor)
     {
@@ -63,11 +64,9 @@ class AudioDisplay extends FlxSpriteGroup
       }
     }
 
-    /* useless
     public function changeAnalyzer(snd:FlxSound) 
     {
       @:privateAccess
       analyzer.changeSnd(snd._channel.__audioSource);
     }
-    */
 }

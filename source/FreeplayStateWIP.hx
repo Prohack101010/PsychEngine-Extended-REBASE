@@ -1,4 +1,4 @@
-package states;
+package;
 
 import flixel.util.FlxSpriteUtil;
 import flixel.addons.transition.FlxTransitionableState;
@@ -144,7 +144,7 @@ class FreeplayStateWIP extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		add(magenta);
 
 		var specBG:SpecRectBG = new SpecRectBG(0, 0);
@@ -353,13 +353,7 @@ class FreeplayStateWIP extends MusicBeatState
 
 			return;
 		}
-		LoadingState.prepareToSong();
-		if (ClientPrefs.data.loadingScreen) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-		} else {
-			destroyFreeplayVocals();
-		}
+		destroyFreeplayVocals();
 		LoadingState.loadAndSwitchState(new PlayState());
 		FlxG.mouse.visible = false;
 	}
@@ -497,7 +491,7 @@ class FreeplayStateWIP extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		smallMag.updateRect(magenta.pixels);			
 	}
