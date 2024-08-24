@@ -2,6 +2,7 @@ package;
 
 import flixel.util.FlxSpriteUtil;
 import flixel.addons.transition.FlxTransitionableState;
+import FreeplayState.SongMetadata;
 
 import haxe.Json;
 import haxe.ds.ArraySort;
@@ -625,28 +626,4 @@ class FreeplayStateWIP extends MusicBeatState
 		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
 	}
 	
-}
-
-class SongMetadata
-{
-	public var songName:String = "";
-	public var week:Int = 0;
-	public var songCharacter:String = "";
-	public var color:Int = -7179779;
-	public var folder:String = "";
-	public var lastDifficulty:String = null;
-	public var bg:Dynamic;
-	public var searchnum:Int = 0;
-
-	public function new(song:String, week:Int, songCharacter:String, color:Int)
-	{
-		this.songName = song;
-		this.week = week;
-		this.songCharacter = songCharacter;
-		this.color = color;
-		this.folder = Paths.currentModDirectory;
-		this.bg = Paths.image('menuDesat');
-		this.searchnum = 0;
-		if(this.folder == null) this.folder = '';
-	}
 }
