@@ -1,8 +1,9 @@
-package;
+package mobile;
 
 import openfl.events.UncaughtErrorEvent;
 import openfl.events.ErrorEvent;
 import openfl.errors.Error;
+import mobile.SUtil;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -74,7 +75,7 @@ class CrashHandler
 			trace('Couldn\'t save error message. (${e.message})');
 		#end
 
-		CoolUtil.showPopUp('$m\n$stackLabel', "Error!");
+		SUtil.showPopUp('$m\n$stackLabel', "Error!");
 
 		#if html5
 		if (flixel.FlxG.sound.music != null)
