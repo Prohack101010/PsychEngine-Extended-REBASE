@@ -29,6 +29,7 @@ class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
+	private static var phrases:Map<String, String> = [];
 
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
@@ -274,7 +275,6 @@ class Paths
 		return returnAsset;
 	}
 	
-	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	static public function assetsimage(key:String, ?parentFolder:String = null):FlxGraphic
 	{
 		key = Paths.getFileTranslation('images/$key');
@@ -287,6 +287,34 @@ class Paths
 			return currentTrackedAssets.get(key);
 		}
 		return cacheBitmap(key, parentFolder, bitmap);
+	}
+	
+	public static function cacheBitmap(key:String, ?parentFolder:String = null, ?bitmap:BitmapData):FlxGraphic
+	{
+		if (bitmap == null)
+		{
+			var file:String = getPath(key, IMAGE, parentFolder, true);
+			#if MODS_ALLOWED
+			if (FileSystem.exists(file))
+				bitmap = BitmapData.fromFile(file);
+
+			else #end if (Assets.exists(file, IMAGE))
+				bitmap = Assets.getBitmapData(file);
+
+			if (bitmap == null)
+			{
+				trace('oh no its returning null NOOOO ($file)');
+				return null;
+			}
+		}
+
+		var graph:FlxGraphic = FlxGraphic.fromBitmapData(bitmap, false, key);
+		graph.persist = true;
+		graph.destroyOnNoUse = false;
+
+		currentTrackedAssets.set(key, graph);
+		localTrackedAssets.push(key);
+		return graph;
 	}
 
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String

@@ -10,6 +10,7 @@ import flixel.system.scaleModes.BaseScaleMode;
 class MobileScaleMode extends BaseScaleMode
 {
     public static var allowWideScreen(default, set):Bool = true;
+    public static var allowBorderlessScreen(default, set):Bool = false; //Borderless Screen Test
 
     override function updateGameSize(Width:Int, Height:Int):Void
 	{
@@ -17,7 +18,7 @@ class MobileScaleMode extends BaseScaleMode
         {
             super.updateGameSize(Width, Height);
         }
-        else
+        else if(!allowBorderlessScreen)
         {
             var ratio:Float = FlxG.width / FlxG.height;
             var realRatio:Float = Width / Height;
@@ -41,7 +42,7 @@ class MobileScaleMode extends BaseScaleMode
 	{
         if(ClientPrefs.wideScreen && allowWideScreen)
 		    FlxG.game.x = FlxG.game.y = 0;
-        else
+        else if (!allowBorderlessScreen)
             super.updateGamePosition();
 	}
 
@@ -49,6 +50,12 @@ class MobileScaleMode extends BaseScaleMode
     private static function set_allowWideScreen(value:Bool):Bool
     {
         allowWideScreen = value;
+        FlxG.scaleMode = new MobileScaleMode();
+        return value;
+    }
+    private static function set_allowBorderlessScreen(value:Bool):Bool
+    {
+        allowBorderlessScreen = value;
         FlxG.scaleMode = new MobileScaleMode();
         return value;
     }
