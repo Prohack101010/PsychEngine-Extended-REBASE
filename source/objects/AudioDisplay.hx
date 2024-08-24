@@ -63,9 +63,11 @@ class AudioDisplay extends FlxSpriteGroup
       }
     }
 
+    /* useless
     public function changeAnalyzer(snd:FlxSound) 
     {
       @:privateAccess
       analyzer.changeSnd(snd._channel.__audioSource);
     }
+    */
 }
