@@ -10,12 +10,12 @@
     {
       "name": "openfl",
       "type": "haxelib",
-      "version": "9.3.3"
+      "version": "9.3.2"
     },
     {
       "name": "flixel",
       "type": "haxelib",
-      "version": "5.6.0"
+      "version": "5.5.0"
     },
     {
       "name": "flixel-addons",
@@ -25,7 +25,7 @@
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": null
+      "version": "2.5.0"
     },
     {
       "name": "flixel-tools",
@@ -47,7 +47,7 @@
     {
       "name": "hscript",
       "type": "haxelib",
-      "version": "2.5.0"
+      "version": "2.4.0"
     },
     {
       "name": "hxcpp-debug-server",
@@ -70,8 +70,8 @@
       "name": "linc_luajit",
       "type": "git",
       "dir": null,
-      "ref": "master",
-      "url": "https://github.com/superpowers04/linc_luajit.git"
+      "ref": "main",
+      "url": "https://github.com/mcagabe19-stuff/linc_luajit-legacy"
     },
     {
       "name": "flxanimate",
