@@ -3,7 +3,6 @@ package;
 #if desktop
 import sys.thread.Thread;
 #end
-import mobile.MobileScaleMode;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -89,11 +88,6 @@ class TitleState extends MusicBeatState
 
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
-		#end
-		
-		#if mobile
-		if (ClientPrefs.wideScreen)
-		    FlxG.scaleMode = new MobileScaleMode();
 		#end
 
 		Paths.clearStoredMemory();

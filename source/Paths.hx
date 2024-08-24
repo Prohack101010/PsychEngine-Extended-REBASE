@@ -231,19 +231,10 @@ class Paths
 
 	inline static public function voices(song:String):Any
 	{	 
-	    // var diff = CoolUtil.difficultyString();
-	      
-		// var songKeyErect:String = '${formatToSongPath(song)}/Voices-Erect';
 		var songKey:String = '${formatToSongPath(song)}/Voices';
-	    
-		// var voicesErect = returnSound('songs', songKeyErect);
+
 		var voices = returnSound('songs', songKey);
-		
-		/*
-		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
-		    return voicesErect;
-		else
-		*/
+
 		return voices;
 	}
 
@@ -540,7 +531,7 @@ class Paths
 	}
 	
 	inline static public function assetsImages(key:String) {
-		return 'assets/images/' + key + '.png';
+		return Sys.getCwd() + 'assets/images/' + key + '.png';
 	}
 
 	inline static public function modsXml(key:String) {
@@ -548,7 +539,7 @@ class Paths
 	}
 	
 	inline static public function assetsXml(key:String) {
-		return 'assets/images/' + key + '.xml';
+		return Sys.getCwd() + 'assets/images/' + key + '.xml';
 	}
 	
 	inline static public function modsTxt(key:String) {
@@ -556,7 +547,7 @@ class Paths
 	}
 
 	inline static public function assetsTxt(key:String) {
-		return 'assets/images/' + key + '.txt';
+		return Sys.getCwd() + 'assets/images/' + key + '.txt';
 	}
 
 	/* Goes unused for now
