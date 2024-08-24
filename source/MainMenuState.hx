@@ -66,11 +66,6 @@ class MainMenuState extends MusicBeatState
 		Paths.pushGlobalMods();
 		#end
 		WeekData.loadTheFirstEnabledMod();
-		
-		#if mobile
-		if (ClientPrefs.wideScreen)
-		    FlxG.scaleMode = new MobileScaleMode();
-		#end
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
@@ -336,7 +331,7 @@ class MainMenuState extends MusicBeatState
 							case 'freeplay':
 								if (ClientPrefs.FreeplayStyle == 'Psych')
                     			    MusicBeatState.switchState(new FreeplayStatePsych());
-                    			else if (ClientPrefs.FreeplayStyle == 'New Novaflare')
+                    			else if (ClientPrefs.FreeplayStyle == 'New NovaFlare')
                     			    MusicBeatState.switchState(new FreeplayStateWIP());
                     			else
                     			    MusicBeatState.switchState(new FreeplayState());

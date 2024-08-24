@@ -1,8 +1,7 @@
-package;
+package states;
 
 import flixel.util.FlxSpriteUtil;
 import flixel.addons.transition.FlxTransitionableState;
-import FreeplayState.SongMetadata;
 
 import haxe.Json;
 import haxe.ds.ArraySort;
@@ -24,6 +23,7 @@ import objects.FreePlayShape;
 import GameplayChangersSubstate;
 import ResetScoreSubState;
 
+import FreeplayState.SongMetadata;
 import MainMenuState;
 import PlayState;
 import LoadingState;
@@ -102,7 +102,7 @@ class FreeplayStateWIP extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		camGame = new FlxCamera();
+		camGame = initPsychCamera();
 
 		for (i in 0...WeekData.weeksList.length)
 		{
@@ -144,7 +144,7 @@ class FreeplayStateWIP extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+		magenta.antialiasing = ClientPrefs.data.antialiasing;
 		add(magenta);
 
 		var specBG:SpecRectBG = new SpecRectBG(0, 0);
@@ -205,7 +205,6 @@ class FreeplayStateWIP extends MusicBeatState
 		camAudio.bgColor = 0x00;
 		camHS = new FlxCamera(Std.int(extraAudio.x), Std.int(extraAudio.y + extraAudio.height), Std.int(extraBG.width), Std.int(extraBG.height - extraAudio.height));
 		camHS.bgColor = 0x00;
-		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAudio, false);
 		FlxG.cameras.add(camHS, false);
 
@@ -330,7 +329,10 @@ class FreeplayStateWIP extends MusicBeatState
 	function backMenu() {
 		if (!pressCheck){
 			pressCheck = true;
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.MainMenuStyle == '0.6.3')
+    			MusicBeatState.switchState(new MainMenuStateOld());
+    		else
+    			MusicBeatState.switchState(new MainMenuState());
 		}
 	}
 
@@ -351,7 +353,13 @@ class FreeplayStateWIP extends MusicBeatState
 
 			return;
 		}
-		destroyFreeplayVocals();
+		LoadingState.prepareToSong();
+		if (ClientPrefs.data.loadingScreen) {
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+		} else {
+			destroyFreeplayVocals();
+		}
 		LoadingState.loadAndSwitchState(new PlayState());
 		FlxG.mouse.visible = false;
 	}
@@ -489,7 +497,7 @@ class FreeplayStateWIP extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+		magenta.antialiasing = ClientPrefs.data.antialiasing;
 		
 		smallMag.updateRect(magenta.pixels);			
 	}
@@ -579,7 +587,11 @@ class FreeplayStateWIP extends MusicBeatState
 
 				if (PlayState.SONG.needsVoices)
 				{
-					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+				    vocals = new FlxSound();
+        		    try
+        		    {
+    					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+    				}
 					FlxG.sound.list.add(vocals);
 					vocals.persist = vocals.looped = true;
 					vocals.volume = 0.8;
@@ -594,6 +606,10 @@ class FreeplayStateWIP extends MusicBeatState
 				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.8);
 				if (vocals != null) vocals.play();
 				if (opponentVocals != null) opponentVocals.play();
+				
+				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
+				if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
+				else instDis.audioDis.changeAnalyzer(FlxG.sound.music);
 
 				musicMutex.release();
 			});

@@ -54,11 +54,6 @@ class MainMenuStateOld extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
-		#if mobile
-		if (ClientPrefs.wideScreen)
-		    FlxG.scaleMode = new MobileScaleMode();
-		#end
-		
 		if (ClientPrefs.ClassicMainMenu)
 		{
 		optionShit = [
@@ -287,8 +282,12 @@ class MainMenuStateOld extends MusicBeatState
 									case 'story_mode':
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
-										if (ClientPrefs.FreeplayStyle == 'Psych') MusicBeatState.switchState(new FreeplayStatePsych());
-								            else MusicBeatState.switchState(new FreeplayState());
+										if (ClientPrefs.FreeplayStyle == 'Psych')
+										    MusicBeatState.switchState(new FreeplayStatePsych());
+										else if (ClientPrefs.FreeplayStyle == 'New NovaFlare')
+                                            MusicBeatState.switchState(new FreeplayStateWIP());
+								        else
+								            MusicBeatState.switchState(new FreeplayState());
 									#if MODS_ALLOWED
 									case 'mods':
 										MusicBeatState.switchState(new ModsMenuState());

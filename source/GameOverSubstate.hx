@@ -106,6 +106,8 @@ class GameOverSubstate extends MusicBeatSubstate
 				MusicBeatState.switchState(new StoryMenuState());
 			else if (ClientPrefs.FreeplayStyle == 'Psych')
 			    MusicBeatState.switchState(new FreeplayStatePsych());
+			else if (ClientPrefs.FreeplayStyle == 'New NovaFlare')
+                MusicBeatState.switchState(new FreeplayStateWIP());
 			else
 			    MusicBeatState.switchState(new FreeplayState());
 

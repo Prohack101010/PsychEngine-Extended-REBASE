@@ -4126,6 +4126,8 @@ class PlayState extends MusicBeatState
 				}
 				if (ClientPrefs.FreeplayStyle == 'Psych')
     			    MusicBeatState.switchState(new FreeplayStatePsych());
+    		    else if (ClientPrefs.FreeplayStyle == 'New NovaFlare')
+                    MusicBeatState.switchState(new FreeplayStateWIP());
     			else
     			    MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
