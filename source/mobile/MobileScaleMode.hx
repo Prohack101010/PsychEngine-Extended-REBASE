@@ -10,11 +10,15 @@ import flixel.system.scaleModes.BaseScaleMode;
 class MobileScaleMode extends BaseScaleMode
 {
     public static var allowWideScreen(default, set):Bool = true;
-    public static var allowBorderlessScreen(default, set):Bool = false; //Borderless Screen Test
+    public static var allowBorderlessScreen(default, set):Bool = false;
 
     override function updateGameSize(Width:Int, Height:Int):Void
 	{
-        if(ClientPrefs.wideScreen && allowWideScreen)
+        if(ClientPrefs.wideScreen && allowWideScreen && !allowBorderlessScreen)
+        {
+            super.updateGameSize(Width, Height);
+        }
+        else if(allowBorderlessScreen)
         {
             super.updateGameSize(Width, Height);
         }
@@ -28,25 +32,19 @@ class MobileScaleMode extends BaseScaleMode
             if (scaleY)
             {
                 gameSize.x = Width;
-                if(!allowBorderlessScreen)
-                    gameSize.y = Math.floor(gameSize.x / ratio);
-                else
-                    gameSize.y = Math.floor(gameSize.x);
+                gameSize.y = Math.floor(gameSize.x / ratio);
             }
             else
             {
                 gameSize.y = Height;
-                if(!allowBorderlessScreen)
-                    gameSize.x = Math.floor(gameSize.y * ratio);
-                else
-                    gameSize.x = Math.floor(gameSize.y);
+                gameSize.x = Math.floor(gameSize.y * ratio);
             }
         }
 	}
 
     override function updateGamePosition():Void
 	{
-        if(ClientPrefs.wideScreen && allowWideScreen)
+        if(ClientPrefs.wideScreen && allowWideScreen && !allowBorderlessScreen || allowBorderlessScreen)
 		    FlxG.game.x = FlxG.game.y = 0;
         else
             super.updateGamePosition();
@@ -62,7 +60,6 @@ class MobileScaleMode extends BaseScaleMode
     private static function set_allowBorderlessScreen(value:Bool):Bool
     {
         allowBorderlessScreen = value;
-        FlxG.scaleMode = new MobileScaleMode();
         return value;
     }
 }
