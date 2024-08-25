@@ -281,7 +281,7 @@ enum abstract StorageType(String) from String to String
 		{
 			case "EXTERNAL_DATA": EXTERNAL_DATA;
 			case "EXTERNAL_OBB": EXTERNAL_OBB;
-			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;q
+			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
 			case "EXTERNAL_FH": EXTERNAL_FH;
 			case "EXTERNAL": EXTERNAL;
 			case "EXTERNAL_NF": EXTERNAL_NF;
