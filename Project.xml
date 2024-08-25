@@ -43,9 +43,6 @@
 
 	<classpath name="source" />
 	
-	<!-- PSYCH EXTENDED CUSTOMIZATION -->
-	<define name="WEEKEND1_ENABLED" if="mobile"/>
-	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" if="desktop || mobile" />
 	<define name="LUA_ALLOWED" if="desktop || mobile"/>
@@ -57,7 +54,6 @@
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
-	<assets path="weekend1_assets/preload" rename="assets" exclude="*.mp3"  if="WEEKEND1_ENABLED"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets" exclude="*.ogg" if="web"/>
 		<assets path="assets/secrets" rename="assets" exclude="*.mp3"  unless="web"/>

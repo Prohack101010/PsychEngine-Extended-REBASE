@@ -7,5 +7,3 @@ mallEvil
 school
 schoolEvil
 tank
-phillyStreets
-phillyBlazin

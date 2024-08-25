@@ -4,8 +4,6 @@ bf-holding-gf
 bf-pixel
 bf
 dad
-darnell-blazin
-darnell
 gf-car
 gf-christmas
 gf-pixel
@@ -14,9 +12,7 @@ gf
 mom-car
 monster-christmas
 monster
-nene
 parents-christmas
-pico-blazin
 pico-playable
 pico-speaker
 pico
