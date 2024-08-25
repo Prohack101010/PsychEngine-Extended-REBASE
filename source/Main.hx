@@ -43,6 +43,7 @@ class Main extends Sprite
 	};
 
 	public static var fpsVar:FPSCounter;
+	public static var allowBorderlessWindow(default, set):Bool = false;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -136,7 +137,8 @@ class Main extends Sprite
 		#end
 		
 		#if mobile
-		FlxG.scaleMode = new MobileScaleMode();
+		if (!allowBorderlessWindow)
+		    FlxG.scaleMode = new MobileScaleMode();
 		#end
 		
 		#if CRASH_HANDLER

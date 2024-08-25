@@ -44,7 +44,7 @@ class FPSCounter extends TextField
 		else
 			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end + ' - ${LimeSystem.platformVersion}';
 
-		positionFPS(x, y);
+		// positionFPS(x, y); not needed
 
 		currentFPS = 0;
 		selectable = false;

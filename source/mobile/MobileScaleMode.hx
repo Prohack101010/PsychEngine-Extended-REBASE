@@ -18,7 +18,7 @@ class MobileScaleMode extends BaseScaleMode
         {
             super.updateGameSize(Width, Height);
         }
-        else if(!allowBorderlessScreen)
+        else
         {
             var ratio:Float = FlxG.width / FlxG.height;
             var realRatio:Float = Width / Height;
@@ -28,12 +28,18 @@ class MobileScaleMode extends BaseScaleMode
             if (scaleY)
             {
                 gameSize.x = Width;
-                gameSize.y = Math.floor(gameSize.x / ratio);
+                if(!allowBorderlessScreen)
+                    gameSize.y = Math.floor(gameSize.x / ratio);
+                else
+                    gameSize.y = Math.floor(gameSize.x);
             }
             else
             {
                 gameSize.y = Height;
-                gameSize.x = Math.floor(gameSize.y * ratio);
+                if(!allowBorderlessScreen)
+                    gameSize.x = Math.floor(gameSize.y * ratio);
+                else
+                    gameSize.x = Math.floor(gameSize.y);
             }
         }
 	}
@@ -42,7 +48,7 @@ class MobileScaleMode extends BaseScaleMode
 	{
         if(ClientPrefs.wideScreen && allowWideScreen)
 		    FlxG.game.x = FlxG.game.y = 0;
-        else if (!allowBorderlessScreen)
+        else
             super.updateGamePosition();
 	}
 
