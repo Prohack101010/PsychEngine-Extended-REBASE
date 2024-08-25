@@ -10,15 +10,11 @@ import flixel.system.scaleModes.BaseScaleMode;
 class MobileScaleMode extends BaseScaleMode
 {
     public static var allowWideScreen(default, set):Bool = true;
-    public static var allowBorderlessScreen(default, set):Bool = false;
+    public static var allowBorderlessScreen(default, set):Bool = false; //Borderless Screen Test
 
     override function updateGameSize(Width:Int, Height:Int):Void
 	{
-        if(ClientPrefs.wideScreen && allowWideScreen && !allowBorderlessScreen)
-        {
-            super.updateGameSize(Width, Height);
-        }
-        else if(allowBorderlessScreen)
+        if(ClientPrefs.wideScreen && allowWideScreen)
         {
             super.updateGameSize(Width, Height);
         }
@@ -32,19 +28,25 @@ class MobileScaleMode extends BaseScaleMode
             if (scaleY)
             {
                 gameSize.x = Width;
-                gameSize.y = Math.floor(gameSize.x / ratio);
+                if(!allowBorderlessScreen)
+                    gameSize.y = Math.floor(gameSize.x / ratio);
+                else
+                    gameSize.y = Math.floor(gameSize.x = realRatio);
             }
             else
             {
                 gameSize.y = Height;
-                gameSize.x = Math.floor(gameSize.y * ratio);
+                if(!allowBorderlessScreen)
+                    gameSize.x = Math.floor(gameSize.y * ratio);
+                else
+                    gameSize.x = Math.floor(gameSize.y = realRatio);
             }
         }
 	}
 
     override function updateGamePosition():Void
 	{
-        if(ClientPrefs.wideScreen && allowWideScreen && !allowBorderlessScreen || allowBorderlessScreen)
+        if(ClientPrefs.wideScreen && allowWideScreen)
 		    FlxG.game.x = FlxG.game.y = 0;
         else
             super.updateGamePosition();
@@ -60,6 +62,7 @@ class MobileScaleMode extends BaseScaleMode
     private static function set_allowBorderlessScreen(value:Bool):Bool
     {
         allowBorderlessScreen = value;
+        FlxG.scaleMode = new MobileScaleMode();
         return value;
     }
 }
