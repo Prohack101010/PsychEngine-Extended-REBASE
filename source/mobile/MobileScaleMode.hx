@@ -31,7 +31,7 @@ class MobileScaleMode extends BaseScaleMode
                 if(!allowBorderlessScreen)
                     gameSize.y = Math.floor(gameSize.x / ratio);
                 else
-                    gameSize.y = Math.floor(gameSize.x = realRatio);
+                    gameSize.y = Math.floor(gameSize.x);
             }
             else
             {
@@ -39,7 +39,7 @@ class MobileScaleMode extends BaseScaleMode
                 if(!allowBorderlessScreen)
                     gameSize.x = Math.floor(gameSize.y * ratio);
                 else
-                    gameSize.x = Math.floor(gameSize.y = realRatio);
+                    gameSize.x = Math.floor(gameSize.y);
             }
         }
 	}

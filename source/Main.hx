@@ -13,6 +13,7 @@ import openfl.display.StageScaleMode;
 import lime.app.Application;
 import mobile.CopyState;
 import debug.FPSCounter;
+import flixel.system.scaleModes.RatioScaleMode;
 
 #if desktop
 import Discord.DiscordClient;
@@ -43,6 +44,7 @@ class Main extends Sprite
 	};
 
 	public static var fpsVar:FPSCounter;
+	public static var allowBorderlessWindow:Bool = false; //Borderless Screen Test
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -136,7 +138,10 @@ class Main extends Sprite
 		#end
 		
 		#if mobile
-		FlxG.scaleMode = new MobileScaleMode();
+		if (!allowBorderlessWindow)
+		    FlxG.scaleMode = new MobileScaleMode();
+		else
+		    FlxG.scaleMode = new RatioScaleMode();
 		#end
 		
 		#if CRASH_HANDLER
