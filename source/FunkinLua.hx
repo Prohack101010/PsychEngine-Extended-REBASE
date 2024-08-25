@@ -3477,10 +3477,10 @@ class FunkinLua {
 				// spr.frames = AtlasFrameMaker.construct(image, null, true);
 
 			case "packer" | "packeratlas" | "pac":
-				spr.frames = Paths.getAssetsPackerAtlas(image);
+				spr.frames = Paths.getPackerAtlas(image);
 
 			default:
-				spr.frames = Paths.getAssetsSparrowAtlas(image);
+				spr.frames = Paths.getSparrowAtlas(image);
 		}
 	}
 
