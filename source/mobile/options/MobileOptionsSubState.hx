@@ -40,7 +40,7 @@ using StringTools;
 class MobileOptionsSubState extends BaseOptionsMenu
 {
     #if android
-	var storageTypes:Array<String> = ["EXTERNAL", "EXTERNAL_EX", "EXTERNAL_NF", "EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA"];
+	var storageTypes:Array<String> = ["EXTERNAL", "EXTERNAL_EX", "EXTERNAL_NF", "EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL_FH"];
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
