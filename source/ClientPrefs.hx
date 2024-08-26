@@ -11,7 +11,6 @@ class ClientPrefs {
     public static var FreeplayStyle:String = 'Psych';
     public static var MainMenuStyle:String = '1.0';
 	public static var downScroll:Bool = false;
-	public static var ClassicMainMenu:Bool = false;
 	public static var wideScreen:Bool = false;
 	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
@@ -118,7 +117,6 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
-		FlxG.save.data.ClassicMainMenu = ClassicMainMenu;
 		FlxG.save.data.wideScreen = wideScreen;
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.FreeplayStyle = FreeplayStyle;
@@ -190,9 +188,6 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
-		}
-		if(FlxG.save.data.ClassicMainMenu != null) {
-			ClassicMainMenu = FlxG.save.data.ClassicMainMenu;
 		}
 		if(FlxG.save.data.wideScreen != null) {
 			wideScreen = FlxG.save.data.wideScreen;

@@ -91,14 +91,14 @@
       "name": "funkin.vis",
       "type": "git",
       "dir": null,
-      "ref": "d5361037efa3a02c4ab20b5bd14ca11e7d00f519",
-      "url": "https://github.com/FunkinCrew/funkVis"
+      "ref": "main",
+      "url": "https://github.com/beihu235/funkVis-FrequencyFixed"
     },
     {
       "name": "grig.audio",
       "type": "git",
       "dir": "src",
-      "ref": "cbf91e2180fd2e374924fe74844086aab7891666",
+      "ref": "57f5d47f2533fd0c3dcd025a86cb86c0dfa0b6d2",
       "url": "https://gitlab.com/haxe-grig/grig.audio.git"
     }
   ]

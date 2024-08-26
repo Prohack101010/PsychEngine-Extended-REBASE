@@ -768,7 +768,7 @@ class BackRect extends FlxSpriteGroup //back button
         line.alpha = 0.75;
         add(line);
 
-        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreePlayStateWIP/playButton'));
+        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreeplayStateWIP/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;
@@ -886,7 +886,7 @@ class PlayRect extends FlxSpriteGroup //back button
         line.alpha = 0.75;
         add(line);
 
-        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreePlayStateWIP/playButton'));
+        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreeplayStateWIP/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;

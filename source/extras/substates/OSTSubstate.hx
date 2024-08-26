@@ -1,4 +1,4 @@
-package extrasubstates;
+package extras.substates;
 
 import openfl.geom.Rectangle;
 import tjson.TJSON as Json;

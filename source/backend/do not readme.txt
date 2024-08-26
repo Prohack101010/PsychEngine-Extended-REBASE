@@ -1,1 +1,1 @@
-The files here are for custom menus created for 0.7x
+The files here are for custom freeplay menus created for 0.7x

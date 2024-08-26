@@ -1,4 +1,4 @@
-package extrastates;
+package extras.states;
 
 #if desktop
 import Discord.DiscordClient;
@@ -59,7 +59,7 @@ class MainMenuStateOld extends MusicBeatState
 		    FlxG.scaleMode = new MobileScaleMode();
 		#end
 		
-		if (ClientPrefs.ClassicMainMenu)
+		if (ClientPrefs.MainMenuStyle == '0.6.3')
 		{
 		optionShit = [
     		'story_mode',
@@ -184,7 +184,7 @@ class MainMenuStateOld extends MusicBeatState
 		#end
 
 		#if mobile
-		if (ClientPrefs.ClassicMainMenu)
+		if (ClientPrefs.MainMenuStyle == '0.6.3')
 		    addVirtualPad(UP_DOWN, A_B_E);
 		else
 		    addVirtualPad(UP_DOWN, A_B_E_C_M);

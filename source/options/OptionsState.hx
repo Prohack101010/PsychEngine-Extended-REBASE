@@ -33,6 +33,7 @@ class OptionsState extends MusicBeatState
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var isFreeplay:Bool = false;
+	public static var isWIPFreeplay:Bool = false;
 	public static var menuBG:FlxSprite;
 
 	function openSelectedSubstate(label:String) {
@@ -167,8 +168,11 @@ class OptionsState extends MusicBeatState
 			else if (OptionsState.isFreeplay == true) {
 			    MusicBeatState.switchState(new FreeplayState());
 			    OptionsState.isFreeplay = false;
+			} else if (OptionsState.isWIPFreeplay == true) {
+			    MusicBeatState.switchState(new FreeplayState());
+			    OptionsState.isWIPFreeplay = false;
 			} else {
-    			if (ClientPrefs.MainMenuStyle == '0.6.3')
+    			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
     				MusicBeatState.switchState(new MainMenuStateOld());
     			else
     				MusicBeatState.switchState(new MainMenuState());

@@ -6,8 +6,8 @@ import flixel.effects.FlxFlicker;
 import lime.app.Application;
 import flixel.addons.transition.FlxTransitionableState;
 
-import objects.ShapeEX;
-import objects.FreePlayShape;
+import objects.shape.ShapeEX;
+import objects.shape.FreePlayShape;
 
 class Yess extends MusicBeatState
 {

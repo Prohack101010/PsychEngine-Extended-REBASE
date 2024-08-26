@@ -47,14 +47,7 @@ class VisualsSubState extends BaseOptionsMenu
 			'MainMenuStyle',
 			'string',
 			'1.0',
-			['1.0', '0.6.3']);
-		addOption(option);
-		
-		var option:Option = new Option('Classic 0.6.3 Main Menu',
-			"If checked, 0.6.3 Main Menu uses Classic Style.",
-			'ClassicMainMenu',
-			'bool',
-			false);
+			['1.0', '0.6.3', 'Old Extended']);
 		addOption(option);
 
 		var option:Option = new Option('Note Splashes',
