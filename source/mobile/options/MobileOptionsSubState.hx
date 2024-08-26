@@ -27,7 +27,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
 import options.BaseOptionsMenu;
-import options.OptionBase;
+import options.Option;
 import openfl.Lib;
 import haxe.io.Path;
 import sys.FileSystem;

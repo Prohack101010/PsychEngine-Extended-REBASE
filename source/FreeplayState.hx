@@ -136,14 +136,14 @@ class FreeplayState extends MusicBeatState
 			return Reflect.compare(a.songName.toLowerCase(), b.songName.toLowerCase());
 		});
 
-		WeekData.loadTopMod();
+		WeekData.loadTheFirstEnabledMod();
 		
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scale.x = FlxG.width * 1.05 / magenta.width;
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		add(magenta);
 
 		var specBG:SpecRectBG = new SpecRectBG(0, 0);
@@ -352,13 +352,8 @@ class FreeplayState extends MusicBeatState
 
 			return;
 		}
-		LoadingState.prepareToSong();
-		if (ClientPrefs.data.loadingScreen) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-		} else {
-			destroyFreeplayVocals();
-		}
+		
+		destroyFreeplayVocals();
 		LoadingState.loadAndSwitchState(new PlayState());
 		FlxG.mouse.visible = false;
 	}
@@ -498,7 +493,7 @@ class FreeplayState extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		smallMag.updateRect(magenta.pixels);			
 	}
