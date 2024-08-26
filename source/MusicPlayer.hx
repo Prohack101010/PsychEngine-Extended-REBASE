@@ -7,7 +7,7 @@ import flixel.util.FlxStringUtil;
 /**
  * Music player used for Freeplay
  */
-@:access(extrastates.FreeplayStatePsych)
+@:access(extras.states.FreeplayStatePsych)
 class MusicPlayer extends FlxGroup 
 {
 	public var instance:FreeplayStatePsych;
