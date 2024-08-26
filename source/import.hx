@@ -4,7 +4,9 @@ import Paths;
 #end
 
 // Extra
-import extras.states.*;
+import extras.states.FreeplayStateWIP;
+import extras.states.FreeplayStatePsych;
+import extras.states.MainMenuStateOld;
 import backend.ui.*; //Psych-UI
 import backend.animation.PsychAnimationController;
 import FreeplayState;
