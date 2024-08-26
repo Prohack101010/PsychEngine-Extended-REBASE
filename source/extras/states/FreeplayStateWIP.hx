@@ -138,14 +138,14 @@ class FreeplayState extends MusicBeatState
 			return Reflect.compare(a.songName.toLowerCase(), b.songName.toLowerCase());
 		});
 
-		Mods.loadTopMod();
+		WeekData.loadTheFirstEnabledMod();
 		
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scale.x = FlxG.width * 1.05 / magenta.width;
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		add(magenta);
 
 		var specBG:SpecRectBG = new SpecRectBG(0, 0);
@@ -154,7 +154,7 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			Mods.currentModDirectory = songs[i].folder;
+			Paths.currentModDirectory = songs[i].folder;
 			
 			var songRect:SongRect = new SongRect(660, 50 + i * 100, songs[i].songName, songs[i].songCharacter, songs[i].color);
 			add(songRect);
@@ -330,7 +330,10 @@ class FreeplayState extends MusicBeatState
 	function backMenu() {
 		if (!pressCheck){
 			pressCheck = true;
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+    			MusicBeatState.switchState(new MainMenuStateOld());
+    		else
+    			MusicBeatState.switchState(new MainMenuState());
 		}
 	}
 
@@ -351,13 +354,7 @@ class FreeplayState extends MusicBeatState
 
 			return;
 		}
-		LoadingState.prepareToSong();
-		if (ClientPrefs.data.loadingScreen) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-		} else {
-			destroyFreeplayVocals();
-		}
+		destroyFreeplayVocals();
 		LoadingState.loadAndSwitchState(new PlayState());
 		FlxG.mouse.visible = false;
 	}
@@ -445,7 +442,7 @@ class FreeplayState extends MusicBeatState
 			if (curSelected != i) grpSongs[i].onFocus = false;			
 		}
 
-		Mods.currentModDirectory = songs[curSelected].folder;
+		Paths.currentModDirectory = songs[curSelected].folder;
 		PlayState.storyWeek = songs[curSelected].week;
 		Difficulty.loadFromWeek();
 
@@ -498,7 +495,7 @@ class FreeplayState extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		smallMag.updateRect(magenta.pixels);			
 	}
@@ -663,7 +660,7 @@ class SongMetadata
 		this.week = week;
 		this.songCharacter = songCharacter;
 		this.color = color;
-		this.folder = Mods.currentModDirectory;
+		this.folder = Paths.currentModDirectory;
 		this.bg = Paths.image('menuDesat');
 		this.searchnum = 0;
 		if(this.folder == null) this.folder = '';

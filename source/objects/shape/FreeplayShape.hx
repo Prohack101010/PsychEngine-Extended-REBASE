@@ -11,7 +11,7 @@ import objects.shape.ShapeEX;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxStringUtil; 
 
-import FreeplayState;
+import FreeplayStateWIP;
 
 class SpecRect extends FlxSprite //freeplay bg rect
 {
@@ -544,7 +544,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
             else lerpPosX = FlxMath.lerp(0, lerpPosX, Math.exp(-elapsed * 15));
         }
 
-        if (member > FreeplayState.curSelected)
+        if (member > FreeplayStateWIP.curSelected)
         {
             if (Math.abs(lerpPosY - posY) < 0.1) lerpPosY = posY;
             else lerpPosY = FlxMath.lerp(posY, lerpPosY, Math.exp(-elapsed * 15));
@@ -560,12 +560,12 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
                 if (FlxG.mouse.overlaps(diffRectArray[num]))
                 {
                     diffRectArray[num].onFocus = true;
-                    FreeplayState.curDifficulty = diffRectArray[num].member;
+                    FreeplayStateWIP.curDifficulty = diffRectArray[num].member;
                 } 
             }
             for (num in 0...diffRectArray.length)
             {
-                if (num != FreeplayState.curDifficulty) diffRectArray[num].onFocus = false;
+                if (num != FreeplayStateWIP.curDifficulty) diffRectArray[num].onFocus = false;
             }
         }
 
@@ -608,7 +608,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
             rect.member = diff;
             rect.posY = background.height + 10 + diff * 70;
             if (imme) rect.lerpPosY = rect.posY;
-            if (diff == FreeplayState.curDifficulty) rect.onFocus = true;
+            if (diff == FreeplayStateWIP.curDifficulty) rect.onFocus = true;
             else rect.onFocus = false;
         }
     }
@@ -993,8 +993,8 @@ class SearchButton extends FlxSpriteGroup
         search.onChange = function(old:String, cur:String) {
             if (cur == '') tapText.visible = true;
             else tapText.visible = false;
-            FreeplayState.instance.updateSearch(cur);
-            itemDis.text = Std.string(FreeplayState.instance.songs.length) + ' maps has found';
+            FreeplayStateWIP.instance.updateSearch(cur);
+            itemDis.text = Std.string(FreeplayStateWIP.instance.songs.length) + ' maps has found';
         }
         add(search);
         
@@ -1004,7 +1004,7 @@ class SearchButton extends FlxSpriteGroup
         tapText.alpha = 0.6;
         add(tapText);
 
-        itemDis = new FlxText(5, 5 + tapText.height, 0, Std.string(FreeplayState.instance.songs.length) + ' maps has found', 18);
+        itemDis = new FlxText(5, 5 + tapText.height, 0, Std.string(FreeplayStateWIP.instance.songs.length) + ' maps has found', 18);
         itemDis.color = 0xFF52F9;
 		itemDis.font = Paths.font('montserrat.ttf'); 	
         itemDis.antialiasing = ClientPrefs.globalAntialiasing;	
