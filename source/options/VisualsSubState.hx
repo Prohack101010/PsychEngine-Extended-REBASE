@@ -39,7 +39,7 @@ class VisualsSubState extends BaseOptionsMenu
 			'FreeplayStyle',
 			'string',
 			'Psych',
-			['Psych', 'NovaFlare', 'New NovaFlare']);
+			['Psych', 'NovaFlare', 'NF Engine']);
 		addOption(option);
 		
 		var option:Option = new Option('Main Menu Style:',
@@ -47,7 +47,7 @@ class VisualsSubState extends BaseOptionsMenu
 			'MainMenuStyle',
 			'string',
 			'1.0',
-			['1.0', '0.6.3', 'Old Extended']);
+			['1.0', '0.6.3', 'Extended']);
 		addOption(option);
 
 		var option:Option = new Option('Note Splashes',

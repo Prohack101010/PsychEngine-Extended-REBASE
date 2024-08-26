@@ -209,10 +209,12 @@ class MainMenuStateOld extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			if (ClientPrefs.FreeplayStyle == 'Psych')
-			    if(FreeplayStatePsych.vocals != null) FreeplayStatePsych.vocals.volume += 0.5 * elapsed;
-			else
+			if (ClientPrefs.FreeplayStyle == 'NF Engine')
 			    if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
+			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+			    if(FreeplayStateWIP.vocals != null) FreeplayStateWIP.vocals.volume += 0.5 * elapsed;
+			else
+			    if(FreeplayStatePsych.vocals != null) FreeplayStatePsych.vocals.volume += 0.5 * elapsed;
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
@@ -287,12 +289,12 @@ class MainMenuStateOld extends MusicBeatState
 									case 'story_mode':
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
-										if (ClientPrefs.FreeplayStyle == 'Psych')
-										    MusicBeatState.switchState(new FreeplayStatePsych());
-										else if (ClientPrefs.FreeplayStyle == 'New NovaFlare')
+										if (ClientPrefs.FreeplayStyle == 'NF Engine')
+										    MusicBeatState.switchState(new FreeplayState());
+										else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                                             MusicBeatState.switchState(new FreeplayStateWIP());
 								        else
-								            MusicBeatState.switchState(new FreeplayState());
+								            MusicBeatState.switchState(new FreeplayStatePsych());
 									#if MODS_ALLOWED
 									case 'mods':
 										MusicBeatState.switchState(new ModsMenuState());

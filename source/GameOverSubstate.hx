@@ -104,12 +104,12 @@ class GameOverSubstate extends MusicBeatSubstate
 			WeekData.loadTheFirstEnabledMod();
 			if (PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
-			else if (ClientPrefs.FreeplayStyle == 'Psych')
-			    MusicBeatState.switchState(new FreeplayStatePsych());
-			else if (ClientPrefs.FreeplayStyle == 'New NovaFlare')
+			else if (ClientPrefs.FreeplayStyle == 'NF Engine')
+			    MusicBeatState.switchState(new FreeplayState());
+			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                 MusicBeatState.switchState(new FreeplayStateWIP());
 			else
-			    MusicBeatState.switchState(new FreeplayState());
+			    MusicBeatState.switchState(new FreeplayStatePsych());
 
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);

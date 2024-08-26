@@ -369,10 +369,12 @@ class StoryMenuState extends MusicBeatState
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
 				LoadingState.loadAndSwitchState(new PlayState(), true);
-				if (ClientPrefs.FreeplayStyle == 'Psych')
-    				FreeplayStatePsych.destroyFreeplayVocals();
+				if (ClientPrefs.FreeplayStyle == 'NF Engine')
+    				FreeplayState.destroyFreeplayVocals();
+    		    else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+    				FreeplayStateWIP.destroyFreeplayVocals();
     			else
-				    FreeplayState.destroyFreeplayVocals();
+				    FreeplayStatePsych.destroyFreeplayVocals();
 			});
 		} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));

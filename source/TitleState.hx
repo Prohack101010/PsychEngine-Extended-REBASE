@@ -201,12 +201,12 @@ class TitleState extends MusicBeatState
 
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
-		if (ClientPrefs.FreeplayStyle == 'Psych')
-		    MusicBeatState.switchState(new FreeplayStatePsych());
-		else if (ClientPrefs.FreeplayStyle == 'New NovaFlare')
+		if (ClientPrefs.FreeplayStyle == 'NF Engine')
+		    MusicBeatState.switchState(new FreeplayState());
+		else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
             MusicBeatState.switchState(new FreeplayStateWIP());
 		else
-		    MusicBeatState.switchState(new FreeplayState());
+		    MusicBeatState.switchState(new FreeplayStatePsych());
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
@@ -550,18 +550,25 @@ class TitleState extends MusicBeatState
 								}
 							});
 							FlxG.sound.music.fadeOut();
-							if (ClientPrefs.FreeplayStyle == 'Psych')
+							if (ClientPrefs.FreeplayStyle == 'NF Engine')
 							{
-    							if(FreeplayStatePsych.vocals != null)
+    							if(FreeplayState.vocals != null)
     							{
-    								FreeplayStatePsych.vocals.fadeOut();
+    								FreeplayState.vocals.fadeOut();
+    							}
+    						}
+    						else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+							{
+    							if(FreeplayStateWIP.vocals != null)
+    							{
+    								FreeplayStateWIP.vocals.fadeOut();
     							}
     						}
     						else
     						{
-    							if(FreeplayState.vocals != null)
+    							if(FreeplayStatePsych.vocals != null)
     							{
-    								FreeplayState.vocals.fadeOut();
+    								FreeplayStatePsych.vocals.fadeOut();
     							}
     						}
 							closedState = true;
@@ -787,18 +794,25 @@ class TitleState extends MusicBeatState
 				if(easteregg == 'SHADOW')
 				{
 					FlxG.sound.music.fadeOut();
-					if (ClientPrefs.FreeplayStyle == 'Psych')
-					{
-    					if(FreeplayStatePsych.vocals != null)
-    					{
-    						FreeplayStatePsych.vocals.fadeOut();
-    					}
-    				}
-    				else
+					if (ClientPrefs.FreeplayStyle == 'NF Engine')
 					{
     					if(FreeplayState.vocals != null)
     					{
     						FreeplayState.vocals.fadeOut();
+    					}
+    				}
+    				else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+					{
+    					if(FreeplayStateWIP.vocals != null)
+    					{
+    						FreeplayStateWIP.vocals.fadeOut();
+    					}
+    				}
+    				else
+					{
+    					if(FreeplayStatePsych.vocals != null)
+    					{
+    						FreeplayStatePsych.vocals.fadeOut();
     					}
     				}
 				}

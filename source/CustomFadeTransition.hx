@@ -64,7 +64,15 @@ class CustomFadeTransition extends MusicBeatSubstate {
 			transGradient.cameras = [nextCamera];
 		}
 		nextCamera = null;
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+	}
+	
+	override function create()
+	{
+	    var cam:FlxCamera = new FlxCamera();
+		cam.bgColor = 0x00;
+		FlxG.cameras.add(cam, false);
+
+		cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
 	}
 
 	override function update(elapsed:Float) {
