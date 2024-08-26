@@ -1,4 +1,4 @@
-package options.base063;
+package options.base;
 
 #if desktop
 import Discord.DiscordClient;
