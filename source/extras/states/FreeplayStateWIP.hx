@@ -29,7 +29,7 @@ import LoadingState;
 import editors.ChartingState;
 import options.OptionsState;
 
-class FreeplayState extends MusicBeatState
+class FreeplayStateWIP extends MusicBeatState
 {
 	static public var instance:FreeplayState;
 
