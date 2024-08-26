@@ -136,7 +136,7 @@ class FreeplayState extends MusicBeatState
 			return Reflect.compare(a.songName.toLowerCase(), b.songName.toLowerCase());
 		});
 
-		Mods.loadTopMod();
+		WeekData.loadTopMod();
 		
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scale.x = FlxG.width * 1.05 / magenta.width;
@@ -152,7 +152,7 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			Mods.currentModDirectory = songs[i].folder;
+			Paths.currentModDirectory = songs[i].folder;
 			
 			var songRect:SongRect = new SongRect(660, 50 + i * 100, songs[i].songName, songs[i].songCharacter, songs[i].color);
 			add(songRect);
@@ -445,7 +445,7 @@ class FreeplayState extends MusicBeatState
 			if (curSelected != i) grpSongs[i].onFocus = false;			
 		}
 
-		Mods.currentModDirectory = songs[curSelected].folder;
+		Paths.currentModDirectory = songs[curSelected].folder;
 		PlayState.storyWeek = songs[curSelected].week;
 		Difficulty.loadFromWeek();
 
@@ -663,7 +663,7 @@ class SongMetadata
 		this.week = week;
 		this.songCharacter = songCharacter;
 		this.color = color;
-		this.folder = Mods.currentModDirectory;
+		this.folder = Paths.currentModDirectory;
 		this.bg = Paths.image('menuDesat');
 		this.searchnum = 0;
 		if(this.folder == null) this.folder = '';

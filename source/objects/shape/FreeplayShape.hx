@@ -11,7 +11,7 @@ import objects.shape.ShapeEX;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxStringUtil; 
 
-import states.FreeplayState;
+import FreeplayState;
 
 class SpecRect extends FlxSprite //freeplay bg rect
 {
