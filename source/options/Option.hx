@@ -1,175 +1,152 @@
 package options;
 
-typedef Keybind = {
-	keyboard:String,
-	gamepad:String
-}
+import openfl.text.TextField;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.addons.display.FlxGridOverlay;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import lime.utils.Assets;
+import flixel.FlxSubState;
+import openfl.text.TextField;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.util.FlxSave;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
+import flixel.input.keyboard.FlxKey;
+import flixel.graphics.FlxGraphic;
+import Controls;
 
-enum OptionType {
-	BOOL;
-	INT;
-	FLOAT;
-	PERCENT;
-	STRING;
-	KEYBIND;
-	STATE;
-	TEXT;
-}
+using StringTools;
 
-class Option extends FlxSpriteGroup
+class Option
 {
+	private var child:Alphabet;
+	public var text(get, set):String;
+	public var onChange:Void->Void = null; //Pressed enter (on Bool type options) or pressed/held left/right (on other types)
+
+	public var type(get, default):String = 'bool'; //bool, int (or integer), float (or fl), percent, string (or str)
+	// Bool will use checkboxes
+	// Everything else will use a text
+
+	public var showBoyfriend:Bool = false;
+	public var scrollSpeed:Float = 50; //Only works on int/float, defines how fast it scrolls per second while holding left/right
+
 	private var variable:String = null; //Variable from ClientPrefs.hx
 	public var defaultValue:Dynamic = null;
+
+	public var curOption:Int = 0; //Don't change this
+	public var options:Array<String> = null; //Only used in string type
+	public var changeValue:Dynamic = 1; //Only used in int/float/percent type, how much is changed when you PRESS
+	public var minValue:Dynamic = null; //Only used in int/float/percent type
+	public var maxValue:Dynamic = null; //Only used in int/float/percent type
+	public var decimals:Int = 1; //Only used in float/percent type
+
+	public var displayFormat:String = '%v'; //How String/Float/Percent/Int values are shown, %v = Current value, %d = Default value
 	public var description:String = '';
-	public var display:String = '';
+	public var name:String = 'Unknown';
 
-	public var options:Array<String> = null;
-	public var curOption:Int = 0;
-
-	public var minValue:Float = 0;
-	public var maxValue:Float = 0;
-
-	public var defaultKeys:Keybind = null; //Only used in keybind type
-	public var keys:Keybind = null; //Only used in keybind type
-
-	public var onChange:Void->Void = null; //Pressed enter (on Bool type options) or pressed/held left/right (on other types)
-	public var type:OptionType = BOOL;
-
-	public var saveHeight:Int = 0;
-
-	public function new(description:String = '', variable:String = '', type:OptionType = BOOL, ?minValue:Float = 0, ?maxValue:Float = 0, ?options:Array<String> = null, ?display:String = '')
+	public function new(name:String, description:String = '', variable:String, type:String = 'bool', defaultValue:Dynamic = 'null variable value', ?options:Array<String> = null)
 	{
-		super();
-
-		this.options = options;
+		this.name = name;
 		this.description = description;
-		this.type = type;
 		this.variable = variable;
-		this.display = display;
+		this.type = type;
+		this.defaultValue = defaultValue;
+		this.options = options;
 
-		if(this.type != KEYBIND && variable != '') this.defaultValue = Reflect.getProperty(ClientPrefs, variable);
-
-		switch(type)
+		if(defaultValue == 'null variable value')
 		{
-			case BOOL:
-				if(defaultValue == null) defaultValue = false;
-			case INT, FLOAT:
-				if(defaultValue == null) defaultValue = 0;
-			case PERCENT:
-				if(defaultValue == null) defaultValue = 1;
-			case STRING:
-				if(options.length > 0)
-					defaultValue = options[0];
-				if(defaultValue == null)
+			switch(type)
+			{
+				case 'bool':
+					defaultValue = false;
+				case 'int' | 'float':
+					defaultValue = 0;
+				case 'percent':
+					defaultValue = 1;
+				case 'string':
 					defaultValue = '';
-			case KEYBIND:
-				defaultValue = '';
-				defaultKeys = {gamepad: 'NONE', keyboard: 'NONE'};
-				keys = {gamepad: 'NONE', keyboard: 'NONE'};
-			default:
+					if(options.length > 0) {
+						defaultValue = options[0];
+					}
+			}
 		}
 
-		if(getValue() == null && variable != '')
+		if(getValue() == null) {
 			setValue(defaultValue);
+		}
 
 		switch(type)
 		{
-			case STRING:
+			case 'string':
 				var num:Int = options.indexOf(getValue());
-				if(num > -1) curOption = num;
-			default:
+				if(num > -1) {
+					curOption = num;
+				}
+	
+			case 'percent':
+				displayFormat = '%v%';
+				changeValue = 0.01;
+				minValue = 0;
+				maxValue = 1;
+				scrollSpeed = 0.5;
+				decimals = 2;
 		}
-
-		switch(type)
-		{
-			case BOOL:
-				addBool();
-			case INT, FLOAT, PERCENT:
-				addData();
-			case STRING:
-				addString();
-			case TEXT:
-				addText();
-			default:
-		}
-	}
-
-	function addBool() {
-		saveHeight = 100;
-
-		var text = new FlxText(40, 0, 0, description, 20);
-		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.globalAntialiasing;	
-        text.y += saveHeight / 2 - text.height / 2;
-        add(text);
-
-		var rect = new BoolRect(0, 0, 1030, saveHeight, this);
-		add(rect);
-	}
-
-	public var valueText:FlxText;
-	function addData() {
-		saveHeight = 100;
-
-		var text = new FlxText(40, 10, 0, description, 20);
-		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.globalAntialiasing;	
-        add(text);
-
-		valueText = new FlxText(40, 10, 0, defaultValue + display, 20);
-		valueText.font = Paths.font('montserrat.ttf'); 	
-        valueText.antialiasing = ClientPrefs.globalAntialiasing;	
-		valueText.x += 950 - valueText.width;
-        add(valueText);
-
-		var rect = new FloatRect(40, 70, minValue, maxValue, this);
-		add(rect);
-	}
-
-	function addString() {
-		saveHeight = 100;
-
-		var text = new FlxText(40, 20, 0, description, 20);
-		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.globalAntialiasing;	
-        add(text);
-
-		var rect = new StringRect(40, 60, this);
-		add(rect);
-	}
-
-	function addText() {
-		saveHeight = 45;
-
-		var text = new FlxText(40, 0, 0, description, 45);
-		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.globalAntialiasing;	
-        text.y += saveHeight / 2 - text.height / 2;
-        add(text);
 	}
 
 	public function change()
 	{
-		if(onChange != null)
+		//nothing lol
+		if(onChange != null) {
 			onChange();
-	}
-
-	dynamic public function getValue():Dynamic
-	{
-		var value = Reflect.getProperty(ClientPrefs, variable);
-		if(type == KEYBIND) return !ClientPrefs.controllerMode ? value.keyboard : value.gamepad;
-		return value;
-	}
-
-	dynamic public function setValue(value:Dynamic)
-	{
-		if(type == KEYBIND)
-		{
-			var keys = Reflect.getProperty(ClientPrefs, variable);
-			if(!ClientPrefs.controllerMode) keys.keyboard = value;
-			else keys.gamepad = value;
-			return value;
 		}
-		return Reflect.setProperty(ClientPrefs, variable, value);
+	}
+
+	public function getValue():Dynamic
+	{
+		return Reflect.getProperty(ClientPrefs, variable);
+	}
+	public function setValue(value:Dynamic)
+	{
+		Reflect.setProperty(ClientPrefs, variable, value);
+	}
+
+	public function setChild(child:Alphabet)
+	{
+		this.child = child;
+	}
+
+	private function get_text()
+	{
+		if(child != null) {
+			return child.text;
+		}
+		return null;
+	}
+	private function set_text(newValue:String = '')
+	{
+		if(child != null) {
+			child.text = newValue;
+		}
+		return null;
+	}
+
+	private function get_type()
+	{
+		var newValue:String = 'bool';
+		switch(type.toLowerCase().trim())
+		{
+			case 'int' | 'float' | 'percent' | 'string': newValue = type;
+			case 'integer': newValue = 'int';
+			case 'str': newValue = 'string';
+			case 'fl': newValue = 'float';
+		}
+		type = newValue;
+		return type;
 	}
 }
