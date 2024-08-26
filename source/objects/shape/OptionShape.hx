@@ -2,8 +2,8 @@ package objects.shape;
 
 import openfl.display.BitmapData;
 import openfl.display.BitmapDataChannel;
-import flash.geom.Point;
-import flash.geom.Matrix;
+import openfl.geom.Point;
+import openfl.geom.Matrix;
 import openfl.geom.Rectangle;
 import openfl.display.Shape;
 import objects.shape.ShapeEX;
@@ -30,7 +30,7 @@ class BoolRect extends FlxSpriteGroup {
 
         bg = new FlxSprite();
         bg.pixels = drawRect(50, 20);
-        bg.antialiasing = ClientPrefs.data.antialiasing;
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
         bg.color = 0x53b7ff;
         bg.x += touchFix.width - bg.width - 50;
         bg.y += touchFix.height / 2 - bg.height / 2;
@@ -110,13 +110,13 @@ class FloatRect extends FlxSpriteGroup {
 
         bg = new FlxSprite();
         bg.pixels = drawRect(950, 10);
-        bg.antialiasing = ClientPrefs.data.antialiasing;
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
         bg.color = 0x24232C;
         add(bg);
 
         display = new FlxSprite();
         display.pixels = drawRect(950, 10);
-        display.antialiasing = ClientPrefs.data.antialiasing;
+        display.antialiasing = ClientPrefs.globalAntialiasing;
         display.color = 0x0095ff;
         add(display);
 
@@ -189,20 +189,20 @@ class StringRect extends FlxSpriteGroup {
         super(X, Y);
 
         bg = new Rect(0, 0, 950, 50, 15, 15);
-        bg.antialiasing = ClientPrefs.data.antialiasing;
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
         bg.color = 0x24232C;
         add(bg);
 
         specRect = new FlxSprite();
         specRect.pixels = drawRect(25);
-        specRect.antialiasing = ClientPrefs.data.antialiasing;
+        specRect.antialiasing = ClientPrefs.globalAntialiasing;
         add(specRect);
         specRect.x += bg.width - specRect.width - 20;
         specRect.y += bg.height / 2 - specRect.height / 2;
         
         disText = new FlxText(20, 0, 0, 'texts', 20);
 		disText.font = Paths.font('montserrat.ttf');	  
-        disText.antialiasing = ClientPrefs.data.antialiasing;  		
+        disText.antialiasing = ClientPrefs.globalAntialiasing;  		
         add(disText);
         disText.y += bg.height / 2 - disText.height / 2;
 
@@ -301,14 +301,14 @@ class CurRect extends FlxSpriteGroup {
 
         bg = new FlxSprite(0, 0);
         bg.pixels = drawRect(Width, Height, data);
-        bg.antialiasing = ClientPrefs.data.antialiasing;
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
         bg.color = 0x53b7ff;
         bg.alpha = 0;
         add(bg);
         
         disText = new FlxText(20, 0, 0, text, 15);
 		disText.font = Paths.font('montserrat.ttf');	  
-        disText.antialiasing = ClientPrefs.data.antialiasing;  		
+        disText.antialiasing = ClientPrefs.globalAntialiasing;  		
         add(disText);
         disText.y += bg.height / 2 - disText.height / 2;
     }
@@ -355,14 +355,14 @@ class OptionCata extends FlxSpriteGroup
 
 		text = new FlxText(40, 0, 0, _title, 18);
 		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.data.antialiasing;	
+        text.antialiasing = ClientPrefs.globalAntialiasing;	
         text.y += bg.height / 2 - text.height / 2;
         add(text);
 
         specRect = new Rect(20, 20, 5, 40, 5, 5, 0x53b7ff);
         specRect.alpha = 0;
         specRect.scale.y = 0;
-        specRect.antialiasing = ClientPrefs.data.antialiasing;	
+        specRect.antialiasing = ClientPrefs.globalAntialiasing;	
         add(specRect);
 	}
 

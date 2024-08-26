@@ -2,12 +2,12 @@ package objects.shape;
 
 import openfl.display.BitmapData;
 import openfl.display.BitmapDataChannel;
-import flash.geom.Point;
-import flash.geom.Matrix;
+import openfl.geom.Point;
+import openfl.geom.Matrix;
 import openfl.geom.Rectangle;
 import openfl.display.Shape;
 import flixel.util.FlxSpriteUtil;
-import objects.CheckboxThingie;
+import CheckboxThingie;
 
 class Triangle extends FlxSprite
 {
@@ -16,7 +16,7 @@ class Triangle extends FlxSprite
         super(X, Y);
 		
         loadGraphic(drawHollowTriangle(Size, Inner));
-        antialiasing = ClientPrefs.data.antialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	function drawHollowTriangle(sideLength:Float, innerSide:Float):BitmapData {
@@ -69,7 +69,7 @@ class Rect extends FlxSprite
         super(X, Y);
 
         loadGraphic(drawRect(width, height, roundWidth, roundHeight));
-        antialiasing = ClientPrefs.data.antialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
         color = Color;
         alpha = Alpha;
     }
@@ -108,14 +108,14 @@ class BackButton extends FlxSpriteGroup
 
         button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreePlayState/playButton'));
         button.scale.set(0.4, 0.4);
-        button.antialiasing = ClientPrefs.data.antialiasing;
+        button.antialiasing = ClientPrefs.globalAntialiasing;
         button.y += background.height / 2 - button.height / 2;
         button.flipX = true;
         add(button);
 
         text = new FlxText(40, 0, 0, texts, 25);
 		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.data.antialiasing;	
+        text.antialiasing = ClientPrefs.globalAntialiasing;	
         add(text);
 
         text.x += background.width / 2 - text.width / 2;

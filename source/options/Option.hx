@@ -157,7 +157,7 @@ class Option extends FlxSpriteGroup
 	dynamic public function getValue():Dynamic
 	{
 		var value = Reflect.getProperty(ClientPrefs, variable);
-		if(type == KEYBIND) return !Controls.instance.controllerMode ? value.keyboard : value.gamepad;
+		if(type == KEYBIND) return !ClientPrefs.controllerMode ? value.keyboard : value.gamepad;
 		return value;
 	}
 
@@ -166,7 +166,7 @@ class Option extends FlxSpriteGroup
 		if(type == KEYBIND)
 		{
 			var keys = Reflect.getProperty(ClientPrefs, variable);
-			if(!Controls.instance.controllerMode) keys.keyboard = value;
+			if(!ClientPrefs.controllerMode) keys.keyboard = value;
 			else keys.gamepad = value;
 			return value;
 		}

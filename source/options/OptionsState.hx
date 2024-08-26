@@ -6,6 +6,7 @@ import FreeplayState;
 class OptionsState extends MusicBeatState
 {
 	public static var instance:OptionsState;
+	public static var isFreeplay:Bool = false;
 
 	var optionName:Array<String> = ['General', 'Gameplay', 'Game Backend', 'Game UI', 'Skin', 'Input', 'User Interface', 'Watermark'];
 	var optionArray:Array<OptionCata> = [];
@@ -51,6 +52,10 @@ class OptionsState extends MusicBeatState
 
 	var pressCheck:Bool = false;
 	function backMenu() {
+	    if (isFreeplay){
+	        MusicBeatState.switchState(new FreeplayState());
+			OptionsState.isFreeplay = false;
+		}
 		if (!pressCheck){
 			pressCheck = true;
 			MusicBeatState.switchState(new MainMenuState());
