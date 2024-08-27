@@ -407,7 +407,7 @@ class FreeplayStateNOVA extends MusicBeatState
 
 	public static function destroyFreeplayVocals() {
 		if (vocals != null) vocals.stop();
-		if (vocals != null) vocals = FlxDestroyUtil.destroy(vocals);
+		vocals = FlxDestroyUtil.destroy(vocals);
 	}
 
 	var saveMouseY:Int = 0;
@@ -591,25 +591,25 @@ class FreeplayStateNOVA extends MusicBeatState
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				
-				if (FPSCounter.memoryMegas > 900)
+				if (FPSCounter.memoryMegas > 1000)
 				{
 		            Paths.clearStoredMemory();
 		            Paths.clearUnusedMemory();
 		        }
 
 				if (PlayState.SONG.needsVoices)
-        		{
-        			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-        			FlxG.sound.list.add(vocals);
-        			vocals.persist = true;
-        			vocals.looped = true;
-        		}
-        		else if (vocals != null)
-        		{
-        			vocals.stop();
-        			vocals.destroy();
-        			vocals = null;
-        		}
+				{
+					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+					FlxG.sound.list.add(vocals);
+					vocals.persist = vocals.looped = true;
+					vocals.volume = 0.8;
+				}
+				else if (vocals != null)
+				{
+					vocals.stop();
+					vocals.destroy();
+					vocals = null;
+				}
 
 				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.8);
 				if (vocals != null) vocals.play();
