@@ -7,6 +7,7 @@ import Paths;
 // import extras.states.*; //Extra Menus (This is not working now, idk why)
 import extras.states.FreeplayStateNF;
 import extras.states.FreeplayStateNOVA;
+import FreeplayState;
 import backend.ui.*; //Psych-UI
 import backend.animation.PsychAnimationController;
 import FreeplayState;
