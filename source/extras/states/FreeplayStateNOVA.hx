@@ -16,7 +16,6 @@ import WeekData;
 import Highscore;
 import Song;
 
-import debug.FPSCounter;
 import HealthIcon;
 import objects.shape.ShapeEX;
 import objects.shape.FreeplayShape;
@@ -593,7 +592,12 @@ class FreeplayStateNOVA extends MusicBeatState
 
 				if (PlayState.SONG.needsVoices)
 				{
-        			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+				    vocals = new FlxSound();
+        		    try
+        		    {
+        			    vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+        			}
+        			catch(e:Dynamic) {}
 					FlxG.sound.list.add(vocals);
 					vocals.persist = vocals.looped = true;
 					vocals.volume = 0.8;
