@@ -16,6 +16,7 @@ import WeekData;
 import Highscore;
 import Song;
 
+import debug.FPSCounter;
 import HealthIcon;
 import objects.shape.ShapeEX;
 import objects.shape.FreeplayShape;
@@ -589,6 +590,10 @@ class FreeplayStateNOVA extends MusicBeatState
 				
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+				
+				if (FPSCounter.memoryMegas > 800)
+		            Paths.clearUnusedMemory();
+		        }
 
 				if (PlayState.SONG.needsVoices)
         		{
