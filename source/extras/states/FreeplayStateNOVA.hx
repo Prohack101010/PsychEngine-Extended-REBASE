@@ -88,7 +88,6 @@ class FreeplayStateNOVA extends MusicBeatState
 	var disLine:Rect;
 
 	public static var vocals:FlxSound = null;
-	public static var opponentVocals:FlxSound = null;
 
 	override function create()
 	{
@@ -406,11 +405,8 @@ class FreeplayStateNOVA extends MusicBeatState
 	}
 
 	public static function destroyFreeplayVocals() {
-		if(vocals != null) vocals.stop();
-		vocals = FlxDestroyUtil.destroy(vocals);
-
-		if(opponentVocals != null) opponentVocals.stop();
-		opponentVocals = FlxDestroyUtil.destroy(opponentVocals);
+		if (vocals != null) vocals.stop();
+		if (vocals != null) vocals = FlxDestroyUtil.destroy(vocals);
 	}
 
 	var saveMouseY:Int = 0;
@@ -615,7 +611,6 @@ class FreeplayStateNOVA extends MusicBeatState
 
 				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.8);
 				if (vocals != null) vocals.play();
-				if (opponentVocals != null) opponentVocals.play();
 				
 				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
 				if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
@@ -624,21 +619,6 @@ class FreeplayStateNOVA extends MusicBeatState
 				musicMutex.release();
 			});
 		});
-	}
-
-	function getVocalFromCharacter(char:String)
-	{
-		try
-		{
-			var path:String = Paths.getPath('characters/$char.json', TEXT);
-			#if MODS_ALLOWED
-			var character:Dynamic = Json.parse(File.getContent(path));
-			#else
-			var character:Dynamic = Json.parse(Assets.getText(path));
-			#end
-			return character.vocals_file;
-		}
-		return null;
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)

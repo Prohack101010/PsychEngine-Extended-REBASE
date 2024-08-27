@@ -29,7 +29,7 @@ class FPSCounter extends TextField
 	/**
 		The current memory usage (WARNING: this is NOT your total program memory usage, rather it shows the garbage collector memory)
 	**/
-	public var memoryMegas(get, never):Float;
+	public static var memoryMegas(get, never):Float;
 
 	@:noCompletion private var times:Array<Float>;
 
@@ -83,7 +83,7 @@ class FPSCounter extends TextField
 		text = 
 		'FPS: $currentFPS' + 
 		'\nPsych Extended 1.0.0' + 
-		'\nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}' +
+		'\nMemory: ${flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas)}' +
 		os;
 
 		textColor = 0xFFFFFFFF;
