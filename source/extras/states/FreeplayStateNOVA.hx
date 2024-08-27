@@ -592,6 +592,7 @@ class FreeplayStateNOVA extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				
 				if (FPSCounter.memoryMegas > 800)
+				{
 		            Paths.clearUnusedMemory();
 		        }
 
