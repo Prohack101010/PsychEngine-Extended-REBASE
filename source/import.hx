@@ -5,6 +5,7 @@ import Paths;
 
 // Extra
 import extras.states.*; //Extra Menus
+import extras.states.FreeplayStateNOVA;
 import backend.ui.*; //Psych-UI
 import backend.animation.PsychAnimationController;
 import FreeplayState;
