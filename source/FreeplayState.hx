@@ -7,7 +7,7 @@ import Song;
 import HealthIcon;
 import MusicPlayer;
 
-import FreeplayStateNF.SongMetadata;
+import extras.states.FreeplayStateNF.SongMetadata;
 
 import GameplayChangersSubstate;
 import ResetScoreSubState;
