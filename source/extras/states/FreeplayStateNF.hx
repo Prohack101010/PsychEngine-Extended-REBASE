@@ -9,7 +9,6 @@ import Difficulty;
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 
-import FreeplayState.SongMetadata;
 import HealthIcon;
 import editors.ChartingState;
 
@@ -84,7 +83,7 @@ class FreeplayStateNF extends MusicBeatState {
 	var rate:FlxSprite;
 	var timerTween:FlxTimer;
 	var swagRect:FlxRect;
-	var songs:Array<SongMetadata> = [];
+	public static var songs:Array<SongMetadata> = [];
 	var songtextsGroup:Array<FlxText> = [];
 	var iconsArray:Array<HealthIcon> = [];
 	var barsArray:Array<FlxSprite> = [];
@@ -1658,5 +1657,29 @@ class FreeplayStateNF extends MusicBeatState {
 				saveVar = swagRect.width;
 			}
 		}, 0);
+	}
+}
+
+class SongMetadata
+{
+	public var songName:String = "";
+	public var week:Int = 0;
+	public var songCharacter:String = "";
+	public var color:Int = -7179779;
+	public var folder:String = "";
+	public var lastDifficulty:String = null;
+	public var bg:Dynamic;
+	public var searchnum:Int = 0;
+
+	public function new(song:String, week:Int, songCharacter:String, color:Int)
+	{
+		this.songName = song;
+		this.week = week;
+		this.songCharacter = songCharacter;
+		this.color = color;
+		this.folder = Paths.currentModDirectory;
+		this.bg = Paths.image('menuDesat');
+		this.searchnum = 0;
+		if(this.folder == null) this.folder = '';
 	}
 }

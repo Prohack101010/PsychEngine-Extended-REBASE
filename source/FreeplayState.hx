@@ -7,6 +7,8 @@ import Song;
 import HealthIcon;
 import MusicPlayer;
 
+import FreeplayStateNF.SongMetadata;
+
 import GameplayChangersSubstate;
 import ResetScoreSubState;
 
@@ -17,7 +19,7 @@ import haxe.Json;
 
 class FreeplayState extends MusicBeatState
 {
-	public static var songs:Array<SongMetadata> = [];
+	var songs:Array<SongMetadata> = [];
 
 	var selector:FlxText;
 	public static var curSelected:Int = 0;
@@ -567,28 +569,4 @@ class FreeplayState extends MusicBeatState
 		if (!FlxG.sound.music.playing && !stopMusicPlay)
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 	}	
-}
-
-class SongMetadata
-{
-	public var songName:String = "";
-	public var week:Int = 0;
-	public var songCharacter:String = "";
-	public var color:Int = -7179779;
-	public var folder:String = "";
-	public var lastDifficulty:String = null;
-	public var bg:Dynamic;
-	public var searchnum:Int = 0;
-
-	public function new(song:String, week:Int, songCharacter:String, color:Int)
-	{
-		this.songName = song;
-		this.week = week;
-		this.songCharacter = songCharacter;
-		this.color = color;
-		this.folder = Paths.currentModDirectory;
-		this.bg = Paths.image('menuDesat');
-		this.searchnum = 0;
-		if(this.folder == null) this.folder = '';
-	}
 }
