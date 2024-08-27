@@ -542,7 +542,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
             else lerpPosX = FlxMath.lerp(0, lerpPosX, Math.exp(-elapsed * 15));
         }
 
-        if (member > FreeplayStateWIP.curSelected)
+        if (member > FreeplayStateNOVA.curSelected)
         {
             if (Math.abs(lerpPosY - posY) < 0.1) lerpPosY = posY;
             else lerpPosY = FlxMath.lerp(posY, lerpPosY, Math.exp(-elapsed * 15));
@@ -558,12 +558,12 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
                 if (FlxG.mouse.overlaps(diffRectArray[num]))
                 {
                     diffRectArray[num].onFocus = true;
-                    FreeplayStateWIP.curDifficulty = diffRectArray[num].member;
+                    FreeplayStateNOVA.curDifficulty = diffRectArray[num].member;
                 } 
             }
             for (num in 0...diffRectArray.length)
             {
-                if (num != FreeplayStateWIP.curDifficulty) diffRectArray[num].onFocus = false;
+                if (num != FreeplayStateNOVA.curDifficulty) diffRectArray[num].onFocus = false;
             }
         }
 
@@ -606,7 +606,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
             rect.member = diff;
             rect.posY = background.height + 10 + diff * 70;
             if (imme) rect.lerpPosY = rect.posY;
-            if (diff == FreeplayStateWIP.curDifficulty) rect.onFocus = true;
+            if (diff == FreeplayStateNOVA.curDifficulty) rect.onFocus = true;
             else rect.onFocus = false;
         }
     }
@@ -766,7 +766,7 @@ class BackRect extends FlxSpriteGroup //back button
         line.alpha = 0.75;
         add(line);
 
-        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreeplayStateWIP/playButton'));
+        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreeplayStateNEW/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;
@@ -884,7 +884,7 @@ class PlayRect extends FlxSpriteGroup //back button
         line.alpha = 0.75;
         add(line);
 
-        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreeplayStateWIP/playButton'));
+        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreeplayStateNEW/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;
@@ -991,8 +991,8 @@ class SearchButton extends FlxSpriteGroup
         search.onChange = function(old:String, cur:String) {
             if (cur == '') tapText.visible = true;
             else tapText.visible = false;
-            FreeplayStateWIP.instance.updateSearch(cur);
-            itemDis.text = Std.string(FreeplayStateWIP.instance.songs.length) + ' maps has found';
+            FreeplayStateNOVA.instance.updateSearch(cur);
+            itemDis.text = Std.string(FreeplayStateNOVA.instance.songs.length) + ' maps has found';
         }
         add(search);
         
@@ -1002,7 +1002,7 @@ class SearchButton extends FlxSpriteGroup
         tapText.alpha = 0.6;
         add(tapText);
 
-        itemDis = new FlxText(5, 5 + tapText.height, 0, Std.string(FreeplayStateWIP.instance.songs.length) + ' maps has found', 18);
+        itemDis = new FlxText(5, 5 + tapText.height, 0, Std.string(FreeplayStateNOVA.instance.songs.length) + ' maps has found', 18);
         itemDis.color = 0xFF52F9;
 		itemDis.font = Paths.font('montserrat.ttf'); 	
         itemDis.antialiasing = ClientPrefs.globalAntialiasing;	

@@ -370,11 +370,11 @@ class StoryMenuState extends MusicBeatState
 			{
 				LoadingState.loadAndSwitchState(new PlayState(), true);
 				if (ClientPrefs.FreeplayStyle == 'NF Engine')
-    				FreeplayState.destroyFreeplayVocals();
+    				FreeplayStateNF.destroyFreeplayVocals();
     		    else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
-    				FreeplayStateWIP.destroyFreeplayVocals();
+    				FreeplayStateNOVA.destroyFreeplayVocals();
     			else
-				    FreeplayStatePsych.destroyFreeplayVocals();
+				    FreeplayState.destroyFreeplayVocals();
 			});
 		} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));

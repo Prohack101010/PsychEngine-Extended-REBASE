@@ -166,10 +166,10 @@ class OptionsState extends MusicBeatState
 				PlayState.MoveOption = false;
 			}
 			else if (OptionsState.isFreeplay == true) {
-			    MusicBeatState.switchState(new FreeplayState());
+			    MusicBeatState.switchState(new FreeplayStateNF());
 			    OptionsState.isFreeplay = false;
 			} else if (OptionsState.isWIPFreeplay == true) {
-			    MusicBeatState.switchState(new FreeplayStateWIP());
+			    MusicBeatState.switchState(new FreeplayStateNOVA());
 			    OptionsState.isWIPFreeplay = false;
 			} else {
     			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')

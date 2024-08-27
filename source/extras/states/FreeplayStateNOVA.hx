@@ -29,9 +29,14 @@ import LoadingState;
 import editors.ChartingState;
 import options.OptionsState;
 
-class FreeplayStateWIP extends MusicBeatState
+/*
+    Note: This backport only supports Psych Extended
+    Backported by KralOyuncu 2010x
+*/
+
+class FreeplayStateNOVA extends MusicBeatState
 {
-	static public var instance:FreeplayStateWIP;
+	static public var instance:FreeplayStateNOVA;
 
 	var selector:FlxText;
 	static public var curSelected:Int = 0;
@@ -589,18 +594,23 @@ class FreeplayStateWIP extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 
 				if (PlayState.SONG.needsVoices)
-				{
-					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-					FlxG.sound.list.add(vocals);
-					vocals.persist = vocals.looped = true;
-					vocals.volume = 0.8;
-				}
-				else if (vocals != null)
-				{
-					vocals.stop();
-					vocals.destroy();
-					vocals = null;
-				}
+        		{
+        		    vocals = new FlxSound();
+        		    try
+        		    {
+        			    vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+        			}
+        			catch(e:Dynamic) {}
+        			FlxG.sound.list.add(vocals);
+        			vocals.persist = true;
+        			vocals.looped = true;
+        		}
+        		else if (vocals != null)
+        		{
+        			vocals.stop();
+        			vocals.destroy();
+        			vocals = null;
+        		}
 
 				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.8);
 				if (vocals != null) vocals.play();

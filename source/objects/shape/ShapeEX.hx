@@ -106,7 +106,7 @@ class BackButton extends FlxSpriteGroup
         background.color = color;
         add(background); 
 
-        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreeplayStateWIP/playButton'));
+        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreeplayStateNEW/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.y += background.height / 2 - button.height / 2;

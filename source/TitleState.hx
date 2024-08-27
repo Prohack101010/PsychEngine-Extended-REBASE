@@ -202,11 +202,11 @@ class TitleState extends MusicBeatState
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
 		if (ClientPrefs.FreeplayStyle == 'NF Engine')
-		    MusicBeatState.switchState(new FreeplayState());
+		    MusicBeatState.switchState(new FreeplayStateNF());
 		else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
-            MusicBeatState.switchState(new FreeplayStateWIP());
+            MusicBeatState.switchState(new FreeplayStateNOVA());
 		else
-		    MusicBeatState.switchState(new FreeplayStatePsych());
+		    MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
@@ -552,23 +552,23 @@ class TitleState extends MusicBeatState
 							FlxG.sound.music.fadeOut();
 							if (ClientPrefs.FreeplayStyle == 'NF Engine')
 							{
-    							if(FreeplayState.vocals != null)
+    							if(FreeplayStateNF.vocals != null)
     							{
-    								FreeplayState.vocals.fadeOut();
+    								FreeplayStateNF.vocals.fadeOut();
     							}
     						}
     						else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
 							{
-    							if(FreeplayStateWIP.vocals != null)
+    							if(FreeplayStateNOVA.vocals != null)
     							{
-    								FreeplayStateWIP.vocals.fadeOut();
+    								FreeplayStateNOVA.vocals.fadeOut();
     							}
     						}
     						else
     						{
-    							if(FreeplayStatePsych.vocals != null)
+    							if(FreeplayState.vocals != null)
     							{
-    								FreeplayStatePsych.vocals.fadeOut();
+    								FreeplayState.vocals.fadeOut();
     							}
     						}
 							closedState = true;
@@ -796,23 +796,23 @@ class TitleState extends MusicBeatState
 					FlxG.sound.music.fadeOut();
 					if (ClientPrefs.FreeplayStyle == 'NF Engine')
 					{
-    					if(FreeplayState.vocals != null)
+    					if(FreeplayStateNF.vocals != null)
     					{
-    						FreeplayState.vocals.fadeOut();
+    						FreeplayStateNF.vocals.fadeOut();
     					}
     				}
     				else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
 					{
-    					if(FreeplayStateWIP.vocals != null)
+    					if(FreeplayStateNOVA.vocals != null)
     					{
-    						FreeplayStateWIP.vocals.fadeOut();
+    						FreeplayStateNOVA.vocals.fadeOut();
     					}
     				}
     				else
 					{
-    					if(FreeplayStatePsych.vocals != null)
+    					if(FreeplayState.vocals != null)
     					{
-    						FreeplayStatePsych.vocals.fadeOut();
+    						FreeplayState.vocals.fadeOut();
     					}
     				}
 				}
