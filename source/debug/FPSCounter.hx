@@ -29,7 +29,7 @@ class FPSCounter extends TextField
 	/**
 		The current memory usage (WARNING: this is NOT your total program memory usage, rather it shows the garbage collector memory)
 	**/
-	public static var memoryMegas(get, never):Float;
+	public var memoryMegas(get, never):Float;
 
 	@:noCompletion private var times:Array<Float>;
 
@@ -83,7 +83,7 @@ class FPSCounter extends TextField
 		text = 
 		'FPS: $currentFPS' + 
 		'\nPsych Extended 1.0.0' + 
-		'\nMemory: ${flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas)}' +
+		'\nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}' +
 		os;
 
 		textColor = 0xFFFFFFFF;
@@ -91,7 +91,7 @@ class FPSCounter extends TextField
 			textColor = 0xFFFF0000;
 	}
 
-	inline static function get_memoryMegas():Float
+	inline function get_memoryMegas():Float
 		return cpp.vm.Gc.memInfo64(cpp.vm.Gc.MEM_INFO_USAGE);
 
 	public inline function positionFPS(X:Float, Y:Float, ?scale:Float = 1){

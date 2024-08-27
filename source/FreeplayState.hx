@@ -339,12 +339,7 @@ class FreeplayState extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				if (PlayState.SONG.needsVoices)
 				{
-				    vocals = new FlxSound();
-        		    try
-        		    {
-        			    vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-        			}
-        			catch(e:Dynamic) {}
+        			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 					FlxG.sound.list.add(vocals);
 					vocals.persist = true;
 					vocals.looped = true;
