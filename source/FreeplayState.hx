@@ -17,7 +17,7 @@ import haxe.Json;
 
 class FreeplayState extends MusicBeatState
 {
-	public static var songs:Array<SongMetadata> = [];
+	public var songs:Array<SongMetadata> = [];
 
 	var selector:FlxText;
 	public static var curSelected:Int = 0;
