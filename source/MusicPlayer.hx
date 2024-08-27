@@ -7,10 +7,10 @@ import flixel.util.FlxStringUtil;
 /**
  * Music player used for Freeplay
  */
-@:access(extras.states.FreeplayStatePsych)
+@:access(extras.states.FreeplayState)
 class MusicPlayer extends FlxGroup 
 {
-	public var instance:FreeplayStatePsych;
+	public var instance:FreeplayState;
 
 	public var playing(get, never):Bool;
 	public var paused(get, never):Bool;
@@ -31,7 +31,7 @@ class MusicPlayer extends FlxGroup
 	var holdPitchTime:Float = 0;
 	var playbackRate(default, set):Float = 1;
 
-	public function new(instance:FreeplayStatePsych)
+	public function new(instance:FreeplayState)
 	{
 		super();
 
@@ -88,9 +88,9 @@ class MusicPlayer extends FlxGroup
 		}
 
 		if (paused && !wasPlaying)
-			songTxt.text = 'PLAYING: ' + instance.songs[FreeplayStatePsych.curSelected].songName + ' (PAUSED)';
+			songTxt.text = 'PLAYING: ' + instance.songs[FreeplayState.curSelected].songName + ' (PAUSED)';
 		else
-			songTxt.text = 'PLAYING: ' + instance.songs[FreeplayStatePsych.curSelected].songName;
+			songTxt.text = 'PLAYING: ' + instance.songs[FreeplayState.curSelected].songName;
 
 		positionSong();
 
@@ -108,8 +108,8 @@ class MusicPlayer extends FlxGroup
 				curTime = 0;
 
 			FlxG.sound.music.time = curTime;
-			if (FreeplayStatePsych.vocals != null)
-				FreeplayStatePsych.vocals.time = curTime;
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.time = curTime;
 		}
 		if (instance.controls.UI_RIGHT_P)
 		{
@@ -125,8 +125,8 @@ class MusicPlayer extends FlxGroup
 				curTime = FlxG.sound.music.length;
 
 			FlxG.sound.music.time = curTime;
-			if (FreeplayStatePsych.vocals != null)
-				FreeplayStatePsych.vocals.time = curTime;
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.time = curTime;
 		}
 	
 		updateTimeTxt();
@@ -144,8 +144,8 @@ class MusicPlayer extends FlxGroup
 			else if(curTime - difference < 0) curTime = 0;
 
 			FlxG.sound.music.time = curTime;
-			if (FreeplayStatePsych.vocals != null)
-				FreeplayStatePsych.vocals.time = curTime;
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.time = curTime;
 
 			updateTimeTxt();
 		}
@@ -153,8 +153,8 @@ class MusicPlayer extends FlxGroup
 		if(instance.controls.UI_LEFT_R || instance.controls.UI_RIGHT_R)
 		{
 			FlxG.sound.music.time = curTime;
-			if (FreeplayStatePsych.vocals != null)
-				FreeplayStatePsych.vocals.time = curTime;
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.time = curTime;
 
 			if (wasPlaying)
 			{
@@ -185,13 +185,13 @@ class MusicPlayer extends FlxGroup
 				setPlaybackRate();
 			}
 		}
-		if (FreeplayStatePsych.vocals != null && FlxG.sound.music.time > 5)
+		if (FreeplayState.vocals != null && FlxG.sound.music.time > 5)
 		{
-			var difference:Float = Math.abs(FlxG.sound.music.time - FreeplayStatePsych.vocals.time);
+			var difference:Float = Math.abs(FlxG.sound.music.time - FreeplayState.vocals.time);
 			if (difference >= 5 && !paused)
 			{
 				pauseOrResume();
-				FreeplayStatePsych.vocals.time = FlxG.sound.music.time;
+				FreeplayState.vocals.time = FlxG.sound.music.time;
 				pauseOrResume(true);
 			}
 		}
@@ -203,8 +203,8 @@ class MusicPlayer extends FlxGroup
 			setPlaybackRate();
 
 			FlxG.sound.music.time = 0;
-			if (FreeplayStatePsych.vocals != null)
-				FreeplayStatePsych.vocals.time = 0;
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.time = 0;
 
 			updateTimeTxt();
 		}
@@ -216,15 +216,15 @@ class MusicPlayer extends FlxGroup
 		{
 			FlxG.sound.music.resume();
 
-			if (FreeplayStatePsych.vocals != null)
-				FreeplayStatePsych.vocals.resume();
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.resume();
 		}
 		else 
 		{
 			FlxG.sound.music.pause();
 
-			if (FreeplayStatePsych.vocals != null)
-				FreeplayStatePsych.vocals.pause();
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.pause();
 		}
 		positionSong();
 	}
@@ -290,7 +290,7 @@ class MusicPlayer extends FlxGroup
 
 	function positionSong() 
 	{
-		var length:Int = instance.songs[FreeplayStatePsych.curSelected].songName.length;
+		var length:Int = instance.songs[FreeplayState.curSelected].songName.length;
 		var shortName:Bool = length < 5; // Fix for song names like Ugh, Guns
 		songTxt.x = FlxG.width - songTxt.width - 6;
 		if (shortName)
@@ -342,8 +342,8 @@ class MusicPlayer extends FlxGroup
 	function setPlaybackRate() 
 	{
 		FlxG.sound.music.pitch = playbackRate;
-		if (FreeplayStatePsych.vocals != null)
-			FreeplayStatePsych.vocals.pitch = playbackRate;
+		if (FreeplayState.vocals != null)
+			FreeplayState.vocals.pitch = playbackRate;
 	}
 
 	function get_playing():Bool 
