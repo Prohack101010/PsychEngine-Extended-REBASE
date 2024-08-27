@@ -591,18 +591,15 @@ class FreeplayStateNOVA extends MusicBeatState
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				
-				if (FPSCounter.memoryMegas > 800)
+				if (FPSCounter.memoryMegas > 900)
 				{
+		            Paths.clearStoredMemory();
 		            Paths.clearUnusedMemory();
 		        }
 
 				if (PlayState.SONG.needsVoices)
         		{
-        		    vocals = new FlxSound();
-        		    try
-        		    {
-        			    vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-        			}
+        			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
         			catch(e:Dynamic) {}
         			FlxG.sound.list.add(vocals);
         			vocals.persist = true;
