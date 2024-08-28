@@ -46,7 +46,7 @@ class ClientPrefs {
 	public static var comboStacking = true;
 	public static var virtualpadType:String = "New";
 	#if android
-	public static var storageType:String = "EXTERNAL";
+	public static var storageType:String = "EXTERNAL_DATA";
 	#end
         public static var hitboxhint = false;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
