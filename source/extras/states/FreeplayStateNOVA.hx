@@ -26,8 +26,8 @@ import ResetScoreSubState;
 
 import MainMenuState;
 import PlayState;
-import ChartingState;
-import OptionsState;
+import editors.ChartingState;
+import options.OptionsState;
 
 class FreeplayStateNOVA extends MusicBeatState
 {
