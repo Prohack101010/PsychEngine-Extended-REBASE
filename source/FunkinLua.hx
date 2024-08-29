@@ -207,20 +207,20 @@ class FunkinLua {
 		set('gfName', PlayState.SONG.gfVersion);
 
 		// Some settings, no jokes
-		set('downscroll', ClientPrefs.data.downScroll);
-		set('middlescroll', ClientPrefs.data.middleScroll);
-		set('framerate', ClientPrefs.data.framerate);
-		set('ghostTapping', ClientPrefs.data.ghostTapping);
-		set('hideHud', ClientPrefs.data.hideHud);
-		set('timeBarType', ClientPrefs.data.timeBarType);
-		set('scoreZoom', ClientPrefs.data.scoreZoom);
-		set('cameraZoomOnBeat', ClientPrefs.data.camZooms);
-		set('flashingLights', ClientPrefs.data.flashing);
-		set('noteOffset', ClientPrefs.data.noteOffset);
-		set('healthBarAlpha', ClientPrefs.data.healthBarAlpha);
-		set('noResetButton', ClientPrefs.data.noReset);
-		set('lowQuality', ClientPrefs.data.lowQuality);
-		set('shadersEnabled', ClientPrefs.data.shaders);
+		set('downscroll', ClientPrefs.downScroll);
+		set('middlescroll', ClientPrefs.middleScroll);
+		set('framerate', ClientPrefs.framerate);
+		set('ghostTapping', ClientPrefs.ghostTapping);
+		set('hideHud', ClientPrefs.hideHud);
+		set('timeBarType', ClientPrefs.timeBarType);
+		set('scoreZoom', ClientPrefs.scoreZoom);
+		set('cameraZoomOnBeat', ClientPrefs.camZooms);
+		set('flashingLights', ClientPrefs.flashing);
+		set('noteOffset', ClientPrefs.noteOffset);
+		set('healthBarAlpha', ClientPrefs.healthBarAlpha);
+		set('noResetButton', ClientPrefs.noReset);
+		set('lowQuality', ClientPrefs.lowQuality);
+		set('shadersEnabled', ClientPrefs.shaders);
 		set('scriptName', scriptName);
 		set('currentModDirectory', Paths.currentModDirectory);
 
@@ -267,7 +267,7 @@ class FunkinLua {
 
 		// shader shit
 		Lua_helper.add_callback(lua, "initLuaShader", function(name:String) {
-			if(!ClientPrefs.data.shaders) return false;
+			if(!ClientPrefs.shaders) return false;
 
 			#if (!flash && MODS_ALLOWED && sys)
 			return initLuaShader(name);
@@ -278,7 +278,7 @@ class FunkinLua {
 		});
 		
 		Lua_helper.add_callback(lua, "setSpriteShader", function(obj:String, shader:String) {
-			if(!ClientPrefs.data.shaders) return false;
+			if(!ClientPrefs.shaders) return false;
 
 			#if (!flash && MODS_ALLOWED && sys)
 			if(!PlayState.instance.runtimeShaders.exists(shader) && !initLuaShader(shader))
@@ -1048,76 +1048,76 @@ class FunkinLua {
 		   #if mobile // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
            if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
-    			if (ClientPrefs.data.breakgetvarinarray)
+    			if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.pressed){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justReleased){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 
                 if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justPressed){
-    			if (ClientPrefs.data.breakgetvarinarray)
+    			if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.pressed){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.newhbox.buttonShift.justReleased){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 
                 if (variable == 'keys.justPressed.Q' && MusicBeatState.mobilec.newhbox.buttonQ.justPressed){
-    			if (ClientPrefs.data.breakgetvarinarray)
+    			if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.Q' && MusicBeatState.mobilec.newhbox.buttonQ.pressed){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.Q' && MusicBeatState.mobilec.newhbox.buttonQ.justReleased){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 
                 if (variable == 'keys.justPressed.E' && MusicBeatState.mobilec.newhbox.buttonE.justPressed){
-    			if (ClientPrefs.data.breakgetvarinarray)
+    			if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.E' && MusicBeatState.mobilec.newhbox.buttonE.pressed){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.E' && MusicBeatState.mobilec.newhbox.buttonE.justReleased){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
@@ -1126,38 +1126,38 @@ class FunkinLua {
            
            if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justPressed){
-    			if (ClientPrefs.data.breakgetvarinarray)
+    			if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SPACE' && MusicBeatState.mobilec.vpad.buttonG.pressed){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.mobilec.vpad.buttonG.justReleased){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 
                 if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justPressed){
-    			if (ClientPrefs.data.breakgetvarinarray)
+    			if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.pressed){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
                 }
                 else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.mobilec.vpad.buttonF.justReleased){
-                if (ClientPrefs.data.breakgetvarinarray)
+                if (ClientPrefs.breakgetvarinarray)
                     return getVarInArray(myClass, variable);
                 else
                     return getExtraControlsVarInArray(myClass, variable);
@@ -1766,9 +1766,9 @@ class FunkinLua {
 
 			if(PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
-			else if (ClientPrefs.data.FreeplayStyle == 'NF Engine')
+			else if (ClientPrefs.FreeplayStyle == 'NF Engine')
 			    MusicBeatState.switchState(new FreeplayStateNF());
-			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
+			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                 MusicBeatState.switchState(new FreeplayStateNOVA());
 			else
 			    MusicBeatState.switchState(new FreeplayState());
@@ -1940,7 +1940,7 @@ class FunkinLua {
 			{
 				leSprite.loadGraphic(Paths.image(image));
 			}
-			leSprite.antialiasing = ClientPrefs.data.antialiasing;
+			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
 		});
@@ -1950,7 +1950,7 @@ class FunkinLua {
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 
 			loadFrames(leSprite, image, spriteType);
-			leSprite.antialiasing = ClientPrefs.data.antialiasing;
+			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});
 
@@ -3230,7 +3230,7 @@ class FunkinLua {
 	public static function getVarInArray(instance:Dynamic, variable:String):Any
 	{
 	    #if mobile //Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
-	    if (ClientPrefs.data.breakgetvarinarray) {
+	    if (ClientPrefs.breakgetvarinarray) {
 	        var pressCheck:Dynamic;
 	        if (MusicBeatState.mobilec.newhbox != null){ //check for android control and dont check for keyboard
 			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.mobilec.newhbox.buttonSpace.justPressed){
@@ -3372,7 +3372,7 @@ class FunkinLua {
 	
 	function initLuaShader(name:String)
 	{
-		if(!ClientPrefs.data.shaders) return false;
+		if(!ClientPrefs.shaders) return false;
 
 		#if (!flash && sys)
 		if(PlayState.instance.runtimeShaders.exists(name))
@@ -3813,7 +3813,7 @@ class ModchartSprite extends FlxSprite
 	public function new(?x:Float = 0, ?y:Float = 0)
 	{
 		super(x, y);
-		antialiasing = ClientPrefs.data.antialiasing;
+		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 }
 

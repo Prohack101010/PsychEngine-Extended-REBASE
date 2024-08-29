@@ -40,7 +40,7 @@ class CreditsButton extends FlxSpriteGroup //back button
 
         button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/Others/playButton'));
         button.scale.set(0.4, 0.4);
-        button.antialiasing = ClientPrefs.data.antialiasing;
+        button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;
         button.y += background.height / 2 - button.height / 2;
         button.flipX = true;
@@ -48,7 +48,7 @@ class CreditsButton extends FlxSpriteGroup //back button
 
         text = new FlxText(70, 0, 0, texts, 18);
         text.font = Paths.font('montserrat.ttf');     
-        text.antialiasing = ClientPrefs.data.antialiasing;    
+        text.antialiasing = ClientPrefs.globalAntialiasing;    
         add(text);
 
         text.x += background.width / 2 - text.width / 2;
@@ -161,12 +161,12 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
         text = new FlxText(0, 0, 0, texts, 22);
         text.color = FlxColor.WHITE;
         text.font = Paths.font('montserrat.ttf');
-        text.antialiasing = ClientPrefs.data.antialiasing;
+        text.antialiasing = ClientPrefs.globalAntialiasing;
 
         background = new Rect(0, 0, width, height, roundWidth, roundHeight, color);
         background.color = color;
         background.alpha = 0.6;
-        background.antialiasing = ClientPrefs.data.antialiasing;
+        background.antialiasing = ClientPrefs.globalAntialiasing;
         add(background);
         add(text);
         add(box);

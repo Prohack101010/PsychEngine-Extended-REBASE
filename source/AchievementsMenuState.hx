@@ -36,7 +36,7 @@ class AchievementsMenuState extends MusicBeatState
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
-		menuBG.antialiasing = ClientPrefs.data.antialiasing;
+		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(menuBG);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -73,10 +73,10 @@ class AchievementsMenuState extends MusicBeatState
 
         #if mobile
         #if ios
-        if (ClientPrefs.data.touchmenus)
+        if (ClientPrefs.touchmenus)
             addVirtualPad(NONE, A_B);
         #end
-        if (!ClientPrefs.data.touchmenus)
+        if (!ClientPrefs.touchmenus)
             addVirtualPad(UP_DOWN, A_B);
         #end
 
@@ -86,16 +86,16 @@ class AchievementsMenuState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.UI_UP_P || ClientPrefs.data.touchmenus && SwipeUtil.swipeUp) {
+		if (controls.UI_UP_P || ClientPrefs.touchmenus && SwipeUtil.swipeUp) {
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P || ClientPrefs.data.touchmenus && SwipeUtil.swipeDown) {
+		if (controls.UI_DOWN_P || ClientPrefs.touchmenus && SwipeUtil.swipeDown) {
 			changeSelection(1);
 		}
 
-		if (controls.BACK #if android || ClientPrefs.data.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.data.touchmenus && SwipeUtil.swipeRight #end) {
+		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
+			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
 				MusicBeatState.switchState(new MainMenuStateOld());
 			else
 				MusicBeatState.switchState(new MainMenuState());

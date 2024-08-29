@@ -75,7 +75,7 @@ class ModsMenuState extends MusicBeatState
 		#end
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 
@@ -378,10 +378,10 @@ class ModsMenuState extends MusicBeatState
 
         #if mobile
         #if ios
-        if (ClientPrefs.data.touchmenus)
+        if (ClientPrefs.touchmenus)
             addVirtualPad(NONE, B);
         #end
-        if (!ClientPrefs.data.touchmenus)
+        if (!ClientPrefs.touchmenus)
             addVirtualPad(UP_DOWN, B);
         #end
 
@@ -480,7 +480,7 @@ class ModsMenuState extends MusicBeatState
 			noModsTxt.alpha = 1 - Math.sin((Math.PI * noModsSine) / 180);
 		}
 
-		if(canExit && controls.BACK #if android || canExit && ClientPrefs.data.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || canExit && ClientPrefs.data.touchmenus && SwipeUtil.swipeRight #end )
+		if(canExit && controls.BACK #if android || canExit && ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || canExit && ClientPrefs.touchmenus && SwipeUtil.swipeRight #end )
 		{
 			if(colorTween != null) {
 				colorTween.cancel();
@@ -494,7 +494,7 @@ class ModsMenuState extends MusicBeatState
 				TitleState.initialized = false;
 				TitleState.closedState = false;
 				FlxG.sound.music.fadeOut(0.3);
-				if (ClientPrefs.data.FreeplayStyle == 'NF Engine')
+				if (ClientPrefs.FreeplayStyle == 'NF Engine')
 				{
     				if(FreeplayStateNF.vocals != null)
     				{
@@ -502,7 +502,7 @@ class ModsMenuState extends MusicBeatState
     					FreeplayStateNF.vocals = null;
     				}
     			}
-    			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
+    			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
 				{
     				if(FreeplayStateNOVA.vocals != null)
     				{
@@ -522,19 +522,19 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-				if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
+				if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
     				MusicBeatState.switchState(new MainMenuStateOld());
     			else
     				MusicBeatState.switchState(new MainMenuState());
 			}
 		}
 
-		if(controls.UI_UP_P ||  ClientPrefs.data.touchmenus && SwipeUtil.swipeUp && !noModsTxt.visible)
+		if(controls.UI_UP_P ||  ClientPrefs.touchmenus && SwipeUtil.swipeUp && !noModsTxt.visible)
 		{
 			changeSelection(-1);
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
-		if(controls.UI_DOWN_P || ClientPrefs.data.touchmenus && SwipeUtil.swipeDown && !noModsTxt.visible)
+		if(controls.UI_DOWN_P || ClientPrefs.touchmenus && SwipeUtil.swipeDown && !noModsTxt.visible)
 		{
 			changeSelection(1);
 			FlxG.sound.play(Paths.sound('scrollMenu'));

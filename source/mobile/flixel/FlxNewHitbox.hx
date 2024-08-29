@@ -39,27 +39,27 @@ class FlxNewHitbox extends FlxSpriteGroup
 	public function new():Void
 	{
 		super();
-		    if (ClientPrefs.data.hitboxExtend == 0){
+		    if (ClientPrefs.hitboxExtend == 0){
             add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFC24B99));
 		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
 		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
 		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFF9393F));
-		    if (ClientPrefs.data.hitboxhint){
+		    if (ClientPrefs.hitboxhint){
     		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
     		add(hitbox_hint);
     		}
         }else{
-            if (ClientPrefs.data.hitboxLocation == 'Bottom'){
+            if (ClientPrefs.hitboxLocation == 'Bottom'){
 		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
 		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
 		        add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
 		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
-		        if (ClientPrefs.data.hitboxhint){
+		        if (ClientPrefs.hitboxhint){
         		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
         		add(hitbox_hint);
         		}
                 
-                switch (ClientPrefs.data.hitboxExtend){
+                switch (ClientPrefs.hitboxExtend){
 					case 1:		        
                         add(buttonSpace = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
 		            case 2:                
@@ -75,17 +75,17 @@ class FlxNewHitbox extends FlxSpriteGroup
                         add(buttonE = createHint(FlxG.width / 4 * 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0x00FF00));      
                         add(buttonSpace = createHint(FlxG.width / 4 * 3, (FlxG.height / 5) * 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 5), 0xFFFF00));      
                 }
-		    }else if (ClientPrefs.data.hitboxLocation == 'Top'){// Top
+		    }else if (ClientPrefs.hitboxLocation == 'Top'){// Top
 		        add(buttonLeft = createHint(0, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
 		        add(buttonDown = createHint(FlxG.width / 4, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
 		        add(buttonUp = createHint(FlxG.width / 2, (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF12FA05));
 		        add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), (FlxG.height / 5) * 1, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFF9393F));
-		        if (ClientPrefs.data.hitboxhint){
+		        if (ClientPrefs.hitboxhint){
         		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
         		add(hitbox_hint);
         		}
  
-                switch (ClientPrefs.data.hitboxExtend){
+                switch (ClientPrefs.hitboxExtend){
 					case 1:		        
                         add(buttonSpace = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
 		            case 2:                
@@ -106,12 +106,12 @@ class FlxNewHitbox extends FlxSpriteGroup
 		        add(buttonDown = createHint(FlxG.width / 5 * 1, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0x00FFFF));
 		        add(buttonUp = createHint(FlxG.width / 5 * 3, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0x00FF00));
 		        add(buttonRight = createHint(FlxG.width / 5 * 4 , 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFF0000));
-		        if (ClientPrefs.data.hitboxhint){
+		        if (ClientPrefs.hitboxhint){
         		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
         		add(hitbox_hint);
         		}
 		        
-                switch (ClientPrefs.data.hitboxExtend){
+                switch (ClientPrefs.hitboxExtend){
 					case 1:		        
                         add(buttonSpace = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFFFF00));
 		            case 2:                
@@ -151,10 +151,10 @@ class FlxNewHitbox extends FlxSpriteGroup
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
 	{
-	    var guh:Float = ClientPrefs.data.hitboxalpha;
+	    var guh:Float = ClientPrefs.hitboxalpha;
 		var shape:Shape = new Shape();
 		shape.graphics.beginFill(Color);
-		if (ClientPrefs.data.hitboxtype == "No Gradient")
+		if (ClientPrefs.hitboxtype == "No Gradient")
 		{
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox(Width, Height, 0, 0, 0);
@@ -163,13 +163,13 @@ class FlxNewHitbox extends FlxSpriteGroup
 			shape.graphics.drawRect(0, 0, Width, Height);
 			shape.graphics.endFill();
 		}
-		else if (ClientPrefs.data.hitboxtype == "No Gradient (Old)")
+		else if (ClientPrefs.hitboxtype == "No Gradient (Old)")
 		{
 			shape.graphics.lineStyle(10, Color, 1);
 			shape.graphics.drawRect(0, 0, Width, Height);
 			shape.graphics.endFill();
 		}
-		else if (ClientPrefs.data.hitboxtype == "Gradient")
+		else if (ClientPrefs.hitboxtype == "Gradient")
 		{
 			shape.graphics.lineStyle(3, Color, 1);
 			shape.graphics.drawRect(0, 0, Width, Height);
@@ -202,8 +202,8 @@ class FlxNewHitbox extends FlxSpriteGroup
 		hint.alpha = 0.00001;
 		hint.onDown.callback = hint.onOver.callback = function()
 		{
-			if (hint.alpha != ClientPrefs.data.hitboxalpha)
-				hint.alpha = ClientPrefs.data.hitboxalpha;
+			if (hint.alpha != ClientPrefs.hitboxalpha)
+				hint.alpha = ClientPrefs.hitboxalpha;
 		}
 		hint.onUp.callback = hint.onOut.callback = function()
 		{

@@ -59,7 +59,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		super();
 
 		orgAntialiasing = antialiasingAlt;
-		orgAlpha = ClientPrefs.data.VirtualPadAlpha;
+		orgAlpha = ClientPrefs.VirtualPadAlpha;
 
 		dPad = new FlxSpriteGroup();
 		dPad.scrollFactor.set();
@@ -229,8 +229,8 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				dPad.add(add(buttonCEG = createButton(FlxG.width - (44 + 42 * 1) * 3, 25, 44 * 3, 127, "g", 0x00FF00)));
 				
 			case controlExtend:
-			    if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.data.VPadShiftExtend) actions.add(add(buttonF = createButton(FlxG.width * 0.5 - 44 * 3, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "f", 0xFF0000)));
-				if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.data.VPadSpaceExtend) actions.add(add(buttonG = createButton(FlxG.width * 0.5, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "g", 0xFFFF00)));	
+			    if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.VPadShiftExtend) actions.add(add(buttonF = createButton(FlxG.width * 0.5 - 44 * 3, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "f", 0xFF0000)));
+				if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.VPadSpaceExtend) actions.add(add(buttonG = createButton(FlxG.width * 0.5, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "g", 0xFFFF00)));	
 				
 			case CHART_EDITOR:
 				actions.add(add(buttonV = createButton(FlxG.width - 170 * 3, FlxG.height - 85 * 3, 44 * 3, 127, "v", 0x49A9B2)));            
@@ -253,13 +253,13 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public function createButton(x:Float, y:Float, width:Int, height:Int, Frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
-	if (ClientPrefs.data.virtualpadType == 'New') {
+	if (ClientPrefs.virtualpadType == 'New') {
 		var frames:FlxGraphic;
 
-		final path:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.data.VirtualPadSkin + '/$Frames.png';
-		final defaultkey:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.data.VirtualPadSkin + '/default.png';
+		final path:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames.png';
+		final defaultkey:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/default.png';
 		#if MODS_ALLOWED
-		final modsPath:String = Paths.mods('virtualpad/' + ClientPrefs.data.VirtualPadSkin + '/$Frames');
+		final modsPath:String = Paths.mods('virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames');
 		if(sys.FileSystem.exists(modsPath))
 			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
 		else #end if(Assets.exists(path))
@@ -276,7 +276,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		button.moves = false;
 		button.scrollFactor.set();
 		button.alpha = orgAlpha;
-		if (colored && ClientPrefs.data.coloredvpad) button.color = ColorS;
+		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
 		button.antialiasing = orgAntialiasing;
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
@@ -292,7 +292,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		button.immovable = true;
 		button.scrollFactor.set();
 		button.alpha = orgAlpha;
-		if (colored && ClientPrefs.data.coloredvpad) button.color = ColorS;
+		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
 		button.antialiasing = orgAntialiasing;
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
@@ -302,7 +302,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public static function getFrames():FlxAtlasFrames {
-		return Paths.getPackerAtlas('mobilecontrols/virtualpad/' + ClientPrefs.data.VirtualPadSkin);
+		return Paths.getPackerAtlas('mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
 	}
 	
 	override public function destroy():Void

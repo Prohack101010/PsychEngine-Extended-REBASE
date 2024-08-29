@@ -1,4 +1,4 @@
-package states;
+package extras.states;
 
 import flixel.util.FlxSpriteUtil;
 import flixel.addons.transition.FlxTransitionableState;
@@ -26,13 +26,12 @@ import ResetScoreSubState;
 
 import MainMenuState;
 import PlayState;
-import LoadingState;
-import editors.ChartingState;
-import options.OptionsState;
+import ChartingState;
+import OptionsState;
 
-class FreeplayState extends MusicBeatState
+class FreeplayStateNOVA extends MusicBeatState
 {
-	static public var instance:FreeplayState;
+	static public var instance:FreeplayStateNOVA;
 
 	static public var curSelected:Int = 0;
 	private static var position:Float = 360 - 45;
@@ -143,7 +142,7 @@ class FreeplayState extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		add(magenta);
 
 		var specBG:SpecRectBG = new SpecRectBG(0, 0);
@@ -496,7 +495,7 @@ class FreeplayState extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		smallMag.updateRect(magenta.pixels);			
 	}
@@ -579,14 +578,14 @@ class FreeplayState extends MusicBeatState
 
 			if (songs[curSelected] == null) return;		
 
-			voiceDis.audioDis.stopUpdate = true;
-			instDis.audioDis.stopUpdate = true;
-		
-			destroyFreeplayVocals();
-			FlxG.sound.music.stop();
-
 			Thread.create(() -> {			
 				musicMutex.acquire();
+
+				destroyFreeplayVocals();
+				FlxG.sound.music.stop();
+
+				voiceDis.audioDis.stopUpdate = true;
+				instDis.audioDis.stopUpdate = true;
 				
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());

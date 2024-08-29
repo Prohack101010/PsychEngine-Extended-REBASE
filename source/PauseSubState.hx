@@ -57,7 +57,7 @@ class PauseSubState extends MusicBeatSubstate
 		if(songName != null) {
 			pauseMusic.loadEmbedded(Paths.music(songName), true, true);
 		} else if (songName != 'None') {
-			pauseMusic.loadEmbedded(Paths.music(Paths.formatToSongPath(ClientPrefs.data.pauseMusic)), true, true);
+			pauseMusic.loadEmbedded(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)), true, true);
 		}
 		pauseMusic.volume = 0;
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
@@ -191,7 +191,7 @@ class PauseSubState extends MusicBeatSubstate
 				}
 		}
 
-		if (accepted && (cantUnpause <= 0 || !ClientPrefs.data.controllerMode))
+		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode))
 		{
 			if (menuItems == difficultyChoices)
 			{
@@ -274,9 +274,9 @@ class PauseSubState extends MusicBeatSubstate
 					if(PlayState.isStoryMode) {
 						MusicBeatState.switchState(new StoryMenuState());
 					} else {
-						if (ClientPrefs.data.FreeplayStyle == 'NF Engine')
+						if (ClientPrefs.FreeplayStyle == 'NF Engine')
             			    MusicBeatState.switchState(new FreeplayStateNF());
-            			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
+            			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                     		MusicBeatState.switchState(new FreeplayStateNOVA());
             			else
             			    MusicBeatState.switchState(new FreeplayState());
@@ -290,7 +290,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.seenCutscene = false;
 
 					WeekData.loadTheFirstEnabledMod();
-					if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
+					if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
         				MusicBeatState.switchState(new MainMenuStateOld());
         			else
         				MusicBeatState.switchState(new MainMenuState());

@@ -77,7 +77,7 @@ class StoryMenuState extends MusicBeatState
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
 		var bgYellow:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 386, 0xFFF9CF51);
 		bgSprite = new FlxSprite(0, 56);
-		bgSprite.antialiasing = ClientPrefs.data.antialiasing;
+		bgSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
@@ -110,7 +110,7 @@ class StoryMenuState extends MusicBeatState
 				grpWeekText.add(weekThing);
 
 				weekThing.screenCenter(X);
-				weekThing.antialiasing = ClientPrefs.data.antialiasing;
+				weekThing.antialiasing = ClientPrefs.globalAntialiasing;
 				// weekThing.updateHitbox();
 
 				// Needs an offset thingie
@@ -121,7 +121,7 @@ class StoryMenuState extends MusicBeatState
 					lock.animation.addByPrefix('lock', 'lock');
 					lock.animation.play('lock');
 					lock.ID = i;
-					lock.antialiasing = ClientPrefs.data.antialiasing;
+					lock.antialiasing = ClientPrefs.globalAntialiasing;
 					grpLocks.add(lock);
 				}
 				num++;
@@ -145,7 +145,7 @@ class StoryMenuState extends MusicBeatState
 		leftArrow.animation.addByPrefix('idle', "arrow left");
 		leftArrow.animation.addByPrefix('press', "arrow push left");
 		leftArrow.animation.play('idle');
-		leftArrow.antialiasing = ClientPrefs.data.antialiasing;
+		leftArrow.antialiasing = ClientPrefs.globalAntialiasing;
 		difficultySelectors.add(leftArrow);
 
 		Difficulty.resetList();
@@ -156,7 +156,7 @@ class StoryMenuState extends MusicBeatState
 		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
 		
 		sprDifficulty = new FlxSprite(0, leftArrow.y);
-		sprDifficulty.antialiasing = ClientPrefs.data.antialiasing;
+		sprDifficulty.antialiasing = ClientPrefs.globalAntialiasing;
 		difficultySelectors.add(sprDifficulty);
 
 		rightArrow = new FlxSprite(leftArrow.x + 376, leftArrow.y);
@@ -164,7 +164,7 @@ class StoryMenuState extends MusicBeatState
 		rightArrow.animation.addByPrefix('idle', 'arrow right');
 		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
 		rightArrow.animation.play('idle');
-		rightArrow.antialiasing = ClientPrefs.data.antialiasing;
+		rightArrow.antialiasing = ClientPrefs.globalAntialiasing;
 		difficultySelectors.add(rightArrow);
 
 		add(bgYellow);
@@ -172,7 +172,7 @@ class StoryMenuState extends MusicBeatState
 		add(grpWeekCharacters);
 
 		var tracksSprite:FlxSprite = new FlxSprite(FlxG.width * 0.07, bgSprite.y + 425).loadGraphic(Paths.image('Menu_Tracks'));
-		tracksSprite.antialiasing = ClientPrefs.data.antialiasing;
+		tracksSprite.antialiasing = ClientPrefs.globalAntialiasing;
 		add(tracksSprite);
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, tracksSprite.y + 60, 0, "", 32);
@@ -188,12 +188,12 @@ class StoryMenuState extends MusicBeatState
 		changeDifficulty();
 
         #if android
-        if (ClientPrefs.data.touchmenus)
+        if (ClientPrefs.touchmenus)
             addVirtualPad(NONE, X_Y);
         else
             addVirtualPad(NONE, A_X_Y);
         #elseif ios
-        if (ClientPrefs.data.touchmenus)
+        if (ClientPrefs.touchmenus)
             addVirtualPad(NONE, B_X_Y);
         else
             addVirtualPad(NONE, A_B_X_Y);
@@ -207,12 +207,12 @@ class StoryMenuState extends MusicBeatState
 		changeWeek();
 		removeVirtualPad();
 		#if android
-        if (ClientPrefs.data.touchmenus)
+        if (ClientPrefs.touchmenus)
             addVirtualPad(NONE, X_Y);
         else
             addVirtualPad(NONE, A_X_Y);
         #elseif ios
-        if (ClientPrefs.data.touchmenus)
+        if (ClientPrefs.touchmenus)
             addVirtualPad(NONE, B_X_Y);
         else
             addVirtualPad(NONE, A_B_X_Y);
@@ -298,7 +298,7 @@ class StoryMenuState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
+			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
 				MusicBeatState.switchState(new MainMenuStateOld());
 			else
 				MusicBeatState.switchState(new MainMenuState());
@@ -369,9 +369,9 @@ class StoryMenuState extends MusicBeatState
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
 				LoadingState.loadAndSwitchState(new PlayState(), true);
-				if (ClientPrefs.data.FreeplayStyle == 'NF Engine')
+				if (ClientPrefs.FreeplayStyle == 'NF Engine')
     				FreeplayStateNF.destroyFreeplayVocals();
-    		    else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
+    		    else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
     				FreeplayStateNOVA.destroyFreeplayVocals();
     			else
 				    FreeplayState.destroyFreeplayVocals();

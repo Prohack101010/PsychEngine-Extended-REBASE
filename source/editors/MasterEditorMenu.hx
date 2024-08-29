@@ -112,7 +112,7 @@ class MasterEditorMenu extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
+			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
 				MusicBeatState.switchState(new MainMenuStateOld());
 			else
 				MusicBeatState.switchState(new MainMenuState());
@@ -137,9 +137,9 @@ class MasterEditorMenu extends MusicBeatState
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL
-			if (ClientPrefs.data.FreeplayStyle == 'NF Engine')
+			if (ClientPrefs.FreeplayStyle == 'NF Engine')
 			    FreeplayStateNF.destroyFreeplayVocals();
-			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
+			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
 			    FreeplayStateNOVA.destroyFreeplayVocals();
 			else
 			    FreeplayState.destroyFreeplayVocals();

@@ -11,6 +11,8 @@ import objects.shape.ShapeEX;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxStringUtil; 
 
+import FreeplayState;
+
 class SpecRect extends FlxSprite //freeplay bg rect
 {
     var mask:FlxSprite;
@@ -102,7 +104,7 @@ class SpecRect extends FlxSprite //freeplay bg rect
         resizedBitmapData.draw(lineBitmap);
 
         pixels = resizedBitmapData;
-        antialiasing = ClientPrefs.data.antialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
     }
 }
 
@@ -113,7 +115,7 @@ class SpecRectBG extends FlxSprite //freeplay bg rect
         super(X, Y);
 		
         loadGraphic(drawRect());
-        antialiasing = ClientPrefs.data.antialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	function drawRect():BitmapData {
@@ -183,7 +185,7 @@ class InfoText extends FlxSpriteGroup //freeplay info
         add(dataText);
 
         data = 0;
-        antialiasing = ClientPrefs.data.antialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
     }
 
     private function set_data(value:Float):Float
@@ -196,6 +198,8 @@ class InfoText extends FlxSpriteGroup //freeplay info
 
     override function update(elapsed:Float)
     {
+        if (FreeplayState.instance.ignoreCheck) return;
+        
         if (Math.abs((WhiteBG._frame.frame.width / WhiteBG.width) - (data / maxData)) > 0.01)
         {
             if (Math.abs((WhiteBG._frame.frame.width / WhiteBG.width) - (data / maxData)) < 0.005) WhiteBG._frame.frame.width = Std.int(WhiteBG.width * (data / maxData));
@@ -248,22 +252,22 @@ class MusicLine extends FlxSpriteGroup
         whiteLine = new FlxSprite().makeGraphic(1, 5);
         add(whiteLine);
 
-        timeDis = new FlxText(0, 5, 0, '0', 18);
+        timeDis = new FlxText(0, 20, 0, '0', 18);
 		timeDis.font = Paths.font('montserrat.ttf');	
         timeDis.alignment = LEFT;  	    		
-        timeDis.antialiasing = ClientPrefs.data.antialiasing;
+        timeDis.antialiasing = ClientPrefs.globalAntialiasing;
         add(timeDis);
 
-        timeMaxDis = new FlxText(0, 5, 0, '0', 18);
+        timeMaxDis = new FlxText(0, 20, 0, '0', 18);
 		timeMaxDis.font = Paths.font('montserrat.ttf');	  
         timeMaxDis.alignment = RIGHT;  	
-        timeMaxDis.antialiasing = ClientPrefs.data.antialiasing;	
+        timeMaxDis.antialiasing = ClientPrefs.globalAntialiasing;	
         add(timeMaxDis);
 
-        playRate = new FlxText(0, 5, 0, '1', 18);
+        playRate = new FlxText(0, 20, 0, '1.00', 18);
 		playRate.font = Paths.font('montserrat.ttf');	
         timeDis.alignment = CENTER;    		
-        playRate.antialiasing = ClientPrefs.data.antialiasing;
+        playRate.antialiasing = ClientPrefs.globalAntialiasing;
         add(playRate);
         playRate.x += width / 2 - playRate.width / 2;
 
@@ -302,13 +306,13 @@ class ExtraTopRect extends FlxSpriteGroup //play/back button
 		
         text = new FlxText(textOffset, 0, 0, texts, 17);
 		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.data.antialiasing;	
+        text.antialiasing = ClientPrefs.globalAntialiasing;	
 
         background = new FlxSprite(0, 0);
         background.pixels = drawRect(width, height, roundSize, roundLeft);
         background.alpha = 0.4;
         background.color = color;
-        background.antialiasing = ClientPrefs.data.antialiasing;
+        background.antialiasing = ClientPrefs.globalAntialiasing;
         add(background);
         add(text);
 
@@ -339,6 +343,7 @@ class ExtraTopRect extends FlxSpriteGroup //play/back button
     override function update(elapsed:Float)
     {
         super.update(elapsed);
+        if (FreeplayState.instance.ignoreCheck) return;
 
         if(!ignoreCheck)
             onFocus = FlxG.mouse.overlaps(this);
@@ -378,12 +383,12 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
 		
         text = new FlxText(0, 0, 0, texts, 18);
 		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.data.antialiasing;	
+        text.antialiasing = ClientPrefs.globalAntialiasing;	
 
         background = new FlxSprite().loadGraphic(drawRect(text.width + 60));
         background.color = color;
         background.alpha = 0.5;
-        background.antialiasing = ClientPrefs.data.antialiasing;
+        background.antialiasing = ClientPrefs.globalAntialiasing;
         add(background);
         add(text);
 
@@ -425,6 +430,7 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
     override function update(elapsed:Float)
     {
         super.update(elapsed);
+        if (FreeplayState.instance.ignoreCheck) return;
 
         if(!ignoreCheck)
             onFocus = FlxG.mouse.overlaps(this);
@@ -483,7 +489,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
 
         background.pixels = resizedBitmapData;
         background.color = songColor;
-        background.antialiasing = ClientPrefs.data.antialiasing;
+        background.antialiasing = ClientPrefs.globalAntialiasing;
         add(background);
 
         var lineBitmap:BitmapData = drawLine(resizedBitmapData.width, resizedBitmapData.height);
@@ -500,7 +506,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
 
         songName = new FlxText(100, 5, 0, songNameS, 25);
 		songName.font = Paths.font('montserrat.ttf'); 	
-        songName.antialiasing = ClientPrefs.data.antialiasing;	
+        songName.antialiasing = ClientPrefs.globalAntialiasing;	
         add(songName);
 
         this.name = songNameS;
@@ -530,6 +536,8 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
     override function update(elapsed:Float)
     {
         super.update(elapsed);
+        if (FreeplayState.instance.ignoreCheck) return;
+
         if (onFocus)
         {
             if (Math.abs(lerpPosX - posX) < 0.1) lerpPosX = posX;
@@ -542,7 +550,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
             else lerpPosX = FlxMath.lerp(0, lerpPosX, Math.exp(-elapsed * 15));
         }
 
-        if (member > FreeplayStateNOVA.curSelected)
+        if (member > FreeplayState.curSelected)
         {
             if (Math.abs(lerpPosY - posY) < 0.1) lerpPosY = posY;
             else lerpPosY = FlxMath.lerp(posY, lerpPosY, Math.exp(-elapsed * 15));
@@ -558,12 +566,12 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
                 if (FlxG.mouse.overlaps(diffRectArray[num]))
                 {
                     diffRectArray[num].onFocus = true;
-                    FreeplayStateNOVA.curDifficulty = diffRectArray[num].member;
+                    FreeplayState.curDifficulty = diffRectArray[num].member;
                 } 
             }
             for (num in 0...diffRectArray.length)
             {
-                if (num != FreeplayStateNOVA.curDifficulty) diffRectArray[num].onFocus = false;
+                if (num != FreeplayState.curDifficulty) diffRectArray[num].onFocus = false;
             }
         }
 
@@ -578,444 +586,4 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
     }
 
     var tween:FlxTween;
-    private function set_onFocus(value:Bool):Bool
-    {
-        if (onFocus == value) return onFocus;
-        onFocus = value;
-        if (onFocus) 
-        {
-            if (tween != null) tween.cancel();
-                tween = FlxTween.tween(this, {alpha: 1}, 0.2);
-        } else {
-            if (tween != null) tween.cancel();
-                tween = FlxTween.tween(this, {alpha: 0.6}, 0.2);
-        }
-        return value;
-    }
-
-    var haveDiffDis:Bool = false;
-    public function createDiff(color:FlxColor, imme:Bool = false) 
-    {
-        desDiff();
-        haveDiffDis = true;
-        for (diff in 0...Difficulty.list.length)
-        {
-            var rect = new DiffRect(Difficulty.list[diff], color, this);
-            diffRectGroup.add(rect);
-            diffRectArray.push(rect);
-            rect.member = diff;
-            rect.posY = background.height + 10 + diff * 70;
-            if (imme) rect.lerpPosY = rect.posY;
-            if (diff == FreeplayStateNOVA.curDifficulty) rect.onFocus = true;
-            else rect.onFocus = false;
-        }
-    }
-
-    public function desDiff() 
-    {
-        haveDiffDis = false;
-        if (diffRectArray.length < 1) return;
-        for (i in 0...diffRectGroup.length){
-            diffRectArray.shift();    
-        }
-
-        for (member in diffRectGroup.members)
-        {         
-            if (member == null) return; //奇葩bug了属于
-            diffRectGroup.remove(member);
-		    member.destroy();
-        }
-    }
-}
-
-class DiffRect extends FlxSpriteGroup //songs member for freeplay
-{
-    var background:Rect;
-    var triItems:FlxSpriteGroup;
-    var bgLine:FlxSprite;
-
-    var diffName:FlxText;
-    var charterName:FlxText;
-
-    var follow:SongRect;
-
-    public var member:Int;
-
-	public function new(name:String, color:FlxColor, point:SongRect)
-    {
-        super();
-
-        background = new Rect(0, 0, 700, 60, 20, 20, color);
-        add(background);
-
-        for (i in 0...5)
-        {
-            var size:Float = FlxG.random.float(10, 25);
-            var tri:Triangle = new Triangle(FlxG.random.float(100, background.width - 100), FlxG.random.float(background.height / 2 - 25, background.height / 2 - 10), size, 1);
-            tri.alpha = FlxG.random.float(0.2, 0.8);
-            tri.angle = FlxG.random.float(0, 60);
-            add(tri);
-        }
-
-        diffName = new FlxText(15, 5, 0, name, 20);
-		diffName.font = Paths.font('montserrat.ttf'); 	
-        diffName.antialiasing = ClientPrefs.data.antialiasing;	
-        add(diffName);
-
-        bgLine = new FlxSprite();
-        bgLine.pixels = drawLine(background.width, background.height);
-        add(bgLine);
-
-        this.follow = point;
-
-        y = follow.y + lerpPosY;
-        x = 660 + Math.abs(y + height / 2 - FlxG.height / 2) / FlxG.height / 2 * 250 + lerpPosX;
-	}
-
-    function drawLine(width:Float, height:Float):BitmapData {
-        var shape:Shape = new Shape();
-        var lineSize:Int = 1;
-        shape.graphics.beginFill(0xFFFFFF);
-        shape.graphics.drawRoundRect(0, 0, width, height, 20, 20);
-        shape.graphics.drawRoundRect(lineSize, lineSize, width - lineSize * 2, height - lineSize * 2, 20, 20);
-        shape.graphics.endFill();
-
-        var bitmap:BitmapData = new BitmapData(Std.int(width), Std.int(height), true, 0);
-        bitmap.draw(shape);
-        return bitmap;
-    }
-
-    public var posX:Float = -50;
-    public var lerpPosX:Float = 0;
-    public var posY:Float = 0;
-    public var lerpPosY:Float = 0;
-    public var onFocus(default, set):Bool = true;
-    override function update(elapsed:Float)
-    {
-        super.update(elapsed);
-        
-        if (follow.onFocus)
-        {
-            if (Math.abs(lerpPosY - posY) < 0.1) lerpPosY = posY;
-            else lerpPosY = FlxMath.lerp(posY, lerpPosY, Math.exp(-elapsed * 15));
-        } else {
-            onFocus = false;
-            if (tween != null) tween.cancel();
-            tween = FlxTween.tween(this, {alpha: 0}, 0.1);
-            if (Math.abs(lerpPosY - 0) < 0.1) lerpPosY = 0;
-            else lerpPosY = FlxMath.lerp(0, lerpPosY, Math.exp(-elapsed * 15));
-        }
-
-        if (onFocus)
-        {
-            if (Math.abs(lerpPosX - posX) < 0.1) lerpPosX = posX;
-            else lerpPosX = FlxMath.lerp(posX, lerpPosX, Math.exp(-elapsed * 15));
-        } else {
-            if (Math.abs(lerpPosX - 0) < 0.1) lerpPosX = 0;
-            else lerpPosX = FlxMath.lerp(0, lerpPosX, Math.exp(-elapsed * 15));
-        }
-
-        y = follow.y + lerpPosY;
-        x = 660 + Math.abs(y + height / 2 - FlxG.height / 2) / FlxG.height / 2 * 250 + lerpPosX;
-    }
-    
-    var tween:FlxTween;
-    private function set_onFocus(value:Bool):Bool
-    {
-        if (onFocus == value) return onFocus;
-        onFocus = value;
-        if (onFocus) 
-        {
-            if (tween != null) tween.cancel();
-                tween = FlxTween.tween(this, {alpha: 1}, 0.2);
-        } else {
-            if (tween != null) tween.cancel();
-                tween = FlxTween.tween(this, {alpha: 0.5}, 0.2);
-        }
-        return value;
-    }
-}
-
-class BackRect extends FlxSpriteGroup //back button
-{
-    var background:Rect;
-    var bg2:FlxSprite;
-    var button:FlxSprite; 
-    var text:FlxText;
-
-    public var onClick:Void->Void = null;
-
-    var saveColor:FlxColor = 0;
-    var saveColor2:FlxColor = 0;
-
-	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, texts:String = '', color:FlxColor = FlxColor.WHITE, onClick:Void->Void = null)
-    {
-        super(X, Y);
-
-        bg2 = new FlxSprite(-60);
-        bg2.pixels = drawRect(width, height);
-        bg2.color = color;
-        bg2.antialiasing = ClientPrefs.data.antialiasing;
-        add(bg2);
-
-        background = new Rect(0, 0, height, height);
-        background.color = color;
-        add(background); 
-
-        var line = new Rect(background.width - 3, 0, 3, height, 0, 0, 0xFFFFFFFF);
-        line.alpha = 0.75;
-        add(line);
-
-        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreeplayStateNEW/playButton'));
-        button.scale.set(0.4, 0.4);
-        button.antialiasing = ClientPrefs.data.antialiasing;
-        button.x += background.width / 2 - button.width / 2;
-        button.y += background.height / 2 - button.height / 2;
-        button.flipX = true;
-        add(button);
-
-        text = new FlxText(70, 0, 0, texts, 18);
-		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.data.antialiasing;	
-        add(text);
-
-        text.x += background.width / 2 - text.width / 2;
-        text.y += background.height / 2 - text.height / 2;
-
-        this.onClick = onClick;
-        this.saveColor = color;
-        saveColor2 = color;
-        saveColor2.lightness = 0.5;
-	}
-
-    function drawRect(width:Float, height:Float):BitmapData {
-        var shape:Shape = new Shape();
-
-        var p1:Point = new Point(10, 0);
-        var p2:Point = new Point(width + 10, 0);
-        var p3:Point = new Point(width, height);
-        var p4:Point = new Point(0, height);
-
-        shape.graphics.beginFill(0xFFFFFFFF); 
-        shape.graphics.lineStyle(1, 0xFFFFFFFF, 1);
-        shape.graphics.moveTo(p1.x, p1.y);
-        shape.graphics.lineTo(p2.x, p2.y);
-        shape.graphics.lineTo(p3.x, p3.y);
-        shape.graphics.lineTo(p4.x, p4.y);
-        shape.graphics.lineTo(p1.x, p1.y);
-        shape.graphics.endFill();
-
-        var bitmap:BitmapData = new BitmapData(Std.int(p2.x), Std.int(height), true, 0);
-        bitmap.draw(shape);
-        return bitmap;
-    }
-
-	public var onFocus:Bool = false;
-    var bgTween:FlxTween;
-    var textTween:FlxTween;
-    var focused:Bool = false;
-    override function update(elapsed:Float)
-    {
-        super.update(elapsed);
-        
-        onFocus = FlxG.mouse.overlaps(this);
-
-        if(onFocus && onClick != null && FlxG.mouse.justReleased)
-            onClick();
-
-        if (onFocus)
-        {
-            if (!focused){
-                focused = true;
-                if (bgTween != null) bgTween.cancel();
-                bgTween = FlxTween.tween(bg2, {x: 0}, 0.3, {ease: FlxEase.backInOut});
-
-                if (textTween != null) textTween.cancel();
-                textTween = FlxTween.tween(text, {x: 105}, 0.3, {ease: FlxEase.backInOut});
-          
-                background.color = saveColor2;
-            }
-        } else {
-            if (focused){
-                focused = false;
-                if (bgTween != null) bgTween.cancel();
-                bgTween = FlxTween.tween(bg2, {x: -60}, 0.3, {ease: FlxEase.backInOut});
-
-                if (textTween != null) textTween.cancel();
-                textTween = FlxTween.tween(text, {x: 77}, 0.3, {ease: FlxEase.backInOut});
-                
-                background.color = saveColor;
-            }
-        }
-    }
-}
-
-class PlayRect extends FlxSpriteGroup //back button
-{
-    var background:Rect;
-    var bg2:FlxSprite;
-    var button:FlxSprite; 
-    var text:FlxText;
-
-    public var onClick:Void->Void = null;
-
-    var saveColor:FlxColor = 0;
-    var saveColor2:FlxColor = 0;
-
-	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, texts:String = '', color:FlxColor = FlxColor.WHITE, onClick:Void->Void = null)
-    {
-        super(X - width, Y);
-
-        var touchFix:Rect = new Rect(0, 0, width, height);
-        touchFix.alpha = 0;
-        add(touchFix);
-
-        bg2 = new FlxSprite(50);
-        bg2.pixels = drawRect(width, height);
-        bg2.color = color;
-        bg2.antialiasing = ClientPrefs.data.antialiasing;
-        add(bg2);
-
-        background = new Rect(width - height, 0, height, height);
-        background.color = color;
-        add(background); 
-
-        var line = new Rect(width - height, 0, 3, height, 0, 0, 0xFFFFFFFF);
-        line.alpha = 0.75;
-        add(line);
-
-        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreeplayStateNEW/playButton'));
-        button.scale.set(0.4, 0.4);
-        button.antialiasing = ClientPrefs.data.antialiasing;
-        button.x += background.width / 2 - button.width / 2;
-        button.y += background.height / 2 - button.height / 2;
-        add(button);
-
-        text = new FlxText(60, 0, 0, texts, 18);
-		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.data.antialiasing;	
-        add(text);
-
-        text.x += background.width / 2 - text.width / 2;
-        text.y += background.height / 2 - text.height / 2;
-
-        this.onClick = onClick;
-        this.saveColor = color;
-        saveColor2 = color;
-        saveColor2.lightness = 0.5;
-	}
-
-    function drawRect(width:Float, height:Float):BitmapData {
-        var shape:Shape = new Shape();
-
-        var p1:Point = new Point(10, 0);
-        var p2:Point = new Point(width + 10, 0);
-        var p3:Point = new Point(width, height);
-        var p4:Point = new Point(0, height);
-
-        shape.graphics.beginFill(0xFFFFFFFF); 
-        shape.graphics.lineStyle(1, 0xFFFFFFFF, 1);
-        shape.graphics.moveTo(p1.x, p1.y);
-        shape.graphics.lineTo(p2.x, p2.y);
-        shape.graphics.lineTo(p3.x, p3.y);
-        shape.graphics.lineTo(p4.x, p4.y);
-        shape.graphics.lineTo(p1.x, p1.y);
-        shape.graphics.endFill();
-
-        var bitmap:BitmapData = new BitmapData(Std.int(p2.x), Std.int(height), true, 0);
-        bitmap.draw(shape);
-        return bitmap;
-    }
-
-	public var onFocus:Bool = false;
-    var bgTween:FlxTween;
-    var textTween:FlxTween;
-    var focused:Bool = false;
-    override function update(elapsed:Float)
-    {
-        super.update(elapsed);
-        
-        onFocus = FlxG.mouse.overlaps(this);
-
-        if(onFocus && onClick != null && FlxG.mouse.justReleased)
-            onClick();
-
-        if (onFocus)
-        {
-            if (!focused){
-                focused = true;
-                if (bgTween != null) bgTween.cancel();
-                bgTween = FlxTween.tween(bg2, {x: FlxG.width - 320}, 0.3, {ease: FlxEase.backInOut});
-
-                if (textTween != null) textTween.cancel();
-                textTween = FlxTween.tween(text, {x: FlxG.width - 240}, 0.3, {ease: FlxEase.backInOut});
-                var color = 
-                background.color = saveColor2;
-            }
-        } else {
-            if (focused){
-                focused = false;
-                if (bgTween != null) bgTween.cancel();
-                bgTween = FlxTween.tween(bg2, {x: FlxG.width - 150}, 0.3, {ease: FlxEase.backInOut});
-
-                if (textTween != null) textTween.cancel();
-                textTween = FlxTween.tween(text, {x: FlxG.width - 130}, 0.3, {ease: FlxEase.backInOut});
-                
-                background.color = saveColor;
-            }
-        }
-    }
-}
-
-
-class SearchButton extends FlxSpriteGroup
-{
-    var bg:Rect;
-    var search:PsychUIInputText;
-    var tapText:FlxText;
-    var itemDis:FlxText;
-
-    public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0) 
-    {
-        super(X, Y);
-
-        bg = new Rect(0, 0, width, height, 25, 25, 0x000000);
-        add(bg);
-
-        search = new PsychUIInputText(5, 5, Std.int(width - 10), '', 30);
-        search.bg.visible = false;
-        search.behindText.alpha = 0;
-        search.textObj.font = Paths.font('montserrat.ttf');
-        search.textObj.color = FlxColor.WHITE;
-        search.caret.color = 0x727E7E7E;
-        search.onChange = function(old:String, cur:String) {
-            if (cur == '') tapText.visible = true;
-            else tapText.visible = false;
-            FreeplayStateNOVA.instance.updateSearch(cur);
-            itemDis.text = Std.string(FreeplayStateNOVA.instance.songs.length) + ' maps has found';
-        }
-        add(search);
-        
-        tapText = new FlxText(5, 5, 0, 'Tap here to search.', 30);
-		tapText.font = Paths.font('montserrat.ttf'); 	
-        tapText.antialiasing = ClientPrefs.data.antialiasing;	
-        tapText.alpha = 0.6;
-        add(tapText);
-
-        itemDis = new FlxText(5, 5 + tapText.height, 0, Std.string(FreeplayStateNOVA.instance.songs.length) + ' maps has found', 18);
-        itemDis.color = 0xFF52F9;
-		itemDis.font = Paths.font('montserrat.ttf'); 	
-        itemDis.antialiasing = ClientPrefs.data.antialiasing;	
-        add(itemDis);
-    }
-
-    override function update(e:Float) {
-        super.update(e);
-    }
-
-}
-
-
-
-
-
+    private function set_onFocus(value:Bool):Bo
