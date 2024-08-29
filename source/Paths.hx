@@ -238,7 +238,7 @@ class Paths
 
 	inline static public function voices(song:String):Any
 	{	 
-	    var diff = CoolUtil.difficultyString();
+	    var diff = Difficulty.getString().toUpperCase();
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		var songdiffKey:String = '${formatToSongPath(song)}/Voices-$diff';
 		
