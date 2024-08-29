@@ -107,7 +107,7 @@ class FreeplayStateNF extends MusicBeatState {
 	var colorTween:FlxTween;
 	
 	var font = Paths.font('montserrat.ttf');
-	var filePath:String = 'menuExtend/FreeplayState/';
+	var filePath:String = 'menuExtend/FreeplayStateOld/';
 	
 	private static var curSelected:Int = 0;
 	private static var curSelectedFloat:Float;
