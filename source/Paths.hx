@@ -239,6 +239,7 @@ class Paths
 	inline static public function voices(song:String):Any
 	{	 
 	    var diffvoice = Difficulty.getString().toUpperCase();
+	    
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		var songdiffKey:String = '${formatToSongPath(song)}/Voices-$diffvoice';
         var difffile:String = modsSounds('songs', songdiffKey);
@@ -255,10 +256,10 @@ class Paths
 	inline static public function inst(song:String):Any
 	{
 	    var diffvoice = Difficulty.getString().toUpperCase();
-	    var difffile:String = modsSounds('songs', songdiffKey);
 	    
 		var songdiffKey:String = '${formatToSongPath(song)}/Inst-$diffvoice';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
+	    var difffile:String = modsSounds('songs', songdiffKey);
 	        
 		var diffinst = returnSound('songs', songdiffKey);
 		var inst = returnSound('songs', songKey);

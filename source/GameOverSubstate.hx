@@ -12,7 +12,7 @@ import flixel.tweens.FlxTween;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
-	public var boyfriend:Boyfriend;
+	public var boyfriend:Character;
 	var camFollow:FlxPoint;
 	var camFollowPos:FlxObject;
 	var updateCamera:Bool = false;
@@ -52,7 +52,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		Conductor.songPosition = 0;
 
-		boyfriend = new Boyfriend(x, y, characterName);
+		boyfriend = new Character(x, y, characterName);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
@@ -78,6 +78,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		#end
 	}
 
+    public var startedDeath:Bool = false;
 	var isFollowingAlready:Bool = false;
 	override function update(elapsed:Float)
 	{
@@ -115,37 +116,43 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
 
-		if (boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name == 'firstDeath')
+		if (boyfriend.animation.curAnim != null)
 		{
-			if(boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
-			{
-				FlxG.camera.follow(camFollowPos, LOCKON, 1);
-				updateCamera = true;
-				isFollowingAlready = true;
-			}
+			if (boyfriend.animation.curAnim.name.endsWith('miss') && boyfriend.animation.curAnim.finished)
+				boyfriend.playAnim('idle', true, false, 10);
 
-			if (boyfriend.animation.curAnim.finished && !playingDeathSound)
-			{
-				if (PlayState.SONG.stage == 'tank')
-				{
-					playingDeathSound = true;
-					coolStartDeath(0.2);
-					
-					var exclude:Array<Int> = [];
-					//if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
+			if (boyfriend.animation.curAnim.name == 'firstDeath' && boyfriend.animation.curAnim.finished && startedDeath)
+				boyfriend.playAnim('deathLoop');
 
-					FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
-						if(!isEnding)
-						{
-							FlxG.sound.music.fadeIn(0.2, 1, 4);
-						}
-					});
-				}
-				else
+			if(boyfriend.animation.curAnim.name == 'firstDeath')
+			{
+				if(boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
 				{
-					coolStartDeath();
+					FlxG.camera.follow(camFollow, LOCKON, 0);
+					updateCamera = true;
+					isFollowingAlready = true;
 				}
-				boyfriend.startedDeath = true;
+				
+				if (boyfriend.animation.curAnim.finished && !playingDeathSound)
+				{
+					startedDeath = true;
+					if (PlayState.SONG.stage == 'tank')
+					{
+						playingDeathSound = true;
+						coolStartDeath(0.2);
+
+						var exclude:Array<Int> = [];
+						//if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
+
+						FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
+							if(!isEnding)
+							{
+								FlxG.sound.music.fadeIn(0.2, 1, 4);
+							}
+						});
+					}
+					else coolStartDeath();
+				}
 			}
 		}
 
