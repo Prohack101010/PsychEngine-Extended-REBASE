@@ -608,7 +608,7 @@ class FreeplayStateNF extends MusicBeatState {
 					if (waitTimer != null) waitTimer.cancel();
 					//FlxG.sound.music.volume = 0.1;
 				}	
-				OptionsState.isFreeplay = true;
+				OptionsState.stateType = 2;
 				LoadingState.loadAndSwitchState(new OptionsState());
 			}
 			
@@ -1374,7 +1374,7 @@ class FreeplayStateNF extends MusicBeatState {
     					if (waitTimer != null) waitTimer.cancel();
     					//FlxG.sound.music.volume = 0.1;
     				}  
-    				OptionsState.isFreeplay = true;		
+    				OptionsState.stateType = 2;		
 					LoadingState.loadAndSwitchState(new OptionsState());
 				case 1: // Gameplay Changer					
 					openSubState(new GameplayChangersSubstate());

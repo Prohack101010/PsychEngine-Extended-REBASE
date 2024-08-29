@@ -3,7 +3,7 @@ package backend.ui;
 import flixel.FlxObject;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxDestroyUtil;
-import openfl.events.KeyboardEvent;
+import flash.events.KeyboardEvent;
 import lime.system.Clipboard;
 
 enum abstract AccentCode(Int) from Int from UInt to Int to UInt
@@ -35,7 +35,6 @@ enum abstract CaseMode(Int) from Int from UInt to Int to UInt
 class PsychUIInputText extends FlxSpriteGroup
 {
 	public static final CHANGE_EVENT = "inputtext_change";
-	static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 
 	static final KEY_TILDE = 126;
 	static final KEY_ACUTE = 180;
@@ -222,6 +221,7 @@ class PsychUIInputText extends FlxSpriteGroup
 			return;
 		}
 
+		static final ignored:Array<FlxKey> = [SHIFT, CONTROL, ESCAPE];
 		if(ignored.contains(flxKey)) return;
 
 		var lastAccent = _nextAccent;
@@ -389,9 +389,11 @@ class PsychUIInputText extends FlxSpriteGroup
 		return (focusOn = v);
 	}
 
+	public var ignoreCheck = false;
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		if (ignoreCheck) return;
 
 		if(FlxG.mouse.justPressed)
 		{
@@ -728,7 +730,7 @@ class PsychUIInputText extends FlxSpriteGroup
 				case CUSTOM_FILTER:
 					pattern = customFilterPattern;
 				default:
-					throw new openfl.errors.Error("FlxInputText: Unknown filterMode (" + filterMode + ")");
+					throw new flash.errors.Error("FlxInputText: Unknown filterMode (" + filterMode + ")");
 			}
 			text = pattern.replace(text, "");
 		}
