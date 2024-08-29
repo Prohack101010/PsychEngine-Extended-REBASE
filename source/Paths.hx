@@ -245,12 +245,13 @@ class Paths
         var difffile:String = modsSounds('songs', songdiffKey);
 		
 		var voices = returnSound('songs', songKey);
-		var diffvoices = returnSound('songs', songdiffKey);
+		try
+		{
+		    voices = returnSound('songs', songdiffKey);
+		}
+		catch(e:Dynamic) {}
 		
-	    if(FileSystem.exists(difffile))
-	        return diffvoices;
-	    else
-	        return voices;
+	    return voices;
 	}
 
 	inline static public function inst(song:String):Any
@@ -260,14 +261,15 @@ class Paths
 		var songdiffKey:String = '${formatToSongPath(song)}/Inst-$diffvoice';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 	    var difffile:String = modsSounds('songs', songdiffKey);
-	        
-		var diffinst = returnSound('songs', songdiffKey);
-		var inst = returnSound('songs', songKey);
 		
-		if(FileSystem.exists(difffile))
-	        return diffinst;
-	    else
-		    return inst;
+		var inst = returnSound('songs', songKey);
+		try
+		{
+		    inst = returnSound('songs', songdiffKey);
+		}
+		catch(e:Dynamic) {}
+		
+		return inst;
 	}
 
 	inline static public function image(key:String, ?library:String):FlxGraphic
