@@ -616,7 +616,7 @@ class FreeplayStateNOVA extends MusicBeatState
 				if (opponentVocals != null) opponentVocals.play();
 				
 				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
-				if (vocals != null && vocals != FlxSound()) instDis.audioDis.changeAnalyzer(vocals);
+				if (vocals != null && vocals != new FlxSound()) instDis.audioDis.changeAnalyzer(vocals);
 				else instDis.audioDis.changeAnalyzer(FlxG.sound.music);
 
 				musicMutex.release();
