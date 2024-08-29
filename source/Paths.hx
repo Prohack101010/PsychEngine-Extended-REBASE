@@ -238,20 +238,23 @@ class Paths
 
 	inline static public function voices(song:String):Any
 	{	 
-	    // var diff = CoolUtil.difficultyString();
-	      
-		// var songKeyErect:String = '${formatToSongPath(song)}/Voices-Erect';
+	    var diff = CoolUtil.difficultyString();
 		var songKey:String = '${formatToSongPath(song)}/Voices';
-	    
-		// var voicesErect = returnSound('songs', songKeyErect);
-		var voices = returnSound('songs', songKey);
+		var songdiffKey:String = '${formatToSongPath(song)}/Voices-$diff';
 		
-		/*
-		if(diff == 'ERECT' || diff == 'Erect' || diff == 'erect' || diff == 'NIGHTMARE' || diff == 'Nightmare' || diff == 'nightmare')
-		    return voicesErect;
+		var file:String = modsSounds('songs', songKey);
+		var difffile:String = modsSounds('songs', songdiffKey);
+		
+		var voices = returnSound('songs', songKey);
+		var diffvoices = returnSound('songs', songdiffKey);
+		var forcevoices = returnNullSound(); //NovaFlare Freeplay Menu Fix
+		
+		if(FileSystem.exists(file))
+		    return voices;
+	    else if(FileSystem.exists(difffile))
+	        return diffvoices;
 		else
-		*/
-		return voices;
+		    return forcevoices;
 	}
 
 	inline static public function inst(song:String):Any
@@ -445,6 +448,20 @@ class Paths
 			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library)));
 		}
 		#end
+		localTrackedAssets.push(gottenPath);
+		return currentTrackedSounds.get(gottenPath);
+	}
+	
+	public static function returnNullSound(?library:String) {
+		var gottenPath:String = getPath('songs/nothing.$SOUND_EXT', SOUND, library);
+		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
+		if(!currentTrackedSounds.exists(gottenPath))
+		{
+			var folder:String = '';
+			folder = 'songs:';
+
+			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('songs/nothing.$SOUND_EXT', SOUND, library)));
+		}
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
 	}
