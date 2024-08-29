@@ -44,7 +44,7 @@ class FPSCounter extends TextField
 		else
 			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end + ' - ${LimeSystem.platformVersion}';
         
-        if (!ClientPrefs.wideScreen)
+        if (!ClientPrefs.data.wideScreen)
 		    positionFPS(x, y);
 
 		currentFPS = 0;

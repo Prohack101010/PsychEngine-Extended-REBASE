@@ -33,7 +33,7 @@ class OptionsState extends MusicBeatState
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var isFreeplay:Bool = false;
-	public static var isWIPFreeplay:Bool = false;
+	public static var stateType:Int = 0;
 	public static var menuBG:FlxSprite;
 
 	function openSelectedSubstate(label:String) {
@@ -53,13 +53,13 @@ class OptionsState extends MusicBeatState
     			MusicBeatState.switchState(new mobile.MobileControlsMenu());
 			case 'Controls':
 				#if mobile
-				if (ClientPrefs.VirtualPadAlpha == 0) { removeVirtualPad(); }
+				if (ClientPrefs.data.VirtualPadAlpha == 0) { removeVirtualPad(); }
 				else {
     				FlxTransitionableState.skipNextTransIn = true;
     			    FlxTransitionableState.skipNextTransOut = true;
     			    MusicBeatState.switchState(new mobile.MobileControlsMenu());
 			    }
-			    if (ClientPrefs.VirtualPadAlpha == 0) { openSubState(new options.ControlsSubState()); }
+			    if (ClientPrefs.data.VirtualPadAlpha == 0) { openSubState(new options.ControlsSubState()); }
 				#else
 				openSubState(new options.ControlsSubState());
 				#end
@@ -99,14 +99,14 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 		
-		if (ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
+		if (ClientPrefs.data.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
 
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -161,18 +161,14 @@ class OptionsState extends MusicBeatState
 				MusicBeatState.switchState(new PlayState());
 				PauseSubState.MoveOption = false;
 			}
-			else if (PlayState.MoveOption) {
-				MusicBeatState.switchState(new PlayState());
-				PlayState.MoveOption = false;
-			}
-			else if (OptionsState.isFreeplay == true) {
+			else if (OptionsState.stateType == 2) {
 			    MusicBeatState.switchState(new FreeplayStateNF());
-			    OptionsState.isFreeplay = false;
-			} else if (OptionsState.isWIPFreeplay == true) {
+			    OptionsState.stateType = 0;
+			} else if (OptionsState.stateType == 1) {
 			    MusicBeatState.switchState(new FreeplayStateNOVA());
-			    OptionsState.isWIPFreeplay = false;
+			    OptionsState.stateType = 0;
 			} else {
-    			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+    			if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
     				MusicBeatState.switchState(new MainMenuStateOld());
     			else
     				MusicBeatState.switchState(new MainMenuState());

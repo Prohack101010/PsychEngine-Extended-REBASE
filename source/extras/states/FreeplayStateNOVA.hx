@@ -1,4 +1,4 @@
-package extras.states;
+package states;
 
 import flixel.util.FlxSpriteUtil;
 import flixel.addons.transition.FlxTransitionableState;
@@ -30,16 +30,10 @@ import LoadingState;
 import editors.ChartingState;
 import options.OptionsState;
 
-/*
-    Note: This backport only supports Psych Extended
-    Backported by KralOyuncu 2010x
-*/
-
-class FreeplayStateNOVA extends MusicBeatState
+class FreeplayState extends MusicBeatState
 {
-	static public var instance:FreeplayStateNOVA;
+	static public var instance:FreeplayState;
 
-	var selector:FlxText;
 	static public var curSelected:Int = 0;
 	private static var position:Float = 360 - 45;
 	private static var lerpPosition:Float = 360 - 45;
@@ -88,6 +82,7 @@ class FreeplayStateNOVA extends MusicBeatState
 	var disLine:Rect;
 
 	public static var vocals:FlxSound = null;
+	public static var opponentVocals:FlxSound = null;
 
 	override function create()
 	{
@@ -95,9 +90,7 @@ class FreeplayStateNOVA extends MusicBeatState
 
 		instance = this;
 
-        #if deskop
 		FlxG.mouse.visible = true;
-		#end
 
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
@@ -150,7 +143,7 @@ class FreeplayStateNOVA extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+		magenta.antialiasing = ClientPrefs.data.antialiasing;
 		add(magenta);
 
 		var specBG:SpecRectBG = new SpecRectBG(0, 0);
@@ -219,12 +212,12 @@ class FreeplayStateNOVA extends MusicBeatState
 		voiceDis.camera = camAudio;
 		voiceDis.alpha = 0.7;
 
-		instDis = new ExtraAudio(Std.int(camAudio.width) - 10 - Std.int(camAudio.width / 2 - 20), 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
+		instDis = new ExtraAudio(Std.int(camAudio.width) - 10 - Std.int(camAudio.width / 2 - 20) + 1, 10, Std.int(camAudio.width / 2 - 20), 90, FlxG.sound.music);
 		add(instDis);
 		instDis.camera = camAudio;
 		instDis.alpha = 0.7;
 
-		voiceLine = new MusicLine(10, 125, 545);
+		voiceLine = new MusicLine(10, 105, 545);
 		voiceLine.camera = camAudio;
 		add(voiceLine);
 
@@ -262,13 +255,11 @@ class FreeplayStateNOVA extends MusicBeatState
 		songsRectPosUpdate(true);
 	}
 
+	public var ignoreCheck:Bool = false; //最高级控制更新
 	override function update(elapsed:Float)
 	{
-		if(controls.BACK) {
-			//backMenu();						
-		}
-		
 		super.update(elapsed);
+		if (ignoreCheck) return;
 
 		if (vocals != null && (Math.abs(vocals.time - FlxG.sound.music.time) > 5)) {
 			vocals.time = FlxG.sound.music.time;
@@ -328,17 +319,24 @@ class FreeplayStateNOVA extends MusicBeatState
 	override function closeSubState()
 	{				
 		super.closeSubState();
-		persistentUpdate = true;
+		
+		new FlxTimer().start(0.1, function(tmr:FlxTimer){
+			ignoreCheck = false;
+		});
 	}
 
 	var pressCheck:Bool = false;
 	function backMenu() {
+		WeekData.loadTheFirstEnabledMod();
 		if (!pressCheck){
 			pressCheck = true;
-			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-    			MusicBeatState.switchState(new MainMenuStateOld());
-    		else
-    			MusicBeatState.switchState(new MainMenuState());
+			FlxG.sound.music.stop();
+			destroyFreeplayVocals();
+			FlxG.sound.music.volume = 0;
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			FlxTween.tween(FlxG.sound.music, {volume: 1}, 1);
+
+			MusicBeatState.switchState(new MainMenuState());
 		}
 	}
 
@@ -350,8 +348,6 @@ class FreeplayStateNOVA extends MusicBeatState
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
-			
-			FlxG.sound.play(Paths.sound('confirmMenu'));
 		}
 		catch(e:Dynamic)
 		{
@@ -379,15 +375,15 @@ class FreeplayStateNOVA extends MusicBeatState
 		switch (eventMember)
 		{
 			case 0:
+				OptionsState.stateType = 1;
 				LoadingState.loadAndSwitchState(new OptionsState());
-				OptionsState.isWIPFreeplay = true;
 			case 1:
-				persistentUpdate = false;
+				ignoreCheck = true;
 				openSubState(new GameplayChangersSubstate());
 			case 2:
 				randomSel();
 			case 3: 
-				persistentUpdate = false;
+				ignoreCheck = true;
 				openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			case 4:
 				LoadingState.loadAndSwitchState(new ChartingState());
@@ -405,8 +401,11 @@ class FreeplayStateNOVA extends MusicBeatState
 	}
 
 	public static function destroyFreeplayVocals() {
-		if (vocals != null) vocals.stop();
+		if(vocals != null) vocals.stop();
 		vocals = FlxDestroyUtil.destroy(vocals);
+
+		if(opponentVocals != null) opponentVocals.stop();
+		opponentVocals = FlxDestroyUtil.destroy(opponentVocals);
 	}
 
 	var saveMouseY:Int = 0;
@@ -497,7 +496,7 @@ class FreeplayStateNOVA extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+		magenta.antialiasing = ClientPrefs.data.antialiasing;
 		
 		smallMag.updateRect(magenta.pixels);			
 	}
@@ -525,6 +524,7 @@ class FreeplayStateNOVA extends MusicBeatState
 		for (rect in 0...saveGrpSongs.length)
 		{
 			saveGrpSongs[rect].ignoreCheck = true;
+			saveGrpSongs[rect].alpha = 0.6;
 			saveGrpSongs[rect].haveAdd = false;
 		}
 		
@@ -575,16 +575,17 @@ class FreeplayStateNOVA extends MusicBeatState
 	function updateVoice() {
 		if (timer != null) timer.cancel;
 
-		destroyFreeplayVocals();
-		FlxG.sound.music.stop();
-
 		timer.start(0.5, function(tmr:FlxTimer){
 
 			if (songs[curSelected] == null) return;		
 
-			Thread.create(() -> {
-				if (musicMutex.tryAcquire() == true) musicMutex.release();
-				
+			voiceDis.audioDis.stopUpdate = true;
+			instDis.audioDis.stopUpdate = true;
+		
+			destroyFreeplayVocals();
+			FlxG.sound.music.stop();
+
+			Thread.create(() -> {			
 				musicMutex.acquire();
 				
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
@@ -592,7 +593,7 @@ class FreeplayStateNOVA extends MusicBeatState
 
 				if (PlayState.SONG.needsVoices)
 				{
-            		vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 					FlxG.sound.list.add(vocals);
 					vocals.persist = vocals.looped = true;
 					vocals.volume = 0.8;
@@ -606,6 +607,7 @@ class FreeplayStateNOVA extends MusicBeatState
 
 				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.8);
 				if (vocals != null) vocals.play();
+				if (opponentVocals != null) opponentVocals.play();
 				
 				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
 				if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
@@ -614,6 +616,21 @@ class FreeplayStateNOVA extends MusicBeatState
 				musicMutex.release();
 			});
 		});
+	}
+
+	function getVocalFromCharacter(char:String)
+	{
+		try
+		{
+			var path:String = Paths.getPath('characters/$char.json', TEXT);
+			#if MODS_ALLOWED
+			var character:Dynamic = Json.parse(File.getContent(path));
+			#else
+			var character:Dynamic = Json.parse(Assets.getText(path));
+			#end
+			return character.vocals_file;
+		}
+		return null;
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)

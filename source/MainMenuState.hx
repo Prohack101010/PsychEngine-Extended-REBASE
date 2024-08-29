@@ -68,7 +68,7 @@ class MainMenuState extends MusicBeatState
 		WeekData.loadTheFirstEnabledMod();
 		
 		#if mobile
-		if (ClientPrefs.wideScreen)
+		if (ClientPrefs.data.wideScreen)
 		    FlxG.scaleMode = new MobileScaleMode();
 		#end
 
@@ -86,7 +86,7 @@ class MainMenuState extends MusicBeatState
 
 		var yScroll:Float = 0.25;
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.antialiasing;
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
@@ -97,7 +97,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+		magenta.antialiasing = ClientPrefs.data.antialiasing;
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -176,7 +176,7 @@ class MainMenuState extends MusicBeatState
 		menuItem.animation.play('idle');
 		menuItem.updateHitbox();
 		
-		menuItem.antialiasing = ClientPrefs.globalAntialiasing;
+		menuItem.antialiasing = ClientPrefs.data.antialiasing;
 		menuItem.scrollFactor.set();
 		menuItems.add(menuItem);
 		return menuItem;
@@ -307,7 +307,7 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.mouse.visible = false;
 
-					if (ClientPrefs.flashing)
+					if (ClientPrefs.data.flashing)
 						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					var item:FlxSprite;
@@ -334,9 +334,9 @@ class MainMenuState extends MusicBeatState
 							case 'story_mode':
 								MusicBeatState.switchState(new StoryMenuState());
 							case 'freeplay':
-								if (ClientPrefs.FreeplayStyle == 'NF Engine')
+								if (ClientPrefs.data.FreeplayStyle == 'NF Engine')
                     			    MusicBeatState.switchState(new FreeplayStateNF());
-                    			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+                    			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
                     			    MusicBeatState.switchState(new FreeplayStateNOVA());
                     			else
                     			    MusicBeatState.switchState(new FreeplayState());

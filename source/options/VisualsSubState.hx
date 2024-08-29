@@ -144,10 +144,10 @@ class VisualsSubState extends BaseOptionsMenu
 	var changedMusic:Bool = false;
 	function onChangePauseMusic()
 	{
-		if(ClientPrefs.pauseMusic == 'None')
+		if(ClientPrefs.data.pauseMusic == 'None')
 			FlxG.sound.music.volume = 0;
 		else
-			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
+			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.data.pauseMusic)));
 
 		changedMusic = true;
 	}
@@ -161,6 +161,6 @@ class VisualsSubState extends BaseOptionsMenu
 	function onChangeFPSCounter()
 	{
 		if(Main.fpsVar != null)
-			Main.fpsVar.visible = ClientPrefs.showFPS;
+			Main.fpsVar.visible = ClientPrefs.data.showFPS;
 	}
 }

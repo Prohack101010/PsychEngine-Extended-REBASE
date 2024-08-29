@@ -169,13 +169,13 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
         #if mobile
 		#if ios
-		if (ClientPrefs.touchmenus)
+		if (ClientPrefs.data.touchmenus)
 		    addVirtualPad(LEFT_RIGHT, A_B_C);
 		#elseif android
-		if (ClientPrefs.touchmenus)
+		if (ClientPrefs.data.touchmenus)
 		    addVirtualPad(LEFT_RIGHT, A_C);
 		#end
-		if (!ClientPrefs.touchmenus)
+		if (!ClientPrefs.data.touchmenus)
 		    addVirtualPad(FULL, A_B_C);
 		addPadCamera();
 		#end
@@ -196,16 +196,16 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P || ClientPrefs.touchmenus && SwipeUtil.swipeUp)
+		if (controls.UI_UP_P || ClientPrefs.data.touchmenus && SwipeUtil.swipeUp)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P || ClientPrefs.touchmenus && SwipeUtil.swipeDown)
+		if (controls.UI_DOWN_P || ClientPrefs.data.touchmenus && SwipeUtil.swipeDown)
 		{
 			changeSelection(1);
 		}
 
-		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
+		if (controls.BACK #if android || ClientPrefs.data.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.data.touchmenus && SwipeUtil.swipeRight #end) {
 			
 			close();
 			ClientPrefs.saveSettings();
@@ -494,11 +494,11 @@ class GameplayOption
 
 	public function getValue():Dynamic
 	{
-		return ClientPrefs.gameplaySettings.get(variable);
+		return ClientPrefs.data.gameplaySettings.get(variable);
 	}
 	public function setValue(value:Dynamic)
 	{
-		ClientPrefs.gameplaySettings.set(variable, value);
+		ClientPrefs.data.gameplaySettings.set(variable, value);
 	}
 
 	public function setChild(child:Alphabet)

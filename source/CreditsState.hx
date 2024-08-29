@@ -179,14 +179,14 @@ class CreditsState extends MusicBeatState
 
         #if mobile
         #if ios
-        if (ClientPrefs.touchmenus)
+        if (ClientPrefs.data.touchmenus)
             addVirtualPad(NONE, A_B);
         #end
         #if android
-        if (ClientPrefs.touchmenus)
+        if (ClientPrefs.data.touchmenus)
             addVirtualPad(NONE, A);
         #end
-        if (!ClientPrefs.touchmenus)
+        if (!ClientPrefs.data.touchmenus)
             addVirtualPad(UP_DOWN, A_B);
         #end
 		super.create();
@@ -211,18 +211,18 @@ class CreditsState extends MusicBeatState
 				var upP = controls.UI_UP_P;
 				var downP = controls.UI_DOWN_P;
 
-				if (upP || ClientPrefs.touchmenus && SwipeUtil.swipeUp)
+				if (upP || ClientPrefs.data.touchmenus && SwipeUtil.swipeUp)
 				{
 					changeSelection(-shiftMult);
 					holdTime = 0;
 				}
-				if (downP || ClientPrefs.touchmenus && SwipeUtil.swipeDown)
+				if (downP || ClientPrefs.data.touchmenus && SwipeUtil.swipeDown)
 				{
 					changeSelection(shiftMult);
 					holdTime = 0;
 				}
 
-				if(controls.UI_DOWN || controls.UI_UP || ClientPrefs.touchmenus && SwipeUtil.swipeDown || ClientPrefs.touchmenus && SwipeUtil.swipeUp)
+				if(controls.UI_DOWN || controls.UI_UP || ClientPrefs.data.touchmenus && SwipeUtil.swipeDown || ClientPrefs.data.touchmenus && SwipeUtil.swipeUp)
 				{
 					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 					holdTime += elapsed;
@@ -230,7 +230,7 @@ class CreditsState extends MusicBeatState
 
 					if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 					{
-						if (ClientPrefs.touchmenus)
+						if (ClientPrefs.data.touchmenus)
 						    changeSelection((checkNewHold - checkLastHold) * (SwipeUtil.swipeUp ? -shiftMult : shiftMult));
 						else
 						    changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
@@ -241,13 +241,13 @@ class CreditsState extends MusicBeatState
     		if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
     			CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     		}
-			if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end)
+			if (controls.BACK #if android || ClientPrefs.data.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.data.touchmenus && SwipeUtil.swipeRight #end)
 			{
 				if(colorTween != null) {
 					colorTween.cancel();
 				}
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+				if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
     				MusicBeatState.switchState(new MainMenuStateOld());
     			else
     				MusicBeatState.switchState(new MainMenuState());

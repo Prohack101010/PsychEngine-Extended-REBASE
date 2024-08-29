@@ -109,12 +109,12 @@ class OSTSubstate extends MusicBeatSubstate
 		bg.setGraphicSize(Std.int(bg.width));
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 		
 		logoBl = new FlxSprite(0, 0);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
-		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
+		logoBl.antialiasing = ClientPrefs.data.antialiasing;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		logoBl.animation.play('bump');
 		logoBl.offset.x = 0;

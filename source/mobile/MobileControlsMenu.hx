@@ -49,7 +49,7 @@ class MobileControlsMenu extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 
 		var titleText:Alphabet = new Alphabet(75, 60, "Controls", true);
@@ -58,11 +58,11 @@ class MobileControlsMenu extends MusicBeatState
 		titleText.alpha = 0.4;
 		add(titleText);
 
-		vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+		vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.data.antialiasing);
 		vpad.alpha = 0;
 		add(vpad);
 
-		hbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
+		hbox = new FlxHitbox(0.75, ClientPrefs.data.antialiasing);
 		hbox.visible = false;
 		add(hbox);
 		
@@ -217,22 +217,22 @@ class MobileControlsMenu extends MusicBeatState
 		{
 				case 'Pad-Right':
 					remove(vpad);
-					vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.data.antialiasing);
 					add(vpad);
 					loadcustom(false);
 				case 'Pad-Left':
 					remove(vpad);
-					vpad = new FlxVirtualPad(FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(FULL, controlExtend, 0.75, ClientPrefs.data.antialiasing);
 					add(vpad);
 					loadcustom(false);
 				case 'Pad-Custom':
 					remove(vpad);
-					vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.data.antialiasing);
 					add(vpad);
 					loadcustom(true);
 				case 'Duo':
 					remove(vpad);
-					vpad = new FlxVirtualPad(DUO, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(DUO, controlExtend, 0.75, ClientPrefs.data.antialiasing);
 					add(vpad);
 					loadcustom(false);
 				case 'Hitbox':
@@ -249,7 +249,7 @@ class MobileControlsMenu extends MusicBeatState
 		}
 		else
 		{
-		    if(ClientPrefs.hitboxmode != 'New'){
+		    if(ClientPrefs.data.hitboxmode != 'New'){
 			hbox.visible = true;
 		     }else{
 		       newhbox.visible = true;

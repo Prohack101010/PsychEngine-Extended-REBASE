@@ -72,7 +72,7 @@ class GitarooPause extends MusicBeatState
 				PlayState.seenCutscene = false;
 				PlayState.deathCounter = 0;
 				PlayState.instance.cpuControlled = false;
-				if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+				if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
     				MusicBeatState.switchState(new MainMenuStateOld());
     			else
     				MusicBeatState.switchState(new MainMenuState());

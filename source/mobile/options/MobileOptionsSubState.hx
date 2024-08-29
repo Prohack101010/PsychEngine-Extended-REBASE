@@ -42,11 +42,11 @@ class MobileOptionsSubState extends BaseOptionsMenu
     #if android
 	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL", "EXTERNAL_EX", "EXTERNAL_NF", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL_FH"];
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
-	final lastStorageType:String = ClientPrefs.storageType;
+	final lastStorageType:String = ClientPrefs.data.storageType;
 	#end
 	
 	var virtualpadTypes:Array<String> = ["Old", "New"];
-	final lastVirtualPadType:String = ClientPrefs.virtualpadType;
+	final lastVirtualPadType:String = ClientPrefs.data.virtualpadType;
 	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	var virtualpadSkinListModsFolder:Array<String> = CoolUtil.coolTextFile(Paths.modsImages('virtualpad/virtualpadSkinList.txt'));
 	
@@ -55,12 +55,12 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 		
-		if (ClientPrefs.virtualpadType == 'New')
+		if (ClientPrefs.data.virtualpadType == 'New')
 		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getSharedPath('images/virtualpad/virtualpadSkinList.txt'));
 		    
 		#if MODS_ALLOWED
 		final modsPath:String = Paths.mods('virtualpad/virtualpadSkinList');
-		if(sys.FileSystem.exists(modsPath) && ClientPrefs.virtualpadType == 'New')
+		if(sys.FileSystem.exists(modsPath) && ClientPrefs.data.virtualpadType == 'New')
 		    CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList.txt'));
 		#end
 		
@@ -220,7 +220,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	#if android
 	function onStorageChange():Void
 	{
-		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
+		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.data.storageType);
 	
 		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
 	}
@@ -229,7 +229,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	override public function destroy() {
 		super.destroy();
 		#if android
-		if (ClientPrefs.storageType != lastStorageType) {
+		if (ClientPrefs.data.storageType != lastStorageType) {
 			onStorageChange();
 			ClientPrefs.saveSettings();
 			SUtil.showPopUp('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
@@ -238,7 +238,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		#end
 		
 		/*
-		if (ClientPrefs.virtualpadType != lastVirtualPadType) {
+		if (ClientPrefs.data.virtualpadType != lastVirtualPadType) {
 		    ClientPrefs.saveSettings();
 		    SUtil.showPopUp('Notice!', 'VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.');
 		    lime.system.System.exit(0);
@@ -246,17 +246,17 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		*/
 	}
 	
-	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
+	var OGpadAlpha:Float = ClientPrefs.data.VirtualPadAlpha;
 	function onChangePadAlpha()
 	{
 	ClientPrefs.saveSettings();
-	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
+	_virtualpad.alpha = ClientPrefs.data.VirtualPadAlpha / OGpadAlpha;
 	}
 	
 	function onChangeVirtualPadSkin()
 	{
 	/*
-	    if (ClientPrefs.virtualpadType != lastVirtualPadType) {
+	    if (ClientPrefs.data.virtualpadType != lastVirtualPadType) {
 	        ClientPrefs.saveSettings();
 		    SUtil.showPopUp('Notice!', 'If you want to change virtualpad skin you needed restart the game!!\nPress OK to close the game.');
 		    lime.system.System.exit(0);

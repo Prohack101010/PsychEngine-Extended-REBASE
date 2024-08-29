@@ -59,7 +59,7 @@ class MusicBeatState extends FlxUIState
 		if (_virtualpad != null)
 			removeVirtualPad();
 
-		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
+		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
 
 		controls.setVirtualPadUI(_virtualpad, DPad, Action);
@@ -91,7 +91,7 @@ class MusicBeatState extends FlxUIState
 				controls.setVirtualPadNOTES(mobilec.vpad, DUO, NONE);
 				checkHitbox = false;
 			case HITBOX:
-			   if(ClientPrefs.hitboxmode != 'New'){
+			   if(ClientPrefs.data.hitboxmode != 'New'){
 				controls.setHitBox(mobilec.hbox);
 				}else{
 				controls.setNewHitBox(mobilec.newhbox);
@@ -236,7 +236,7 @@ class MusicBeatState extends FlxUIState
 	{
 		var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
 
-		var shit = ((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
+		var shit = ((Conductor.songPosition - ClientPrefs.data.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
 		curDecStep = lastChange.stepTime + shit;
 		curStep = lastChange.stepTime + Math.floor(shit);
 	}

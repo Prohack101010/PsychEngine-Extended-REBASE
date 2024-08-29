@@ -29,7 +29,7 @@ class AudioDisplay extends FlxSpriteGroup
       @:privateAccess
       if (snd != null) 
       {
-        analyzer = new SpectralAnalyzer(snd._channel.__audioSource, line, 1, 5);
+        analyzer = new SpectralAnalyzer(snd._channel.__audioSource, Std.int(line * 1.2), 1, 5);
         analyzer.fftN = 256;  
       }
     }
@@ -58,7 +58,7 @@ class AudioDisplay extends FlxSpriteGroup
       @:privateAccess
       if (snd != null && analyzer == null) 
       {
-        analyzer = new SpectralAnalyzer(snd._channel.__audioSource, line, 1, 5);
+        analyzer = new SpectralAnalyzer(snd._channel.__audioSource, Std.int(line * 1.2), 1, 5);
         analyzer.fftN = 256;       
       }
     }

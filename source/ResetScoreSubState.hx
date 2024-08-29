@@ -72,7 +72,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		updateOptions();
 
         #if mobile
-        if (ClientPrefs.touchmenus)
+        if (ClientPrefs.data.touchmenus)
             addVirtualPad(NONE, NONE);
         else
             addVirtualPad(LEFT_RIGHT, A_B);
@@ -92,12 +92,12 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		if(week == -1) icon.alpha += elapsed * 2.5;
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P || ClientPrefs.touchmenus && SwipeUtil.swipeLeft || ClientPrefs.touchmenus && SwipeUtil.swipeRight) {
+		if(controls.UI_LEFT_P || controls.UI_RIGHT_P || ClientPrefs.data.touchmenus && SwipeUtil.swipeLeft || ClientPrefs.data.touchmenus && SwipeUtil.swipeRight) {
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
+		if(controls.BACK #if android || ClientPrefs.data.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.data.touchmenus && SwipeUtil.swipeRight #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
             close();
 		} else if(controls.ACCEPT) {
@@ -112,7 +112,7 @@ class ResetScoreSubState extends MusicBeatSubstate
                         close();
 		}
 		
-    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.touchmenus)
+    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.data.touchmenus)
     	{
     		onYes = true;
     		if(onYes) {
@@ -126,7 +126,7 @@ class ResetScoreSubState extends MusicBeatSubstate
             close();
         }
     		
-    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.touchmenus)
+    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.data.touchmenus)
     	{
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
             close();
@@ -139,7 +139,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		var alphas:Array<Float> = [0.6, 1.25];
 		var confirmInt:Int = onYes ? 1 : 0;
 
-        if (ClientPrefs.touchmenus) {
+        if (ClientPrefs.data.touchmenus) {
 		yesText.alpha = 1.25;
 		yesText.scale.set(1, 1);
 		noText.alpha = 1.25;
