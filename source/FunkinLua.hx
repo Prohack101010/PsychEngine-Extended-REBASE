@@ -2019,7 +2019,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playAnim", function(obj:String, name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
 		{
 			if(PlayState.instance.getLuaObject(obj, false) != null) {
-				var luaObj:FlxSprite = FunkinLua.getObjectDirectly073(obj,false);
+				var luaObj:Dynamic = FunkinLua.getObjectDirectly073(obj, false);
 				if(luaObj.animation.getByName(name) != null)
 				{
 					if(luaObj.anim != null) luaObj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
