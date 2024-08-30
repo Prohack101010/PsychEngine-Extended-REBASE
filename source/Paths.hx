@@ -242,8 +242,7 @@ class Paths
 	    
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		var songdiffKey:String = '${formatToSongPath(song)}/Voices-$diffvoice';
-        var difffile:String = modsSounds('songs', songdiffKey);
-		
+        
 		var voices = returnSound('songs', songKey);
 		try
 		{
@@ -260,7 +259,6 @@ class Paths
 	    
 		var songdiffKey:String = '${formatToSongPath(song)}/Inst-$diffvoice';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
-	    var difffile:String = modsSounds('songs', songdiffKey);
 		
 		var inst = returnSound('songs', songKey);
 		try

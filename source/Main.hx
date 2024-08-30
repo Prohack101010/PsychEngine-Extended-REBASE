@@ -116,7 +116,7 @@ class Main extends Sprite
 		#end
 	
 		ClientPrefs.loadDefaultKeys();
-		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, ClientPrefs.skipSplash, game.startFullscreen));
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
@@ -131,9 +131,7 @@ class Main extends Sprite
 		FlxG.mouse.visible = false;
 		#end
 		
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK]; 
-		#end
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 		
 		#if mobile
 		FlxG.scaleMode = new MobileScaleMode();

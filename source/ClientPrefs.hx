@@ -14,6 +14,7 @@ class ClientPrefs {
 	public static var wideScreen:Bool = false;
 	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
+	public static var skipSplash:Bool = false;
 	public static var breakgetvarinarray:Bool = false;
 	public static var coloredvpad:Bool = true;
 	public static var VPadSpaceExtend:Bool = true;
@@ -123,6 +124,7 @@ class ClientPrefs {
 		FlxG.save.data.MainMenuStyle = MainMenuStyle;
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
+		FlxG.save.data.skipSplash = skipSplash;
 		FlxG.save.data.breakgetvarinarray = breakgetvarinarray;
 		FlxG.save.data.coloredvpad = coloredvpad;
 		FlxG.save.data.VPadSpaceExtend = VPadSpaceExtend;
@@ -209,6 +211,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.Modpack != null) {
 			Modpack = FlxG.save.data.Modpack;
+		}
+		if(FlxG.save.data.skipSplash != null) {
+			skipSplash = FlxG.save.data.skipSplash;
 		}
 		if(FlxG.save.data.coloredvpad != null) {
 			coloredvpad = FlxG.save.data.coloredvpad;

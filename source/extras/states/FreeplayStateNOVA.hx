@@ -594,7 +594,13 @@ class FreeplayStateNOVA extends MusicBeatState
 
 				if (PlayState.SONG.needsVoices)
 				{
-					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+				    
+					vocals = new FlxSound();
+					try
+            		{
+            		    vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+            		}
+            		catch(e:Dynamic) {}
 					FlxG.sound.list.add(vocals);
 					vocals.persist = vocals.looped = true;
 					vocals.volume = 0.8;
@@ -611,7 +617,11 @@ class FreeplayStateNOVA extends MusicBeatState
 				if (opponentVocals != null) opponentVocals.play();
 				
 				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
-				if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
+				try
+            	{
+            	    if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
+            	}
+            	catch(e:Dynamic) {}
 				else instDis.audioDis.changeAnalyzer(FlxG.sound.music);
 
 				musicMutex.release();
