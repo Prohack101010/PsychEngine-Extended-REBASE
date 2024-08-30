@@ -254,30 +254,27 @@ class FlxVirtualPad extends FlxSpriteGroup {
 
 	public function createButton(x:Float, y:Float, width:Int, height:Int, Frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
 	if (ClientPrefs.virtualpadType == 'New') {
-		var frames:FlxGraphic;
+	    var frames:FlxGraphic;
 
 		final path:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames.png';
-		final defaultkey:String = 'shared:assets/shared/images/virtualpad/' + ClientPrefs.VirtualPadSkin + '/default.png';
 		#if MODS_ALLOWED
-		final modsPath:String = Paths.mods('virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames');
+		final modsPath:String = Paths.modsImages('virtualpad/' + ClientPrefs.VirtualPadSkin + '/$Frames');
 		if(sys.FileSystem.exists(modsPath))
 			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
 		else #end if(Assets.exists(path))
 			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
-		else if(!Assets.exists(defaultkey)) //null fix
-			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/original/default.png'));
 		else
-			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(defaultkey));
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/original/default.png'));
 
-		var button:FlxButton = new FlxButton(x, y);
+		var button:FlxButton = new FlxButton(X, Y);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
 		button.solid = false;
 		button.immovable = true;
 		button.moves = false;
 		button.scrollFactor.set();
-		button.alpha = orgAlpha;
 		if (colored && ClientPrefs.coloredvpad) button.color = ColorS;
-		button.antialiasing = orgAntialiasing;
+		button.antialiasing = ClientPrefs.globalAntialiasing;
+		button.alpha = orgAlpha;
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
 		#end
