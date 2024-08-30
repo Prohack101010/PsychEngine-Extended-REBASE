@@ -87,7 +87,6 @@ class FunkinLua {
 		lua = LuaL.newstate();
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
-		#if flxanimate FlxAnimateFunctions.implement(this); #end
 
 		//trace('Lua version: ' + Lua.version());
 		//trace("LuaJIT version: " + Lua.versionJIT());
@@ -2518,6 +2517,8 @@ class FunkinLua {
 			closed = true;
 			return closed;
 		});
+		
+		#if flxanimate FlxAnimateFunctions.implement(this); #end
 
 		Lua_helper.add_callback(lua, "changePresence", function(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
 			#if desktop
