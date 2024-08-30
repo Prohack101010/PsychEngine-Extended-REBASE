@@ -42,6 +42,14 @@ import android.Tools as AndroidTools;
 import android.os.BatteryManager as AndroidBatteryManager;
 #end
 
+//Lua
+#if LUA_ALLOWED
+import llua.Lua;
+import llua.LuaL;
+import llua.State;
+import llua.Convert;
+#end
+
 // openfl
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;

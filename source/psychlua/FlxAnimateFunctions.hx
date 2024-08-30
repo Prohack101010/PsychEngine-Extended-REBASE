@@ -1,5 +1,28 @@
 package psychlua;
 
+//Lua
+#if LUA_ALLOWED
+import llua.Lua;
+import llua.LuaL;
+import llua.State;
+import llua.Convert;
+#end
+
+//idk
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
+
+//Flixel
+import flixel.FlxSprite;
+import flixel.FlxG;
+import flixel.util.FlxSave;
+import flixel.util.FlxColor;
+import flixel.math.FlxMath;
+
+//Others
+import FunkinLua;
 import openfl.utils.Assets;
 
 #if (LUA_ALLOWED && flxanimate)
