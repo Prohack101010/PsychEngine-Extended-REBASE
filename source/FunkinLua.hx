@@ -2019,7 +2019,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playAnim", function(obj:String, name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
 		{
 			if(PlayState.instance.getLuaObject(obj, false) != null) {
-				var luaObj:Dynamic = FunkinLua.getObjectDirectly073(obj, false);
+				var luaObj:Dynamic = FunkinLua.getObjectDirectly(obj, false);
 				if(luaObj.animation.getByName(name) != null)
 				{
 					if(luaObj.anim != null) luaObj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
@@ -3049,20 +3049,6 @@ class FunkinLua {
 		#end
 	}
 	
-	public static function getObjectDirectly073(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
-	{
-		switch(objectName)
-		{
-			case 'this' | 'instance' | 'game':
-				return PlayState.instance;
-			
-			default:
-				var obj:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
-				if(obj == null) obj = getVarInArray(getTargetInstance(), objectName);
-				return obj;
-		}
-	}
-	
 	public static inline function getTargetInstance()
 	{
 		return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
@@ -3758,11 +3744,16 @@ class FunkinLua {
 
 	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
 	{
-		var coverMeInPiss:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
-		if(coverMeInPiss==null)
-			coverMeInPiss = getVarInArray(getInstance(), objectName);
+		switch(objectName)
+		{
+			case 'this' | 'instance' | 'game':
+				return PlayState.instance;
 
-		return coverMeInPiss;
+			default:
+				var coverMeInPiss:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
+				if(coverMeInPiss == null) coverMeInPiss = getVarInArray(getInstance(), objectName);
+				return coverMeInPiss;
+	    }
 	}
 
 	function typeToString(type:Int):String {
