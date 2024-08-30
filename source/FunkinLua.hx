@@ -2018,7 +2018,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playAnim", function(obj:String, name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
 		{
 			if(PlayState.instance.getLuaObject(obj, false) != null) {
-				var luaObj:Dynamic = FunkinLua.getObjectDirectly(obj, false);
+				var luaObj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
 				if(luaObj.animation.getByName(name) != null)
 				{
 					if(luaObj.anim != null) luaObj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
@@ -2415,7 +2415,7 @@ class FunkinLua {
 				if(PlayState.instance.modchartSounds.exists(tag)) {
 					PlayState.instance.modchartSounds.get(tag).stop();
 				}
-				PlayState.instance.modchartSounds.set(tag, FlxG.sound.play(Paths.sound(sound), volume, false, null, true, function() {
+				PlayState.instance.modchartSounds.set(tag, FlxG.sound.play(Paths.sound(sound), volume, false, function() {
 					PlayState.instance.modchartSounds.remove(tag);
 					PlayState.instance.callOnLuas('onSoundFinished', [tag]);
 				}));
@@ -3046,11 +3046,6 @@ class FunkinLua {
 
 		call('onCreate', []);
 		#end
-	}
-	
-	public static inline function getTargetInstance()
-	{
-		return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
 	}
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
@@ -3746,7 +3741,7 @@ class FunkinLua {
 		var coverMeInPiss:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
 		if(coverMeInPiss==null)
 			coverMeInPiss = getVarInArray(getInstance(), objectName);
-			
+
 		return coverMeInPiss;
 	}
 

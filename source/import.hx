@@ -1,17 +1,17 @@
 // Psych
 #if !macro
 import Paths;
+import flixel.addons.ui.*; //Flixel-UI
 #end
 
 // Extra
 import extras.states.*; //Extra Menus
+import FreeplayState; //Idk Why
+
+// 0.7x Support
 import psychlua.*; //Psych-LUA
 import backend.ui.*; //Psych-UI
 import backend.animation.PsychAnimationController; //Psych Animation Controller
-import FreeplayState; //Idk Why
-import flixel.addons.ui.*; //Flixel-UI
-
-// 0.7x Support
 import Difficulty;
 
 // FlxAnimate
@@ -42,7 +42,7 @@ import android.Tools as AndroidTools;
 import android.os.BatteryManager as AndroidBatteryManager;
 #end
 
-//Lua
+// Lua
 #if LUA_ALLOWED
 import llua.Lua;
 import llua.LuaL;
@@ -50,7 +50,7 @@ import llua.State;
 import llua.Convert;
 #end
 
-// openfl
+// Openfl
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.Lib;
