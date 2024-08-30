@@ -619,10 +619,10 @@ class FreeplayStateNOVA extends MusicBeatState
 				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
 				try
             	{
-            	    if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
+            	    if (vocals != null || vocals != new FlxSound()) instDis.audioDis.changeAnalyzer(vocals);
             	}
             	catch(e:Dynamic) {}
-            	if (vocals == null) instDis.audioDis.changeAnalyzer(FlxG.sound.music);
+            	if (vocals == null || vocals == new FlxSound()) instDis.audioDis.changeAnalyzer(FlxG.sound.music);
 
 				musicMutex.release();
 			});
