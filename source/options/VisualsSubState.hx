@@ -137,13 +137,6 @@ class VisualsSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
-		
-		var option:Option = new Option('Skip Splash Screen',
-			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
-			'skipSplash',
-			'bool',
-			true);
-		addOption(option);
 
 		super();
 	}

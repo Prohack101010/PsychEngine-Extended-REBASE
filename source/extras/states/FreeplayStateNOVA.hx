@@ -337,7 +337,8 @@ class FreeplayStateNOVA extends MusicBeatState
 			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			FlxTween.tween(FlxG.sound.music, {volume: 1}, 1);
 
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended') MusicBeatState.switchState(new MainMenuStateOld());
+    		else MusicBeatState.switchState(new MainMenuState());
 		}
 	}
 
@@ -594,16 +595,16 @@ class FreeplayStateNOVA extends MusicBeatState
 
 				if (PlayState.SONG.needsVoices)
 				{
-				    
-					vocals = new FlxSound();
 					try
             		{
             		    vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
             		}
             		catch(e:Dynamic) {}
+            		if (vocals != null) {
 					FlxG.sound.list.add(vocals);
 					vocals.persist = vocals.looped = true;
 					vocals.volume = 0.8;
+					}
 				}
 				else if (vocals != null)
 				{
@@ -617,12 +618,8 @@ class FreeplayStateNOVA extends MusicBeatState
 				if (opponentVocals != null) opponentVocals.play();
 				
 				voiceDis.audioDis.changeAnalyzer(FlxG.sound.music);
-				try
-            	{
-            	    if (vocals != null || vocals != new FlxSound()) instDis.audioDis.changeAnalyzer(vocals);
-            	}
-            	catch(e:Dynamic) {}
-            	if (vocals == null || vocals == new FlxSound()) instDis.audioDis.changeAnalyzer(FlxG.sound.music);
+            	if (vocals != null) instDis.audioDis.changeAnalyzer(vocals);
+            	else instDis.audioDis.changeAnalyzer(FlxG.sound.music);
 
 				musicMutex.release();
 			});
