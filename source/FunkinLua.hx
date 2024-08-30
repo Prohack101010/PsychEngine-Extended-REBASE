@@ -3062,6 +3062,11 @@ class FunkinLua {
 				return obj;
 		}
 	}
+	
+	public static inline function getTargetInstance()
+	{
+		return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
+	}
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{
