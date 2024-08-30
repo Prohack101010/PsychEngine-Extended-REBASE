@@ -2019,7 +2019,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playAnim", function(obj:String, name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
 		{
 			if(PlayState.instance.getLuaObject(obj, false) != null) {
-				var luaObj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
+				var luaObj:FlxSprite = FunkinLua.getObjectDirectly073(obj,false);
 				if(luaObj.animation.getByName(name) != null)
 				{
 					if(luaObj.anim != null) luaObj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
@@ -3049,7 +3049,7 @@ class FunkinLua {
 		#end
 	}
 	
-	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
+	public static function getObjectDirectly073(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
 	{
 		switch(objectName)
 		{
@@ -3057,9 +3057,9 @@ class FunkinLua {
 				return PlayState.instance;
 			
 			default:
-				var luaObj:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
-				if(luaObj == null) luaObj = getVarInArray(getTargetInstance(), objectName);
-				return luaObj;
+				var obj:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
+				if(obj == null) obj = getVarInArray(getTargetInstance(), objectName);
+				return obj;
 		}
 	}
 
