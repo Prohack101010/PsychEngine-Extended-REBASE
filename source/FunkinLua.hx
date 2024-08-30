@@ -2517,8 +2517,6 @@ class FunkinLua {
 			closed = true;
 			return closed;
 		});
-		
-		#if flxanimate FlxAnimateFunctions.implement(this); #end
 
 		Lua_helper.add_callback(lua, "changePresence", function(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
 			#if desktop
@@ -3745,16 +3743,9 @@ class FunkinLua {
 
 	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
 	{
-		switch(objectName)
-		{
-			case 'this' | 'instance' | 'game':
-				return PlayState.instance;
-
-			default:
-				var coverMeInPiss:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
-				if(coverMeInPiss == null) coverMeInPiss = getVarInArray(getInstance(), objectName);
-				return coverMeInPiss;
-	    }
+		var coverMeInPiss:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
+		if(coverMeInPiss==null)
+			coverMeInPiss = getVarInArray(getInstance(), objectName);
 	}
 
 	function typeToString(type:Int):String {
