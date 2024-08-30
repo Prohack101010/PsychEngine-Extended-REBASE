@@ -87,6 +87,7 @@ class FunkinLua {
 		lua = LuaL.newstate();
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
+		#if flxanimate FlxAnimateFunctions.implement(this); #end
 
 		//trace('Lua version: ' + Lua.version());
 		//trace("LuaJIT version: " + Lua.versionJIT());
@@ -2021,7 +2022,8 @@ class FunkinLua {
 				var luaObj:FlxSprite = PlayState.instance.getLuaObject(obj,false);
 				if(luaObj.animation.getByName(name) != null)
 				{
-					luaObj.animation.play(name, forced, reverse, startFrame);
+					if(luaObj.anim != null) luaObj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
+				    else luaObj.animation.play(name, forced, reverse, startFrame);
 					if(Std.isOfType(luaObj, ModchartSprite))
 					{
 						//convert luaObj to ModchartSprite
@@ -2082,34 +2084,30 @@ class FunkinLua {
 			}
 		});
 		Lua_helper.add_callback(lua, "addLuaSprite", function(tag:String, front:Bool = false) {
-			if(PlayState.instance.modchartSprites.exists(tag)) {
-				var shit:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
-				if(!shit.wasAdded) {
-					if(front)
-					{
-						getInstance().add(shit);
+				var mySprite:FlxSprite = null;
+    			if(PlayState.instance.modchartSprites.exists(tag)) mySprite = PlayState.instance.modchartSprites.get(tag);
+    			else if(PlayState.instance.variables.exists(tag)) mySprite = PlayState.instance.variables.get(tag);
+    
+    			if(mySprite == null) return false;
+    
+    			if(front)
+    				getInstance().add(mySprite);
+    			else
+    			{
+    				if(!PlayState.instance.isDead)
+    				{
+    					var position:Int = PlayState.instance.members.indexOf(PlayState.instance.gfGroup);
+						if(PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup) < position) {
+							position = PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup);
+						} else if(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) < position) {
+							position = PlayState.instance.members.indexOf(PlayState.instance.dadGroup);
+						}
+						PlayState.instance.insert(position, mySprite);
 					}
 					else
-					{
-						if(PlayState.instance.isDead)
-						{
-							GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), shit);
-						}
-						else
-						{
-							var position:Int = PlayState.instance.members.indexOf(PlayState.instance.gfGroup);
-							if(PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup) < position) {
-								position = PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup);
-							} else if(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) < position) {
-								position = PlayState.instance.members.indexOf(PlayState.instance.dadGroup);
-							}
-							PlayState.instance.insert(position, shit);
-						}
-					}
-					shit.wasAdded = true;
-					//trace('added a thing: ' + tag);
-				}
-			}
+					    GameOverSubstate.instance.insert(GameOverSubstate.instance.members.indexOf(GameOverSubstate.instance.boyfriend), mySprite);
+	            }
+				return true;
 		});
 		Lua_helper.add_callback(lua, "setGraphicSize", function(obj:String, x:Int, y:Int = 0, updateHitbox:Bool = true) {
 			if(PlayState.instance.getLuaObject(obj)!=null) {
