@@ -266,7 +266,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		else
 			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/original/default.png'));
 
-		var button:FlxButton = new FlxButton(X, Y);
+		var button:FlxButton = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
 		button.solid = false;
 		button.immovable = true;
