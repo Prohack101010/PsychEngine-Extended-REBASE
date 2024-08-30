@@ -3746,6 +3746,8 @@ class FunkinLua {
 		var coverMeInPiss:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
 		if(coverMeInPiss==null)
 			coverMeInPiss = getVarInArray(getInstance(), objectName);
+			
+		return coverMeInPiss;
 	}
 
 	function typeToString(type:Int):String {
