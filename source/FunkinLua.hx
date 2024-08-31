@@ -2995,11 +2995,6 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "menuPressed", FlxG.android.pressed.MENU);
 		Lua_helper.add_callback(lua, "menuJustReleased", FlxG.android.justReleased.MENU);
 		Lua_helper.add_callback(lua, "getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
-		Lua_helper.add_callback(lua, "AddLuaVirtualPadCameraTest", () -> PlayState.AddLuaVirtualPadCamera()); //Test
-		Lua_helper.add_callback(lua, "AddLuaVirtualPadTest", function(Dpad:Null<String>, Key:Null<String>):Void
-		{
-		    PlayState.AddLuaVirtualPad(Dpad, Key);
-		});
 		Lua_helper.add_callback(lua, "setOrientation", function(hint:Null<String>):Void
 		{
 			switch (hint.toLowerCase())
