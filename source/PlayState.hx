@@ -2782,6 +2782,16 @@ class PlayState extends MusicBeatState
 			babyArrow.postAddedToGroup();
 		}
 	}
+	
+	public static function AddLuaVirtualPad(Dpad:String, Key:String)
+	{
+	    addVirtualPad(Dpad, Key);
+	}
+	
+	public static function AddLuaVirtualPadCamera()
+	{
+	    addPadCamera();
+	}
 
 	override function openSubState(SubState:FlxSubState)
 	{
