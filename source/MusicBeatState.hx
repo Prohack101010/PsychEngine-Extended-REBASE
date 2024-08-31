@@ -66,6 +66,17 @@ class MusicBeatState extends FlxUIState
 		trackedinputsUI = controls.trackedInputsUI;
 		controls.trackedInputsUI = [];
 	}
+	public static function addBruhVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
+		if (_virtualpad != null)
+			removeVirtualPad();
+
+		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
+		add(_virtualpad);
+
+		controls.setVirtualPadUI(_virtualpad, DPad, Action);
+		trackedinputsUI = controls.trackedInputsUI;
+		controls.trackedInputsUI = [];
+	}
 	#end
 
 	#if mobile
@@ -116,6 +127,12 @@ class MusicBeatState extends FlxUIState
 
 	#if mobile
     public function addPadCamera() {
+		var camcontrol = new flixel.FlxCamera();
+		camcontrol.bgColor.alpha = 0;
+		FlxG.cameras.add(camcontrol, false);
+		_virtualpad.cameras = [camcontrol];
+	}
+	public static function addBruhPadCamera() {
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
