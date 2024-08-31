@@ -2783,14 +2783,14 @@ class PlayState extends MusicBeatState
 		}
 	}
 	
-	public static function AddLuaVirtualPad(Dpad:String, Key:String)
+	override function AddLuaVirtualPad(DPad:String, Action:String)
 	{
-	    MusicBeatState.addBruhVirtualPad(Dpad, Key);
+	    addVirtualPad(DPad, Action);
 	}
 	
-	public static function AddLuaVirtualPadCamera()
+	override function AddLuaVirtualPadCamera()
 	{
-	    MusicBeatState.addBruhPadCamera();
+	    addPadCamera();
 	}
 
 	override function openSubState(SubState:FlxSubState)
