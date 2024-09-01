@@ -313,22 +313,6 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 }
 
-class Data
-{
-	public static var dpadMode:StringMap<FlxDPadMode> = new StringMap<FlxDPadMode>();
-	public static var actionMode:StringMap<FlxActionMode> = new StringMap<FlxActionMode>();
-
-	public static function setup()
-	{
-		for (data in FlxDPadMode.createAll())
-			dpadMode.set(data.getName(), data);
-
-		for (data in FlxActionMode.createAll())
-			actionMode.set(data.getName(), data);
-	}
-}
-
-
 enum FlxDPadMode {
 	UP_DOWN;
 	LEFT_RIGHT;

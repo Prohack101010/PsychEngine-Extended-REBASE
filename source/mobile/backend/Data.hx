@@ -17,8 +17,8 @@ class Data
 	}
 }
 
-enum FlxDPadMode
-{
+
+enum FlxDPadMode {
 	UP_DOWN;
 	LEFT_RIGHT;
 	UP_LEFT_RIGHT;
@@ -30,9 +30,8 @@ enum FlxDPadMode
 	NONE;
 }
 
-enum FlxActionMode
-{
-	E;
+enum FlxActionMode {
+    E;
 	A;
 	B;
 	D;
