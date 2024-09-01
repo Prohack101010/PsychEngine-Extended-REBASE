@@ -1133,10 +1133,10 @@ class PlayState extends MusicBeatState
 		#end
 		
 		#if (MODS_ALLOWED && SScript)
-		for (notetype in noteTypes)
+		for (notetype in noteTypeMap.keys())
 			startHScriptsNamed('custom_notetypes/' + notetype + '.hx');
 
-		for (event in eventsPushed)
+		for (event in eventPushedMap.keys())
 			startHScriptsNamed('custom_events/' + event + '.hx');
 		#end
 
@@ -1570,7 +1570,7 @@ class PlayState extends MusicBeatState
 					boyfriendGroup.add(newBoyfriend);
 					startCharacterPos(newBoyfriend);
 					newBoyfriend.alpha = 0.00001;
-					startCharacterLua(newBoyfriend.curCharacter);
+					startCharacterScripts(newBoyfriend.curCharacter);
 				}
 
 			case 1:
@@ -1580,7 +1580,7 @@ class PlayState extends MusicBeatState
 					dadGroup.add(newDad);
 					startCharacterPos(newDad, true);
 					newDad.alpha = 0.00001;
-					startCharacterLua(newDad.curCharacter);
+					startCharacterScripts(newDad.curCharacter);
 				}
 
 			case 2:
@@ -1591,14 +1591,14 @@ class PlayState extends MusicBeatState
 					gfGroup.add(newGf);
 					startCharacterPos(newGf);
 					newGf.alpha = 0.00001;
-					startCharacterLua(newGf.curCharacter);
+					startCharacterScripts(newGf.curCharacter);
 				}
 		}
 	}
 
-	function startCharacterLua(name:String)
+	function startCharacterScripts(name:String)
 	{
-	    // Lua
+		// Lua
 		#if LUA_ALLOWED
 		var doPush:Bool = false;
 		var luaFile:String = 'characters/' + name + '.lua';
@@ -1622,14 +1622,11 @@ class PlayState extends MusicBeatState
 
 		if(doPush)
 		{
-			for (script in luaArray)
-			{
-				if(script.scriptName == luaFile) return;
-			}
-			luaArray.push(new FunkinLua(luaFile));
+			for (script in luaArray) if(script.scriptName == luaFile) return;
+			new FunkinLua(luaFile);
 		}
 		#end
-		
+
 		// HScript
 		#if (MODS_ALLOWED && SScript)
 		var doPush:Bool = false;
@@ -1644,7 +1641,7 @@ class PlayState extends MusicBeatState
 				doPush = true;
 			}
 		}
-
+		
 		if(doPush)
 		{
 			for (script in hscriptInterps) if(script.interpName == scriptFile) return;
