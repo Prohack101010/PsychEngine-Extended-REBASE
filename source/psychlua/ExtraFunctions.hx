@@ -1,25 +1,13 @@
 package psychlua;
 
-#if LUA_ALLOWED
-import llua.Lua;
-import llua.LuaL;
-import llua.State;
-import llua.Convert;
-#end
-
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
 
-import flixel.FlxSprite;
-import flixel.FlxG;
+import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxSave;
-import flixel.util.FlxColor;
-import flixel.math.FlxMath;
 import openfl.utils.Assets;
-
-using StringTools;
 
 //
 // Things to trivialize some dumb stuff like splitting strings on older Lua
@@ -161,7 +149,7 @@ class ExtraFunctions
 				PlayState.instance.modchartSaves.set(name, save);
 				return;
 			}
-			funk.luaTrace('initSaveData: Save file already initialized: ' + name);
+			FunkinLua.luaTrace('initSaveData: Save file already initialized: ' + name);
 		});
 		Lua_helper.add_callback(lua, "flushSaveData", function(name:String) {
 			if(PlayState.instance.modchartSaves.exists(name))
@@ -169,15 +157,18 @@ class ExtraFunctions
 				PlayState.instance.modchartSaves.get(name).flush();
 				return;
 			}
-			funk.luaTrace('flushSaveData: Save file not initialized: ' + name, false, false, FlxColor.RED);
+			FunkinLua.luaTrace('flushSaveData: Save file not initialized: ' + name, false, false, FlxColor.RED);
 		});
 		Lua_helper.add_callback(lua, "getDataFromSave", function(name:String, field:String, ?defaultValue:Dynamic = null) {
 			if(PlayState.instance.modchartSaves.exists(name))
 			{
-				var retVal:Dynamic = Reflect.field(PlayState.instance.modchartSaves.get(name).data, field);
-				return retVal;
+				var saveData = PlayState.instance.modchartSaves.get(name).data;
+				if(Reflect.hasField(saveData, field))
+					return Reflect.field(saveData, field);
+				else
+					return defaultValue;
 			}
-			funk.luaTrace('getDataFromSave: Save file not initialized: ' + name, false, false, FlxColor.RED);
+			FunkinLua.luaTrace('getDataFromSave: Save file not initialized: ' + name, false, false, FlxColor.RED);
 			return defaultValue;
 		});
 		Lua_helper.add_callback(lua, "setDataFromSave", function(name:String, field:String, value:Dynamic) {
@@ -186,7 +177,7 @@ class ExtraFunctions
 				Reflect.setField(PlayState.instance.modchartSaves.get(name).data, field, value);
 				return;
 			}
-			funk.luaTrace('setDataFromSave: Save file not initialized: ' + name, false, false, FlxColor.RED);
+			FunkinLua.luaTrace('setDataFromSave: Save file not initialized: ' + name, false, false, FlxColor.RED);
 		});
 
 		// File management
@@ -214,14 +205,16 @@ class ExtraFunctions
 		Lua_helper.add_callback(lua, "saveFile", function(path:String, content:String, ?absolute:Bool = false)
 		{
 			try {
+				#if MODS_ALLOWED
 				if(!absolute)
 					File.saveContent(Paths.mods(path), content);
 				else
+				#end
 					File.saveContent(path, content);
 
 				return true;
 			} catch (e:Dynamic) {
-				funk.luaTrace("saveFile: Error trying to save " + path + ": " + e, false, false, FlxColor.RED);
+				FunkinLua.luaTrace("saveFile: Error trying to save " + path + ": " + e, false, false, FlxColor.RED);
 			}
 			return false;
 		});
@@ -247,7 +240,7 @@ class ExtraFunctions
 					return true;
 				}
 			} catch (e:Dynamic) {
-				funk.luaTrace("deleteFile: Error trying to delete " + path + ": " + e, false, false, FlxColor.RED);
+				FunkinLua.luaTrace("deleteFile: Error trying to delete " + path + ": " + e, false, false, FlxColor.RED);
 			}
 			return false;
 		});

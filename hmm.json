@@ -45,9 +45,11 @@
       "version": "2.6.0"
     },
     {
-      "name": "hscript",
-      "type": "haxelib",
-      "version": "2.4.0"
+      "name": "SScript",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/FunkinExtraKeys/SScript"
     },
     {
       "name": "hxcpp-debug-server",
