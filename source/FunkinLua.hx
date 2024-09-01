@@ -3012,7 +3012,7 @@ class FunkinLua {
 		{
 			if (PlayState.instance.luaVirtualPad == null)
 			{
-				FunkinLua.luaTrace('addVirtualPadCamera: VPAD does not exist.');
+				luaTrace('addVirtualPadCamera: VPAD does not exist.');
 				return;
 			}
 			PlayState.instance.addLuaVirtualPadCamera();
