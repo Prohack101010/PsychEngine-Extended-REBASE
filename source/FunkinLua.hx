@@ -2980,6 +2980,14 @@ class FunkinLua {
 			return lime.ui.Haptic.vibrate(period, duration);
 		});
 		
+		#if mobile
+		Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
+		{
+			MusicBeatState.mobilec.visible = enabled;
+			if (checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
+		});
+		#end
+		
 		#if android
 		//static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
 		//Lua_helper.add_callback(lua, "isRooted", AndroidTools.isRooted());
