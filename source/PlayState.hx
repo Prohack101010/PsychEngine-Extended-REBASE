@@ -86,6 +86,8 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 48.5;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	
+	public var luaVirtualPad:FlxVirtualPad;
+	
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
 		['Shit', 0.4], //From 20% to 39%
@@ -3419,16 +3421,49 @@ class PlayState extends MusicBeatState
 		#end
 	}
 	
-	override public static function addLuaMobileControls()
+	/*
+	public static function addLuaMobileControls()
 	{
 	    addMobileControls();
 	}
 	
-	override public static function RemoveLuaMobileControls()
+	public static function RemoveLuaMobileControls()
 	{
 	    removeMobileControls();
 	}
+    */
+    
+    public function makeLuaVirtualPad(DPadMode:String, ActionMode:String) {
+		if(members.contains(luaVirtualPad)) return;
+
+		if(!variables.exists("luaVirtualPad"))
+			variables.set("luaVirtualPad", luaVirtualPad);
+
+		luaVirtualPad = new FlxVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode), NONE);
+		luaVirtualPad.alpha = ClientPrefs.VirtualPadAlpha;
+	}
 	
+	public function addLuaVirtualPad() {
+		if(luaVirtualPad == null || members.contains(luaVirtualPad)) return;
+
+		var target = FunkinLua.getInstance();
+		target.insert(target.members.length + 1, luaVirtualPad);
+	}
+
+	public function addLuaVirtualPadCamera() {
+		if(luaVirtualPad != null)
+			luaVirtualPad.cameras = [luaVpadCam];
+	}
+
+	public function removeLuaVirtualPad() {
+		if (luaVirtualPad != null) {
+			luaVirtualPad.kill();
+			luaVirtualPad.destroy();
+			remove(luaVirtualPad);
+			luaVirtualPad = null;
+		}
+	}
+    
 	function openOptionsMenu()
 	{
 		persistentUpdate = false;

@@ -129,16 +129,6 @@ class MusicBeatState extends FlxUIState
 	}
 	#end
 	
-	override function addLuaMobileControls()
-	{
-	    // Do Nothing
-	}
-	
-	override function RemoveLuaMobileControls()
-	{
-	    // Do Nothing
-	}
-	
 	override function destroy() {
 		if (trackedinputsNOTES.length > 0)
 			controls.removeVirtualControlsInput(trackedinputsNOTES);

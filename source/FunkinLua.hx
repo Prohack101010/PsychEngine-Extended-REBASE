@@ -2988,11 +2988,34 @@ class FunkinLua {
 			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
 		});
 		
+		/*
 		Lua_helper.add_callback(lua, "ExtraHitboxType", function(type:String):Void //Only Hitbox For Now
 		{
 			PlayState.RemoveLuaMobileControls();
 			FunkinLua.MobileCType = type;
 			PlayState.addLuaMobileControls();
+		});
+		*/
+		
+		Lua_helper.add_callback(lua, "addVirtualPad", (DPadMode:String, ActionMode:String) ->
+		{
+			PlayState.instance.makeLuaVirtualPad(DPadMode, ActionMode);
+			PlayState.instance.addLuaVirtualPad();
+		});
+
+		Lua_helper.add_callback(lua, "removeVirtualPad", () ->
+		{
+			PlayState.instance.removeLuaVirtualPad();
+		});
+
+		Lua_helper.add_callback(lua, "addVirtualPadCamera", () ->
+		{
+			if (PlayState.instance.luaVirtualPad == null)
+			{
+				FunkinLua.luaTrace('addVirtualPadCamera: VPAD does not exist.');
+				return;
+			}
+			PlayState.instance.addLuaVirtualPadCamera();
 		});
 		#end
 		
