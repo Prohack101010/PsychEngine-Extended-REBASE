@@ -1,16 +1,12 @@
-package mobile;
+package mobile.substates;
 
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
-import mobile.flixel.FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
-import mobile.flixel.FlxHitbox;
-import mobile.flixel.FlxNewHitbox;
-import mobile.MobileControls.Config;
-import mobile.flixel.FlxVirtualPad;
+import mobile.objects.MobileControls.Config;
 import flixel.ui.FlxButton as UIButtonOld;
 import mobile.flixel.FlxButton as UIButton;
 

@@ -13,7 +13,6 @@ import flixel.util.FlxColor;
 import openfl.display.BitmapData;
 import openfl.display.Shape;
 import openfl.geom.Matrix;
-import mobile.flixel.FlxButton;
 
 /**
  * A zone with 4 hint's (A hitbox).

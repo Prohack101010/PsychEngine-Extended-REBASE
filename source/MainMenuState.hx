@@ -6,7 +6,6 @@ import lime.app.Application;
 import editors.MasterEditorMenu;
 import options.OptionsState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import mobile.MobileScaleMode;
 
 //0.6.3 import
 import flixel.FlxG;
@@ -66,11 +65,6 @@ class MainMenuState extends MusicBeatState
 		Paths.pushGlobalMods();
 		#end
 		WeekData.loadTheFirstEnabledMod();
-		
-		#if mobile
-		if (ClientPrefs.wideScreen)
-		    FlxG.scaleMode = new MobileScaleMode();
-		#end
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence

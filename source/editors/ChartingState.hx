@@ -33,9 +33,7 @@ import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-#if mobile
-import mobile.flixel.FlxButton;
-#else
+#if desktop
 import flixel.ui.FlxButton;
 #end
 import flixel.ui.FlxSpriteButton;

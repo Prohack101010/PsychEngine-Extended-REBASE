@@ -48,9 +48,7 @@ import sys.io.File;
 import sys.FileSystem;
 #end
 
-#if mobile
-import mobile.flixel.FlxButton;
-#else
+#if desktop
 import flixel.ui.FlxButton;
 #end
 

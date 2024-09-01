@@ -1,4 +1,4 @@
-package mobile;
+package mobile.backend;
 
 import flixel.FlxG;
 import flixel.system.scaleModes.BaseScaleMode;

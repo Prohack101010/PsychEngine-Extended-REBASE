@@ -1,9 +1,8 @@
-package mobile;
+package mobile.backend;
 
 import openfl.events.UncaughtErrorEvent;
 import openfl.events.ErrorEvent;
 import openfl.errors.Error;
-import mobile.SUtil;
 #if sys
 import sys.FileSystem;
 import sys.io.File;

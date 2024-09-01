@@ -18,7 +18,6 @@ import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 import flixel.graphics.FlxGraphic;
 import WeekData;
-import mobile.SwipeUtil;
 
 using StringTools;
 

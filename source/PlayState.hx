@@ -3443,7 +3443,7 @@ class PlayState extends MusicBeatState
 		if(!variables.exists("luaVirtualPad"))
 			variables.set("luaVirtualPad", luaVirtualPad);
 
-		luaVirtualPad = new FlxVirtualPad(DPadMode, ActionMode);
+		luaVirtualPad = new FlxVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode), NONE);
 		luaVirtualPad.alpha = ClientPrefs.VirtualPadAlpha;
 	}
 	

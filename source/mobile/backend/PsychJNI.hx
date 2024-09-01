@@ -3,7 +3,7 @@
 	NOTE: THESE AT "SDLActivity"!!
  */
 
-package mobile;
+package mobile.backend;
 
 /**
  * ...

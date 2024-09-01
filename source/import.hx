@@ -27,10 +27,14 @@ import js.html.*;
 #end
 
 // Mobile
+#if mobile
+import mobile.backend.*;
 import mobile.flixel.*;
-import mobile.SUtil;
-import mobile.SwipeUtil;
-import mobile.TouchUtil;
+import mobile.objects.*;
+import mobile.options.*;
+import mobile.states.*;
+import mobile.substates.*;
+#end
 
 // Android
 #if android

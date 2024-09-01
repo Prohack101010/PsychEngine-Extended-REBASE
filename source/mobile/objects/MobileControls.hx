@@ -1,13 +1,9 @@
-package mobile;
+package mobile.objects;
 
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxSave;
 import flixel.math.FlxPoint;
-
-import mobile.flixel.FlxVirtualPad;
-import mobile.flixel.FlxNewHitbox;
-import mobile.flixel.FlxHitbox;
 
 class Config {
 	var save:FlxSave;

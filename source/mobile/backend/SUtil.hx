@@ -1,4 +1,4 @@
-package mobile;
+package mobile.backend;
 
 import lime.system.System as LimeSystem;
 import openfl.Lib;

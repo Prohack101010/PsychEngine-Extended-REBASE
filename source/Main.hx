@@ -1,6 +1,5 @@
 package;
 
-import mobile.MobileScaleMode;
 import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
 import flixel.FlxGame;
@@ -11,7 +10,6 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
-import mobile.CopyState;
 import debug.FPSCounter;
 
 #if desktop

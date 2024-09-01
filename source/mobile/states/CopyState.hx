@@ -1,4 +1,4 @@
-package mobile;
+package mobile.states;
 
 #if mobile
 import lime.utils.Assets as LimeAssets;

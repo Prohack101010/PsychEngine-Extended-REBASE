@@ -3,7 +3,6 @@ package extras.states;
 #if desktop
 import Discord.DiscordClient;
 #end
-import mobile.MobileScaleMode;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -53,11 +52,6 @@ class MainMenuStateOld extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		
-		#if mobile
-		if (ClientPrefs.wideScreen)
-		    FlxG.scaleMode = new MobileScaleMode();
-		#end
 		
 		if (ClientPrefs.MainMenuStyle == '0.6.3')
 		{
