@@ -825,7 +825,7 @@ class FunkinLua063 {
 						}
 					}
 				}
-				PlayState.instance.luaArray.push(new FunkinLua063(cervix));
+				PlayState.instance.luaArray.push(new FunkinLua(cervix)); //FunkinLua063
 				return;
 			}
 			luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
@@ -1686,7 +1686,7 @@ class FunkinLua063 {
 			return key;
 		});
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
-			var key:Bool = false;
+			wvar key:Bool = false;
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN');
