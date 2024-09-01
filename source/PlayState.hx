@@ -1548,7 +1548,7 @@ class PlayState extends MusicBeatState
 			blah.destroy();
 			luaDebugGroup.remove(blah);
 		}
-		luaDebugGroup.insert(0, new DebugLuaText(text, luaDebugGroup, color));
+		luaDebugGroup.insert(0, new DebugLuaText(luaDebugGroup, color));
 		#end
 	}
 
