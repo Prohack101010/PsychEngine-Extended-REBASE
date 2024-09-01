@@ -3419,14 +3419,14 @@ class PlayState extends MusicBeatState
 		#end
 	}
 	
-	public static function addLuaMobileControls()
+	override public static function addLuaMobileControls()
 	{
-	    MusicBeatState.addMobileControlsLua();
+	    addMobileControls();
 	}
 	
-	public static function RemoveLuaMobileControls()
+	override public static function RemoveLuaMobileControls()
 	{
-	    MusicBeatState.removeMobileControlsLua();
+	    removeMobileControls();
 	}
 	
 	function openOptionsMenu()
