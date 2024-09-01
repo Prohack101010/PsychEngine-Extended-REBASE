@@ -22,7 +22,7 @@ import flixel.util.FlxColor;
 import flixel.math.FlxMath;
 
 //Others
-import FunkinLua;
+import FunkinLua063 as FunkinLua;
 import openfl.utils.Assets;
 
 #if (LUA_ALLOWED && flxanimate)

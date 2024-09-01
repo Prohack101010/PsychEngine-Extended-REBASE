@@ -1,7 +1,7 @@
 package psychlua;
 
 #if flxanimate
-class ModchartAnimateSprite extends FlxAnimate
+class ModchartAnimateSprite063 extends FlxAnimate
 {
 	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
 	public function new(?x:Float = 0, ?y:Float = 0, ?path:String, ?settings:FlxAnimate.Settings)
