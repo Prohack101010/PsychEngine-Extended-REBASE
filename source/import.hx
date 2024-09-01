@@ -2,7 +2,7 @@
 #if !macro
 import Paths;
 import flixel.addons.ui.*; //Flixel-UI
-import FunkinLua; //0.6.3 FunkinLua
+import FunkinLua063; //FunkinLua 0.6.3
 #end
 
 // Extra

@@ -3882,11 +3882,18 @@ class PlayState extends MusicBeatState
 
 			case 'Set Property':
 				var killMe:Array<String> = value1.split('.');
+				#if desktop
 				if(killMe.length > 1) {
 					FunkinLua.setVarInArray(FunkinLua.getPropertyLoopThingWhatever(killMe, true, true), killMe[killMe.length-1], value2);
 				} else {
 					FunkinLua.setVarInArray(this, value1, value2);
 				}
+				#else
+				if(killMe.length > 1)
+					LuaUtils.setVarInArray(FunkinLua.getPropertyLoopThingWhatever(killMe, true, true), killMe[killMe.length-1], value2);
+				else
+					LuaUtils.setVarInArray(this, value1, value2);
+				#end
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
