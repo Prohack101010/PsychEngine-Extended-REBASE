@@ -1686,7 +1686,7 @@ class FunkinLua063 {
 			return key;
 		});
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
-			wvar key:Bool = false;
+			var key:Bool = false;
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN');
