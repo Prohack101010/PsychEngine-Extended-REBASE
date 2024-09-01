@@ -11,7 +11,7 @@ class ShaderFunctions
 		var lua = funk.lua;
 		// shader shit
 		funk.addLocalCallback("initLuaShader", function(name:String, ?glslVersion:Int = 120) {
-			if(!ClientPrefs.data.shaders) return false;
+			if(!ClientPrefs.shaders) return false;
 
 			#if (!flash && MODS_ALLOWED && sys)
 			return funk.initLuaShader(name, glslVersion);
@@ -22,7 +22,7 @@ class ShaderFunctions
 		});
 		
 		funk.addLocalCallback("setSpriteShader", function(obj:String, shader:String) {
-			if(!ClientPrefs.data.shaders) return false;
+			if(!ClientPrefs.shaders) return false;
 
 			#if (!flash && MODS_ALLOWED && sys)
 			if(!funk.runtimeShaders.exists(shader) && !funk.initLuaShader(shader))
