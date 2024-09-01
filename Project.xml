@@ -47,6 +47,7 @@
 	
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
 	<define name="HSCRIPT_ALLOWED" if="desktop || mobile || web" />
+	<define name="HSCRIPT_OLD" if="desktop || web" />
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" if="desktop || mobile" />

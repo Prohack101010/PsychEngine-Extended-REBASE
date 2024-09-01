@@ -1,8 +1,8 @@
 package psychlua;
 
-import backend.WeekData;
-import backend.Highscore;
-import backend.Song;
+import WeekData;
+import Highscore;
+import Song;
 
 import openfl.Lib;
 import openfl.utils.Assets;
@@ -20,19 +20,19 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-import cutscenes.DialogueBoxPsych;
+import DialogueBoxPsych;
 
-import objects.StrumNote;
-import objects.Note;
-import objects.NoteSplash;
-import objects.Character;
+import StrumNote;
+import Note;
+import NoteSplash;
+import Character;
 
-import states.MainMenuState;
-import states.StoryMenuState;
-import states.FreeplayState;
+import MainMenuState;
+import StoryMenuState;
+import FreeplayState;
 
-import substates.PauseSubState;
-import substates.GameOverSubstate;
+import PauseSubState;
+import GameOverSubstate;
 
 import psychlua.LuaUtils;
 import psychlua.LuaUtils.LuaTweenOptions;
