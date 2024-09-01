@@ -56,8 +56,15 @@ class FlxVirtualPad extends FlxSpriteGroup {
 
 	public var orgAlpha:Float = 0.75;
 	public var orgAntialiasing:Bool = true;
+	
+	/**
+	 * Create a gamepad.
+	 *
+	 * @param   DPadMode     The D-Pad mode. `LEFT_FULL` for example.
+	 * @param   ActionMode   The action buttons mode. `A_B_C` for example.
+	 */
 
-	public function new(?DPad:FlxDPadMode, ?Action:FlxActionMode, ?alphaAlt:Float = 0.75, ?antialiasingAlt:Bool = true) {
+	public function new(DPad:FlxDPadMode, Action:FlxActionMode, ?alphaAlt:Float = 0.75, ?antialiasingAlt:Bool = true) {
 		super();
 
 		orgAntialiasing = antialiasingAlt;
@@ -311,41 +318,4 @@ class FlxVirtualPad extends FlxSpriteGroup {
 			if (Std.isOfType(Reflect.field(this, field), FlxButton))
 				Reflect.setField(this, field, FlxDestroyUtil.destroy(Reflect.field(this, field)));
 	}
-}
-
-enum FlxDPadMode {
-	UP_DOWN;
-	LEFT_RIGHT;
-	UP_LEFT_RIGHT;
-	FULL;
-	ALL;
-	RIGHT_FULL;
-	DUO;
-	CHART_EDITOR;
-	NONE;
-}
-
-enum FlxActionMode {
-    E;
-	A;
-	B;
-	D;
-	P;
-	X_Y;
-	A_B;
-	A_C;
-	A_B_C;
-	A_B_E;
-	A_B_E_C_M;
-	A_B_X_Y;	
-	A_X_Y;	
-	B_X_Y;	
-	A_B_C_X_Y;
-	A_B_C_X_Y_Z;
-	FULL;
-	ALL;
-	CHART_EDITOR;
-	controlExtend;
-	B_E;
-	NONE;
 }
