@@ -1,8 +1,8 @@
 package psychlua;
 
-import backend.WeekData;
-import backend.Highscore;
-import backend.Song;
+import WeekData;
+import Highscore;
+import Song;
 
 import openfl.Lib;
 import openfl.utils.Assets;
@@ -20,19 +20,19 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-import cutscenes.DialogueBoxPsych;
+import DialogueBoxPsych;
 
-import objects.StrumNote;
-import objects.Note;
-import objects.NoteSplash;
-import objects.Character;
+import StrumNote;
+import Note;
+import NoteSplash;
+import Character;
 
-import states.MainMenuState;
-import states.StoryMenuState;
-import states.FreeplayState;
+import MainMenuState;
+import StoryMenuState;
+import FreeplayState;
 
-import substates.PauseSubState;
-import substates.GameOverSubstate;
+import PauseSubState;
+import GameOverSubstate;
 
 import psychlua.LuaUtils;
 import psychlua.LuaUtils.LuaTweenOptions;
@@ -185,29 +185,22 @@ class FunkinLua {
 		set('gfName', PlayState.SONG.gfVersion);
 
 		// Some settings, no jokes
-		set('downscroll', ClientPrefs.data.downScroll);
-		set('middlescroll', ClientPrefs.data.middleScroll);
-		set('framerate', ClientPrefs.data.framerate);
-		set('ghostTapping', ClientPrefs.data.ghostTapping);
-		set('hideHud', ClientPrefs.data.hideHud);
-		set('timeBarType', ClientPrefs.data.timeBarType);
-		set('scoreZoom', ClientPrefs.data.scoreZoom);
-		set('cameraZoomOnBeat', ClientPrefs.data.camZooms);
-		set('flashingLights', ClientPrefs.data.flashing);
-		set('noteOffset', ClientPrefs.data.noteOffset);
-		set('healthBarAlpha', ClientPrefs.data.healthBarAlpha);
-		set('noResetButton', ClientPrefs.data.noReset);
-		set('lowQuality', ClientPrefs.data.lowQuality);
-		set('shadersEnabled', ClientPrefs.data.shaders);
+		set('downscroll', ClientPrefs.downScroll);
+		set('middlescroll', ClientPrefs.middleScroll);
+		set('framerate', ClientPrefs.framerate);
+		set('ghostTapping', ClientPrefs.ghostTapping);
+		set('hideHud', ClientPrefs.hideHud);
+		set('timeBarType', ClientPrefs.timeBarType);
+		set('scoreZoom', ClientPrefs.scoreZoom);
+		set('cameraZoomOnBeat', ClientPrefs.camZooms);
+		set('flashingLights', ClientPrefs.flashing);
+		set('noteOffset', ClientPrefs.noteOffset);
+		set('healthBarAlpha', ClientPrefs.healthBarAlpha);
+		set('noResetButton', ClientPrefs.noReset);
+		set('lowQuality', ClientPrefs.lowQuality);
+		set('shadersEnabled', ClientPrefs.shaders);
 		set('scriptName', scriptName);
 		set('currentModDirectory', Paths.currentModDirectory);
-
-		// Noteskin/Splash
-		set('noteSkin', ClientPrefs.data.noteSkin);
-		set('noteSkinPostfix', Note.getNoteSkinPostfix());
-		set('splashSkin', ClientPrefs.data.splashSkin);
-		set('splashSkinPostfix', NoteSplash.getSplashSkinPostfix());
-		set('splashAlpha', ClientPrefs.data.splashAlpha);
 
 		set('buildTarget', getBuildTarget());
 
@@ -239,7 +232,7 @@ class FunkinLua {
 		addLocalCallback("setOnLuas", function(varName:String, arg:Dynamic, ?ignoreSelf:Bool = false, ?exclusions:Array<String> = null) {
 			if(exclusions == null) exclusions = [];
 			if(ignoreSelf && !exclusions.contains(scriptName)) exclusions.push(scriptName);
-			game.setOnLuas(varName, arg, exclusions);
+			game.setOnLuas(varName, arg);
 		});
 
 		addLocalCallback("callOnScripts", function(funcName:String, ?args:Array<Dynamic> = null, ?ignoreStops=false, ?ignoreSelf:Bool = true, ?excludeScripts:Array<String> = null, ?excludeValues:Array<Dynamic> = null) {
@@ -750,8 +743,8 @@ class FunkinLua {
 			}
 			game.addCharacterToList(name, charType);
 		});
-		Lua_helper.add_callback(lua, "precacheImage", function(name:String, ?allowGPU:Bool = true) {
-			Paths.image(name, allowGPU);
+		Lua_helper.add_callback(lua, "precacheImage", function(name:String) {
+			Paths.image(name);
 		});
 		Lua_helper.add_callback(lua, "precacheSound", function(name:String) {
 			Paths.sound(name);
@@ -764,7 +757,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic) {
 			var value1:String = arg1;
 			var value2:String = arg2;
-			game.triggerEvent(name, value1, value2, Conductor.songPosition);
+			game.triggerEventNote(name, value1, value2);
 			//trace('Triggered event: ' + name + ', ' + value1 + ', ' + value2);
 			return true;
 		});
@@ -1641,7 +1634,7 @@ class FunkinLua {
 	#end
 	public function initLuaShader(name:String, ?glslVersion:Int = 120)
 	{
-		if(!ClientPrefs.data.shaders) return false;
+		if(!ClientPrefs.shaders) return false;
 
 		#if (MODS_ALLOWED && !flash && sys)
 		if(runtimeShaders.exists(name))
