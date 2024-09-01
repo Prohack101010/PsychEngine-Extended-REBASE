@@ -65,7 +65,7 @@ import Discord;
 
 using StringTools;
 
-class FunkinLua {
+class FunkinLua063 {
 	public static var Function_Stop:Dynamic = "##PSYCHLUA_FUNCTIONSTOP";
 	public static var Function_Continue:Dynamic = "##PSYCHLUA_FUNCTIONCONTINUE";
 	public static var Function_StopLua:Dynamic = "##PSYCHLUA_FUNCTIONSTOPLUA";
@@ -825,7 +825,7 @@ class FunkinLua {
 						}
 					}
 				}
-				PlayState.instance.luaArray.push(new FunkinLua(cervix));
+				PlayState.instance.luaArray.push(new FunkinLua063(cervix));
 				return;
 			}
 			luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
@@ -2018,7 +2018,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playAnim", function(obj:String, name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
 		{
 			if(PlayState.instance.getLuaObject(obj, false) != null) {
-				var luaObj:Dynamic = FunkinLua.getLuaObject(obj,false);
+				var luaObj:Dynamic = FunkinLua063.getLuaObject(obj,false);
 				if(luaObj.animation.getByName(name) != null)
 				{
 				    if(luaObj.anim != null) luaObj.anim.play(name, forced, reverse, startFrame); //FlxAnimate
