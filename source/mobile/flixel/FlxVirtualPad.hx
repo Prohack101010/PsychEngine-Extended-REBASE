@@ -11,6 +11,9 @@ import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 import openfl.utils.Assets;
 
+// Lua VirtualPad
+import haxe.ds.StringMap;
+
 class FlxVirtualPad extends FlxSpriteGroup {
 	//Actions
 	public var buttonA:FlxButton;
