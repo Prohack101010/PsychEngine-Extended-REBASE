@@ -73,12 +73,46 @@ class MusicBeatState extends FlxUIState
 			remove(_virtualpad);
 	}
 	
-	public function removeMobileControls() {
+	public static function removeMobileControlsLua() {
 		if (trackedinputsNOTES.length > 0)
 			controls.removeVirtualControlsInput(trackedinputsNOTES);
 
 		if (MobileControls != null)
 			MobileControls = FlxDestroyUtil.destroy(MobileControls);
+	}
+	
+	public static function addMobileControlsLua() {
+		mobilec = new MobileControls();
+
+		switch (mobilec.mode)
+		{
+			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+				controls.setVirtualPadNOTES(mobilec.vpad, FULL, NONE);
+				MusicBeatState.checkHitbox = false;
+			case DUO:
+				controls.setVirtualPadNOTES(mobilec.vpad, DUO, NONE);
+				MusicBeatState.checkHitbox = false;
+			case HITBOX:
+			   if(ClientPrefs.hitboxmode != 'New'){
+				controls.setHitBox(mobilec.hbox);
+				}else{
+				controls.setNewHitBox(mobilec.newhbox);
+				}
+				MusicBeatState.checkHitbox = true;
+			default:
+		}
+
+		trackedinputsNOTES = controls.trackedInputsNOTES;
+		controls.trackedInputsNOTES = [];
+
+		var camcontrol = new flixel.FlxCamera();
+		FlxG.cameras.add(camcontrol, false);
+		camcontrol.bgColor.alpha = 0;
+		mobilec.cameras = [camcontrol];
+
+		mobilec.visible = false;
+
+		add(mobilec);
 	}
 
 	public function addMobileControls() {

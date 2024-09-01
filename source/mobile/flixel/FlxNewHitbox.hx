@@ -39,7 +39,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 	public function new():Void
 	{
 		super();
-		if (ClientPrefs.hitboxExtend == 0 && FunkinLua.MobileCType = ''){
+		if (ClientPrefs.hitboxExtend == 0 && FunkinLua.MobileCType == ''){
             add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFC24B99));
 		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
 		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));

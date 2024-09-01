@@ -3421,12 +3421,12 @@ class PlayState extends MusicBeatState
 	
 	public static function addLuaMobileControls()
 	{
-	    addMobileControls();
+	    MusicBeatState.addMobileControlsLua();
 	}
 	
 	public static function RemoveLuaMobileControls()
 	{
-	    removeMobileControls();
+	    MusicBeatState.removeMobileControlsLua();
 	}
 	
 	function openOptionsMenu()
