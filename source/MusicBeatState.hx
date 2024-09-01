@@ -18,6 +18,7 @@ import backend.PsychCamera;
 
 #if mobile
 import flixel.input.actions.FlxActionInput;
+import mobile.flixel.FlxVirtualPad;
 #end
 import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;
