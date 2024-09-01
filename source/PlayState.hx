@@ -2350,7 +2350,7 @@ class PlayState extends MusicBeatState
 					}
 				});
 				callOnScripts('onCountdownTick', [swagCounter]);
-				callOnHScript('onCountdownTick', [tick, swagCounter]);
+				callOnHScript('onCountdownTick', [swagCounter]);
 
 				swagCounter += 1;
 				// generateSong('fresh');
@@ -5500,7 +5500,7 @@ class PlayState extends MusicBeatState
 
 	public function setOnScripts(variable:String, arg:Dynamic, exclusions:Array<String> = null) {
 		if(exclusions == null) exclusions = [];
-		setOnLuas(variable, arg, exclusions);
+		setOnLuas(variable, arg);
 		setOnHScript(variable, arg, exclusions);
 	}
 
