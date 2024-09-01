@@ -27,6 +27,7 @@ import js.html.*;
 #end
 
 // Mobile
+import mobile.flixel.*;
 import mobile.SUtil;
 import mobile.SwipeUtil;
 import mobile.TouchUtil;
