@@ -13,6 +13,8 @@ import flixel.input.keyboard.FlxKey;
 
 #if mobile
 import flixel.group.FlxGroup;
+import mobile.flixel.FlxVirtualPad;
+import mobile.flixel.FlxButton;
 import flixel.ui.FlxButton as FlxButtonOld;
 import mobile.flixel.FlxButton as FlxNewButton;
 #end
