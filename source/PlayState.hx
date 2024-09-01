@@ -3890,7 +3890,7 @@ class PlayState extends MusicBeatState
 				}
 				#else
 				if(killMe.length > 1)
-					LuaUtils.setVarInArray(FunkinLua.getPropertyLoopThingWhatever(killMe, true, true), killMe[killMe.length-1], value2);
+					LuaUtils.setVarInArray(LuaUtils.getPropertyLoop(killMe, true, true), killMe[killMe.length-1], value2);
 				else
 					LuaUtils.setVarInArray(this, value1, value2);
 				#end

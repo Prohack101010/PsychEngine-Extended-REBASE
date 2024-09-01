@@ -38,8 +38,6 @@ import psychlua.LuaUtils;
 import psychlua.LuaUtils.LuaTweenOptions;
 import psychlua.HScript;
 import psychlua.DebugLuaText;
-import psychlua.ModchartSprite;
-import psychlua.ModchartText;
 
 #if desktop
 import Discord;
