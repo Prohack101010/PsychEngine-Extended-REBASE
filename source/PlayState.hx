@@ -2160,7 +2160,7 @@ class PlayState extends MusicBeatState
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
 			#if mobile
 			MusicBeatState.mobilec.visible = true;
-			if (checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
+			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
 			#end
 			generateStaticArrows(0);
 			generateStaticArrows(1);

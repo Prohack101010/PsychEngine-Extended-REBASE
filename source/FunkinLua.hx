@@ -2984,7 +2984,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
 		{
 			MusicBeatState.mobilec.visible = enabled;
-			if (checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
+			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
 		});
 		#end
 		
