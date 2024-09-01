@@ -80,7 +80,7 @@ class OptionsState extends MusicBeatState
 			#if mobile
 			case 'Mobile Options':
 				removeVirtualPad();
-			    openSubState(new options.MobileOptionsSubState());
+			    openSubState(new MobileOptionsSubState());
 			#end
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
