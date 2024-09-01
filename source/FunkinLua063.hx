@@ -3056,7 +3056,7 @@ class FunkinLua {
 		});
 		#end
 		
-		#if flxanimate FlxAnimateFunctions.implement(this); #end
+		#if flxanimate FlxAnimateFunctions063.implement(this); #end
 
 		call('onCreate', []);
 		#end

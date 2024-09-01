@@ -26,7 +26,7 @@ import FunkinLua;
 import openfl.utils.Assets;
 
 #if (LUA_ALLOWED && flxanimate)
-class FlxAnimateFunctions
+class FlxAnimateFunctions063
 {
 	public static function implement(funk:FunkinLua)
 	{
@@ -41,7 +41,7 @@ class FlxAnimateFunctions
 				lastSprite.destroy();
 			}
 
-			var mySprite:ModchartAnimateSprite = new ModchartAnimateSprite(x, y);
+			var mySprite:ModchartAnimateSprite063 = new ModchartAnimateSprite063(x, y);
 			if(loadFolder != null) loadAtlasCustom(mySprite, loadFolder);
 			PlayState.instance.variables.set(tag, mySprite);
 			mySprite.active = true;
