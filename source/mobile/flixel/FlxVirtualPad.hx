@@ -308,53 +308,23 @@ class FlxVirtualPad extends FlxSpriteGroup {
 			if (Std.isOfType(Reflect.field(this, field), FlxButton))
 				Reflect.setField(this, field, FlxDestroyUtil.destroy(Reflect.field(this, field)));
 	}
-
-    /*
-	override public function destroy():Void {
-		super.destroy();
-
-		dPad = FlxDestroyUtil.destroy(dPad);
-		actions = FlxDestroyUtil.destroy(actions);
-
-		dPad = null;
-		actions = null;
-
-		buttonA = null;
-		buttonB = null;
-		buttonC = null;
-		buttonD = null;
-		buttonE = null;
-		buttonM = null;
-		buttonP = null;
-		buttonF = null;
-		buttonG = null;
-
-		buttonV = null;	
-		buttonX = null;	
-		buttonY = null;
-		buttonZ	= null;	
-
-		buttonLeft = null;
-		buttonUp = null;
-		buttonDown = null;
-		buttonRight = null;
-
-		buttonLeft2 = null;
-		buttonUp2 = null;
-		buttonDown2 = null;
-		buttonRight2 = null;
-		
-		buttonCELeft = null;
-		buttonCEUp = null;
-		buttonCEDown = null;
-		buttonCERight = null;
-		buttonCEG = null;
-		
-		buttonCEUp_M = null;
-		buttonCEDown_M = null;
-	}
-	*/
 }
+
+class Data
+{
+	public static var dpadMode:StringMap<FlxDPadMode> = new StringMap<FlxDPadMode>();
+	public static var actionMode:StringMap<FlxActionMode> = new StringMap<FlxActionMode>();
+
+	public static function setup()
+	{
+		for (data in FlxDPadMode.createAll())
+			dpadMode.set(data.getName(), data);
+
+		for (data in FlxActionMode.createAll())
+			actionMode.set(data.getName(), data);
+	}
+}
+
 
 enum FlxDPadMode {
 	UP_DOWN;

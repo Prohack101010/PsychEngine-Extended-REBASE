@@ -49,14 +49,14 @@ class OptionsState extends MusicBeatState
 			case 'Mobile Controls':
     			FlxTransitionableState.skipNextTransIn = true;
     			FlxTransitionableState.skipNextTransOut = true;
-    			MusicBeatState.switchState(new mobile.MobileControlsMenu());
+    			MusicBeatState.switchState(new MobileControlsMenu());
 			case 'Controls':
 				#if mobile
 				if (ClientPrefs.VirtualPadAlpha == 0) { removeVirtualPad(); }
 				else {
     				FlxTransitionableState.skipNextTransIn = true;
     			    FlxTransitionableState.skipNextTransOut = true;
-    			    MusicBeatState.switchState(new mobile.MobileControlsMenu());
+    			    MusicBeatState.switchState(new MobileControlsMenu());
 			    }
 			    if (ClientPrefs.VirtualPadAlpha == 0) { openSubState(new options.ControlsSubState()); }
 				#else
@@ -80,7 +80,7 @@ class OptionsState extends MusicBeatState
 			#if mobile
 			case 'Mobile Options':
 				removeVirtualPad();
-			    openSubState(new mobile.options.MobileOptionsSubState());
+			    openSubState(new options.MobileOptionsSubState());
 			#end
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
@@ -178,18 +178,6 @@ class OptionsState extends MusicBeatState
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
-
-		#if mobile
-		if (_virtualpad.buttonX.justPressed) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new mobile.MobileControlsMenu());
-		}
-		if (_virtualpad.buttonY.justPressed) {
-			removeVirtualPad();
-			openSubState(new mobile.options.MobileOptionsSubState());
-		}
-		#end
 
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);

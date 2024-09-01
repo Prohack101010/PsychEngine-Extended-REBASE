@@ -60,6 +60,7 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
+import mobile.flixel.FlxVirtualPad;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;

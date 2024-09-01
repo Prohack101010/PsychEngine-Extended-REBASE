@@ -64,7 +64,7 @@ class Main extends Sprite
 		#end
 		Sys.setCwd(SUtil.getStorageDirectory());
 		#end
-		mobile.CrashHandler.init();
+		CrashHandler.init();
 		
 		#if android
 		if (!FileSystem.exists(SUtil.getStorageDirectory()))
