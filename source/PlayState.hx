@@ -60,7 +60,10 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
+#if mobile
+import flixel.input.actions.FlxActionInput;
 import mobile.backend.Data;
+#end
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -87,8 +90,10 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 48.5;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	
+	#if mobile
 	public var luaVirtualPad:FlxVirtualPad;
 	var trackedinputsUI:Array<FlxActionInput> = [];
+	#end
 	
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
