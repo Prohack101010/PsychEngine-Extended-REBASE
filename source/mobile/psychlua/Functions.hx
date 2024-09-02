@@ -71,5 +71,6 @@ class AndroidFunctions
 			if (text != null) return luaTrace('setActivityTitle: No text specified.');
 			PsychJNI.setActivityTitle(text);
 		});
+	}
 }
 #end
