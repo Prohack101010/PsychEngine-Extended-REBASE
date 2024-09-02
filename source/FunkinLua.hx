@@ -3023,8 +3023,71 @@ class FunkinLua {
 		});
 		#end
 		
+		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
+		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
+		Lua_helper.add_callback(lua, "isTablet", AndroidTools.isTablet());
+		Lua_helper.add_callback(lua, "isChromebook", AndroidTools.isChromebook());
+		Lua_helper.add_callback(lua, "isDeXMode", AndroidTools.isDeXMode());
+		Lua_helper.add_callback(lua, "backJustPressed", FlxG.android.justPressed.BACK);
+		Lua_helper.add_callback(lua, "backPressed", FlxG.android.pressed.BACK);
+		Lua_helper.add_callback(lua, "backJustReleased", FlxG.android.justReleased.BACK);
+		Lua_helper.add_callback(lua, "menuJustPressed", FlxG.android.justPressed.MENU);
+		Lua_helper.add_callback(lua, "menuPressed", FlxG.android.pressed.MENU);
+		Lua_helper.add_callback(lua, "menuJustReleased", FlxG.android.justReleased.MENU);
+		Lua_helper.add_callback(lua, "getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
+		Lua_helper.add_callback(lua, "setOrientation", function(hint:Null<String>):Void
+		{
+			switch (hint.toLowerCase())
+			{
+				case 'portrait':
+					hint = 'Portrait';
+				case 'portraitupsidedown' | 'upsidedownportrait' | 'upsidedown':
+					hint = 'PortraitUpsideDown';
+				case 'landscapeleft' | 'leftlandscape':
+					hint = 'LandscapeLeft';
+				case 'landscaperight' | 'rightlandscape' | 'landscape':
+					hint = 'LandscapeRight';
+				default:
+					hint = null;
+			}
+			if (hint == null)
+				return luaTrace('setOrientation: No orientation specified.');
+			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, hint);
+		});
+		Lua_helper.add_callback(lua, "minimizeWindow", () -> AndroidTools.minimizeWindow());
+		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>)
+		{
+			if (text == null)
+				return luaTrace('showToast: No text specified.');
+			else if (duration == null)
+				return luaTrace('showToast: No duration specified.');
+
+			if (xOffset == null)
+				xOffset = 0;
+			if (yOffset == null)
+				yOffset = 0;
+
+			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
+		});
+		Lua_helper.add_callback(lua, "isScreenKeyboardShown", () -> PsychJNI.isScreenKeyboardShown());
+
+		Lua_helper.add_callback(lua, "clipboardHasText", () -> PsychJNI.clipboardHasText());
+		Lua_helper.add_callback(lua, "clipboardGetText", () -> PsychJNI.clipboardGetText());
+		Lua_helper.add_callback(lua, "clipboardSetText", function(text:Null<String>):Void
+		{
+			if (text != null) return luaTrace('clipboardSetText: No text specified.');
+			PsychJNI.clipboardSetText(text);
+		});
+
+		Lua_helper.add_callback(lua, "manualBackButton", () -> PsychJNI.manualBackButton());
+
+		Lua_helper.add_callback(lua, "setActivityTitle", function(text:Null<String>):Void
+		{
+			if (text != null) return luaTrace('setActivityTitle: No text specified.');
+			PsychJNI.setActivityTitle(text);
+		});
+		
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
-		#if android Functions.AndroidFunctions.implement(this); #end
 
 		call('onCreate', []);
 		#end
@@ -3612,32 +3675,6 @@ class FunkinLua {
 			trace(text);
 		}
 		#end
-	}
-	
-	public static function luaTraceStatic(text:String, ignoreCheck:Bool = false, deprecated:Bool = false, color:FlxColor = FlxColor.WHITE) {
-		if(ignoreCheck || getBoolStatic('luaDebugMode')) { //idk why
-			if(deprecated && !getBool('luaDeprecatedWarnings')) {
-				return;
-			}
-			PlayState.instance.addTextToDebug(text, color);
-		}
-	}
-
-    public static function getBoolStatic(variable:String) { //useless but i want to test
-		if(lastCalledScript == null) return false;
-
-		var lua:State = lastCalledScript.lua;
-		if(lua == null) return false;
-
-		var result:String = null;
-		Lua.getglobal(lua, variable);
-		result = Convert.fromLua(lua, -1);
-		Lua.pop(lua, 1);
-
-		if(result == null) {
-			return false;
-		}
-		return (result == 'true');
 	}
 
 	function getErrorMessage(status:Int):String {
