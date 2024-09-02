@@ -88,6 +88,7 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	
 	public var luaVirtualPad:FlxVirtualPad;
+	var trackedinputsUI:Array<FlxActionInput> = [];
 	
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -3439,13 +3440,15 @@ class PlayState extends MusicBeatState
     */
     
     public function makeLuaVirtualPad(DPadMode:String, ActionMode:String) {
-		if(members.contains(luaVirtualPad)) return;
+		if (luaVirtualPad != null)
+			removeLuaVirtualPad();
 
-		if(!variables.exists("luaVirtualPad"))
-			variables.set("luaVirtualPad", luaVirtualPad);
-
-		luaVirtualPad = new FlxVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode));
-		luaVirtualPad.alpha = ClientPrefs.VirtualPadAlpha;
+		luaVirtualPad = new FlxVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode), 0.75, ClientPrefs.globalAntialiasing);
+		add(luaVirtualPad);
+		
+		controls.setVirtualPadUI(luaVirtualPad, DPad, Action);
+		trackedinputsUI = controls.trackedInputsUI;
+		controls.trackedInputsUI = [];
 	}
 	
 	public function addLuaVirtualPad() {
