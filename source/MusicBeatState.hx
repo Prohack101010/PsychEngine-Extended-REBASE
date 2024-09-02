@@ -42,8 +42,6 @@ class MusicBeatState extends FlxUIState
 		return PlayerSettings.player1.controls;
 
 	#if mobile
-	public var dpadMode:Map<String, FlxDPadMode>;
-	public var actionMode:Map<String, FlxActionMode>;
 	var _virtualpad:FlxVirtualPad;
 	public static var mobilec:MobileControls;
 	
