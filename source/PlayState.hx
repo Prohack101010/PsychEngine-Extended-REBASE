@@ -3449,7 +3449,7 @@ class PlayState extends MusicBeatState
 		luaVirtualPad = new FlxVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode), 0.75, ClientPrefs.globalAntialiasing);
 		add(luaVirtualPad);
 		
-		controls.setVirtualPadUI(luaVirtualPad, DPadMode, ActionMode);
+		controls.setVirtualPadUI(luaVirtualPad, Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode));
 		trackedinputsUI = controls.trackedInputsUI;
 		controls.trackedInputsUI = [];
 	}
