@@ -61,7 +61,6 @@ import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
 #if mobile
-import flixel.input.actions.FlxActionInput;
 import mobile.backend.Data;
 #end
 
@@ -92,7 +91,6 @@ class PlayState extends MusicBeatState
 	
 	#if mobile
 	public var luaVirtualPad:FlxVirtualPad;
-	var trackedinputsUI:Array<FlxActionInput> = [];
 	#end
 	
 	public static var ratingStuff:Array<Dynamic> = [
@@ -3451,7 +3449,7 @@ class PlayState extends MusicBeatState
 		luaVirtualPad = new FlxVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode), 0.75, ClientPrefs.globalAntialiasing);
 		add(luaVirtualPad);
 		
-		controls.setVirtualPadUI(luaVirtualPad, DPad, Action);
+		controls.setVirtualPadUI(luaVirtualPad, DPadMode, ActionMode);
 		trackedinputsUI = controls.trackedInputsUI;
 		controls.trackedInputsUI = [];
 	}

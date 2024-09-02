@@ -36,16 +36,16 @@ class AndroidFunctions
 					hint = null;
 			}
 			if (hint == null)
-				return luaTrace('setOrientation: No orientation specified.');
+				return FunkinLua.luaTrace('setOrientation: No orientation specified.');
 			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, hint);
 		});
 		Lua_helper.add_callback(lua, "minimizeWindow", () -> AndroidTools.minimizeWindow());
 		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>)
 		{
 			if (text == null)
-				return luaTrace('showToast: No text specified.');
+				return FunkinLua.luaTrace('showToast: No text specified.');
 			else if (duration == null)
-				return luaTrace('showToast: No duration specified.');
+				return FunkinLua.luaTrace('showToast: No duration specified.');
 
 			if (xOffset == null)
 				xOffset = 0;
@@ -60,7 +60,7 @@ class AndroidFunctions
 		Lua_helper.add_callback(lua, "clipboardGetText", () -> PsychJNI.clipboardGetText());
 		Lua_helper.add_callback(lua, "clipboardSetText", function(text:Null<String>):Void
 		{
-			if (text != null) return luaTrace('clipboardSetText: No text specified.');
+			if (text != null) return FunkinLua.luaTrace('clipboardSetText: No text specified.');
 			PsychJNI.clipboardSetText(text);
 		});
 
@@ -68,7 +68,7 @@ class AndroidFunctions
 
 		Lua_helper.add_callback(lua, "setActivityTitle", function(text:Null<String>):Void
 		{
-			if (text != null) return luaTrace('setActivityTitle: No text specified.');
+			if (text != null) return FunkinLua.luaTrace('setActivityTitle: No text specified.');
 			PsychJNI.setActivityTitle(text);
 		});
 	}
