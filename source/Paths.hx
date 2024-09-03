@@ -25,6 +25,12 @@ import openfl.media.Sound;
 
 using StringTools;
 
+typedef ModsList = {
+	enabled:Array<String>,
+	disabled:Array<String>,
+	all:Array<String>
+};
+
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
