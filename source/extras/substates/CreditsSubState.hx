@@ -2,6 +2,9 @@ package extras.substates;
 
 import AttachedSprite;
 import objects.shape.CreditsShape;
+#if hxvlc
+import hxvlc.flixel.FlxVideoSprite;
+#end
 
 class CreditsSubState extends MusicBeatSubstate
 {
@@ -36,6 +39,8 @@ class CreditsSubState extends MusicBeatSubstate
 
     var camIcons:FlxCamera;
 	var camHUD:FlxCamera;
+
+	var iconVideo:FlxVideoSprite;
 
 	var font = Paths.font('montserrat.ttf');
 
@@ -172,7 +177,29 @@ class CreditsSubState extends MusicBeatSubstate
 		bigIcon.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bigIcon);
 
-		bigIcon.visible = true;
+		iconVideo = new FlxVideoSprite(bigIconRect.x, bigIconRect.y);
+		iconVideo.bitmap.onFormatSetup.add(function():Void
+		{
+			if (iconVideo.bitmap != null && iconVideo.bitmap.bitmapData != null)
+			{
+				final scale:Float = Math.min(dbwidth / iconVideo.bitmap.bitmapData.width, 420 / iconVideo.bitmap.bitmapData.height);
+		
+				iconVideo.setGraphicSize(iconVideo.bitmap.bitmapData.width * scale, iconVideo.bitmap.bitmapData.height * scale);
+				iconVideo.updateHitbox();
+			}
+		});
+		iconVideo.antialiasing = ClientPrefs.globalAntialiasing;
+		add(iconVideo);
+		
+		if (FileSystem.exists(mainIconVideoExists(creditsStuff[curSelected + 1][1]))) {
+			iconVideo.load(mainIconVideoExists(creditsStuff[curSelected + 1][1]), ['input-repeat=65545']);
+			iconVideo.play();
+			iconVideo.alpha = 1;
+		}
+		else {
+			iconVideo.alpha = 0.0001;
+			bigIcon.visible = true;
+		}
 
 		descText = new FlxText(785, 115, dbwidth, "");
 		descText.setFormat(font, 20, FlxColor.BLACK, LEFT);
@@ -203,13 +230,24 @@ class CreditsSubState extends MusicBeatSubstate
 		jobText.updateHitbox();
 		jobText.x = jobRect.x + jobRect.width / 2 - jobText.width / 2;
 		
-		bigIcon.visible = true;
+		if (mainIconVideoExists(creditsStuff[curSelected + 1][1]) != null) {
+			bigIcon.visible = false;
+			iconVideo.load(mainIconVideoExists(creditsStuff[curSelected + 1][1]), ['input-repeat=65545']);
+			iconVideo.play();
+			new FlxTimer().start(0.1, function(tmr:FlxTimer){iconVideo.alpha = 1;});
+			trace(mainIconVideoExists(creditsStuff[curSelected + 1][1]));
+		} else {
+			iconVideo.play();
+			iconVideo.pause();
+			iconVideo.alpha = 0.0001;
+			bigIcon.visible = true;
 			
-		bigIcon.loadGraphic(Paths.image(mainIconExists(creditsStuff[curSelected + 1][1])));
-		bigIcon.setGraphicSize(420, 420);
-		bigIcon.updateHitbox();
+			bigIcon.loadGraphic(Paths.image(mainIconExists(creditsStuff[curSelected + 1][1])));
+			bigIcon.setGraphicSize(420, 420);
+			bigIcon.updateHitbox();
 
-		trace(mainIconExists(creditsStuff[curSelected + 1][1]));
+			trace(mainIconExists(creditsStuff[curSelected + 1][1]));
+		}
 
 		bigIcon.x = bigIconRect.x + bigIconRect.width / 2 - bigIcon.width / 2;
 		bigIcon.y = bigIconRect.y + bigIconRect.height / 2 - bigIcon.height / 2;
