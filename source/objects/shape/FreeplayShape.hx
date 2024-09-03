@@ -238,7 +238,13 @@ class MusicLine extends FlxSpriteGroup
 
     var timeDis:FlxText;
     var timeMaxDis:FlxText;
-    var playRate:FlxText;
+    public var playRate:FlxText;
+
+    var timeAddRect:MusicRect;
+    var timeReduceRect:MusicRect;
+
+    var rateAddRect:MusicRect;
+    var rateReduceRect:MusicRect;
 
 	public function new(X:Float, Y:Float, width:Float = 0)
     {
@@ -258,40 +264,118 @@ class MusicLine extends FlxSpriteGroup
         timeDis.antialiasing = ClientPrefs.globalAntialiasing;
         add(timeDis);
 
+        timeAddRect = new MusicRect(410, 23, '+1S');
+        add(timeAddRect);
+        timeReduceRect = new MusicRect(70, 23, '-1S');
+        add(timeReduceRect);
+
+        rateAddRect = new MusicRect(320, 23, '+5%');
+        add(rateAddRect);
+        rateReduceRect = new MusicRect(160, 23, '-5%');
+        add(rateReduceRect);
+
         timeMaxDis = new FlxText(0, 20, 0, '0', 18);
 		timeMaxDis.font = Paths.font('montserrat.ttf');	  
         timeMaxDis.alignment = RIGHT;  	
         timeMaxDis.antialiasing = ClientPrefs.globalAntialiasing;	
         add(timeMaxDis);
 
-        playRate = new FlxText(0, 20, 0, '1.00', 18);
+        playRate = new FlxText(0, 20, 0, '1', 18);
 		playRate.font = Paths.font('montserrat.ttf');	
         timeDis.alignment = CENTER;    		
         playRate.antialiasing = ClientPrefs.globalAntialiasing;
         add(playRate);
         playRate.x += width / 2 - playRate.width / 2;
 
-        updateData();
+        new FlxTimer().start(0.2, function(tmr:FlxTimer){
+			timeMaxDis.text = Std.string(FlxStringUtil.formatTime(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2)));
+            timeMaxDis.x = X + width - timeMaxDis.width;
+
+            timeDis.text = Std.string(FlxStringUtil.formatTime(FlxMath.roundDecimal(FlxG.sound.music.time / 1000, 2)));
+
+            playRate.text = Std.string(FlxG.sound.music.pitch);
+            playRate.x = X + width / 2 - playRate.width / 2;
+		}, 0);
 	}
 
-    public function updateData() {
-        playRate.text = '1.00';
-
-        timeDis.text = '0:00';
-    }
-
+    var holdTime:Float = 0;
     override function update(e:Float) {
-        timeMaxDis.text = Std.string(FlxStringUtil.formatTime(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2)));
-        timeMaxDis.x = width - timeMaxDis.width;
-
-        timeDis.text = Std.string(FlxStringUtil.formatTime(FlxMath.roundDecimal(FlxG.sound.music.time / 1000, 2)));
+        super.update(e);
 
         whiteLine.scale.x = FlxG.sound.music.time / FlxG.sound.music.length * blackLine.width;
         whiteLine.x = blackLine.x + whiteLine.scale.x / 2;
+
+        if (this.visible == false) return; //奇葩bug
+
+        if (FlxG.mouse.justReleased) holdTime = 0;
+
+        if (FlxG.mouse.overlaps(timeAddRect) || FlxG.mouse.overlaps(timeReduceRect) || FlxG.mouse.overlaps(rateAddRect) || FlxG.mouse.overlaps(rateReduceRect)) {
+            if (FlxG.mouse.justPressed) {
+                if (FlxG.mouse.overlaps(timeAddRect)) FreeplayStateNOVA.instance.updateMusicTime(1);
+                else if (FlxG.mouse.overlaps(timeReduceRect)) FreeplayStateNOVA.instance.updateMusicTime(-1);
+                else if (FlxG.mouse.overlaps(rateAddRect)) FreeplayStateNOVA.instance.updateMusicRate(1);
+                else if (FlxG.mouse.overlaps(rateReduceRect)) FreeplayStateNOVA.instance.updateMusicRate(-1);
+            }
+
+            if (FlxG.mouse.pressed){
+                holdTime += e;
+            }
+
+            if (holdTime > 0.5) {
+                holdTime -= 0.05;
+                if (FlxG.mouse.overlaps(timeAddRect)) FreeplayStateNOVA.instance.updateMusicTime(1);
+                else if (FlxG.mouse.overlaps(timeReduceRect)) FreeplayStateNOVA.instance.updateMusicTime(-1);
+                else if (FlxG.mouse.overlaps(rateAddRect)) FreeplayStateNOVA.instance.updateMusicRate(1);
+                else if (FlxG.mouse.overlaps(rateReduceRect)) FreeplayStateNOVA.instance.updateMusicRate(-1);
+            }
+        }
     }
 }
 
-class ExtraTopRect extends FlxSpriteGroup //play/back button
+
+class MusicRect extends FlxSpriteGroup
+{
+    var bg:Rect;
+    var display:FlxText;
+
+	public function new(X:Float, Y:Float, text:String)
+    {
+        super(X, Y);
+
+		bg = new Rect(0, 0, 60, 20, 20, 20, FlxColor.WHITE, 0.3);
+        add(bg);
+
+        display = new FlxText(0, 0, 0, text, 15);
+		display.font = Paths.font('montserrat.ttf');		    		
+        display.antialiasing = ClientPrefs.globalAntialiasing;
+        add(display);
+        display.x += bg.width / 2 - display.width / 2;
+        display.y += bg.height / 2 - display.height / 2;
+	}
+
+    var fouced:Bool = false;
+    override function update(elapsed:Float) {
+        super.update(elapsed);
+        if (FlxG.mouse.overlaps(bg))
+        {
+            if (!fouced)
+            {
+                fouced = true;
+                bg.alpha = 1;
+                display.color = 0x000000;
+            }          
+        } else {
+            if (fouced)
+            {
+                fouced = false;
+                bg.alpha = 0.3;
+                display.color = 0xffffff;
+            }    
+        }
+    }
+}
+
+class ExtraTopRect extends FlxSpriteGroup
 {
     var background:FlxSprite;
     var text:FlxText;
@@ -366,6 +450,98 @@ class ExtraTopRect extends FlxSpriteGroup //play/back button
                 needFocusCheck = false;
             }
         }
+    }
+}
+
+class ResultRect extends FlxSpriteGroup
+{
+    var background:FlxSprite;
+    
+    var colorArrayAlpha:Array<FlxColor> = [
+    		0x7FFFFF00, //marvelous
+    		0x7F00FFFF, //sick
+    	    0x7F00FF00, //good
+    	    0x7FFF7F00, //bad
+    	    0x7FFF5858, //shit
+    	    0x7FFF0000 //miss
+    		];
+    var ColorArray:Array<FlxColor> = [
+    		0xFFFFFF00, //marvelous
+    		0xFF00FFFF, //sick
+    	    0xFF00FF00, //good
+    	    0xFFFF7F00, //bad
+    	    0xFFFF5858, //shit
+    	    0xFFFF0000 //miss
+    		];
+    var safeZoneOffset:Float = (ClientPrefs.safeFrames / 60) * 1000;
+    
+    var _width:Float;
+    var _height:Float;
+    
+    public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0)
+    {
+        super();
+        background = new FlxSprite();
+        background.alpha = 0;
+        add(background);
+        updateRect();
+        
+        this._width = width;
+        this._height = height;
+    }
+    
+    public function updateRect(?msGroup:Array<Float>, ?timeGroup:Array<Float>)
+    {
+        var shape:Shape = new Shape();
+
+        if (msGroup != null && timeGroup != null && msGroup.length > 0){
+            for (i in 0...msGroup.length){
+                var color:FlxColor;
+                if (Math.abs(msGroup[i]) <= ClientPrefs.marvelousWindow && ClientPrefs.marvelousRating) color = ColorArray[0];
+    		    else if (Math.abs(msGroup[i]) <= ClientPrefs.sickWindow) color = ColorArray[1];
+    		    else if (Math.abs(msGroup[i]) <= ClientPrefs.goodWindow) color = ColorArray[2];
+    		    else if (Math.abs(msGroup[i]) <= ClientPrefs.badWindow) color = ColorArray[3];
+    		    else if (Math.abs(msGroup[i]) <= safeZoneOffset) color = ColorArray[4];
+    		    else color = ColorArray[5];	
+    		    
+    		    var data = msGroup[i];
+    		    if (Math.abs(msGroup[i]) > safeZoneOffset) data = safeZoneOffset; 	
+    		    
+    		    shape.graphics.beginFill(color);     		    
+                shape.graphics.drawCircle(_width * (timeGroup[i] / timeGroup[timeGroup.length - 1]), _height / 2 + _height / 2 * (data / safeZoneOffset), 1.8);
+                shape.graphics.endFill();	
+            }
+        }
+        
+        shape.graphics.beginFill(0x7FFFFFFF); 
+        shape.graphics.drawRect(0, _height / 2 - 1, _width, 2);
+        shape.graphics.endFill();
+        
+        shape.graphics.beginFill(colorArrayAlpha[0]); 
+        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.marvelousWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.marvelousWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.endFill();
+        
+        shape.graphics.beginFill(colorArrayAlpha[1]); 
+        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.sickWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.sickWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.endFill();
+        
+        shape.graphics.beginFill(colorArrayAlpha[2]); 
+        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.goodWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.goodWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.endFill();
+        
+        shape.graphics.beginFill(colorArrayAlpha[3]); 
+        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.badWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.badWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.endFill();
+        
+        var bitmap:BitmapData = new BitmapData(Std.int(_width), Std.int(_height), true, 0);
+        bitmap.draw(shape);
+        
+        background.pixels = bitmap;
+        background.alpha = 1;
     }
 }
 
@@ -567,6 +743,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
                 {
                     diffRectArray[num].onFocus = true;
                     FreeplayStateNOVA.curDifficulty = diffRectArray[num].member;
+                    FreeplayStateNOVA.instance.updateDiff();
                 } 
             }
             for (num in 0...diffRectArray.length)
@@ -775,7 +952,7 @@ class BackRect extends FlxSpriteGroup //back button
         line.alpha = 0.75;
         add(line);
 
-        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreeplayState/playButton'));
+        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreePlayState/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;
@@ -894,7 +1071,7 @@ class PlayRect extends FlxSpriteGroup //back button
         line.alpha = 0.75;
         add(line);
 
-        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreeplayState/playButton'));
+        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreePlayState/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;
@@ -978,7 +1155,6 @@ class PlayRect extends FlxSpriteGroup //back button
     }
 }
 
-
 class SearchButton extends FlxSpriteGroup
 {
     var bg:Rect;
@@ -1007,7 +1183,7 @@ class SearchButton extends FlxSpriteGroup
         }
         add(search);
         
-        tapText = new FlxText(5, 5, 0, 'Tap here to search.', 30);
+        tapText = new FlxText(5, 5, 0, 'Tap here to search', 30);
 		tapText.font = Paths.font('montserrat.ttf'); 	
         tapText.antialiasing = ClientPrefs.globalAntialiasing;	
         tapText.alpha = 0.6;
@@ -1025,5 +1201,92 @@ class SearchButton extends FlxSpriteGroup
         search.ignoreCheck = FreeplayStateNOVA.instance.ignoreCheck;
         if (FreeplayStateNOVA.instance.ignoreCheck) return;
     }
+}
 
+class OrderRect extends FlxSpriteGroup {
+    var touchFix:Rect;
+    var bg:FlxSprite;
+    var display:Rect;
+
+    var follow:Bool;
+
+    public function new(X:Float, Y:Float, width:Float, height:Float, point:Bool)
+    {
+        super(X, Y);
+
+        this.follow = point;
+
+        bg = new FlxSprite();
+        bg.pixels = drawRect(50, 20);
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
+        bg.x += width - bg.width - 15;
+        bg.y += height / 2 - bg.height / 2;
+        add(bg);
+
+        display = new Rect(width - bg.width - 15 - 15, height / 2 - bg.height / 2, 80, 20, 20, 20);
+        display.color = 0xFF52F9;
+        resetUpdate();
+        add(display);
+
+        var text = new FlxText(0, 0, 0, 'Search results sorted alphabetically from a to z', 18);
+		text.font = Paths.font('montserrat.ttf'); 	
+        text.antialiasing = ClientPrefs.globalAntialiasing;	
+        add(text);
+
+        text.y += height / 2 - text.height / 2;
+    }
+
+    function drawRect(width:Float, height:Float):BitmapData {
+        var shape:Shape = new Shape();
+
+        shape.graphics.beginFill(0xFF52F9); 
+        shape.graphics.drawRoundRect(0, 0, width, height, height, height);
+        shape.graphics.endFill();
+
+        var line:Int = 2;
+
+        shape.graphics.beginFill(0x24232C); 
+        shape.graphics.drawRoundRect(line, line, width - line * 2, height - line * 2, height - line * 2, height - line * 2);
+        shape.graphics.endFill();
+
+        var bitmap:BitmapData = new BitmapData(Std.int(width), Std.int(height), true, 0);
+        bitmap.draw(shape);
+        return bitmap;
+    }
+
+    public var onFocus:Bool = false;
+    override function update(elapsed:Float)
+    {
+        super.update(elapsed);
+
+        onFocus = FlxG.mouse.overlaps(display);
+
+        if(onFocus && FlxG.mouse.justReleased)
+            onClick();
+    }
+
+    var tween:FlxTween;
+    var state:Bool = false;
+    function onClick() {
+        if (tween != null) tween.cancel();
+        if (!state)
+        {
+            tween = FlxTween.tween(display, {alpha: 1}, 0.1);
+        } else {
+            tween = FlxTween.tween(display, {alpha: 0}, 0.1);
+        }
+        state = !state;
+        FreeplayStateNOVA.instance.useSort = state;
+    }
+
+    public function resetUpdate() {
+        if (follow == true) 
+        {
+            display.alpha = 1;
+            state = true;
+        } else {
+            display.alpha = 0;
+            state = false;
+        }
+    }
 }

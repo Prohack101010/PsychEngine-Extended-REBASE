@@ -86,11 +86,6 @@ class CreditsState extends MusicBeatState
 			['Nuno Filipe Studios',	'nuno',				'Android Porter',							'https://www.youtube.com/channel/UCq7G3p4msVN5SX2CpJ86tTw',	'989c99'],
 			['M.A. Jigsaw', 		'saw',				'AndroidTools Creator/Vpad Designer',		'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ', '444444'],
 			['MarioMaster',		    'mariomaster',		    'hi its a me',	 'https://www.youtube.com/c/MarioMaster1997',	'D10616'],
-			['Psych Engine Team'],
-			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
-			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/RiverOaken',		'B42F71'],
-			['shubs',				'shubs',			'Additional Programmer of Psych Engine',						'https://twitter.com/yoshubs',			'5E99DF'],
-			[''],
 		*/
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
@@ -98,9 +93,12 @@ class CreditsState extends MusicBeatState
 			['KralOyuncu 2010X',		    'KralOyuncuV3',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'378FC7'],
 			[''],
 			['Mobile Porting Team'],
-			['mcagabe19',			'lily',             'Head Porter of Psych Engine Mobile',                       'https://youtube.com/@mcagabe19',		'FFE7C0'],
-			['Karim Akra',			'karim',			'Second Porter of Psych Engine Mobile',						'https://youtube.com/@Karim0690',		'FFB4F0'],
-			['Moxie',			'hoovy',			'Helper of Psych Engine Mobile',						'https://twitter.com/moxie_specalist',       'F592C4'],
+			['mcagabe19',			'lily',             'Head Porter of Psych Engine 0.6.3 Mobile',                       'https://youtube.com/@mcagabe19',		'FFE7C0'],
+			[''],
+			['Psych Engine Team'],
+			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
+			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/RiverOaken',		'B42F71'],
+			['shubs',				'shubs',			'Additional Programmer of Psych Engine',						'https://twitter.com/yoshubs',			'5E99DF'],
 			[''],
 			['Former Engine Members'],
 			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								'https://twitter.com/bbsub3',			'3E813A'],

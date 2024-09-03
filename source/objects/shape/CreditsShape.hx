@@ -2,125 +2,8 @@ package objects.shape;
 
 import objects.shape.ShapeEX;
 import openfl.display.BitmapData;
-import openfl.display.BitmapDataChannel;
-import openfl.geom.Point;
-import openfl.geom.Matrix;
-import openfl.geom.Rectangle;
+import flixel.graphics.FlxGraphic;
 import openfl.display.Shape;
-import flixel.util.FlxSpriteUtil;
-
-class CreditsButton extends FlxSpriteGroup //back button
-{
-    var background:Rect;
-    var bg2:FlxSprite;
-    var button:FlxSprite; 
-    var text:FlxText;
-
-    public var onClick:Void->Void = null;
-
-    var saveColor:FlxColor = 0;
-    var saveColor2:FlxColor = 0;
-
-    public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, texts:String = '', color:FlxColor = FlxColor.WHITE, onClick:Void->Void = null)
-    {
-        super(X, Y);
-
-        bg2 = new FlxSprite(-60);
-        bg2.pixels = drawRect(width, height);
-        bg2.color = color;
-        add(bg2);
-
-        background = new Rect(0, 0, height, height);
-        background.color = color;
-        add(background); 
-
-        var line = new Rect(background.width - 3, 0, 3, height, 0, 0, 0xFFFFFFFF);
-        line.alpha = 0.75;
-        add(line);
-
-        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/Others/playButton'));
-        button.scale.set(0.4, 0.4);
-        button.antialiasing = ClientPrefs.globalAntialiasing;
-        button.x += background.width / 2 - button.width / 2;
-        button.y += background.height / 2 - button.height / 2;
-        button.flipX = true;
-        add(button);
-
-        text = new FlxText(70, 0, 0, texts, 18);
-        text.font = Paths.font('montserrat.ttf');     
-        text.antialiasing = ClientPrefs.globalAntialiasing;    
-        add(text);
-
-        text.x += background.width / 2 - text.width / 2;
-        text.y += background.height / 2 - text.height / 2;
-
-        this.onClick = onClick;
-        this.saveColor = color;
-        saveColor2 = color;
-        saveColor2.lightness = 0.5;
-    }
-
-    function drawRect(width:Float, height:Float):BitmapData {
-        var shape:Shape = new Shape();
-
-        var p1:Point = new Point(10, 0);
-        var p2:Point = new Point(width + 10, 0);
-        var p3:Point = new Point(width, height);
-        var p4:Point = new Point(0, height);
-
-        shape.graphics.beginFill(0xFFFFFFFF); 
-        shape.graphics.lineStyle(1, 0xFFFFFFFF, 1);
-        shape.graphics.moveTo(p1.x, p1.y);
-        shape.graphics.lineTo(p2.x, p2.y);
-        shape.graphics.lineTo(p3.x, p3.y);
-        shape.graphics.lineTo(p4.x, p4.y);
-        shape.graphics.lineTo(p1.x, p1.y);
-        shape.graphics.endFill();
-
-        var bitmap:BitmapData = new BitmapData(Std.int(p2.x), Std.int(height), true, 0);
-        bitmap.draw(shape);
-        return bitmap;
-    }
-
-    public var onFocus:Bool = false;
-    var bgTween:FlxTween;
-    var textTween:FlxTween;
-    var focused:Bool = false;
-    override function update(elapsed:Float)
-    {
-        super.update(elapsed);
-        
-        onFocus = FlxG.mouse.overlaps(this);
-
-        if(onFocus && onClick != null && FlxG.mouse.justReleased)
-            onClick();
-
-        if (onFocus)
-        {
-            if (!focused){
-                focused = true;
-                if (bgTween != null) bgTween.cancel();
-                bgTween = FlxTween.tween(bg2, {x: 0}, 0.3, {ease: FlxEase.backInOut});
-
-                if (textTween != null) textTween.cancel();
-                textTween = FlxTween.tween(text, {x: 105}, 0.3, {ease: FlxEase.backInOut});
-                var color = 
-                background.color = saveColor2;
-            }
-        } else {
-            if (focused){
-                focused = false;
-                if (bgTween != null) bgTween.cancel();
-                bgTween = FlxTween.tween(bg2, {x: -60}, 0.3, {ease: FlxEase.backInOut});
-
-                if (textTween != null) textTween.cancel();
-                textTween = FlxTween.tween(text, {x: 77}, 0.3, {ease: FlxEase.backInOut});
-                
-                background.color = saveColor;
-            }
-        }
-    }
-}
 
 class ModsButtonRect extends FlxSpriteGroup //play/back button
 {
@@ -134,7 +17,7 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
     public var onClick:Void->Void = null;
     public var folder:String = 'unknownMod';
 
-	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, roundWidth:Float = 0, roundHeight:Float = 0, texts:String = '', textOffset:Float = 0, color:FlxColor = FlxColor.WHITE, onClick:Void->Void = null)
+	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, roundWidth:Float = 0, roundHeight:Float = 0, texts:String = '', ?specPath:Bool = false, textOffset:Float = 0, color:FlxColor = FlxColor.WHITE, onClick:Void->Void = null)
     {
         super(X, Y);
 
@@ -142,18 +25,22 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
 
         this.folder = texts;
 
-        var bmp = Paths.cacheBitmap(Paths.mods('$folder/pack.png'));
-		if(bmp == null)
-		{
-			bmp = Paths.cacheBitmap(Paths.mods('$folder/pack-pixel.png'));
-			//isPixel = true;
-		}
+        var bmp:FlxGraphic;
+        if (!specPath)
+        {
+            bmp = Paths.cacheBitmap(Paths.mods('$folder/pack.png'));
+            if(bmp == null)
+            {
+                bmp = Paths.cacheBitmap(Paths.mods('$folder/pack-pixel.png'));
+            }
+        } else {
+            bmp = Paths.cacheBitmap(Paths.getSharedPath('images/menuExtend/CreditsState/groupIcon/$folder.png'));
+        }
 
         if(bmp != null)
         {
             box.loadGraphic(bmp, true, 150, 150);
         }
-
         else box.loadGraphic(Paths.image('unknownMod'), true, 150, 150);
         box.scale.set(0.5, 0.5);
         box.updateHitbox();
@@ -162,6 +49,7 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
         text.color = FlxColor.WHITE;
         text.font = Paths.font('montserrat.ttf');
         text.antialiasing = ClientPrefs.globalAntialiasing;
+        if (text.width > width - box.width - 20) text.scale.x = width - box.width - 20 / text.width;
 
         background = new Rect(0, 0, width, height, roundWidth, roundHeight, color);
         background.color = color;
@@ -171,7 +59,7 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
         add(text);
         add(box);
 
-        text.x += background.width / 2 - text.width / 2;
+        text.x += box.width + 20;
         text.y += background.height / 2 - text.height / 2;
 
         box.x += background.width / 32 - box.width / 32;
@@ -210,4 +98,70 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
             }
         }
     }
+}
+
+class CreditsNote extends FlxSprite
+{
+    public var sprTracker:FlxSprite;
+    var char:String = '';
+    var link:String = '';
+
+    public function new(char:String, link:String, ?allowGPU:Bool = true)
+    {
+        super();
+
+        this.char = char;
+        this.link = link;
+
+        alpha = 0.8;
+
+        changeIcon(char, allowGPU);
+    }
+
+	override function update(elapsed:Float)
+    {
+        super.update(elapsed);
+
+        if (CoolUtil.mouseOverlaps(this))
+        {
+            alpha = 1;
+            if (FlxG.mouse.justReleased)
+            {
+                CoolUtil.browserLoad(link);
+            }
+        }
+        else {
+            alpha = 0.8;
+        }
+    }
+
+    private var iconOffsets:Array<Float> = [0, 0];
+	public function changeIcon(char:String, ?allowGPU:Bool = true) {
+        var name:String = 'menuExtend/CreditsState/linkButton';
+        
+        var graphic = Paths.image(name, allowGPU);
+        var delimiter:Int = 150;
+        loadGraphic(graphic, true, delimiter, graphic.height);
+        updateHitbox();
+
+        animation.add(char, [for (i in 0...numFrames) i], 0, false);
+        animation.play(char);
+        animation.curAnim.curFrame = 0;
+
+        if (char == "github") animation.curAnim.curFrame = 0;
+        else if (char == "youtube") animation.curAnim.curFrame = 1;
+        else if (char == "x.com" || char == "twitter") animation.curAnim.curFrame = 2;
+        else if (char == "discord") animation.curAnim.curFrame = 3;
+        else if (char == "bilibili" || char == "b23.tv") animation.curAnim.curFrame = 4;
+        else if (char == "douyin") animation.curAnim.curFrame = 5;
+        else if (char == "kuaishou") animation.curAnim.curFrame = 6;
+        else animation.curAnim.curFrame = 7;
+	}
+
+	override function updateHitbox()
+	{
+		super.updateHitbox();
+		offset.x = iconOffsets[0];
+		offset.y = iconOffsets[1];
+	}
 }

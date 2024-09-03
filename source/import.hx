@@ -5,7 +5,8 @@ import flixel.addons.ui.*; //Flixel-UI
 #end
 
 // Extra
-import extras.states.*; //Extra Menus
+import extras.states.*; //Extra States
+import extras.substates.*; //Extra Substates
 import FreeplayState; //Idk Why
 
 // 0.7x Support
