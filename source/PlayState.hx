@@ -192,6 +192,9 @@ class PlayState extends MusicBeatState
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
 	public var combo:Int = 0;
+	
+	public static var NoteMs:Array<Float> = [];
+    public static var NoteTime:Array<Float> = [];
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -427,8 +430,7 @@ class PlayState extends MusicBeatState
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		CustomFadeTransition.nextCamera = camOther;
 
-		persistentUpdate = true;
-		persistentDraw = true;
+		persistentUpdate = persistentDraw = true;
 
 		if (SONG == null)
 			SONG = Song.loadFromJson('tutorial');
@@ -510,6 +512,9 @@ class PlayState extends MusicBeatState
 		GF_Y = stageData.girlfriend[1];
 		DAD_X = stageData.opponent[0];
 		DAD_Y = stageData.opponent[1];
+		
+		NoteMs = [];
+		NoteTime = [];
 
 		if(stageData.camera_speed != null)
 			cameraSpeed = stageData.camera_speed;
@@ -4255,9 +4260,12 @@ class PlayState extends MusicBeatState
 	private function popUpScore(note:Note = null):Void
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
+		var noteDiffNOVA:Float = note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset;
 		//trace(noteDiff, ' ' + Math.abs(note.strumTime - Conductor.songPosition));
 
 		// boyfriend.playAnim('hey');
+		NoteMs.push(noteDiffNOVA / playbackRate);
+		NoteTime.push(note.strumTime);
 		vocals.volume = 1;
 
 		var placement:String = Std.string(combo);
