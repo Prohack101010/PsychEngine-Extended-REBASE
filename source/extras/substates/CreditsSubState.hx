@@ -56,7 +56,7 @@ class CreditsSubState extends MusicBeatSubstate
 	{
 		persistentUpdate = true;
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 		
@@ -97,7 +97,7 @@ class CreditsSubState extends MusicBeatSubstate
 				iconBGArray.push(iconBG);
 
 				var iconText:FlxText = new FlxText(0, 0, 0, creditsStuff[i][0], 22);
-				iconText.antialiasing = ClientPrefs.data.antialiasing;
+				iconText.antialiasing = ClientPrefs.globalAntialiasing;
 				iconText.setFormat(font, 22, FlxColor.BLACK, LEFT);
 
 				if (iconText.width > 140) iconText.scale.x = 140 / iconText.width;
@@ -143,12 +143,12 @@ class CreditsSubState extends MusicBeatSubstate
 
 		nameText = new FlxText(170, 5, 0, "");
 		nameText.setFormat(font, 45, FlxColor.BLACK, CENTER);
-		nameText.antialiasing = ClientPrefs.data.antialiasing;
+		nameText.antialiasing = ClientPrefs.globalAntialiasing;
 		nameText.updateHitbox();
 
 		jobText = new FlxText(700, 5, 0, "");
 		jobText.setFormat(font, 45, FlxColor.BLACK, CENTER);
-		jobText.antialiasing = ClientPrefs.data.antialiasing;
+		jobText.antialiasing = ClientPrefs.globalAntialiasing;
 		jobText.updateHitbox();
 		
 		var dbwidth:Int = 470;
@@ -174,7 +174,7 @@ class CreditsSubState extends MusicBeatSubstate
 		bigIcon.scale.set(1, 1);
 		bigIcon.updateHitbox();
 		bigIcon.visible = false;
-		bigIcon.antialiasing = ClientPrefs.data.antialiasing;
+		bigIcon.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bigIcon);
 
 		iconVideo = new FlxVideoSprite(bigIconRect.x, bigIconRect.y);
@@ -188,7 +188,7 @@ class CreditsSubState extends MusicBeatSubstate
 				iconVideo.updateHitbox();
 			}
 		});
-		iconVideo.antialiasing = ClientPrefs.data.antialiasing;
+		iconVideo.antialiasing = ClientPrefs.globalAntialiasing;
 		add(iconVideo);
 		
 		if (FileSystem.exists(mainIconVideoExists(creditsStuff[curSelected + 1][1]))) {
@@ -203,7 +203,7 @@ class CreditsSubState extends MusicBeatSubstate
 
 		descText = new FlxText(785, 115, dbwidth, "");
 		descText.setFormat(font, 20, FlxColor.BLACK, LEFT);
-		descText.antialiasing = ClientPrefs.data.antialiasing;
+		descText.antialiasing = ClientPrefs.globalAntialiasing;
 		descText.updateHitbox();
 
 		add(descText);

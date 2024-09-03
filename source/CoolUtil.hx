@@ -2,6 +2,7 @@ package;
 
 import flixel.text.FlxText;
 import flixel.util.FlxSave;
+import flixel.FlxBasic;
 import flixel.FlxG;
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;

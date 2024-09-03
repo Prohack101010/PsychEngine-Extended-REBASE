@@ -7,13 +7,14 @@ import flixel.addons.ui.*; //Flixel-UI
 // Extra
 import extras.states.*; //Extra States
 import extras.substates.*; //Extra Substates
-import FreeplayState; //Idk Why
 
 // 0.7x Support
+import backend.Mods;
+import objects.AudioDisplay;
+import objects.shape.ShapeEX;
 import psychlua.*; //Psych-LUA
 import backend.ui.*; //Psych-UI
 import backend.animation.PsychAnimationController; //Psych Animation Controller
-import Difficulty;
 
 // FlxAnimate
 #if flxanimate
@@ -29,6 +30,9 @@ import js.html.*;
 
 // Mobile
 #if mobile
+import mobile.flixel.FlxHitbox;
+import mobile.flixel.FlxNewHitbox;
+import mobile.flixel.FlxVirtualPad;
 import mobile.backend.*;
 import mobile.flixel.*;
 import mobile.objects.*;
@@ -57,11 +61,6 @@ import llua.LuaL;
 import llua.State;
 import llua.Convert;
 #end
-
-// Openfl
-import lime.utils.Assets;
-import openfl.utils.Assets as OpenFlAssets;
-import openfl.Lib;
 
 //Flixel
 import flixel.sound.FlxSound;

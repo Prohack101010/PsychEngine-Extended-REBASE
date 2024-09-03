@@ -1,6 +1,6 @@
 package extras.states;
 
-import objects.AttachedSprite;
+import AttachedSprite;
 import objects.shape.ShapeEX;
 import objects.shape.CreditsShape;
 import extras.substates.CreditsSubState;
