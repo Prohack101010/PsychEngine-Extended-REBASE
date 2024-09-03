@@ -49,22 +49,21 @@ class PsychCreditsSubState extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if(isSelectable) {
-				var str:String = 'credits/missing_icon';
-				if(creditsStuff[i][1] != null && creditsStuff[i][1].length > 0)
+				if(creditsStuff[i][5] != null)
 				{
-					var fileName = 'credits/' + creditsStuff[i][1];
-					if (Paths.fileExistsAternative('images/$fileName.png', IMAGE)) str = fileName;
-					else if (Paths.fileExistsAternative('images/$fileName-pixel.png', IMAGE)) str = fileName + '-pixel';
+					Paths.currentModDirectory = creditsStuff[i][5];
 				}
 
+				var str:String = 'credits/missing_icon';
+				if (Paths.image('credits/' + creditsStuff[i][1]) != null) str = 'credits/' + creditsStuff[i][1];
 				var icon:AttachedSprite = new AttachedSprite(str);
-				if(str.endsWith('-pixel')) icon.antialiasing = false;
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
 	
 				// using a FlxGroup is too much fuss!
 				iconArray.push(icon);
 				add(icon);
+				Paths.currentModDirectory = '';
 
 				if(curSelected == -1) curSelected = i;
 			}
