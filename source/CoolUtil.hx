@@ -43,6 +43,16 @@ class CoolUtil
 
 		return daList;
 	}
+	inline public static function colorFromString(color:String):FlxColor
+	{
+		var hideChars = ~/[\t\n\r]/;
+		var color:String = hideChars.split(color).join('').trim();
+		if(color.startsWith('0x')) color = color.substring(color.length - 6);
+
+		var colorNum:Null<FlxColor> = FlxColor.fromString(color);
+		if(colorNum == null) colorNum = FlxColor.fromString('#$color');
+		return colorNum != null ? colorNum : FlxColor.WHITE;
+	}
 	public static function listFromString(string:String):Array<String>
 	{
 		var daList:Array<String> = [];
@@ -147,5 +157,40 @@ class CoolUtil
 			default:
 				text.borderStyle = NONE;
 		}
+	}
+	
+	/**
+	* Replacement for `FlxG.mouse.overlaps` because it's currently broken when using a camera with a different position or size.
+	* It will be fixed eventually by HaxeFlixel v5.4.0.
+	* 
+	* @param 	objectOrGroup The object or group being tested.
+	* @param 	camera Specify which game camera you want. If null getScreenPosition() will just grab the first global camera.
+	* @return 	Whether or not the two objects overlap.
+	*/
+	@:access(flixel.group.FlxTypedGroup.resolveGroup)
+	inline public static function mouseOverlaps(objectOrGroup:FlxBasic, ?camera:FlxCamera):Bool
+	{
+		var result:Bool = false;
+ 
+		final group = FlxTypedGroup.resolveGroup(objectOrGroup);
+		if (group != null)
+		{
+			group.forEachExists(function(basic:FlxBasic)
+			{
+				if (mouseOverlaps(basic, camera))
+				{
+					result = true;
+					return;
+				}
+			});
+		}
+		else
+		{
+			final point = FlxG.mouse.getWorldPosition(camera, FlxPoint.weak());
+			final object:FlxObject = cast objectOrGroup;
+			result = object.overlapsPoint(point, true, camera);
+		}
+ 
+		return result;
 	}
 }

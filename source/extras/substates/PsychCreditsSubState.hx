@@ -95,7 +95,7 @@ class PsychCreditsSubState extends MusicBeatSubstate
 		add(back);
 
 		addVirtualPad(UP_DOWN, A_B_C);
-		virtualPad.y -= 75;
+		_virtualpad.y -= 75;
 
 		super.create();
 	}
@@ -119,7 +119,7 @@ class PsychCreditsSubState extends MusicBeatSubstate
 			if(creditsStuff.length > 1)
 			{
 				var shiftMult:Int = 1;
-				if(FlxG.keys.pressed.SHIFT || virtualPad.buttonC.pressed) shiftMult = 3;
+				if(FlxG.keys.pressed.SHIFT || _virtualpad.buttonC.pressed) shiftMult = 3;
 
 				var upP = controls.UI_UP_P;
 				var downP = controls.UI_DOWN_P;

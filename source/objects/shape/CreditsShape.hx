@@ -80,7 +80,7 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
     {
         super.update(elapsed);
 
-        if(!ignoreCheck && !Controls.instance.controllerMode)
+        if(!ignoreCheck && !ClientPrefs.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)
@@ -139,7 +139,7 @@ class CreditsNote extends FlxSprite
 	public function changeIcon(char:String, ?allowGPU:Bool = true) {
         var name:String = 'menuExtend/CreditsState/linkButton';
         
-        var graphic = Paths.image(name, allowGPU);
+        var graphic = Paths.image(name);
         var delimiter:Int = 150;
         loadGraphic(graphic, true, delimiter, graphic.height);
         updateHitbox();

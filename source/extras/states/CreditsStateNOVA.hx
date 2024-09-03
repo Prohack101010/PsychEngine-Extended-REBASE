@@ -104,7 +104,7 @@ class CreditsStateNOVA extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		Mods.loadTopMod();
+		WeekData.loadTheFirstEnabledMod();
 
 		persistentUpdate = true;
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
