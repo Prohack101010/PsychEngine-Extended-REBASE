@@ -524,6 +524,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 					difficultyBars[i*2+1].x = difficultyAlphabet[i].x - 300;
 					difficultyBars[i*2+1].y = difficultyAlphabet[i].y - 30;
 				}
+			/*
 			case 'options':
 				for (i in 0...optionsOptionsAlphabet.length) {
 						
@@ -536,6 +537,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 					optionsOptionsBars[i*2+1].x = optionsOptionsAlphabet[i].x - 300;
 					optionsOptionsBars[i*2+1].y = optionsOptionsAlphabet[i].y - 30;
 				}
+			*/
 		}
 			
 		if (upP)
@@ -582,6 +584,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 				for (i in difficultyAlphabet) i.alpha = 0.5;
 				
 				difficultyAlphabet[difficultyCurSelected].alpha = 1;
+			/*
 			case 'options':
 				optionsCurSelected += num;
 				if (optionsCurSelected > optionsType.length - 1) optionsCurSelected = 0;
@@ -590,6 +593,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 				for (i in optionsOptionsAlphabet) i.alpha = 0.5;
 				
 				optionsOptionsAlphabet[optionsCurSelected].alpha = 1;
+			*/
 		}
 		
 		if (num != 0)
@@ -630,6 +634,16 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 				
 					PlayState.chartingMode = true;
 				case 'Options':
+				    PlayState.instance.paused = true; // For lua
+					PlayState.instance.vocals.volume = 0;
+					OptionsState.onPlayState = true;
+					MusicBeatState.switchState(new OptionsState());
+					if(ClientPrefs.pauseMusic != 'None'){
+						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)), pauseMusic.volume);
+						FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
+						FlxG.sound.music.time = pauseMusic.time;
+					}
+				    /*
 					for (i in optionsBars)
 						FlxTween.tween(i, {x: -1000}, 0.5, {ease: FlxEase.quartIn});
 					
@@ -642,6 +656,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 						stayinMenu = 'options';
 						changeOptions(0);
 					});
+					*/
 				case 'Continue':
 					closeMenu(
 						function(tmr:FlxTimer) close()

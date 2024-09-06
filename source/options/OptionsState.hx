@@ -34,6 +34,7 @@ class OptionsState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var stateType:Int = 0;
 	public static var menuBG:FlxSprite;
+	public static var onPlayState:Bool;
 
 	function openSelectedSubstate(label:String) {
 	    if (label != "Adjust Delay and Combo"){
@@ -156,13 +157,9 @@ class OptionsState extends MusicBeatState
 		}
 		
 		if (controls.BACK) {
-	     	if (PauseSubState.MoveOption) {
+	     	if (OptionsState.onPlayState) {
 				MusicBeatState.switchState(new PlayState());
-				PauseSubState.MoveOption = false;
-			}
-			else if (PlayState.MoveOption) {
-				MusicBeatState.switchState(new PlayState());
-				PlayState.MoveOption = false;
+				OptionsState.onPlayState = false;
 			}
 			else if (OptionsState.stateType == 2) {
 			    MusicBeatState.switchState(new FreeplayStateNF());

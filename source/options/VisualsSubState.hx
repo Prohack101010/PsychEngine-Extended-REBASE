@@ -47,7 +47,7 @@ class VisualsSubState extends BaseOptionsMenu
 			'MainMenuStyle',
 			'string',
 			'1.0',
-			['1.0', '0.6.3', 'Extended']);
+			['1.0', '0.6.3', 'Extended', 'Indie Cross']);
 		addOption(option);
 		
 		var option:Option = new Option('Pause Menu Style:',

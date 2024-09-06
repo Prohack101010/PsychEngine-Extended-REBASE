@@ -32,7 +32,6 @@ class PauseSubState extends MusicBeatSubstate
 	//var botplayText:FlxText;
 
 	public static var songName:String = '';
-	public static var MoveOption:Bool;
 
 	public function new(x:Float, y:Float)
 	{
@@ -256,7 +255,7 @@ class PauseSubState extends MusicBeatSubstate
 		                        MusicBeatState.switchState(new editors.ChartingState());
 		                        PlayState.chartingMode = true;
 		        case 'Options':
-					MoveOption = true;
+					options.OptionsState.onPlayState = true;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					MusicBeatState.switchState(new options.OptionsState());

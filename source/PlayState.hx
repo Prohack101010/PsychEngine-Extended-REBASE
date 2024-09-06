@@ -157,8 +157,7 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
-	public static var MoveOption:Bool;
-
+	
 	public var spawnTime:Float = 2000;
 
 	public var vocals:FlxSound;
@@ -3513,7 +3512,7 @@ class PlayState extends MusicBeatState
 	function openOptionsMenu()
 	{
 		persistentUpdate = false;
-		MoveOption = true;
+		options.OptionsState.onPlayState = true;
 		PlayState.deathCounter = 0;
 	    PlayState.seenCutscene = false;
 		MusicBeatState.switchState(new options.OptionsState());
