@@ -331,10 +331,10 @@ class MainMenuStateCROSS extends MusicBeatState
 				case "options":
 					LoadingState.loadAndSwitchState(new options.OptionsState());
 					options.OptionsState.onPlayState = false;
-					if (states.PlayState.SONG != null)
+					if (PlayState.SONG != null)
 					{
-						states.PlayState.SONG.arrowSkin = null;
-						states.PlayState.SONG.splashSkin = null;
+						PlayState.SONG.arrowSkin = null;
+						PlayState.SONG.splashSkin = null;
 					}
 					FlxG.sound.playMusic(Paths.music('settin'), 1, true);
 					FlxG.sound.music.fadeIn(2, 0, 1);

@@ -26,6 +26,23 @@ class Difficulty
 		return Paths.formatToSongPath(fileSuffix);
 	}
 	
+	inline public static function getFilePathForStory(num:Null<Int> = null)
+	{
+		if (num == null)
+			num = PlayState.storyDifficulty;
+
+		var fileSuffix:String = defaultList[num]; // TOOK ME A WHOLE FUCKING DAY TO FIX THIS PEICE OF SHIT
+		if (fileSuffix != defaultDifficulty)
+		{
+			fileSuffix = '-' + fileSuffix;
+		}
+		else
+		{
+			fileSuffix = '';
+		}
+		return Paths.formatToSongPath(fileSuffix);
+	}
+	
 	inline public static function loadFromWeek(week:WeekData = null)
 	{
 		if(week == null) week = WeekData.getCurrentWeek();

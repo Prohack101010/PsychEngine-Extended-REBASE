@@ -382,7 +382,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		}
 		lockInput = true;
 
-		//var poop:String = backend.Highscore.formatSong(PlayState.storyPlaylist[0], curDifficulty);
+		//var poop:String = Highscore.formatSong(PlayState.storyPlaylist[0], curDifficulty);
 
 		try
 			{
@@ -392,7 +392,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 				PlayState.storyDifficulty = curDifficulty;
 				PlayState.isStoryMode = true;
 				PlayState.seenCutscene = false;
-				PlayState.SONG = backend.Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
 				PlayState.campaignScore = 0;
 				PlayState.campaignMisses = 0;
 			}
@@ -447,10 +447,10 @@ class StoryMenuStateCROSS extends MusicBeatState
 
 		diffTween = FlxTween.tween(diffifSpr, {x: diffOrigX}, 0.2, {ease: FlxEase.quadOut});
 
-		intendedScore = backend.Highscore.getWeekScore("week" + curWeek, curDifficulty);
+		intendedScore = Highscore.getWeekScore("week" + curWeek, curDifficulty);
 
 		#if !switch
-		intendedScore = backend.Highscore.getWeekScore("week" + curWeek, curDifficulty);
+		intendedScore = Highscore.getWeekScore("week" + curWeek, curDifficulty);
 		#end
 	}
 
@@ -504,10 +504,10 @@ class StoryMenuStateCROSS extends MusicBeatState
 		options[curWeek].x -= 40;
 		options[curWeek].alpha = 1;
 
-		intendedScore = backend.Highscore.getWeekScore('week' + curWeek, curDifficulty);
+		intendedScore = Highscore.getWeekScore('week' + curWeek, curDifficulty);
 
 		#if !switch
-		intendedScore = backend.Highscore.getWeekScore("week" + curWeek, curDifficulty);
+		intendedScore = Highscore.getWeekScore("week" + curWeek, curDifficulty);
 		#end
 	}
 
