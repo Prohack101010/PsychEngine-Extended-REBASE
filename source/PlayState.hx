@@ -2852,16 +2852,18 @@ class PlayState extends MusicBeatState
 	{
 		if (paused)
 		{
-		    if (PauseSubState.moveType == 1){
-		        PauseSubState.moveType = 2; //really back to pause
-		        super.closeSubState();
-		        //openSubState(new OptionsSubstate());
-		        return;
-		    }
-		    else if (PauseSubState.moveType == 2){		
-		        super.closeSubState();        
-		        openSubState(new PauseSubState());		        
-		        return;
+		    if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+    		    if (PauseSubStateNOVA.moveType == 1){
+    		        PauseSubStateNOVA.moveType = 2; //really back to pause
+    		        super.closeSubState();
+    		        //openSubState(new OptionsSubstate());
+    		        return;
+    		    }
+    		    else if (PauseSubStateNOVA.moveType == 2){		
+    		        super.closeSubState();        
+    		        openSubState(new PauseSubStateNOVA());		        
+    		        return;
+    		    }
 		    }
 		    
 			if (FlxG.sound.music != null && !startingSong)

@@ -26,7 +26,7 @@ enum FlxDPadMode {
 	ALL;
 	RIGHT_FULL;
 	DUO;
-	PauseSubstateC;
+	PAUSE;
 	CHART_EDITOR;
 	NONE;
 }

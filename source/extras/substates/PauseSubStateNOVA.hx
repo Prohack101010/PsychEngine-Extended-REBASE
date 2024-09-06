@@ -278,8 +278,10 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 			add(optionText);
 		}
 		
+		/*
 		if (!PlayState.chartingMode)
 			options.remove('Debug');
+		*/
 	
 		for (i in 0...options.length) {
 			var optionText:FlxText = new FlxText(0, 0, 0, options[i], 50);
@@ -398,15 +400,18 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 			changeMenuColor();
 		}, 0);
 		
+		/* nope
 		if (PlayState.chartingMode)
 		{
-			addVirtualPad(PauseSubstateC, A);
+			addVirtualPad(PAUSE, A);
 		}
 		else
 		{
 			addVirtualPad(UP_DOWN, A);
 		}
-		addVirtualPadCamera(false);
+		*/
+		addVirtualPad(PAUSE, A);
+		addVirtualPadCamera();
 		
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 		
