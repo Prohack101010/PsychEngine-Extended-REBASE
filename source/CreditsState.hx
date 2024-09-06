@@ -34,7 +34,6 @@ class CreditsState extends MusicBeatState
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 	var descBox:AttachedSprite;
-	var getpackfile:Array<ModMetadata> = [];
 
 	var offsetThing:Float = -75;
 
@@ -240,23 +239,23 @@ class CreditsState extends MusicBeatState
     		if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
     			CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     		}
-    		for (mod in getpackfile)
-		    {
-    			if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end)
-    			{
-    				if(colorTween != null) {
-    					colorTween.cancel();
-    				}
-    				FlxG.sound.play(Paths.sound('cancelMenu'));
-    				if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-        				MusicBeatState.switchState(new MainMenuStateOld());
-        			else if (mod.indiecross == true)
-        			    MusicBeatState.switchState(new MainMenuStateCROSS());
-        			else
-        				MusicBeatState.switchState(new MainMenuState());
-    				quitting = true;
+    		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end)
+    		{
+    			if(colorTween != null) {
+    				colorTween.cancel();
     			}
-			}
+    			FlxG.sound.play(Paths.sound('cancelMenu'));
+    			for (mod in ModsMenuState.mods)
+		        {
+        			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+            			MusicBeatState.switchState(new MainMenuStateOld());
+            		else if (mod.indiecross)
+            		    MusicBeatState.switchState(new MainMenuStateCROSS());
+            		else
+            			MusicBeatState.switchState(new MainMenuState());
+            	}
+    			quitting = true;
+    		}
 		}
 		
 		for (item in grpOptions.members)

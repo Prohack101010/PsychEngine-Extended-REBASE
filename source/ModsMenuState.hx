@@ -34,7 +34,7 @@ using StringTools;
 
 class ModsMenuState extends MusicBeatState
 {
-	var mods:Array<ModMetadata> = [];
+	public static var mods:Array<ModMetadata> = [];
 	static var changedAThing = false;
 	var bg:FlxSprite;
 	var intendedColor:Int;
