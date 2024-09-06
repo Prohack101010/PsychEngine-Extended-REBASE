@@ -40,7 +40,9 @@ class CreditsSubState extends MusicBeatSubstate
     var camIcons:FlxCamera;
 	var camHUD:FlxCamera;
 
+    #if HXVLC_ALLOWED
 	var iconVideo:FlxVideoSprite;
+	#end
 
 	var font = Paths.font('montserrat.ttf');
 
@@ -177,6 +179,7 @@ class CreditsSubState extends MusicBeatSubstate
 		bigIcon.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bigIcon);
 
+		#if HXVLC_ALLOWED
 		iconVideo = new FlxVideoSprite(bigIconRect.x, bigIconRect.y);
 		iconVideo.bitmap.onFormatSetup.add(function():Void
 		{
@@ -198,8 +201,11 @@ class CreditsSubState extends MusicBeatSubstate
 		}
 		else {
 			iconVideo.alpha = 0.0001;
+		#end
 			bigIcon.visible = true;
+		#if HXVLC_ALLOWED
 		}
+		#end
 
 		descText = new FlxText(785, 115, dbwidth, "");
 		descText.setFormat(font, 20, FlxColor.BLACK, LEFT);
@@ -230,6 +236,7 @@ class CreditsSubState extends MusicBeatSubstate
 		jobText.updateHitbox();
 		jobText.x = jobRect.x + jobRect.width / 2 - jobText.width / 2;
 		
+		#if HXVLC_ALLOWED
 		if (mainIconVideoExists(creditsStuff[curSelected + 1][1]) != null) {
 			bigIcon.visible = false;
 			iconVideo.load(mainIconVideoExists(creditsStuff[curSelected + 1][1]), ['input-repeat=65545']);
@@ -240,6 +247,7 @@ class CreditsSubState extends MusicBeatSubstate
 			iconVideo.play();
 			iconVideo.pause();
 			iconVideo.alpha = 0.0001;
+		#end
 			bigIcon.visible = true;
 			
 			bigIcon.loadGraphic(Paths.image(mainIconExists(creditsStuff[curSelected + 1][1])));
@@ -247,7 +255,7 @@ class CreditsSubState extends MusicBeatSubstate
 			bigIcon.updateHitbox();
 
 			trace(mainIconExists(creditsStuff[curSelected + 1][1]));
-		}
+		#if HXVLC_ALLOWED } #end
 
 		bigIcon.x = bigIconRect.x + bigIconRect.width / 2 - bigIcon.width / 2;
 		bigIcon.y = bigIconRect.y + bigIconRect.height / 2 - bigIcon.height / 2;
@@ -258,6 +266,7 @@ class CreditsSubState extends MusicBeatSubstate
 		Recognizelink();
 	}
 
+    #if HXVLC_ALLOWED
 	function mainIconVideoExists(file):String
 	{
 		var filepath:String = Paths.video("credits/" + file);
@@ -265,6 +274,7 @@ class CreditsSubState extends MusicBeatSubstate
 		if (FileSystem.exists(filepath)) return filepath;
 		else return null;
 	}
+	#end
 
 	function mainIconExists(file):String
 	{
