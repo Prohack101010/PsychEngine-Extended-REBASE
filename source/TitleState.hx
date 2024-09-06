@@ -505,15 +505,12 @@ class TitleState extends MusicBeatState
     				if (mustUpdate) {
     					MusicBeatState.switchState(new OutdatedState());
     				} else {
-        				for (mod in ModsMenuState.mods)
-    		            {
-        					if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-                    			MusicBeatState.switchState(new MainMenuStateOld());
-                    	    else if (mod.indiecross == true)
-                    	        MusicBeatState.switchState(new MainMenuStateCROSS());
-                    		else
-                    			MusicBeatState.switchState(new MainMenuState());
-                    	}
+    					if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+                			MusicBeatState.switchState(new MainMenuStateOld());
+                	    else if (Paths.currentModDirectory == 'Indie Cross v1.5 2.2.2' || Paths.currentModDirectory == 'Indie-Cross-v1.5-0.6.3')
+                	        MusicBeatState.switchState(new MainMenuStateCROSS());
+                		else
+                			MusicBeatState.switchState(new MainMenuState());
     				}
     				closedState = true;
     			});

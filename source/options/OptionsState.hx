@@ -155,31 +155,28 @@ class OptionsState extends MusicBeatState
 		if (controls.UI_DOWN_P) {
 			changeSelection(1);
 		}
-	
-    	if (controls.BACK) {
-    	 	if (OptionsState.onPlayState) {
-    			MusicBeatState.switchState(new PlayState());
-    			OptionsState.onPlayState = false;
-    		}
-    		else if (OptionsState.stateType == 2) {
-    		    MusicBeatState.switchState(new FreeplayStateNF());
-    		    OptionsState.stateType = 0;
-    		} else if (OptionsState.stateType == 1) {
-    		    MusicBeatState.switchState(new FreeplayStateNOVA());
-    		    OptionsState.stateType = 0;
-    		} else {
-    		    for (mod in ModsMenuState.mods)
-		        {
-            		if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-            			MusicBeatState.switchState(new MainMenuStateOld());
-            		else if (mod.indiecross = true)
-            		    MusicBeatState.switchState(new MainMenuStateCROSS());
-            		else
-            			MusicBeatState.switchState(new MainMenuState());
-        		}
-    		}
-    		FlxG.sound.play(Paths.sound('cancelMenu'));
-    	}
+		
+		if (controls.BACK) {
+	     	if (OptionsState.onPlayState) {
+				MusicBeatState.switchState(new PlayState());
+				OptionsState.onPlayState = false;
+			}
+			else if (OptionsState.stateType == 2) {
+			    MusicBeatState.switchState(new FreeplayStateNF());
+			    OptionsState.stateType = 0;
+			} else if (OptionsState.stateType == 1) {
+			    MusicBeatState.switchState(new FreeplayStateNOVA());
+			    OptionsState.stateType = 0;
+			} else {
+    			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+    				MusicBeatState.switchState(new MainMenuStateOld());
+    			else if (Paths.currentModDirectory == 'Indie Cross v1.5 2.2.2' || Paths.currentModDirectory == 'Indie-Cross-v1.5-0.6.3')
+    			    MusicBeatState.switchState(new MainMenuStateCROSS());
+    			else
+    				MusicBeatState.switchState(new MainMenuState());
+			}
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+		}
 
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
