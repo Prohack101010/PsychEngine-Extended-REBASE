@@ -2853,6 +2853,7 @@ class PlayState extends MusicBeatState
 		if (paused)
 		{
 		    if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+		    {
     		    if (PauseSubStateNOVA.moveType == 1){
     		        PauseSubStateNOVA.moveType = 2; //really back to pause
     		        super.closeSubState();
