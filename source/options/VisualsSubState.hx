@@ -49,6 +49,14 @@ class VisualsSubState extends BaseOptionsMenu
 			'1.0',
 			['1.0', '0.6.3', 'Extended']);
 		addOption(option);
+		
+		var option:Option = new Option('Pause Menu Style:',
+			"Choose your Pause Menu Style",
+			'PauseMenuStyle',
+			'string',
+			'Psych',
+			['Psych', 'NovaFlare']);
+		addOption(option);
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",

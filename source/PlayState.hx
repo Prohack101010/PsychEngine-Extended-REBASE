@@ -356,7 +356,10 @@ class PlayState extends MusicBeatState
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
-		PauseSubState.songName = null; //Reset to default
+		if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+		    PauseSubStateNOVA.songName = null; //Reset to default
+		else
+		    PauseSubState.songName = null; //Reset to default
 		playbackRate = ClientPrefs.getGameplaySetting('songspeed', 1);
 
 		keysArray = [
@@ -1379,11 +1382,20 @@ class PlayState extends MusicBeatState
 		precacheList.set('missnote2', 'sound');
 		precacheList.set('missnote3', 'sound');
 
-		if (PauseSubState.songName != null) {
-			precacheList.set(PauseSubState.songName, 'music');
-		} else if(ClientPrefs.pauseMusic != 'None') {
-			precacheList.set(Paths.formatToSongPath(ClientPrefs.pauseMusic), 'music');
-		}
+        if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+        {
+    		if (PauseSubStateNOVA.songName != null)
+    			precacheList.set(PauseSubStateNOVA.songName, 'music');
+    		else if(ClientPrefs.pauseMusic != 'None')
+    			precacheList.set(Paths.formatToSongPath(ClientPrefs.pauseMusic), 'music');
+    	}
+    	else
+    	{
+    		if (PauseSubState.songName != null)
+    			precacheList.set(PauseSubState.songName, 'music');
+    		else if(ClientPrefs.pauseMusic != 'None')
+    			precacheList.set(Paths.formatToSongPath(ClientPrefs.pauseMusic), 'music');
+    	}
 
 		precacheList.set('alphabet', 'image');
 	
@@ -3427,7 +3439,10 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.pause();
 			vocals.pause();
 		}
-		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+		    openSubState(new PauseSubStateNOVA(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		else
+		    openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
 		#if desktop

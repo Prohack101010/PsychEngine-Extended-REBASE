@@ -667,10 +667,14 @@ class FreeplayStateNOVA extends MusicBeatState
 
 				if (PlayState.SONG.needsVoices)
 				{
-					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-					FlxG.sound.list.add(vocals);
-					vocals.persist = vocals.looped = true;
-					vocals.volume = 0.8;
+				    try
+		            {
+    					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+    					FlxG.sound.list.add(vocals);
+    					vocals.persist = vocals.looped = true;
+    					vocals.volume = 0.8;
+    				}
+    				catch(e:Dynamic) {}
 				}
 				else if (vocals != null)
 				{
