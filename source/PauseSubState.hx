@@ -132,7 +132,7 @@ class PauseSubState extends MusicBeatSubstate
 		{
 		        addVirtualPad(FULL, A);
 		}
-		addPadCamera();
+		addVirtualPadCamera();
 		#end
 	}
 
@@ -319,7 +319,7 @@ class PauseSubState extends MusicBeatSubstate
 		super.closeSubState();
 		removeVirtualPad();
 		addVirtualPad(FULL, A);
-		addPadCamera();
+		addVirtualPadCamera();
 	}
 
 	public static function restartSong(noTrans:Bool = false)

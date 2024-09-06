@@ -2852,6 +2852,18 @@ class PlayState extends MusicBeatState
 	{
 		if (paused)
 		{
+		    if (PauseSubState.moveType == 1){
+		        PauseSubState.moveType = 2; //really back to pause
+		        super.closeSubState();
+		        //openSubState(new OptionsSubstate());
+		        return;
+		    }
+		    else if (PauseSubState.moveType == 2){		
+		        super.closeSubState();        
+		        openSubState(new PauseSubState());		        
+		        return;
+		    }
+		    
 			if (FlxG.sound.music != null && !startingSong)
 			{
 				resyncVocals();
@@ -3440,7 +3452,7 @@ class PlayState extends MusicBeatState
 			vocals.pause();
 		}
 		if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
-		    openSubState(new PauseSubStateNOVA(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		    openSubState(new PauseSubStateNOVA();
 		else
 		    openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}

@@ -207,7 +207,7 @@ class CharacterEditorState extends MusicBeatState
 
 		#if mobile
 		addVirtualPad(FULL, FULL);
-		addPadCamera();
+		addVirtualPadCamera();
 		#end
 
 		super.create();

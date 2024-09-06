@@ -60,7 +60,7 @@ class MusicBeatSubstate extends FlxSubState
 	#end
 
 	#if mobile
-	public function addPadCamera() {
+	public function addVirtualPadCamera() {
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);

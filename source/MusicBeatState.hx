@@ -114,13 +114,13 @@ class MusicBeatState extends FlxUIState
 		add(mobilec);
 	}
 	
-    public function addPadCamera() {
+    public function addVirtualPadCamera() {
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
 		_virtualpad.cameras = [camcontrol];
 	}
-	public function addPadCamera2() {
+	public function addVirtualPadCamera2() {
 		var camvpadcontrol = new flixel.FlxCamera();
 		camvpadcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camvpadcontrol, false);

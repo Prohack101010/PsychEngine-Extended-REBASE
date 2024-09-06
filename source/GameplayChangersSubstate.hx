@@ -177,7 +177,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		#end
 		if (!ClientPrefs.touchmenus)
 		    addVirtualPad(FULL, A_B_C);
-		addPadCamera();
+		addVirtualPadCamera();
 		#end
 		
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];

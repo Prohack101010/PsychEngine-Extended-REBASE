@@ -163,7 +163,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 
 		#if mobile
 		addVirtualPad(FULL, A_B_X_Y);
-		addPadCamera();
+		addVirtualPadCamera();
 		#end
 		
 		super.create();
