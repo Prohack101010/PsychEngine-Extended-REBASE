@@ -745,7 +745,7 @@ class ModMetadata
 	public var description:String;
 	public var color:FlxColor;
 	public var restart:Bool;//trust me. this is very important
-	public static var indiecross:Bool; //trust me. this is very important for source code based indie cross menus
+	public var indiecross:Bool; //trust me. this is very important for source code based indie cross menus
 	public var alphabet:Alphabet;
 	public var icon:AttachedSprite;
 
