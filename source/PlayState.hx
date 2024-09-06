@@ -3452,7 +3452,7 @@ class PlayState extends MusicBeatState
 			vocals.pause();
 		}
 		if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
-		    openSubState(new PauseSubStateNOVA();
+		    openSubState(new PauseSubStateNOVA());
 		else
 		    openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
