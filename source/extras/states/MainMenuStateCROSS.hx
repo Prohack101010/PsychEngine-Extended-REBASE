@@ -160,7 +160,7 @@ class MainMenuStateCROSS extends MusicBeatState
 			{
 				enterBitches();
 			}
-			else if (FlxG.keys.justPressed.E #if android || virtualPad.buttonE.justPressed #end)
+			else if (FlxG.keys.justPressed.E #if mobile || _virtualpad.buttonE.justPressed #end)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
