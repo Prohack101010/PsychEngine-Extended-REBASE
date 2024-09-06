@@ -26,6 +26,7 @@ class AchievementsMenuState extends MusicBeatState
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
+	var getpackfile:Array<ModMetadata> = [];
 
 	override function create() {
 		#if desktop
@@ -93,12 +94,17 @@ class AchievementsMenuState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-				MusicBeatState.switchState(new MainMenuStateOld());
-			else
-				MusicBeatState.switchState(new MainMenuState());
+        for (mod in getpackfile)
+		{
+    		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
+    			FlxG.sound.play(Paths.sound('cancelMenu'));
+    			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+    				MusicBeatState.switchState(new MainMenuStateOld());
+    			else if (mod.indiecross == true)
+    			    MusicBeatState.switchState(new MainMenuStateCROSS());
+    			else
+    				MusicBeatState.switchState(new MainMenuState());
+    		}
 		}
 	}
 

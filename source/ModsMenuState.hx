@@ -745,6 +745,7 @@ class ModMetadata
 	public var description:String;
 	public var color:FlxColor;
 	public var restart:Bool;//trust me. this is very important
+	public static var indiecross:Bool; //trust me. this is very important for source code based indie cross menus
 	public var alphabet:Alphabet;
 	public var icon:AttachedSprite;
 
@@ -755,6 +756,7 @@ class ModMetadata
 		this.description = "No description provided.";
 		this.color = ModsMenuState.defaultColor;
 		this.restart = false;
+		this.indiecross = false;
 
 		//Try loading json
 		var path = Paths.mods(folder + '/pack.json');
@@ -767,6 +769,7 @@ class ModMetadata
 					var description:String = Reflect.getProperty(stuff, "description");
 					var name:String = Reflect.getProperty(stuff, "name");
 					var restart:Bool = Reflect.getProperty(stuff, "restart");
+					var indiecross:Bool = Reflect.getProperty(stuff, "indiecross");
 
 				if(name != null && name.length > 0)
 				{
@@ -790,6 +793,7 @@ class ModMetadata
 				}
 
 				this.restart = restart;
+				this.indiecross = indiecross;
 				/*
 				if(stuff.name != null && stuff.name.length > 0)
 				{

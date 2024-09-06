@@ -170,6 +170,8 @@ class OptionsState extends MusicBeatState
 			} else {
     			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
     				MusicBeatState.switchState(new MainMenuStateOld());
+    			else if (ModMetadata.indiecross = true)
+    			    MusicBeatState.switchState(new MainMenuStateCROSS());
     			else
     				MusicBeatState.switchState(new MainMenuState());
 			}

@@ -56,6 +56,7 @@ class TitleState extends MusicBeatState
 
 	public static var initialized:Bool = false;
 
+    var getpackfile:Array<ModMetadata> = [];
 	var blackScreen:FlxSprite;
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
@@ -500,18 +501,23 @@ class TitleState extends MusicBeatState
 				transitioning = true;
 				// FlxG.sound.music.stop();
 
-				new FlxTimer().start(1, function(tmr:FlxTimer)
-				{
-					if (mustUpdate) {
-						MusicBeatState.switchState(new OutdatedState());
-					} else {
-						if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-            				MusicBeatState.switchState(new MainMenuStateOld());
-            			else
-            				MusicBeatState.switchState(new MainMenuState());
-					}
-					closedState = true;
-				});
+                for (mod in getpackfile)
+		        {
+    				new FlxTimer().start(1, function(tmr:FlxTimer)
+    				{
+    					if (mustUpdate) {
+    						MusicBeatState.switchState(new OutdatedState());
+    					} else {
+    						if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+                				MusicBeatState.switchState(new MainMenuStateOld());
+                		    else if (mod.indiecross == true)
+                		        MusicBeatState.switchState(new MainMenuStateCROSS());
+                			else
+                				MusicBeatState.switchState(new MainMenuState());
+    					}
+    					closedState = true;
+    				});
+    			}
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 			}
 			#if TITLE_SCREEN_EASTER_EGG
