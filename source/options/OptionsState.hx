@@ -178,8 +178,10 @@ class OptionsState extends MusicBeatState
     			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
     				MusicBeatState.switchState(new MainMenuStateOld());
     			else if (TitleState.IndieCrossEnabled)
+    			{
     			    FlxG.sound.playMusic(Paths.music('freakyMenu'), 1, true);
     			    MusicBeatState.switchState(new MainMenuStateCROSS());
+    			}
     			else
     				MusicBeatState.switchState(new MainMenuState());
 			}
