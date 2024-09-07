@@ -138,39 +138,43 @@ class SUtil
 	}
 	
 	#if android
-	public static function doTheCheck():Void
+	public static function createDirectories(directory:String):Void
 	{
-	    if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
-		{
-			SUtil.showPopUp('Uncaught Error :(', "Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
-			CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
-			LimeSystem.exit(1);
+		try {
+			if (FileSystem.exists(directory) && FileSystem.isDirectory(directory))
+				return;
+		} catch (e:haxe.Exception) {
+			trace('Something went wrong while looking at directory. (${e.message})');
 		}
-		else
-		{
-			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets'))
-			{
-				SUtil.showPopUp('Uncaught Error :(', "Whoops, seems you didn't extract the assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
-				CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
-				LimeSystem.exit(1);
-			}
 
-			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
+		var total:String = '';
+		if (directory.substr(0, 1) == '/')
+			total = '/';
+
+		var parts:Array<String> = directory.split('/');
+		if (parts.length > 0 && parts[0].indexOf(':') > -1)
+			parts.shift();
+
+		for (part in parts)
+		{
+			if (part != '.' && part != '')
 			{
-				SUtil.showPopUp('Uncaught Error :(', "Whoops, seems you didn't extract the mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
-				CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
-				LimeSystem.exit(1);
-			}
-			
-			if (!AndroidEnvironment.isExternalStorageManager())
-			{
-				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+				if (total != '' && total != '/')
+					total += '/';
+
+				total += part;
+
+				try
+				{
+					if (!FileSystem.exists(total))
+						FileSystem.createDirectory(total);
+				}
+				catch (e:Exception)
+					trace('Error while creating directory. (${e.message}');
 			}
 		}
 	}
-	#end
-
-	#if android
+	
 	public static function requestPermissions():Void
 	{
 		if (AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU)
