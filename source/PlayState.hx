@@ -4153,35 +4153,28 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					if (TitleState.IndieCrossEnabled)
-					    MusicBeatState.switchState(new StoryMenuStateCROSS());
-					else
-					    MusicBeatState.switchState(new StoryMenuState());
+					MusicBeatState.switchState(new StoryMenuState());
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
-					    if (TitleState.IndieCrossEnabled)
-						    StoryMenuStateCROSS.weekCompleted.set(WeekData.weeksList[storyWeek], true);
-						else
-						    StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
 						if (SONG.validScore)
 						{
 							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 						}
 
-                        if (TitleState.IndieCrossEnabled)
-						    FlxG.save.data.weekCompleted = StoryMenuStateCROSS.weekCompleted;
-						else
-						    FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
-						    
+						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
 						FlxG.save.flush();
 					}
 					changedDifficulty = false;
 				}
 				else
 				{
-					var difficulty:String = Difficulty.getFilePath();
+				    if (TitleState.IndieCrossEnabled)
+					    var difficulty:String = Difficulty.getFilePathForStory();
+					else
+					    var difficulty:String = Difficulty.getFilePath();
 
 					trace('LOADING NEXT SONG');
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);

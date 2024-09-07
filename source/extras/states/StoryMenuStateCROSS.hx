@@ -136,9 +136,9 @@ class StoryMenuStateCROSS extends MusicBeatState
 
 		diffifSpr = new FlxSprite();
 		diffifSpr.frames = Paths.getSparrowAtlas('story mode/Difficulties');
-		diffifSpr.animation.addByPrefix('EASY', 'Chart Easy instance 1', 24, true);
-		diffifSpr.animation.addByPrefix('NORMAL', 'Chart Normal instance 1', 24, true);
+		diffifSpr.animation.addByPrefix('NO-MECHANICS', 'Mechs Dis instance 1', 24, true);
 		diffifSpr.animation.addByPrefix('HARD', 'Chart Hard instance 1', 24, true);
+		diffifSpr.animation.addByPrefix('HELL', 'Mechs Hell instance 1', 24, true);
 		diffifSpr.animation.play('NORMAL');
 		diffifSpr.scrollFactor.set();
 		diffifSpr.setGraphicSize(Std.int(diffifSpr.width * 1.0));
@@ -433,11 +433,11 @@ class StoryMenuStateCROSS extends MusicBeatState
 		switch (curDifficulty)
 		{
 			case 0:
-				diffifSpr.animation.play('EASY');
+				diffifSpr.animation.play('NO-MECHANICS');
 			case 1:
-				diffifSpr.animation.play('NORMAL');
-			case 2:
 				diffifSpr.animation.play('HARD');
+			case 2:
+				diffifSpr.animation.play('HELL');
 		}
 
 		diffifSpr.x = diffOrigX - 20;
