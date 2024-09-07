@@ -169,7 +169,7 @@ class SUtil
 					if (!FileSystem.exists(total))
 						FileSystem.createDirectory(total);
 				}
-				catch (e:Exception)
+				catch (e:haxe.Exception)
 					trace('Error while creating directory. (${e.message}');
 			}
 		}
