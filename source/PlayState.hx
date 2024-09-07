@@ -4172,8 +4172,6 @@ class PlayState extends MusicBeatState
 				else
 				{
 				    var difficulty:String = Difficulty.getFilePath();
-				    if (TitleState.IndieCrossEnabled)
-					    difficulty = Difficulty.getFilePathForStory(); //get my Indie Cross port Diffs
 
 					trace('LOADING NEXT SONG');
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);

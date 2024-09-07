@@ -18,26 +18,12 @@ class Difficulty
 	inline public static function getFilePath(num:Null<Int> = null)
 	{
 		if(num == null) num = PlayState.storyDifficulty;
-
+            
 		var fileSuffix:String = list[num];
+		if (TitleState.IndieCrossEnabled)
+		    fileSuffix = defaultIndieCrossList[num]; // TOOK ME A WHOLE FUCKING DAY TO FIX THIS PEICE OF SHIT -KarimAkra
+		    
 		if(fileSuffix != defaultDifficulty)
-		{
-			fileSuffix = '-' + fileSuffix;
-		}
-		else
-		{
-			fileSuffix = '';
-		}
-		return Paths.formatToSongPath(fileSuffix);
-	}
-	
-	inline public static function getFilePathForStory(num:Null<Int> = null)
-	{
-		if (num == null)
-			num = PlayState.storyDifficulty;
-
-		var fileSuffix:String = defaultIndieCrossList[num]; // TOOK ME A WHOLE FUCKING DAY TO FIX THIS PEICE OF SHIT
-		if (fileSuffix != defaultDifficulty)
 		{
 			fileSuffix = '-' + fileSuffix;
 		}
@@ -85,7 +71,10 @@ class Difficulty
 
 	inline public static function getString(num:Null<Int> = null):String
 	{
-		return list[num == null ? PlayState.storyDifficulty : num];
+	    if (TitleState.IndieCrossEnabled)
+		    return defaultIndieCrossList[num == null ? PlayState.storyDifficulty : num];
+		else
+		    return list[num == null ? PlayState.storyDifficulty : num];
 	}
 
 	inline public static function getDefault():String

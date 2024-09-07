@@ -40,6 +40,10 @@ class StoryMenuStateCROSS extends MusicBeatState
 	var diffifSpr:FlxSprite;
 	var diffOrigX:Float = 0;
 	var diffTween:FlxTween;
+	
+	var diffmechSpr:FlxSprite;
+	var diffmechOrigX:Int = -2;
+	var diffmechTween:FlxTween;
 
 	var options:Array<FlxSprite>;
 	var optFlashes:Array<FlxSprite>;
@@ -136,9 +140,9 @@ class StoryMenuStateCROSS extends MusicBeatState
 
 		diffifSpr = new FlxSprite();
 		diffifSpr.frames = Paths.getSparrowAtlas('story mode/Difficulties');
-		diffifSpr.animation.addByPrefix('NO-MECHANICS', 'Mechs Dis instance 1', 24, true);
+		diffifSpr.animation.addByPrefix('NO-MECHANICS', 'Chart Hard instance 1', 24, true);
 		diffifSpr.animation.addByPrefix('HARD', 'Chart Hard instance 1', 24, true);
-		diffifSpr.animation.addByPrefix('HELL', 'Mechs Hell instance 1', 24, true);
+		diffifSpr.animation.addByPrefix('HELL', 'Chart Hard instance 1', 24, true);
 		diffifSpr.animation.play('NORMAL');
 		diffifSpr.scrollFactor.set();
 		diffifSpr.setGraphicSize(Std.int(diffifSpr.width * 1.0));
@@ -149,6 +153,19 @@ class StoryMenuStateCROSS extends MusicBeatState
 		add(diffifSpr);
 
 		diffTween = FlxTween.tween(this, {}, 0);
+		
+		diffmechSpr = new FlxSprite(diffmechOrigX, 200);
+		diffmechSpr.frames = Paths.getSparrowAtlas('story mode/Difficulties');
+		diffmechSpr.animation.addByPrefix('NO-MECHANICS', 'Mechs Dis instance 1', 24, true);
+		diffmechSpr.animation.addByPrefix('HARD', 'Mechs Hard instance 1', 24, true);
+		diffmechSpr.animation.addByPrefix('HELL', 'Mechs Hell instance 1', 24, true);
+		diffmechSpr.animation.play('NORMAL');
+		diffmechSpr.scrollFactor.set();
+		diffmechSpr.updateHitbox();
+		diffmechSpr.antialiasing = ClientPrefs.globalAntialiasing;
+		add(diffmechSpr);
+		
+		diffmechTween = FlxTween.tween(this, {}, 0);
 
 		var storyPanel:FlxSprite = new FlxSprite().loadGraphic(Paths.image('story mode/Storymode'));
 		storyPanel.scrollFactor.set();
@@ -386,7 +403,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 
 		try
 			{
-				diffic = Difficulty.getFilePathForStory(curDifficulty);
+				diffic = Difficulty.getFilePath(curDifficulty);
 				if(diffic == null) diffic = '';
 				trace('current difficulty suffix is ' + diffic);
 				PlayState.storyDifficulty = curDifficulty;
@@ -434,18 +451,26 @@ class StoryMenuStateCROSS extends MusicBeatState
 		{
 			case 0:
 				diffifSpr.animation.play('NO-MECHANICS');
+				diffmechSpr.animation.play('NO-MECHANICS');
 			case 1:
 				diffifSpr.animation.play('HARD');
+				diffmechSpr.animation.play('HARD');
 			case 2:
 				diffifSpr.animation.play('HELL');
+				diffmechSpr.animation.play('HELL');
 		}
 
 		diffifSpr.x = diffOrigX - 20;
+		diffmechSpr.x = diffmechOrigX - 20;
 
 		if (diffTween != null)
 			diffTween.cancel();
+			
+		if (diffmechTween != null)
+			diffmechTween.cancel();
 
 		diffTween = FlxTween.tween(diffifSpr, {x: diffOrigX}, 0.2, {ease: FlxEase.quadOut});
+		diffmechTween = FlxTween.tween(diffmechSpr, {x: diffmechOrigX}, 0.2, {ease: FlxEase.quadOut});
 
 		intendedScore = Highscore.getWeekScore("week" + curWeek, curDifficulty);
 
@@ -453,7 +478,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		intendedScore = Highscore.getWeekScore("week" + curWeek, curDifficulty);
 		#end
 	}
-
+	
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 
