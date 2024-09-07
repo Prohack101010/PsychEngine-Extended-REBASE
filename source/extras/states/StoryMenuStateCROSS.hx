@@ -311,7 +311,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			lockInput = true;
 
-			MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new MainMenuStateCROSS());
 		}
 	}
 
@@ -337,7 +337,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 				#end
 				cupTea.alpha = 1;
 				cupTea.animation.play('start', true, true);
-				FlxG.sound.play(Paths.sound('boing', 'cup'), 1);
+				FlxG.sound.play(Paths.sound('Cup/boing'), 1);
 				FlxG.sound.music.volume = 0;
 			default:
 				if (FlxG.sound.music != null)

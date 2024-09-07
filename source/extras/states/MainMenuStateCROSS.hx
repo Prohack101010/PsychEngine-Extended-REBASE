@@ -105,7 +105,7 @@ class MainMenuStateCROSS extends MusicBeatState
 		#end
 
 		#if mobile
-		addVirtualPad(UP_DOWN, A_B_E);
+		addVirtualPad(NONE, NONE);
 		#end
 
 		super.create();

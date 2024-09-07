@@ -54,6 +54,7 @@ class TitleState extends MusicBeatState
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
 
+    public static var IndieCrossEnabled:Bool = false;
 	public static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
@@ -508,6 +509,7 @@ class TitleState extends MusicBeatState
     					if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
                 			MusicBeatState.switchState(new MainMenuStateOld());
                 	    else if (Paths.currentModDirectory == 'Indie Cross v1.5 2.2.2' || Paths.currentModDirectory == 'Indie-Cross-v1.5-0.6.3')
+                	        TitleState.IndieCrossEnabled = true;
                 	        MusicBeatState.switchState(new MainMenuStateCROSS());
                 		else
                 			MusicBeatState.switchState(new MainMenuState());
