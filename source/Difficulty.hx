@@ -2,20 +2,20 @@ package;
 
 class Difficulty
 {
-	public static var defaultList(default, never):Array<String> = [
-		'Easy',
-		'Normal',
-		'Hard'
-	];
+	public static var defaultList(default, never):Array<String> = ['Easy', 'Normal', 'Hard'];
+
+	public static var mechanicsList(default, never):Array<String> = ['Off', 'Standard', 'Hell'];
 	public static var list:Array<String> = [];
-	private static var defaultDifficulty(default, never):String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
+	private static var defaultDifficulty(default, never):String = 'Normal'; // The chart that has no suffix and starting difficulty on Freeplay/Story Mode
+	private static var defaultMech(default, never):String = 'Standrad';
 
 	inline public static function getFilePath(num:Null<Int> = null)
 	{
-		if(num == null) num = PlayState.storyDifficulty;
+		if (num == null)
+			num = PlayState.storyDifficulty;
 
 		var fileSuffix:String = list[num];
-		if(fileSuffix != defaultDifficulty)
+		if (fileSuffix != defaultDifficulty)
 		{
 			fileSuffix = '-' + fileSuffix;
 		}
@@ -25,7 +25,7 @@ class Difficulty
 		}
 		return Paths.formatToSongPath(fileSuffix);
 	}
-	
+
 	inline public static function getFilePathForStory(num:Null<Int> = null)
 	{
 		if (num == null)
@@ -42,30 +42,33 @@ class Difficulty
 		}
 		return Paths.formatToSongPath(fileSuffix);
 	}
-	
+
 	inline public static function loadFromWeek(week:WeekData = null)
 	{
-		if(week == null) week = WeekData.getCurrentWeek();
+		if (week == null)
+			week = WeekData.getCurrentWeek();
 
 		var diffStr:String = week.difficulties;
-		if(diffStr != null && diffStr.length > 0)
+		if (diffStr != null && diffStr.length > 0)
 		{
 			var diffs:Array<String> = diffStr.trim().split(',');
 			var i:Int = diffs.length - 1;
 			while (i > 0)
 			{
-				if(diffs[i] != null)
+				if (diffs[i] != null)
 				{
 					diffs[i] = diffs[i].trim();
-					if(diffs[i].length < 1) diffs.remove(diffs[i]);
+					if (diffs[i].length < 1)
+						diffs.remove(diffs[i]);
 				}
 				--i;
 			}
 
-			if(diffs.length > 0 && diffs[0].length > 0)
+			if (diffs.length > 0 && diffs[0].length > 0)
 				list = diffs;
 		}
-		else resetList();
+		else
+			resetList();
 	}
 
 	inline public static function resetList()
@@ -86,5 +89,15 @@ class Difficulty
 	inline public static function getDefault():String
 	{
 		return defaultDifficulty;
+	}
+
+	inline public static function getMehcanicsDifficultyString():String
+	{
+		return mechanicsList[PlayState.mechsDifficulty];
+	}
+
+	inline public static function getDefaultMech():String
+	{
+		return defaultMech;
 	}
 }

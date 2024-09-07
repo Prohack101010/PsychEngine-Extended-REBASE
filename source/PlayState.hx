@@ -4153,18 +4153,28 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					MusicBeatState.switchState(new StoryMenuState());
+					if (TitleState.IndieCrossEnabled)
+					    MusicBeatState.switchState(new StoryMenuStateCROSS());
+					else
+					    MusicBeatState.switchState(new StoryMenuState());
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
-						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+					    if (TitleState.IndieCrossEnabled)
+						    StoryMenuStateCROSS.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+						else
+						    StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
 						if (SONG.validScore)
 						{
 							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 						}
 
-						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+                        if (TitleState.IndieCrossEnabled)
+						    FlxG.save.data.weekCompleted = StoryMenuStateCROSS.weekCompleted;
+						else
+						    FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+						    
 						FlxG.save.flush();
 					}
 					changedDifficulty = false;

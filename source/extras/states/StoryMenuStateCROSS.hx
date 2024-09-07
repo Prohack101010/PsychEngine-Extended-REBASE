@@ -17,7 +17,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 	static var diffic:String;
 	private static var lastDifficultyName:String = Difficulty.getDefault();
 	public static var weekData:Array<Dynamic> = [
-		['Snake-Eyes', 'Technicolor-Tussle', 'Knockout'],
+		['Snake-Eyes', 'technicolor-tussle', 'knockout'],
 		['Whoopee', 'Sansational', 'Burning-In-Hell', 'Final-Stretch'],
 		['Imminent-Demise', 'Terrible-Sin', 'Last-Reel', 'Nightmare-Run']
 	];
