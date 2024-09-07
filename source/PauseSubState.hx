@@ -271,7 +271,10 @@ class PauseSubState extends MusicBeatSubstate
 
 					WeekData.loadTheFirstEnabledMod();
 					if(PlayState.isStoryMode) {
-						MusicBeatState.switchState(new StoryMenuState());
+					    if (TitleState.IndieCrossEnabled)
+						    MusicBeatState.switchState(new StoryMenuStateCROSS());
+						else
+						    MusicBeatState.switchState(new StoryMenuState());
 					} else {
 						if (ClientPrefs.FreeplayStyle == 'NF Engine')
             			    MusicBeatState.switchState(new FreeplayStateNF());
@@ -291,6 +294,8 @@ class PauseSubState extends MusicBeatSubstate
 					WeekData.loadTheFirstEnabledMod();
 					if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
         				MusicBeatState.switchState(new MainMenuStateOld());
+        		    else if (TitleState.IndieCrossEnabled)
+        		        MusicBeatState.switchState(new MainMenuStateCROSS());
         			else
         				MusicBeatState.switchState(new MainMenuState());
 					PlayState.cancelMusicFadeTween();

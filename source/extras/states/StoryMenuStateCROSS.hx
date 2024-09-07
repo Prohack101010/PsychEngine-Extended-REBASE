@@ -217,7 +217,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		add(scoreText);
 
 		cupTea = new FlxSprite();
-		cupTea.frames = Paths.getSparrowAtlas('the_thing2.0');
+		cupTea.frames = Paths.getSparrowAtlas('sourcethings/the_thing2.0');
 		cupTea.animation.addByPrefix('start', "BOO instance 1", 24, false);
 		cupTea.setGraphicSize(Std.int((FlxG.width / FlxG.camera.zoom) * 1.1), Std.int((FlxG.height / FlxG.camera.zoom) * 1.1));
 		cupTea.updateHitbox();
@@ -446,17 +446,17 @@ class StoryMenuStateCROSS extends MusicBeatState
 			curDifficulty = 2;
 		if (curDifficulty > 2)
 			curDifficulty = 0;
+			
+		diffifSpr.animation.play('HARD');
 
 		switch (curDifficulty)
 		{
 			case 0:
-				diffifSpr.animation.play('NO-MECHANICS');
 				diffmechSpr.animation.play('NO-MECHANICS');
 			case 1:
-				diffifSpr.animation.play('HARD');
 				diffmechSpr.animation.play('HARD');
 			case 2:
-				diffifSpr.animation.play('HELL');
+			    diffmechSpr.y = 128;
 				diffmechSpr.animation.play('HELL');
 		}
 

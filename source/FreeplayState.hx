@@ -316,7 +316,7 @@ class FreeplayState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
     				MusicBeatState.switchState(new MainMenuStateOld());
-    			else if (ClientPrefs.MainMenuStyle == 'Indie Cross')
+    			else if (TitleState.IndieCrossEnabled)
     				MusicBeatState.switchState(new MainMenuStateCROSS());
     			else
     				MusicBeatState.switchState(new MainMenuState());
