@@ -3518,7 +3518,7 @@ class PlayState extends MusicBeatState
 	
 	function addButton(DPadMode:String, ActionMode:String) // i added this only for test
 	{
-	    addVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode)) //Fuck u VirtualPad
+	    addVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode)); //Fuck u VirtualPad
 	    addVirtualPadCamera();
 	}
     
