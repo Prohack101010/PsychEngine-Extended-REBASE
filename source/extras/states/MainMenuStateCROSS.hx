@@ -327,7 +327,7 @@ class MainMenuStateCROSS extends MusicBeatState
 				case "storymode":
 					MusicBeatState.switchState(new StoryMenuStateCROSS());
 				case "freeplay":
-					MusicBeatState.switchState(new FreeplaySelectStateCROSS());
+					MusicBeatState.switchState(new FreeplayState());
 				case "options":
 					LoadingState.loadAndSwitchState(new options.OptionsState());
 					options.OptionsState.onPlayState = false;
