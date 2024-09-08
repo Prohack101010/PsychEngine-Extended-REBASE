@@ -343,6 +343,8 @@ class FreeplayStateCROSS extends MusicBeatState
 		/*if (Math.abs(lerpMulti - intendedMulti) <= 0.01)
 				lerpMulti = intendedMulti;
 
+			mechDiffMult.text = "Multiplier: " + lerpMulti; */
+
 		var ratingSplit:Array<String> = Std.string(CoolUtil.floorDecimal(lerpRating * 100, 2)).split('.');
 		if (ratingSplit.length < 2)
 		{ // No decimals, add an empty space
@@ -401,15 +403,18 @@ class FreeplayStateCROSS extends MusicBeatState
 				changeSelection(-shiftMult * FlxG.mouse.wheel, false);
 			}
 		}
-		if (controls.UI_LEFT_P)
+		if (!FlxG.keys.pressed.SHIFT)
 		{
-			changeDiff(-1);
-			_updateSongLastDifficulty();
-		}
-		else if (controls.UI_RIGHT_P)
-		{
-			changeDiff(1);
-			_updateSongLastDifficulty();
+			if (controls.UI_LEFT_P)
+			{
+				changeDiff(-1);
+				_updateSongLastDifficulty();
+			}
+			else if (controls.UI_RIGHT_P)
+			{
+				changeDiff(1);
+				_updateSongLastDifficulty();
+			}
 		}
 		if (controls.BACK #if mobile && !_virtualpad.buttonC.justPressed #end)
 		{
@@ -656,6 +661,7 @@ class FreeplayStateCROSS extends MusicBeatState
 		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
 		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
 		diffText.x -= diffText.width / 2;
+
 		/*intendedMulti.x = Std.int(scoreBG.x + (scoreBG.width / 2));
 		intendedMulti.x -= diffText.width / 2;*/
 	}
@@ -734,7 +740,7 @@ class FreeplayStateCROSS extends MusicBeatState
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false);
 				new FlxTimer().start(0.5, function(tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new FreeplaySelectStateCROSS(FlxG.save.data.instPrev));
+					MusicBeatState.switchState(new FreeplaySelectState(FlxG.save.data.instPrev));
 				});
 			}
 		}
@@ -797,7 +803,7 @@ class FreeplayStateCROSS extends MusicBeatState
 	
 				new FlxTimer().start(waitDuration, function(tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new LoadingStateNew());
+					MusicBeatState.switchState(new LoadingState());
 				});
 		}
 	}
