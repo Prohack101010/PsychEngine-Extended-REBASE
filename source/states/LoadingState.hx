@@ -38,7 +38,7 @@ class LoadingState extends MusicBeatState
 		super.create();
 
 		// Hardcoded, aaaaahhhh
-		if((FreeplaySelectState.curSelected == 0 && !PlayState.isStoryMode) || PlayState.isStoryMode)
+		if((FreeplaySelectStateCROSS.curSelected == 0 && !PlayState.isStoryMode) || PlayState.isStoryMode)
 		switch (PlayState.storyWeek)
 		{
 			case 0:

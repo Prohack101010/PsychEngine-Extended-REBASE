@@ -554,6 +554,44 @@ class Paths
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
 	}
+	
+	public static function returnSoundString(path:String, key:String, ?library:String)
+	{
+		var folder:String = '';
+		#if MODS_ALLOWED
+		var file:String = modsSounds(path, key);
+		if (FileSystem.exists(file))
+		{
+			if (!currentTrackedSounds.exists(file))
+			{
+				currentTrackedSounds.set(file, Sound.fromFile(file));
+			}
+			localTrackedAssets.push(key);
+			return file;
+		}
+		#end
+		// I hate this so god damn much
+		var gottenPath:String = SUtil.getPath() + getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
+		// trace(gottenPath);
+		if (!currentTrackedSounds.exists(gottenPath))
+			#if MODS_ALLOWED
+			currentTrackedSounds.set(gottenPath, Sound.fromFile(#if !mobile './' + #end gottenPath));
+			#else
+			{
+				if (path == 'songs')
+					folder = 'songs:';
+	
+				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library)));
+			}
+			#end
+		localTrackedAssets.push(gottenPath);
+		#if MODS_ALLOWED
+		return #if !mobile './' + #end gottenPath;
+		#else
+		return folder + getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		#end
+	}
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {

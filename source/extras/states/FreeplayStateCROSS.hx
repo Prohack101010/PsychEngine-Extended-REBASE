@@ -158,7 +158,6 @@ class FreeplayStateCROSS extends MusicBeatState
 				isAnimated = false;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter, false);
 			icon.sprTracker = songText;
-			icon.playNormalAnim(true);
 			// too laggy with a lot of songs, so i had to recode the logic for it
 			songText.visible = songText.active = songText.isMenuItem = false;
 			icon.visible = icon.active = false;
@@ -740,7 +739,7 @@ class FreeplayStateCROSS extends MusicBeatState
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false);
 				new FlxTimer().start(0.5, function(tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new FreeplaySelectState(FlxG.save.data.instPrev));
+					MusicBeatState.switchState(new FreeplaySelectStateCROSS(FlxG.save.data.instPrev));
 				});
 			}
 		}
@@ -803,7 +802,7 @@ class FreeplayStateCROSS extends MusicBeatState
 	
 				new FlxTimer().start(waitDuration, function(tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new LoadingState());
+					MusicBeatState.switchState(new LoadingStateNew());
 				});
 		}
 	}
