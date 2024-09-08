@@ -151,6 +151,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		diffifSpr.y = 128;
 		diffifSpr.antialiasing = ClientPrefs.globalAntialiasing;
 		add(diffifSpr);
+		diffifSpr.animation.play('HARD');
 
 		diffTween = FlxTween.tween(this, {}, 0);
 		
@@ -446,21 +447,20 @@ class StoryMenuStateCROSS extends MusicBeatState
 			curDifficulty = 2;
 		if (curDifficulty > 2)
 			curDifficulty = 0;
-			
-		diffifSpr.animation.play('HARD');
 
 		switch (curDifficulty)
 		{
 			case 0:
+			    diffmechSpr.y = 200;
 				diffmechSpr.animation.play('NO-MECHANICS');
 			case 1:
+			    diffmechSpr.y = 200;
 				diffmechSpr.animation.play('HARD');
 			case 2:
-			    diffmechSpr.y = 128;
+			    diffmechSpr.y = 180;
 				diffmechSpr.animation.play('HELL');
 		}
 
-		diffifSpr.x = diffOrigX - 20;
 		diffmechSpr.x = diffmechOrigX - 20;
 
 		if (diffTween != null)
@@ -469,7 +469,6 @@ class StoryMenuStateCROSS extends MusicBeatState
 		if (diffmechTween != null)
 			diffmechTween.cancel();
 
-		diffTween = FlxTween.tween(diffifSpr, {x: diffOrigX}, 0.2, {ease: FlxEase.quadOut});
 		diffmechTween = FlxTween.tween(diffmechSpr, {x: diffmechOrigX}, 0.2, {ease: FlxEase.quadOut});
 
 		intendedScore = Highscore.getWeekScore("week" + curWeek, curDifficulty);

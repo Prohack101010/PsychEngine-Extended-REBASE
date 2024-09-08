@@ -3508,6 +3508,19 @@ class PlayState extends MusicBeatState
 			luaVirtualPad = null;
 		}
 	}
+	
+	// this things used in indie cross psych extended/0.6.3 port
+	function addCupheadGameoverButtons() // Why not
+	{
+	    addVirtualPad(UP_DOWN, A);
+		addVirtualPadCamera();
+	}
+	
+	function addButton(DPadMode:String, ActionMode:String) // i added this only for test
+	{
+	    addVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode)) //Fuck u VirtualPad
+	    addVirtualPadCamera();
+	}
     
 	function openOptionsMenu()
 	{
