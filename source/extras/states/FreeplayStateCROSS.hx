@@ -35,9 +35,7 @@ class FreeplayStateCROSS extends MusicBeatState
 	var lerpSelected:Float = 0;
 	var curDifficulty:Int = -1;
 
-	public static var curMechDifficulty:Int = 1;
 	private static var lastDifficultyName:String = Difficulty.getDefault();
-	private static var lastMechDifficultyName:String = Difficulty.getDefaultMech();
 
 	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
@@ -46,15 +44,11 @@ class FreeplayStateCROSS extends MusicBeatState
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
-	var intendedMulti:Float = 1.25 - (0.25 * curMechDifficulty);
+	var intendedMulti:Float = 1.25 - (0.25 * 1);
 	var multiTween:FlxTween;
 
-	var scoreMultiplier:Float = 1.25 - (0.25 * curMechDifficulty);
+	var scoreMultiplier:Float = 1.25 - (0.25 * 1);
 	var lerpMulti:Float;
-	var mechDiffText:FlxText;
-	var mechDiffMult:FlxText;
-	var mechDiffBG:FlxSprite;
-	var mechDiffTextinfo:FlxText;
 
 	private var grpSongs:FlxTypedSpriteGroup<Alphabet>;
 	private var curPlaying:Bool = false;
@@ -162,7 +156,7 @@ class FreeplayStateCROSS extends MusicBeatState
 				isAnimated = true;
 			else
 				isAnimated = false;
-			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter, false, isAnimated);
+			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter, false);
 			icon.sprTracker = songText;
 			icon.playNormalAnim(true);
 			// too laggy with a lot of songs, so i had to recode the logic for it
@@ -191,23 +185,6 @@ class FreeplayStateCROSS extends MusicBeatState
 		add(diffText);
 
 		add(scoreText);
-
-		mechDiffBG = new FlxSprite(scoreBG.x, 67).makeGraphic(1, 66, 0xFF000000);
-		mechDiffBG.alpha = 0.6;
-		add(mechDiffBG);
-
-		mechDiffTextinfo = new FlxText(mechDiffBG.x, 70, 0, "Mechanics Difficulty", 24);
-		mechDiffTextinfo.font = Paths.font("Bronx.otf");
-		add(mechDiffTextinfo);
-
-		mechDiffText = new FlxText(scoreText.x, mechDiffTextinfo.y + mechDiffTextinfo.height + 2, 0, "Standrad", 24);
-		mechDiffText.font = Paths.font("Bronx.otf");
-		add(mechDiffText);
-
-		mechDiffMult = new FlxText(scoreText.x + 150, mechDiffTextinfo.y + mechDiffTextinfo.height + 2, 0, "Multiplier: ", 24);
-		mechDiffMult.alignment = LEFT;
-		mechDiffMult.font = Paths.font("Bronx.otf");
-		add(mechDiffMult);
 
 		jbugWatermark = new FlxSprite().loadGraphic(Paths.image('J-BugWatermark', 'sans'));
 		jbugWatermark.x = 930;
@@ -243,7 +220,7 @@ class FreeplayStateCROSS extends MusicBeatState
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		textBG.alpha = 0.6;
 		add(textBG);
-		if(FreeplaySelectState.curSelected == 2){
+		if(FreeplaySelectStateCROSS.curSelected == 2){
 		FlxG.game.filtersEnabled = ClientPrefs.shaders;
 		camGame.filtersEnabled = false;
 		scoreCam.filtersEnabled = false;
@@ -305,10 +282,6 @@ class FreeplayStateCROSS extends MusicBeatState
 		diffText.cameras = [scoreCam];
 		//comboText.cameras = [scoreCam];
 		jbugWatermark.cameras = [scoreCam];
-		mechDiffBG.cameras = [scoreCam];
-		mechDiffText.cameras = [scoreCam];
-		mechDiffMult.cameras = [scoreCam];
-		mechDiffTextinfo.cameras = [scoreCam];
 		cupTea.cameras = [scoreCam];
 		super.create();
 	}
@@ -358,7 +331,7 @@ class FreeplayStateCROSS extends MusicBeatState
 		setChrome(chromVal);
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
-		// intendedMulti = (1.25 - (0.25 * curMechDifficulty));
+		// intendedMulti = (1.25 - (0.25 * 1));
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, FlxMath.bound(elapsed * 24, 0, 1)));
 		lerpRating = FlxMath.lerp(lerpRating, intendedRating, FlxMath.bound(elapsed * 12, 0, 1));
 		// lerpMulti = Math.floor(FlxMath.lerp(lerpMulti, intendedMulti, FlxMath.bound(elapsed * 15, 0, 1.25)));
@@ -369,10 +342,6 @@ class FreeplayStateCROSS extends MusicBeatState
 			lerpRating = intendedRating;
 		/*if (Math.abs(lerpMulti - intendedMulti) <= 0.01)
 				lerpMulti = intendedMulti;
-
-			mechDiffMult.text = "Multiplier: " + lerpMulti; */
-
-		mechDiffMult.text = "Multiplier: " + intendedMulti;
 
 		var ratingSplit:Array<String> = Std.string(CoolUtil.floorDecimal(lerpRating * 100, 2)).split('.');
 		if (ratingSplit.length < 2)
@@ -389,7 +358,7 @@ class FreeplayStateCROSS extends MusicBeatState
 		positionHighscore();
 		if(!selectedSong){
 		var shiftMult:Int = 1;
-		if (FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonZ.pressed #end)
+		if (FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonZ.pressed #end)
 			shiftMult = 3;
 		if (songs.length > 1)
 		{
@@ -432,27 +401,17 @@ class FreeplayStateCROSS extends MusicBeatState
 				changeSelection(-shiftMult * FlxG.mouse.wheel, false);
 			}
 		}
-		if (!FlxG.keys.pressed.SHIFT)
+		if (controls.UI_LEFT_P)
 		{
-			if (controls.UI_LEFT_P)
-			{
-				changeDiff(-1);
-				_updateSongLastDifficulty();
-			}
-			else if (controls.UI_RIGHT_P)
-			{
-				changeDiff(1);
-				_updateSongLastDifficulty();
-			}
+			changeDiff(-1);
+			_updateSongLastDifficulty();
 		}
-		else
+		else if (controls.UI_RIGHT_P)
 		{
-			if (controls.UI_LEFT_P)
-				changeMechDiff(1);
-			else if (controls.UI_RIGHT_P)
-				changeMechDiff(-1);
+			changeDiff(1);
+			_updateSongLastDifficulty();
 		}
-		if (controls.BACK #if mobile && !virtualPad.buttonC.justPressed #end)
+		if (controls.BACK #if mobile && !_virtualpad.buttonC.justPressed #end)
 		{
 			//selectedSong = true;
 			persistentUpdate = false;
@@ -463,10 +422,10 @@ class FreeplayStateCROSS extends MusicBeatState
 			backOut();
 		}
 
-		if (FlxG.keys.justPressed.CONTROL #if mobile || virtualPad.buttonC.justPressed #end)
+		if (FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonC.justPressed #end)
 		{
 			#if mobile
-			virtualPad.visible = false;
+			_virtualpad.visible = false;
 			#end
 			FlxG.game.filtersEnabled = false;
 			camGame.filtersEnabled = ClientPrefs.shaders;
@@ -474,7 +433,7 @@ class FreeplayStateCROSS extends MusicBeatState
 			selectedSong = true;
 			openSubState(new GameplayChangersSubstate());
 		}
-		if(FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonX.justPressed #end){
+		if(FlxG.keys.justPressed.SPACE #if mobile || _virtualpad.buttonX.justPressed #end){
 			FlxG.save.data.instPrev = !FlxG.save.data.instPrev;
 			FlxG.save.flush();
 		if(FlxG.save.data.instPrev)
@@ -530,24 +489,24 @@ class FreeplayStateCROSS extends MusicBeatState
 				return;
 			}
 
-			if (FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonZ.pressed #end)
+			if (FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonZ.pressed #end)
 			{
-				LoadingState.loadAndSwitchState(new ChartingState());
+				LoadingStateNew.loadAndSwitchState(new ChartingState());
 			}
 			else
 			{
 				accept();
 			}
-			// LoadingState.loadAndSwitchState(new PlayState());
+			// LoadingStateNew.loadAndSwitchState(new PlayState());
 			FlxG.sound.music.volume = 0;
 			#if (MODS_ALLOWED && cpp && !mobile)
 			DiscordClient.loadModRPC();
 			#end
 		}
-		else if (controls.RESET #if mobile || virtualPad.buttonY.justPressed #end)
+		else if (controls.RESET #if mobile || _virtualpad.buttonY.justPressed #end)
 		{
 			#if mobile
-			virtualPad.visible = false;
+			_virtualpad.visible = false;
 			#end
 			FlxG.game.filtersEnabled = false;
 			camGame.filtersEnabled = ClientPrefs.shaders;
@@ -665,7 +624,6 @@ class FreeplayStateCROSS extends MusicBeatState
 				{
 					jbugWatermark.alpha = 0;
 				}
-			changeMechDiff();
 			changeDiff();
 			checkCustom();
 			_updateSongLastDifficulty();
@@ -698,11 +656,6 @@ class FreeplayStateCROSS extends MusicBeatState
 		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
 		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
 		diffText.x -= diffText.width / 2;
-
-		mechDiffText.x = scoreText.x;
-		mechDiffTextinfo.x = scoreText.x;
-		mechDiffBG.scale.x = scoreBG.scale.x;
-		mechDiffBG.x = scoreBG.x;
 		/*intendedMulti.x = Std.int(scoreBG.x + (scoreBG.width / 2));
 		intendedMulti.x -= diffText.width / 2;*/
 	}
@@ -737,65 +690,6 @@ class FreeplayStateCROSS extends MusicBeatState
 		}
 	}
 
-	function changeMechDiff(?change:Int = 0)
-	{
-		var oldShit = 1.25 - (0.25 * curMechDifficulty);
-		if (!selectedSong)
-		{
-			mechDiffBG.visible = true;
-			mechDiffTextinfo.visible = true;
-			mechDiffText.visible = true;
-			mechDiffMult.visible = true;
-
-			curMechDifficulty += change;
-
-			if (FreeplaySelectState.curSelected == 2) // enforce hard and hell only
-			{
-				if (curMechDifficulty < 0)
-					curMechDifficulty = 1;
-				if (curMechDifficulty > 1)
-					curMechDifficulty = 0;
-			}
-			else
-			{
-				if (curMechDifficulty < 0)
-					curMechDifficulty = 2;
-				if (curMechDifficulty > 2)
-					curMechDifficulty = 0;
-			}
-
-			if (CoolUtil.getSongData(songs[curSelected].songName.toLowerCase(), 'hasmech') == "false")
-			{
-				mechDiffBG.visible = false;
-				mechDiffTextinfo.visible = false;
-				mechDiffText.visible = false;
-				mechDiffMult.visible = false;
-			}
-
-			switch (curMechDifficulty)
-			{
-				case 2:
-					mechDiffText.text = Difficulty.mechanicsList[0];
-					mechDiffText.color = FlxColor.GRAY;
-					mechDiffText.borderStyle = SHADOW;
-				case 1:
-					mechDiffText.text = Difficulty.mechanicsList[1];
-					mechDiffText.color = 0xFFFB195F;
-					mechDiffText.borderStyle = OUTLINE_FAST;
-				case 0:
-					mechDiffText.text = Difficulty.mechanicsList[2];
-					mechDiffText.color = 0xFFC708FE;
-					mechDiffText.borderStyle = OUTLINE;
-
-			}
-			multiTween.cancel();
-			multiTween = FlxTween.num(intendedMulti, 1.25 - (0.25 * curMechDifficulty), 0.3, {ease: FlxEase.cubeInOut}, function(v:Float)
-			{
-				intendedMulti = CoolUtil.floorDecimal(v, 2);
-			});
-		}
-	}
-
 	override function beatHit() {
 		super.beatHit();
 		if(FlxG.save.data.instPrev && !selectedSong)
@@ -817,7 +711,7 @@ class FreeplayStateCROSS extends MusicBeatState
 				FlxG.camera.shake(0.015 * 1.3, 0.2);
 				}	
 	
-				if (FreeplaySelectState.curSelected == 2)
+				if (FreeplaySelectStateCROSS.curSelected == 2)
 				{
 					if (chromVal == 0)
 					{
@@ -840,7 +734,7 @@ class FreeplayStateCROSS extends MusicBeatState
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false);
 				new FlxTimer().start(0.5, function(tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new FreeplaySelectState(FlxG.save.data.instPrev));
+					MusicBeatState.switchState(new FreeplaySelectStateCROSS(FlxG.save.data.instPrev));
 				});
 			}
 		}
@@ -893,27 +787,17 @@ class FreeplayStateCROSS extends MusicBeatState
 				PlayState.isStoryMode = false;
 				PlayState.storyDifficulty = curDifficulty;
 				PlayState.storyWeek = songs[curSelected].week;
-				if(curMechDifficulty == 0) {
-					PlayState.mechsDifficulty = 2;
-					PlayState.scoreMuti = 1.25 - (0.25 * 2);
-				} else if(curMechDifficulty == 2) {
-					PlayState.mechsDifficulty = 0;
-					PlayState.scoreMuti = 1.25 - (0.25 * 0);
-				} else {
-					PlayState.mechsDifficulty = curMechDifficulty;
-					PlayState.scoreMuti = 1.25 - (0.25 * curMechDifficulty);
-				}
 		
 				trace('CUR WEEK' + PlayState.storyWeek);
-				LoadingState.target = new PlayState();
-				LoadingState.stopMusic = true;
+				LoadingStateNew.target = new PlayState();
+				LoadingStateNew.stopMusic = true;
 				
 				//PlayState.playCutscene = false;
 				StoryMenuStateCROSS.leftDuringWeek = false;
 	
 				new FlxTimer().start(waitDuration, function(tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new LoadingState());
+					MusicBeatState.switchState(new LoadingStateNew());
 				});
 		}
 	}

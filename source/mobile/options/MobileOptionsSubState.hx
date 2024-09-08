@@ -72,7 +72,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			virtualpadSkinList);
 
 		addOption(option);
-		option.onChange = onChangeVirtualPadSkin;
+		option.onChange = resetVirtualPad;
 
         var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",
@@ -171,7 +171,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
-		option.onChange = onChangeVirtualPadSkin;
+		option.onChange = resetVirtualPad;
 		
 		var option:Option = new Option('Touch Screens (WIP)',
 			'WIP',
@@ -203,6 +203,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
+		option.onChange = disableIndieCrossMenus; // Fix Indie Cross Bug
 		
 		#if android
 		var option:Option = new Option('Storage Type',
@@ -253,7 +254,12 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
 	}
 	
-	function onChangeVirtualPadSkin()
+	function disableIndieCrossMenus()
+	{
+	    TitleState.IndieCrossEnabled = false;
+	}
+	
+	function resetVirtualPad()
 	{
 	/*
 	    if (ClientPrefs.virtualpadType != lastVirtualPadType) {

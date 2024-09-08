@@ -5,6 +5,7 @@ import flixel.addons.ui.*; //Flixel-UI
 #end
 
 // Extra
+import states.LoadingState as LoadingStateNew; //Indie Cross
 import extras.states.*; //Extra States
 import extras.substates.*; //Extra Substates
 import ModsMenuState; //I'm adding Indie Cross Support because Lily's Psych 0.6.3 port is very weird and sucks (crashes and bugs)

@@ -146,6 +146,136 @@ class CoolUtil
 			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 	
+	/**
+	 *	@author BrightFyre
+	 * Gets data for a song
+	 * 
+	 * Usage: **CoolUtil.getSongData(name, type);**
+	 * @param song Song name
+	 * @param type Type of parameter **Artist, BPM, or Name**
+	 */
+	public static function getSongData(song:String, type:String)
+	{
+		var artistPrefix:String = 'Kawai Sprite';
+		var bpm:String = "150";
+		var formattedName:String = 'Tutorial';
+		var mechStuff:String = 'CONTROLS\n';
+		var hasMech:String = "false";
+
+		switch (song)
+		{
+			// cuphead
+			case 'snake-eyes':
+				artistPrefix = 'Mike Geno';
+				bpm = "221";
+				formattedName = 'Snake Eyes';
+			case 'technicolor-tussle':
+				artistPrefix = 'BLVKAROT';
+				bpm = "140";
+				formattedName = 'Technicolor Tussle';
+				hasMech = "true";
+			case 'knockout':
+				artistPrefix = 'Orenji Music';
+				bpm = "136";
+				formattedName = 'Knockout';
+				hasMech = "true";
+
+			// sans
+			case 'whoopee':
+				artistPrefix = 'YingYang48 & Saster';
+				bpm = "120";
+				formattedName = 'Whoopee';
+				hasMech = "true";
+			case 'sansational':
+				artistPrefix = 'Tenzubushi';
+				bpm = "130";
+				formattedName = 'sansational';
+				hasMech = "true";
+			case 'burning-in-hell':
+				artistPrefix = 'TheInnuendo & Saster';
+				bpm = "170";
+				formattedName = 'Burning In Hell';
+				hasMech = "true";
+			case 'final-stretch':
+				artistPrefix = 'Saru';
+				bpm = "175";
+				formattedName = 'Final Stretch';
+
+			// bendy
+			case 'imminent-demise':
+				artistPrefix = 'Saru & CDMusic';
+				bpm = "100";
+				formattedName = 'Imminent Demise';
+			case 'terrible-sin':
+				artistPrefix = 'CDMusic & Rozebud';
+				bpm = "220";
+				formattedName = 'Terrible Sin';
+				hasMech = "true";
+			case 'last-reel':
+				artistPrefix = 'Joan Atlas';
+				bpm = "180";
+				formattedName = 'Last Reel';
+				hasMech = "true";
+			case 'nightmare-run':
+				artistPrefix = 'Orenji Music & Rozebud';
+				bpm = "167";
+				formattedName = 'Nightmare Run';
+				hasMech = "true";
+
+			// bonus
+			case 'satanic-funkin':
+				artistPrefix = 'TheInnuendo';
+				bpm = "180";
+				formattedName = 'Satanic Funkin';
+				hasMech = "true";
+			case 'bad-to-the-bone':
+				artistPrefix = 'Yamahearted';
+				bpm = "118";
+				formattedName = 'Bad To The Bone';
+				hasMech = "true";
+			case 'bonedoggle':
+				artistPrefix = 'Saster';
+				bpm = "150";
+				formattedName = 'Bonedoggle';
+			case 'ritual':
+				artistPrefix = 'BBPanzu & Brandxns';
+				bpm = "160";
+				formattedName = 'Ritual';
+				hasMech = "true";
+			case 'freaky-machine':
+				artistPrefix = 'DAGames & Saster';
+				bpm = "130";
+				formattedName = 'Freaky Machine';
+
+			// nightmare
+			case 'devils-gambit':
+				artistPrefix = 'Saru & TheInnuend0';
+				bpm = "175";
+				formattedName = 'Devils Gambit';
+				hasMech = "true";
+			case 'bad-time':
+				artistPrefix = 'Tenzubushi';
+				bpm = "330";
+				formattedName = 'Bad Time';
+				hasMech = "true";
+			case 'despair':
+				artistPrefix = 'CDMusic, Joan Atlas & Rozebud';
+				bpm = "375";
+				formattedName = 'Despair';
+				hasMech = "true";
+
+			// secret
+			case 'gose' | 'gose-classic':
+				artistPrefix = 'CrystalSlime';
+				bpm = "100";
+				formattedName = 'Gose';
+			case 'saness':
+				artistPrefix = 'CrystalSlime';
+				bpm = "250";
+				formattedName = 'Saness';
+				hasMech = "true";
+		}
+	
 	public static function setTextBorderFromString(text:FlxText, border:String)
 	{
 		switch(border.toLowerCase().trim())

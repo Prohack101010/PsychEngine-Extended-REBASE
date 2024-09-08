@@ -14,6 +14,7 @@ class Difficulty
 	];
 	public static var list:Array<String> = [];
 	private static var defaultDifficulty(default, never):String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
+	private static var defaultIndieCrossDifficulty(default, never):String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode for indie cross
 
 	inline public static function getFilePath(num:Null<Int> = null)
 	{
@@ -23,14 +24,28 @@ class Difficulty
 		if (TitleState.IndieCrossEnabled)
 		    fileSuffix = defaultIndieCrossList[num]; // TOOK ME A WHOLE FUCKING DAY TO FIX THIS PEICE OF SHIT -KarimAkra
 		    
-		if(fileSuffix != defaultDifficulty)
+		if (TitleState.IndieCrossEnabled)
 		{
-			fileSuffix = '-' + fileSuffix;
-		}
-		else
-		{
-			fileSuffix = '';
-		}
+    		if(fileSuffix != defaultIndieCrossDifficulty)
+    		{
+    			fileSuffix = '-' + fileSuffix;
+    		}
+    		else
+    		{
+    			fileSuffix = '';
+    		}
+    	}
+        else
+        {
+            if(fileSuffix != defaultDifficulty)
+    		{
+    			fileSuffix = '-' + fileSuffix;
+    		}
+    		else
+    		{
+    			fileSuffix = '';
+    		}
+        }
 		return Paths.formatToSongPath(fileSuffix);
 	}
 	
@@ -79,6 +94,9 @@ class Difficulty
 
 	inline public static function getDefault():String
 	{
-		return defaultDifficulty;
+	    if (TitleState.IndieCrossEnabled)
+		    return defaultIndieCrossDifficulty;
+		else
+		    return defaultDifficulty;
 	}
 }
