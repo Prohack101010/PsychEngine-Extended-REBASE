@@ -57,6 +57,8 @@ class FreeplayNightmare extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
+		addVirtualPad
+		
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
@@ -210,6 +212,8 @@ class FreeplayNightmare extends MusicBeatState
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
+		
+		addVirtualPad(FULL, A_B_C_X_Y_Z);
 		super.create();
 	}
 
@@ -217,6 +221,8 @@ class FreeplayNightmare extends MusicBeatState
 		changeSelection(0, false);
 		persistentUpdate = true;
 		super.closeSubState();
+		removeVirtualPad();
+		addVirtualPad(FULL, A_B_C_X_Y_Z);
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
@@ -578,6 +584,7 @@ class SongMetadata3
 	public var songCharacter:String = "";
 	public var color:Int = -7179779;
 	public var folder:String = "";
+	public var lastDifficulty:String = null;
 
 	public function new(song:String, week:Int, songCharacter:String, color:Int)
 	{
@@ -587,6 +594,5 @@ class SongMetadata3
 		this.color = color;
 		this.folder = Paths.currentModDirectory;
 		if(this.folder == null) this.folder = '';
-		public var lastDifficulty:String = null;
 	}
 }
