@@ -451,13 +451,16 @@ class StoryMenuStateCROSS extends MusicBeatState
 		switch (curDifficulty)
 		{
 			case 0:
+			    diffmechOrigX = -2;
 			    diffmechSpr.y = 200;
 				diffmechSpr.animation.play('NO-MECHANICS');
 			case 1:
+			    diffmechOrigX = -2;
 			    diffmechSpr.y = 200;
 				diffmechSpr.animation.play('HARD');
 			case 2:
-			    diffmechSpr.y = 180;
+			    diffmechOrigX = -8;
+			    diffmechSpr.y = 175;
 				diffmechSpr.animation.play('HELL');
 		}
 

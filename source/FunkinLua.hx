@@ -1670,10 +1670,10 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyJustPressed", function(name:String) {
 			var key:Bool = false;
 			switch(name) {
-				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_P');
-				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_P');
-				case 'up': key = PlayState.instance.getControl('NOTE_UP_P');
-				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT_P');
+				case 'left': key = (PlayState.instance.getControl('NOTE_LEFT_P') || PlayState.instance.getControl('UI_LEFT_P'));
+				case 'down': key = (PlayState.instance.getControl('NOTE_DOWN_P') || PlayState.instance.getControl('UI_DOWN_P'));
+				case 'up': key = (PlayState.instance.getControl('NOTE_UP_P') || PlayState.instance.getControl('UI_UP_P'));
+				case 'right': key = (PlayState.instance.getControl('NOTE_RIGHT_P') || PlayState.instance.getControl('UI_RIGHT_P'));
 				case 'accept': key = PlayState.instance.getControl('ACCEPT');
 				case 'back': key = PlayState.instance.getControl('BACK');
 				case 'pause': key = PlayState.instance.getControl('PAUSE');
@@ -1688,10 +1688,10 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
 			var key:Bool = false;
 			switch(name) {
-				case 'left': key = PlayState.instance.getControl('NOTE_LEFT');
-				case 'down': key = PlayState.instance.getControl('NOTE_DOWN');
-				case 'up': key = PlayState.instance.getControl('NOTE_UP');
-				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT');
+				case 'left': key = (PlayState.instance.getControl('NOTE_LEFT') || PlayState.instance.getControl('UI_LEFT''));
+				case 'down': key = (PlayState.instance.getControl('NOTE_DOWN') || PlayState.instance.getControl('UI_DOWN''));
+				case 'up': key = (PlayState.instance.getControl('NOTE_UP') || PlayState.instance.getControl('UI_UP''));
+				case 'right': key = (PlayState.instance.getControl('NOTE_RIGHT') || PlayState.instance.getControl('UI_RIGHT''));
 				case 'shift': key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT);//an extra key for convinience
 				case 'space': key = (PlayState.instance.getControl('SPACE') || FlxG.keys.pressed.SPACE);//an extra key for convinience
 				case 'Q': key = (PlayState.instance.getControl('Q') || FlxG.keys.pressed.Q);//an extra key for convinience
@@ -1702,10 +1702,10 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyReleased", function(name:String) {
 			var key:Bool = false;
 			switch(name) {
-				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_R');
-				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_R');
-				case 'up': key = PlayState.instance.getControl('NOTE_UP_R');
-				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT_R');
+				case 'left': key = (PlayState.instance.getControl('NOTE_LEFT_R') || PlayState.instance.getControl('UI_LEFT_R''));
+				case 'down': key = (PlayState.instance.getControl('NOTE_DOWN_R') || PlayState.instance.getControl('UI_DOWN_R''));
+				case 'up': key = (PlayState.instance.getControl('NOTE_UP_R') || PlayState.instance.getControl('UI_UP_R''));
+				case 'right': key = (PlayState.instance.getControl('NOTE_RIGHT_R') || PlayState.instance.getControl('UI_RIGHT_R''));
 				case 'shift': key = (PlayState.instance.getControl('SHIFT_R') || FlxG.keys.justReleased.SHIFT);//an extra key for convinience
 				case 'space': key = (PlayState.instance.getControl('SPACE_R') || FlxG.keys.justReleased.SPACE);//an extra key for convinience			
 				case 'Q': key = (PlayState.instance.getControl('Q_R') || FlxG.keys.justReleased.Q);//an extra key for convinience
