@@ -1,4 +1,4 @@
-package IndieCross;
+package indiecrossmenus;
 
 #if desktop
 import Discord.DiscordClient;
@@ -24,9 +24,9 @@ import sys.FileSystem;
 
 using StringTools;
 
-class FreeplayMain extends MusicBeatState
+class FreeplayNightmare extends MusicBeatState
 {
-	var songs:Array<SongMetadata1> = [];
+	var songs:Array<SongMetadata3> = [];
 
 	var selector:FlxText;
 	private static var curSelected:Int = 0;
@@ -40,7 +40,7 @@ class FreeplayMain extends MusicBeatState
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
-	
+
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
@@ -70,7 +70,7 @@ class FreeplayMain extends MusicBeatState
 		Debug = true;
 		#end
 
-		//cache(); //so it caches songs
+		cache(); //so it caches songs
 
 		for (i in 0...WeekData.weeksList.length) {
 			if(weekIsLocked(WeekData.weeksList[i])) continue;
@@ -98,38 +98,19 @@ class FreeplayMain extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		if (!FlxG.save.data.CupBeaten && !FlxG.save.data.SansBeaten && !FlxG.save.data.SansBeaten2 && !FlxG.save.data.BendyBeaten && !Debug)
-		{
-			addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253)); //to prevent crash lol
-		}
-		//cuphead
 		if (FlxG.save.data.CupBeaten || Debug)
 		{
-			addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
-			addSong('technicolor-tussle', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
-			addSong('knockout', 0, 'cupheadP2', FlxColor.fromRGB(146, 113, 253));
+			addSong('devils-gambit', 0, 'cupheadP3', FlxColor.fromRGB(146, 113, 253));
 		}
-        //sans
-		if (FlxG.save.data.SansBeaten && !FlxG.save.data.SansBeaten2 || Debug)
+
+		if (FlxG.save.data.SansBeaten2 || Debug)
 		{
-			addSong('whoopee', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('sansational', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('final-stretch', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
+			addSong('bad-time', 1, 'sansP2', FlxColor.fromRGB(146, 113, 253));
 		}
-		else if (FlxG.save.data.SansBeaten2 || Debug) //sans 2
-		{
-			addSong('whoopee', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('sansational', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('burning-in-hell', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('final-stretch', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-		}
-		//bendy
+
 		if (FlxG.save.data.BendyBeaten || Debug)
 		{
-			addSong('imminent-demise', 2, 'dad', FlxColor.fromRGB(146, 113, 253));
-			addSong('terrible-sin', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));
-			addSong('last-reel', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));
-			addSong('nightmare-run', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));		
+			addSong('despair', 2, 'bendyP2', FlxColor.fromRGB(146, 113, 253));
 		}
 
 		bg = new FlxSprite().loadGraphic(Paths.image('BG'));
@@ -240,7 +221,7 @@ class FreeplayMain extends MusicBeatState
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
 	{
-		songs.push(new SongMetadata1(songName, weekNum, songCharacter, color));
+		songs.push(new SongMetadata3(songName, weekNum, songCharacter, color));
 	}
 
 	function weekIsLocked(name:String):Bool {
@@ -381,14 +362,14 @@ class FreeplayMain extends MusicBeatState
 		else if (controls.UI_RIGHT_P)
 		{
 			changeDiff(1);
-		    _updateSongLastDifficulty();
+			_updateSongLastDifficulty();
 		}
 
 		if (controls.BACK)
 		{
 			persistentUpdate = false;
 			destroyFreeplayVocals();
-
+			
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
@@ -409,7 +390,7 @@ class FreeplayMain extends MusicBeatState
 		{
 			persistentUpdate = false;
 			destroyFreeplayVocals();
-			
+
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
 			/*#if MODS_ALLOWED
@@ -460,24 +441,23 @@ class FreeplayMain extends MusicBeatState
 	}
 
 	var music = [];
-	function cache(songName:String)
+	function cache()
 	{	
-		/*	
-			for (i in music)
+		for (i in music)
+		{
+			var inst = Paths.inst(i);
+			if (Paths.doesSoundAssetExist(inst))
 			{
-					var inst = Paths.inst(i);
-					if (Paths.doesSoundAssetExist(inst))
-					{
-						FlxG.sound.cache(inst);
-					}
-			
-					var voices = Paths.voices(i);
-					if (Paths.doesSoundAssetExist(voices))
-					{
-						FlxG.sound.cache(voices);
-					}
+				FlxG.sound.cache(inst);
 			}
-	    */
+	
+			var voices = Paths.voices(i);
+			if (Paths.doesSoundAssetExist(voices))
+			{
+				FlxG.sound.cache(voices);
+			}
+		}
+	
 		trace("Finished caching...");
 	}
 
@@ -500,6 +480,7 @@ class FreeplayMain extends MusicBeatState
 			diffText.text = '< ' + lastDifficultyName.toUpperCase() + ' >';
 		else
 			diffText.text = lastDifficultyName.toUpperCase();
+			
 		positionHighscore();
 	}
 
@@ -590,7 +571,7 @@ class FreeplayMain extends MusicBeatState
 	}
 }
 
-class SongMetadata1
+class SongMetadata3
 {
 	public var songName:String = "";
 	public var week:Int = 0;

@@ -1,4 +1,4 @@
-package IndieCross;
+package indiecrossmenus;
 
 #if desktop
 import Discord.DiscordClient;

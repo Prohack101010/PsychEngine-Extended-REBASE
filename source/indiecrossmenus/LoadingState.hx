@@ -1,4 +1,4 @@
-package IndieCross;
+package indiecrossmenus;
 
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxG;

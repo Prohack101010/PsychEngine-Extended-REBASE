@@ -1,4 +1,4 @@
-package IndieCross;
+package indiecrossmenus;
 
 import lime.app.Application;
 #if desktop
