@@ -1,5 +1,6 @@
 package extras.states;
 
+import FreeplayState.SongMetadata;
 import flixel.addons.transition.FlxTransitionableState;
 import Highscore;
 import Song;
