@@ -123,7 +123,7 @@ class FreeplayNightmare extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
+			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true);
 			songText.isMenuItem = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
@@ -447,6 +447,7 @@ class FreeplayNightmare extends MusicBeatState
 	var music = [];
 	function cache()
 	{	
+	    /*
 		for (i in music)
 		{
 			var inst = Paths.inst(i);
@@ -461,6 +462,7 @@ class FreeplayNightmare extends MusicBeatState
 				FlxG.sound.cache(voices);
 			}
 		}
+		*/
 	
 		trace("Finished caching...");
 	}
