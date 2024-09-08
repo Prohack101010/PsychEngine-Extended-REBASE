@@ -139,7 +139,7 @@ class FreeplayStateCROSS extends MusicBeatState
 		WeekData.loadTheFirstEnabledMod();
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 
@@ -211,7 +211,7 @@ class FreeplayStateCROSS extends MusicBeatState
 		jbugWatermark = new FlxSprite().loadGraphic(Paths.image('J-BugWatermark', 'sans'));
 		jbugWatermark.x = 930;
 		jbugWatermark.y = 500;
-		jbugWatermark.antialiasing = ClientPrefs.data.antialiasing;
+		jbugWatermark.antialiasing = ClientPrefs.globalAntialiasing;
 		jbugWatermark.setGraphicSize(Std.int(jbugWatermark.width * 0.6));
 		jbugWatermark.scrollFactor.set();
 		jbugWatermark.alpha = 0;
@@ -243,7 +243,7 @@ class FreeplayStateCROSS extends MusicBeatState
 		textBG.alpha = 0.6;
 		add(textBG);
 		if(FreeplaySelectState.curSelected == 2){
-		FlxG.game.filtersEnabled = ClientPrefs.data.shaders;
+		FlxG.game.filtersEnabled = ClientPrefs.shaders;
 		camGame.filtersEnabled = false;
 		scoreCam.filtersEnabled = false;
 		
@@ -283,7 +283,7 @@ class FreeplayStateCROSS extends MusicBeatState
 		cupTea.setGraphicSize(Std.int((FlxG.width / FlxG.camera.zoom) * 1.1), Std.int((FlxG.height / FlxG.camera.zoom) * 1.1));
 		cupTea.updateHitbox();
 		cupTea.screenCenter();
-		cupTea.antialiasing = ClientPrefs.data.antialiasing;
+		cupTea.antialiasing = ClientPrefs.globalAntialiasing;
 		if (PlayState.storyWeek == 0 && !PlayState.isStoryMode)
 		{
 			cupTea.alpha = 1;
@@ -328,7 +328,7 @@ class FreeplayStateCROSS extends MusicBeatState
 	{
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
 		return
-			/*(!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));*/
+			/*(!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuStateCROSS.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuStateCROSS.weekCompleted.get(leWeek.weekBefore)));*/
 			false;
 	}
 
@@ -468,8 +468,8 @@ class FreeplayStateCROSS extends MusicBeatState
 			virtualPad.visible = false;
 			#end
 			FlxG.game.filtersEnabled = false;
-			camGame.filtersEnabled = ClientPrefs.data.shaders;
-			scoreCam.filtersEnabled = ClientPrefs.data.shaders;
+			camGame.filtersEnabled = ClientPrefs.shaders;
+			scoreCam.filtersEnabled = ClientPrefs.shaders;
 			selectedSong = true;
 			openSubState(new GameplayChangersSubstate());
 		}
@@ -549,8 +549,8 @@ class FreeplayStateCROSS extends MusicBeatState
 			virtualPad.visible = false;
 			#end
 			FlxG.game.filtersEnabled = false;
-			camGame.filtersEnabled = ClientPrefs.data.shaders;
-			scoreCam.filtersEnabled = ClientPrefs.data.shaders;
+			camGame.filtersEnabled = ClientPrefs.shaders;
+			scoreCam.filtersEnabled = ClientPrefs.shaders;
 			selectedSong = true;
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -812,7 +812,7 @@ class FreeplayStateCROSS extends MusicBeatState
 				camZoom.cancel();
 				FlxG.camera.zoom += 0.045;
 				camZoom = FlxTween.tween(FlxG.camera, {zoom: 1}, 0.2);
-			if (songs[curSelected].songName.toLowerCase() == 'bad-time' && ClientPrefs.data.flashing)
+			if (songs[curSelected].songName.toLowerCase() == 'bad-time' && ClientPrefs.flashing)
 				FlxG.camera.shake(0.015 * 1.3, 0.2);
 				}	
 	
@@ -908,7 +908,7 @@ class FreeplayStateCROSS extends MusicBeatState
 				LoadingState.stopMusic = true;
 				
 				//PlayState.playCutscene = false;
-				StoryMenuState.leftDuringWeek = false;
+				StoryMenuStateCROSS.leftDuringWeek = false;
 	
 				new FlxTimer().start(waitDuration, function(tmr:FlxTimer)
 				{
@@ -949,25 +949,4 @@ class FreeplayStateCROSS extends MusicBeatState
 					diffText.borderStyle = NONE;
 			}
 		}
-}
-
-class SongMetadata
-{
-	public var songName:String = "";
-	public var week:Int = 0;
-	public var songCharacter:String = "";
-	public var color:Int = -7179779;
-	public var folder:String = "";
-	public var lastDifficulty:String = null;
-
-	public function new(song:String, week:Int, songCharacter:String, color:Int)
-	{
-		this.songName = song;
-		this.week = week;
-		this.songCharacter = songCharacter;
-		this.color = color;
-		this.folder = Paths.currentModDirectory;
-		if (this.folder == null)
-			this.folder = '';
-	}
 }

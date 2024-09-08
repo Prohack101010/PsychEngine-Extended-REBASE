@@ -33,7 +33,7 @@ class FreeplaySelectStateCROSS extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -73,7 +73,7 @@ class FreeplaySelectStateCROSS extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MainMenuState());
+				MusicBeatState.switchState(new MainMenuStateCROSS());
 			}
 			for (i in 0...optionShit.length)
 			{
@@ -133,7 +133,7 @@ class FreeplaySelectStateCROSS extends MusicBeatState
 			var freeplayItem:FlxSprite = new FlxSprite();
 			freeplayItem.loadGraphic(Paths.image('freeplayselect/' + str));
 			freeplayItem.origin.set();
-			freeplayItem.scale.set(MainMenuState.fuckersScale, MainMenuState.fuckersScale);
+			freeplayItem.scale.set(MainMenuStateCROSS.fuckersScale, MainMenuStateCROSS.fuckersScale);
 			freeplayItem.updateHitbox();
 			freeplayItem.alpha = 0.5;
 			freeplayItem.setPosition(120 + (i * sep), 20);
