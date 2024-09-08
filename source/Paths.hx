@@ -290,18 +290,32 @@ class Paths
 
 		#if MODS_ALLOWED
 		try {
-			for (mod in CoolUtil.coolTextFile('modsList.txt'))
-			{
-				//trace('Mod: $mod');
-				if(mod.trim().length < 1) continue;
-
-				var dat = mod.split("|");
-				list.all.push(dat[0]);
-				if (dat[1] == "1")
-					list.enabled.push(dat[0]);
-				else
-					list.disabled.push(dat[0]);
-			}
+		    if (ClientPrefs.Modpack) {
+    		    for (mod in CoolUtil.coolTextFile('modpackList.txt'))
+    			{
+    				//trace('Mod: $mod');
+    				if(mod.trim().length < 1) continue;
+    
+    				var dat = mod.split("|");
+    				list.all.push(dat[0]);
+    				if (dat[1] == "1")
+    					list.enabled.push(dat[0]);
+    				else
+    					list.disabled.push(dat[0]);
+    		}}
+			else {
+    			for (mod in CoolUtil.coolTextFile('modsList.txt'))
+    			{
+    				//trace('Mod: $mod');
+    				if(mod.trim().length < 1) continue;
+    
+    				var dat = mod.split("|");
+    				list.all.push(dat[0]);
+    				if (dat[1] == "1")
+    					list.enabled.push(dat[0]);
+    				else
+    					list.disabled.push(dat[0]);
+			}}
 		} catch(e) {
 			trace(e);
 		}
@@ -316,16 +330,28 @@ class Paths
 		var list:Array<Array<Dynamic>> = [];
 		var added:Array<String> = [];
 		try {
-			for (mod in CoolUtil.coolTextFile('modsList.txt'))
-			{
-				var dat:Array<String> = mod.split("|");
-				var folder:String = dat[0];
-				if(folder.trim().length > 0 && FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) && !added.contains(folder))
-				{
-					added.push(folder);
-					list.push([folder, (dat[1] == "1")]);
-				}
-			}
+		    if (ClientPrefs.Modpack) {
+    			for (mod in CoolUtil.coolTextFile('modpackList.txt'))
+    			{
+    				var dat:Array<String> = mod.split("|");
+    				var folder:String = dat[0];
+    				if(folder.trim().length > 0 && FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) && !added.contains(folder))
+    				{
+    					added.push(folder);
+    					list.push([folder, (dat[1] == "1")]);
+    				}
+    		}}
+			else {
+    			for (mod in CoolUtil.coolTextFile('modsList.txt'))
+    			{
+    				var dat:Array<String> = mod.split("|");
+    				var folder:String = dat[0];
+    				if(folder.trim().length > 0 && FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) && !added.contains(folder))
+    				{
+    					added.push(folder);
+    					list.push([folder, (dat[1] == "1")]);
+    				}
+			}}
 		} catch(e) {
 			trace(e);
 		}
@@ -711,6 +737,8 @@ class Paths
 	{
 		globalMods = [];
 		var path:String = 'modsList.txt';
+		if (ClientPrefs.Modpack)
+		    path = 'modpackList.txt';
 		if(FileSystem.exists(path))
 		{
 			var list:Array<String> = CoolUtil.coolTextFile(path);

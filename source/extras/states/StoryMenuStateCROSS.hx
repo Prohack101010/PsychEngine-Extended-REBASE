@@ -460,7 +460,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 				diffmechSpr.animation.play('HARD');
 			case 2:
 			    diffmechOrigX = -8;
-			    diffmechSpr.y = 175;
+			    diffmechSpr.y = 170;
 				diffmechSpr.animation.play('HELL');
 		}
 
