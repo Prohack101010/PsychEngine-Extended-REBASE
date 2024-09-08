@@ -146,6 +146,56 @@ class CoolUtil
 			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 	
+	public static function setTextBorderFromString(text:FlxText, border:String)
+	{
+		switch(border.toLowerCase().trim())
+		{
+			case 'shadow':
+				text.borderStyle = SHADOW;
+			case 'outline':
+				text.borderStyle = OUTLINE;
+			case 'outline_fast', 'outlinefast':
+				text.borderStyle = OUTLINE_FAST;
+			default:
+				text.borderStyle = NONE;
+		}
+	}
+	
+	/**
+	* Replacement for `FlxG.mouse.overlaps` because it's currently broken when using a camera with a different position or size.
+	* It will be fixed eventually by HaxeFlixel v5.4.0.
+	* 
+	* @param 	objectOrGroup The object or group being tested.
+	* @param 	camera Specify which game camera you want. If null getScreenPosition() will just grab the first global camera.
+	* @return 	Whether or not the two objects overlap.
+	*/
+	@:access(flixel.group.FlxTypedGroup.resolveGroup)
+	inline public static function mouseOverlaps(objectOrGroup:FlxBasic, ?camera:FlxCamera):Bool
+	{
+		var result:Bool = false;
+ 
+		final group = FlxTypedGroup.resolveGroup(objectOrGroup);
+		if (group != null)
+		{
+			group.forEachExists(function(basic:FlxBasic)
+			{
+				if (mouseOverlaps(basic, camera))
+				{
+					result = true;
+					return;
+				}
+			});
+		}
+		else
+		{
+			final point = FlxG.mouse.getWorldPosition(camera, FlxPoint.weak());
+			final object:FlxObject = cast objectOrGroup;
+			result = object.overlapsPoint(point, true, camera);
+		}
+ 
+		return result;
+	}
+	
 	/**
 	 *	@author BrightFyre
 	 * Gets data for a song
@@ -275,54 +325,24 @@ class CoolUtil
 				formattedName = 'Saness';
 				hasMech = "true";
 		}
-	
-	public static function setTextBorderFromString(text:FlxText, border:String)
-	{
-		switch(border.toLowerCase().trim())
+
+		var daReturn:String = 'MOTHERFUCKER';
+		switch (type.toLowerCase())
 		{
-			case 'shadow':
-				text.borderStyle = SHADOW;
-			case 'outline':
-				text.borderStyle = OUTLINE;
-			case 'outline_fast', 'outlinefast':
-				text.borderStyle = OUTLINE_FAST;
-			default:
-				text.borderStyle = NONE;
+			case "artist":
+				daReturn = artistPrefix;
+			case "bpm":
+				Conductor.bpm = (Std.parseInt(bpm));
+				daReturn = bpm;
+			case "name":
+				daReturn = formattedName;
+			case "mech":
+				daReturn = mechStuff;
+			case "hasmech":
+				trace('this song (' + song + ') has mechanics');
+				daReturn = hasMech;
 		}
-	}
-	
-	/**
-	* Replacement for `FlxG.mouse.overlaps` because it's currently broken when using a camera with a different position or size.
-	* It will be fixed eventually by HaxeFlixel v5.4.0.
-	* 
-	* @param 	objectOrGroup The object or group being tested.
-	* @param 	camera Specify which game camera you want. If null getScreenPosition() will just grab the first global camera.
-	* @return 	Whether or not the two objects overlap.
-	*/
-	@:access(flixel.group.FlxTypedGroup.resolveGroup)
-	inline public static function mouseOverlaps(objectOrGroup:FlxBasic, ?camera:FlxCamera):Bool
-	{
-		var result:Bool = false;
- 
-		final group = FlxTypedGroup.resolveGroup(objectOrGroup);
-		if (group != null)
-		{
-			group.forEachExists(function(basic:FlxBasic)
-			{
-				if (mouseOverlaps(basic, camera))
-				{
-					result = true;
-					return;
-				}
-			});
-		}
-		else
-		{
-			final point = FlxG.mouse.getWorldPosition(camera, FlxPoint.weak());
-			final object:FlxObject = cast objectOrGroup;
-			result = object.overlapsPoint(point, true, camera);
-		}
- 
-		return result;
+
+		return daReturn;
 	}
 }
