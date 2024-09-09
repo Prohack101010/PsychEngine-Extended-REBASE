@@ -5,7 +5,6 @@ import flixel.addons.ui.*; //Flixel-UI
 #end
 
 // Extra
-import indiecrossmenus.LoadingState as LoadingStateNew; //Indie Cross
 import indiecrossmenus.*; //Indie Cross Menus
 import extras.states.*; //Extra States
 import extras.substates.*; //Extra Substates
