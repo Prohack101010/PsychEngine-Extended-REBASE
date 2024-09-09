@@ -98,20 +98,11 @@ class FreeplayNightmare extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		if (FlxG.save.data.CupBeaten || Debug)
-		{
-			addSong('devils-gambit', 0, 'cupheadP3', FlxColor.fromRGB(146, 113, 253));
-		}
+		addSong('devils-gambit', 0, 'cupheadP3', FlxColor.fromRGB(146, 113, 253));
 
-		if (FlxG.save.data.SansBeaten2 || Debug)
-		{
-			addSong('bad-time', 1, 'sansP2', FlxColor.fromRGB(146, 113, 253));
-		}
+		addSong('bad-time', 1, 'sansP2', FlxColor.fromRGB(146, 113, 253));
 
-		if (FlxG.save.data.BendyBeaten || Debug)
-		{
-			addSong('despair', 2, 'bendyP2', FlxColor.fromRGB(146, 113, 253));
-		}
+		addSong('despair', 2, 'bendyP2', FlxColor.fromRGB(146, 113, 253));
 
 		bg = new FlxSprite().loadGraphic(Paths.image('BG'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -230,7 +221,7 @@ class FreeplayNightmare extends MusicBeatState
 
 	function weekIsLocked(name:String):Bool {
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
-		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
+		return false;
 	}
 
 	/*public function addWeek(songs:Array<String>, weekNum:Int, weekColor:Int, ?songCharacters:Array<String>)
@@ -282,7 +273,6 @@ class FreeplayNightmare extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE;
 		var ctrl = FlxG.keys.justPressed.CONTROL;
 
 		var shiftMult:Int = 1;
@@ -386,7 +376,7 @@ class FreeplayNightmare extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		if(space)
+		if(FlxG.keys.justPressed.SPACE || _virtualpad.buttonX.justPressed)
 		{
 
 		}

@@ -44,7 +44,6 @@ class FreeplaySelect extends MusicBeatState
 
 	var SelectionWeek:Int = 0;
 	var NoSpam:Bool = false;
-	var NightmareUnlocked:Bool = false;
 
     override function create()
 	{
@@ -83,82 +82,37 @@ class FreeplaySelect extends MusicBeatState
 		#end
 
 		//changeSelection();
+		
+		addVirtualPad(LEFT_RIGHT, A_B);
 
 		super.create();
 	}
 
 	override function update(elapsed:Float)
 	{
-		NightmareUnlocked = FlxG.save.data.NightmareUnlocked;
-
-		if (FlxG.save.data.CupBeaten || FlxG.save.data.SansBeaten2 || FlxG.save.data.BendyBeaten)
-		{
-			FlxG.save.data.NightmareUnlocked = true;
-		}
-
-		if (NightmareUnlocked || Debug )
-		{
-			nightmare.visible = true;
-		}
-		else
-		{
-		    nightmarelocked.visible = true;
-		}
+		nightmare.visible = true;
 
 		if (SelectionWeek == 0)
 		{
 			story.alpha = 1.0;
 			extras.alpha = 0.6;
-			if (!NightmareUnlocked && !Debug)
-			{
-				nightmare.alpha = 0.0;
-				nightmarelocked.alpha = 0.6;
-			}
-			else
-			{
-				nightmare.alpha = 0.6;
-				nightmarelocked.alpha = 0.0;
-			}
+			nightmare.alpha = 0.6;
+			nightmarelocked.alpha = 0.0;
 		}
 		else if (SelectionWeek == 1)
 		{
 			story.alpha = 0.6;
 			extras.alpha = 1.0;
-			if (!NightmareUnlocked && !Debug)
-			{
-				nightmare.alpha = 0.0;
-				nightmarelocked.alpha = 0.6;
-			}
-			else
-			{
-				nightmare.alpha = 0.6;
-				nightmarelocked.alpha = 0.0;
-			}
+			nightmare.alpha = 0.6;
+			nightmarelocked.alpha = 0.0;
 		}
-		else if (SelectionWeek == 2)// && !NightmareUnlocked)
-		{
-			story.alpha = 0.6;
-			extras.alpha = 0.6;
-			if (!NightmareUnlocked && !Debug)
-			{
-				nightmare.alpha = 0.0;
-				nightmarelocked.alpha = 1.0;
-			}
-			else
-			{
-				nightmare.alpha = 1.0;
-				nightmarelocked.alpha = 0.0;
-			}
-		}
-		/*
-		else if (SelectionWeek == 2 && NightmareUnlocked)
+		else if (SelectionWeek == 2)
 		{
 			story.alpha = 0.6;
 			extras.alpha = 0.6;
 			nightmare.alpha = 1.0;
-			nightmarelocked.alpha = 0.6;
+			nightmarelocked.alpha = 0.0;
 		}
-		*/
 
 		if (controls.ACCEPT)
 		{
@@ -205,7 +159,7 @@ class FreeplaySelect extends MusicBeatState
             MusicBeatState.switchState(new FreeplayBonus());
 			//NoSpam = false;
 		}
-		else if (SelectionWeek == 2 && NightmareUnlocked || Debug || FlxG.save.data.CupBeaten || FlxG.save.data.SansBeaten || FlxG.save.data.SansBeaten2 || FlxG.save.data.BendyBeaten)
+		else if (SelectionWeek == 2)
 		{
 			FlxG.sound.play(Paths.sound('confirmMenu'));
 			MusicBeatState.switchState(new FreeplayNightmare());

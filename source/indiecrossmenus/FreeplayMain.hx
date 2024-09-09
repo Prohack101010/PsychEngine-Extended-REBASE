@@ -98,39 +98,24 @@ class FreeplayMain extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		if (!FlxG.save.data.CupBeaten && !FlxG.save.data.SansBeaten && !FlxG.save.data.SansBeaten2 && !FlxG.save.data.BendyBeaten && !Debug)
-		{
-			addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253)); //to prevent crash lol
-		}
+		addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253)); //to prevent crash lol
 		//cuphead
-		if (FlxG.save.data.CupBeaten || Debug)
-		{
-			addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
-			addSong('technicolor-tussle', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
-			addSong('knockout', 0, 'cupheadP2', FlxColor.fromRGB(146, 113, 253));
-		}
+		addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
+		addSong('technicolor-tussle', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
+		addSong('knockout', 0, 'cupheadP2', FlxColor.fromRGB(146, 113, 253));
         //sans
-		if (FlxG.save.data.SansBeaten && !FlxG.save.data.SansBeaten2 || Debug)
-		{
-			addSong('whoopee', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('sansational', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('final-stretch', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-		}
-		else if (FlxG.save.data.SansBeaten2 || Debug) //sans 2
-		{
-			addSong('whoopee', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('sansational', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('burning-in-hell', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-			addSong('final-stretch', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-		}
+		addSong('whoopee', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
+		addSong('sansational', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
+		addSong('final-stretch', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
+		addSong('whoopee', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
+		addSong('sansational', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
+		addSong('burning-in-hell', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
+		addSong('final-stretch', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
 		//bendy
-		if (FlxG.save.data.BendyBeaten || Debug)
-		{
-			addSong('imminent-demise', 2, 'dad', FlxColor.fromRGB(146, 113, 253));
-			addSong('terrible-sin', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));
-			addSong('last-reel', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));
-			addSong('nightmare-run', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));		
-		}
+		addSong('imminent-demise', 2, 'dad', FlxColor.fromRGB(146, 113, 253));
+		addSong('terrible-sin', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));
+		addSong('last-reel', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));
+		addSong('nightmare-run', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));		
 
 		bg = new FlxSprite().loadGraphic(Paths.image('BG'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -249,7 +234,7 @@ class FreeplayMain extends MusicBeatState
 
 	function weekIsLocked(name:String):Bool {
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
-		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
+		return false;
 	}
 
 	/*public function addWeek(songs:Array<String>, weekNum:Int, weekColor:Int, ?songCharacters:Array<String>)
@@ -301,7 +286,6 @@ class FreeplayMain extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE;
 		var ctrl = FlxG.keys.justPressed.CONTROL;
 
 		var shiftMult:Int = 1;
@@ -405,7 +389,7 @@ class FreeplayMain extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		if(space)
+		if(FlxG.keys.justPressed.SPACE || _virtualpad.buttonX.justPressed)
 		{
 
 		}

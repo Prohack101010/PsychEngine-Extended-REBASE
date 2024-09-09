@@ -98,31 +98,16 @@ class FreeplayBonus extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		if (!FlxG.save.data.CupBeaten && !FlxG.save.data.SansBeaten && !FlxG.save.data.SansBeaten2 && !FlxG.save.data.BendyBeaten && !Debug)
-		{
-		    addSong('tutorial', -1, 'gf', FlxColor.fromRGB(146, 113, 253)); //to prevent crash lol
-		}
+		addSong('tutorial', -1, 'gf', FlxColor.fromRGB(146, 113, 253)); //to prevent crash lol
 
-		if (FlxG.save.data.CupBeaten || Debug)
-		{
-			addSong('satanic-funkin', 0, 'devil', FlxColor.fromRGB(146, 113, 253));
-		}
+		addSong('satanic-funkin', 0, 'devil', FlxColor.fromRGB(146, 113, 253));
 
-		if (FlxG.save.data.SansBeaten || Debug)
-		{
-			addSong('bonedoggle', 1, 'papyrus', FlxColor.fromRGB(146, 113, 253)); //bad-to-the-bone if you killed sans (TO BE DONE...) (it is done lol)
-		}
+		addSong('bonedoggle', 1, 'papyrus', FlxColor.fromRGB(146, 113, 253)); //bad-to-the-bone if you killed sans (TO BE DONE...) (it is done lol)
 
-		if (FlxG.save.data.SansBeaten2 || Debug)
-		{
-			addSong('bad-to-the-bone', 1, 'papyrus', FlxColor.fromRGB(146, 113, 253));
-		}
+		addSong('bad-to-the-bone', 1, 'papyrus', FlxColor.fromRGB(146, 113, 253));
 
-		if (FlxG.save.data.BendyBeaten || Debug)
-		{
-			addSong('ritual', 2, 'sammy', FlxColor.fromRGB(146, 113, 253));
-			addSong('freaky-machine', 2, 'dad', FlxColor.fromRGB(146, 113, 253));
-		}
+		addSong('ritual', 2, 'sammy', FlxColor.fromRGB(146, 113, 253));
+		addSong('freaky-machine', 2, 'dad', FlxColor.fromRGB(146, 113, 253));
 
 		bg = new FlxSprite().loadGraphic(Paths.image('BG'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -241,7 +226,7 @@ class FreeplayBonus extends MusicBeatState
 
 	function weekIsLocked(name:String):Bool {
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
-		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
+		return false;
 	}
 
 	/*public function addWeek(songs:Array<String>, weekNum:Int, weekColor:Int, ?songCharacters:Array<String>)
@@ -292,8 +277,7 @@ class FreeplayBonus extends MusicBeatState
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
-		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE;
+		var accepted = controls.ACCEPT;;
 		var ctrl = FlxG.keys.justPressed.CONTROL;
 
 		var shiftMult:Int = 1;
@@ -397,7 +381,7 @@ class FreeplayBonus extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		if(space)
+		if(FlxG.keys.justPressed.SPACE || _virtualpad.buttonX.justPressed)
 		{
 
 		}
