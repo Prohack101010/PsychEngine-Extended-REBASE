@@ -41,7 +41,7 @@ class FreeplayNightmare extends MusicBeatState
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
 
-	private var grpSongs:FlxTypedGroup<Alphabet>;
+	private var grpSongs:FlxTypedGroup<AlphabetCROSS>;
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
@@ -118,12 +118,12 @@ class FreeplayNightmare extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		grpSongs = new FlxTypedGroup<Alphabet>();
+		grpSongs = new FlxTypedGroup<AlphabetCROSS>();
 		add(grpSongs);
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new AlphabetCROSS(0, (70 * i) + 30, songs[i].songName, true, false);
+			var songText:AlphabetCROSS = new AlphabetCROSS(0, (70 * i) + 30, songs[i].songName, true, false);
 			songText.isMenuItem = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
@@ -150,7 +150,7 @@ class FreeplayNightmare extends MusicBeatState
 			add(icon);
 
 			// songText.x += 40;
-			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
+			// DONT PUT X IN THE FIRST PARAMETER OF new AlphabetCROSS() !!
 			// songText.screenCenter(X);
 		}
 		WeekData.setDirectoryFromWeek();
@@ -176,7 +176,7 @@ class FreeplayNightmare extends MusicBeatState
 		
 		changeSelection();
 
-		var swag:Alphabet = new Alphabet(1, 0, "swag");
+		var swag:AlphabetCROSS = new AlphabetCROSS(1, 0, "swag");
 
 		// JUST DOIN THIS SHIT FOR TESTING!!!
 		/* 
