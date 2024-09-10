@@ -17,8 +17,6 @@
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
-	
-	<architecture name="ARM64" exclude="ARMV7" if="android" />
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
@@ -46,7 +44,10 @@
 	<classpath name="source" />
 	
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
-	<!-- <define name="HXVLC_ALLOWED" />  --> <!-- If you want to use hxvlc Enable This -->
+	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This --> <!-- I love ios by default because not needed for android, definitely not needed for ios too but why not -KralOyuncu -->
+	<define name="INDIECROSS_SUPPORTED" if="IndieCrossSupport" />
+	<define name="OLD_VIRTUALPAD_USING" if="UseOldVirtualPad" />
+	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" if="desktop || mobile" />
@@ -57,6 +58,7 @@
 	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 	<define name="CRASH_HANDLER" if="desktop release || mobile" />
 
+    <assets path="indiecross/preload" rename="assets" if="INDIECROSS_SUPPORTED"/>/> <!-- Required menus for Indie Cross 0.6.3 port by KralOyuncu -English ded -->
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">

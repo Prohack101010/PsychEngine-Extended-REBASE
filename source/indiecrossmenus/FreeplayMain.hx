@@ -98,7 +98,6 @@ class FreeplayMain extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253)); //to prevent crash lol
 		//cuphead
 		addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
 		addSong('technicolor-tussle', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));

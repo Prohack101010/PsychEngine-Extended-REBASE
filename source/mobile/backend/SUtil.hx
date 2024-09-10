@@ -243,7 +243,7 @@ enum abstract StorageType(String) from String to String
 {
 	final forcedPath = '/storage/emulated/0/';
 	final packageNameLocal = 'com.kraloyuncu.psychextended';
-	final packageNameLocalFH = 'com.funkinhorrorteam.funkinhorror';
+	final fileLocalONLINE = 'PsychOnline';
 	final fileLocal = 'PsychEngine';
 	final fileLocalNF = 'NF Engine';
 	final fileLocalEX = 'Psych Extended'; //idk why
@@ -253,7 +253,7 @@ enum abstract StorageType(String) from String to String
 		final EXTERNAL_DATA = AndroidContext.getExternalFilesDir();
 		final EXTERNAL_OBB = AndroidContext.getObbDir();
 		final EXTERNAL_MEDIA = AndroidEnvironment.getExternalStorageDirectory() + '/Android/media/' + lime.app.Application.current.meta.get('packageName');
-		final EXTERNAL_FH = forcedPath + 'Android/data/' + packageNameLocalFH + '/files'; // pls work
+		final EXTERNAL_ONLINE = forcedPath + '.' + fileLocalONLINE; // pls work
 		final EXTERNAL = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
 		final EXTERNAL_NF = forcedPath + '.' + fileLocalNF;
 		final EXTERNAL_EX = forcedPath + '.' + fileLocalEX;
@@ -263,7 +263,7 @@ enum abstract StorageType(String) from String to String
 			case "EXTERNAL_DATA": EXTERNAL_DATA;
 			case "EXTERNAL_OBB": EXTERNAL_OBB;
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
-			case "EXTERNAL_FH": EXTERNAL_FH;
+			case "EXTERNAL_ONLINE": EXTERNAL_ONLINE;
 			case "EXTERNAL": EXTERNAL;
 			case "EXTERNAL_NF": EXTERNAL_NF;
 			case "EXTERNAL_EX": EXTERNAL_EX;
@@ -276,7 +276,7 @@ enum abstract StorageType(String) from String to String
 		final EXTERNAL_DATA = forcedPath + 'Android/data/' + packageNameLocal + '/files';
 		final EXTERNAL_OBB = forcedPath + 'Android/obb/' + packageNameLocal;
 		final EXTERNAL_MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
-		final EXTERNAL_FH = forcedPath + 'Android/data/' + packageNameLocalFH + '/files';
+		final EXTERNAL_ONLINE = forcedPath + '.' + fileLocalONLINE;
 		final EXTERNAL = forcedPath + '.' + fileLocal;
 		final EXTERNAL_NF = forcedPath + '.' + fileLocalNF;
 		final EXTERNAL_EX = forcedPath + '.' + fileLocalEX;
@@ -286,7 +286,7 @@ enum abstract StorageType(String) from String to String
 			case "EXTERNAL_DATA": EXTERNAL_DATA;
 			case "EXTERNAL_OBB": EXTERNAL_OBB;
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
-			case "EXTERNAL_FH": EXTERNAL_FH;
+			case "EXTERNAL_ONLINE": EXTERNAL_ONLINE;
 			case "EXTERNAL": EXTERNAL;
 			case "EXTERNAL_NF": EXTERNAL_NF;
 			case "EXTERNAL_EX": EXTERNAL_EX;

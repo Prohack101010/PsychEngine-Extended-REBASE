@@ -98,8 +98,6 @@ class FreeplayBonus extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		addSong('tutorial', -1, 'gf', FlxColor.fromRGB(146, 113, 253)); //to prevent crash lol
-
 		addSong('satanic-funkin', 0, 'devil', FlxColor.fromRGB(146, 113, 253));
 
 		addSong('bonedoggle', 1, 'papyrus', FlxColor.fromRGB(146, 113, 253)); //bad-to-the-bone if you killed sans (TO BE DONE...) (it is done lol)
@@ -107,7 +105,7 @@ class FreeplayBonus extends MusicBeatState
 		addSong('bad-to-the-bone', 1, 'papyrus', FlxColor.fromRGB(146, 113, 253));
 
 		addSong('ritual', 2, 'sammy', FlxColor.fromRGB(146, 113, 253));
-		addSong('freaky-machine', 2, 'dad', FlxColor.fromRGB(146, 113, 253));
+		addSong('freaky-machine', 2, 'bendyDA', FlxColor.fromRGB(146, 113, 253));
 
 		bg = new FlxSprite().loadGraphic(Paths.image('BG'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;

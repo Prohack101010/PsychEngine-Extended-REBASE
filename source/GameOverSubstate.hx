@@ -16,8 +16,6 @@ class GameOverSubstate extends MusicBeatSubstate
 	var camFollow:FlxObject;
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
-	public var cameraSpeed:Float = 1;
-	
 
 	var stageSuffix:String = "";
 
@@ -67,17 +65,9 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.setPosition(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
-		if (TitleState.IndieCrossEnabled)
-		    cameraSpeed = 5;
-		    
 		FlxG.camera.focusOn(new FlxPoint(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2)));
 		
-		if (TitleState.IndieCrossEnabled)
-		    cameraSpeed = 5;
-		    
 		add(camFollow);
-		if (TitleState.IndieCrossEnabled)
-		    cameraSpeed = 5;
 
 		#if mobile
 		addVirtualPad(NONE, A_B);

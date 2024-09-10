@@ -7,21 +7,13 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
-    public static var VirtualPadSkin:String = 'original';
     public static var FreeplayStyle:String = 'Psych';
     public static var PauseMenuStyle:String = 'Psych';
     public static var MainMenuStyle:String = '1.0';
 	public static var downScroll:Bool = false;
-	public static var wideScreen:Bool = false;
 	public static var marvelousRating:Bool = true;	
 	public static var marvelousSprite:Bool = true;	
     public static var marvelousWindow:Int = 15;
-	public static var touchmenus:Bool = false;
-	public static var Modpack:Bool = false;
-	public static var breakgetvarinarray:Bool = false;
-	public static var coloredvpad:Bool = true;
-	public static var VPadSpaceExtend:Bool = true;
-	public static var VPadShiftExtend:Bool = true;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = true;
@@ -48,17 +40,29 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
-	public static var virtualpadType:String = "New";
+	//Psych Extended
+	public static var touchmenus:Bool = false;
+	public static var Modpack:Bool = false;
+	public static var breakgetvarinarray:Bool = false;
+	//Mobile
+	public static var wideScreen:Bool = false;
 	#if android
 	public static var storageType:String = "EXTERNAL_DATA";
 	#end
-        public static var hitboxhint = false;
+	//VirtualPad
+	public static var virtualpadType:String = #if OLD_VIRTUALPAD_USING "Old" #else "New" #end;
+	public static var VirtualPadSkin:String = 'original';
+	public static var VirtualPadAlpha:Float = 0.75;
+	public static var coloredvpad:Bool = true;
+	public static var VPadSpaceExtend:Bool = true;
+	public static var VPadShiftExtend:Bool = true;
+	//Hitbox
+	public static var hitboxhint = false;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
 	public static var hitboxtype:String = 'Gradient';
 	public static var hitboxExtend:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = 0.7; //someone request this lol
-	public static var VirtualPadAlpha:Float = 0.75;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
