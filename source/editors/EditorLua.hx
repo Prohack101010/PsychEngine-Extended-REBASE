@@ -52,11 +52,7 @@ class EditorLua {
 		var result:Dynamic = LuaL.dofile(lua, script);
 		var resultStr:String = Lua.tostring(lua, result);
 		if(resultStr != null && result != 0) {
-		    #if android
-            SUtil.showPopUp("Error on .LUA script!", resultStr);
-            #else
-            SUtil.showPopUp("Error on .LUA script!", resultStr);
-            #end
+            CoolUtil.showPopUp("Error on .LUA script!", resultStr);
 			trace('Error on .LUA script! ' + resultStr);
 			lua = null;
 			return;

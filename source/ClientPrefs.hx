@@ -43,6 +43,7 @@ class ClientPrefs {
 	//Psych Extended
 	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
+	public static var IndieCrossMenus:Bool = #if INDIECROSS_SUPPORTED true #else false #end;
 	public static var breakgetvarinarray:Bool = false;
 	//Mobile
 	public static var wideScreen:Bool = false;
@@ -135,6 +136,7 @@ class ClientPrefs {
 		FlxG.save.data.PauseMenuStyle = PauseMenuStyle;
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
+		FlxG.save.data.IndieCrossMenus = IndieCrossMenus;
 		FlxG.save.data.breakgetvarinarray = breakgetvarinarray;
 		FlxG.save.data.coloredvpad = coloredvpad;
 		FlxG.save.data.VPadSpaceExtend = VPadSpaceExtend;
@@ -233,6 +235,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.Modpack != null) {
 			Modpack = FlxG.save.data.Modpack;
+		}
+		if(FlxG.save.data.IndieCrossMenus != null) {
+			IndieCrossMenus = FlxG.save.data.IndieCrossMenus;
 		}
 		if(FlxG.save.data.coloredvpad != null) {
 			coloredvpad = FlxG.save.data.coloredvpad;

@@ -29,7 +29,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var stateType:Int = 0;
@@ -68,11 +68,11 @@ class OptionsState extends MusicBeatState
 				removeVirtualPad();
 				#end
 				openSubState(new options.GraphicsSettingsSubState());
-			case 'Visuals':
+			case 'Visuals and UI':
 				#if mobile
 				removeVirtualPad();
 				#end
-				openSubState(new options.VisualsSubState());
+				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
 				#if mobile
 				removeVirtualPad();
@@ -99,7 +99,7 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 		
-		if (ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
+		if (ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;

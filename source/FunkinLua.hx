@@ -97,11 +97,7 @@ class FunkinLua {
 			var resultStr:String = Lua.tostring(lua, result);
 			if(resultStr != null && result != 0) {
 				trace('Error on lua script! ' + resultStr);
-				#if android
-                SUtil.showPopUp("Error on .LUA script!", resultStr);
-                #else
                 luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
-                #end
 				lua = null;
 				return;
 			}
@@ -2402,6 +2398,7 @@ class FunkinLua {
 			}
 			return false;
 		});
+		#if HXVLC_ALLOWED
 		Lua_helper.add_callback(lua, "startVideo", function(videoFile:String) {
 			#if VIDEOS_ALLOWED
 			if(FileSystem.exists(Paths.video(videoFile))) {
@@ -2421,6 +2418,39 @@ class FunkinLua {
 			return true;
 			#end
 		});
+		#else
+		Lua_helper.add_callback(lua, "startVideo", function(videoFile:String, ?canSkip:Bool = true) {
+			#if VIDEOS_ALLOWED
+			if(FileSystem.exists(Paths.video(videoFile)))
+			{
+				if(PlayState.instance.videoCutscene != null)
+				{
+					PlayState.instance.remove(PlayState.instance.videoCutscene);
+					PlayState.instance.videoCutscene.destroy();
+				}
+				PlayState.instance.videoCutscene = PlayState.instance.startVideo(videoFile, false, canSkip);
+				return true;
+			}
+			else
+			{
+				luaTrace('startVideo: Video file not found: ' + videoFile, false, false, FlxColor.RED);
+			}
+			return false;
+
+			#else
+			PlayState.instance.inCutscene = true;
+			new FlxTimer().start(0.1, function(tmr:FlxTimer)
+			{
+				PlayState.instance.inCutscene = false;
+				if(PlayState.instance.endingSong)
+					PlayState.instance.endSong();
+				else
+					PlayState.instance.startCountdown();
+			});
+			return true;
+			#end
+		});
+		#end
 
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
@@ -4018,7 +4048,7 @@ class HScript
 		#end
 		interp.variables.set('ShaderFilter', openfl.filters.ShaderFilter);
 		interp.variables.set('StringTools', StringTools);
-		interp.variables.set('SUtil', SUtil);
+		interp.variables.set('StorageUtil', StorageUtil);
 
 		interp.variables.set('setVar', function(name:String, value:Dynamic)
 		{

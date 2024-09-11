@@ -556,32 +556,40 @@ class Paths
 	}
 	
 	public static var currentTrackedSounds:Map<String, Sound> = [];
-	public static function returnSound(path:String, key:String, ?library:String) {
+	public static function returnSound(path:Null<String>, key:String, ?library:String) {
 		#if MODS_ALLOWED
-		var file:String = modsSounds(path, key);
+		var modLibPath:String = '';
+		if (library != null) modLibPath = '$library/';
+		if (path != null) modLibPath += '$path';
+
+		var file:String = modsSounds(modLibPath, key);
 		if(FileSystem.exists(file)) {
-			if(!currentTrackedSounds.exists(file)) {
+			if(!currentTrackedSounds.exists(file))
+			{
 				currentTrackedSounds.set(file, Sound.fromFile(file));
+				//trace('precached mod sound: $file');
 			}
-			localTrackedAssets.push(key);
+			localTrackedAssets.push(file);
 			return currentTrackedSounds.get(file);
 		}
 		#end
+
 		// I hate this so god damn much
-		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		var gottenPath:String = '$key.$SOUND_EXT';
+		if(path != null) gottenPath = '$path/$gottenPath';
+		gottenPath = getPath(gottenPath, SOUND, library);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
-		#if MODS_ALLOWED
-			currentTrackedSounds.set(gottenPath, Sound.fromFile(gottenPath));
-		#else
 		{
-			var folder:String = '';
-			if(path == 'songs') folder = 'songs:';
-
-			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library)));
+			var retKey:String = (path != null) ? '$path/$key' : key;
+			retKey = ((path == 'songs') ? 'songs:' : '') + getPath('$retKey.$SOUND_EXT', SOUND, library);
+			if(OpenFlAssets.exists(retKey, SOUND))
+			{
+				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(retKey));
+				//trace('precached vanilla sound: $retKey');
+			}
 		}
-		#end
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
 	}

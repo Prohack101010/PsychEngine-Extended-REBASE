@@ -32,7 +32,7 @@ import openfl.Lib;
 import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
-import mobile.backend.SUtil;
+import mobile.backend.StorageUtil;
 import mobile.options.MobileOptionsSubState;
 
 using StringTools;
@@ -41,7 +41,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 {
     #if android
 	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL", "EXTERNAL_EX", "EXTERNAL_NF", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL_ONLINE"];
-	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
+	var externalPaths:Array<String> = StorageUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 	
@@ -233,7 +233,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		if (ClientPrefs.storageType != lastStorageType) {
 			onStorageChange();
 			ClientPrefs.saveSettings();
-			SUtil.showPopUp('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			CoolUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
 			lime.system.System.exit(0);
 		}
 		#end
@@ -241,7 +241,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		/*
 		if (ClientPrefs.virtualpadType != lastVirtualPadType) {
 		    ClientPrefs.saveSettings();
-		    SUtil.showPopUp('Notice!', 'VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+		    CoolUtil.showPopUp('VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
 		    lime.system.System.exit(0);
 		}
 		*/
@@ -264,7 +264,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	/*
 	    if (ClientPrefs.virtualpadType != lastVirtualPadType) {
 	        ClientPrefs.saveSettings();
-		    SUtil.showPopUp('Notice!', 'If you want to change virtualpad skin you needed restart the game!!\nPress OK to close the game.');
+		    CoolUtil.showPopUp('If you want to change virtualpad skin you needed restart the game!!\nPress OK to close the game.', 'Notice!');
 		    lime.system.System.exit(0);
 		}
 		else

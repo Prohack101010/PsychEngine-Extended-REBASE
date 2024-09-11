@@ -493,7 +493,7 @@ class TitleState extends MusicBeatState
     				} else {
     					if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
                 			MusicBeatState.switchState(new MainMenuStateOld());
-                		#if INDIECROSS_SUPPORTED
+                		#if INDIECROSS_FORCED
                 	    else if (Paths.currentModDirectory == 'Indie Cross v1.5 2.2.2' || Paths.currentModDirectory == 'Indie-Cross-v1.5-0.6.3')
                 	    {
                 	        TitleState.IndieCrossEnabled = true;

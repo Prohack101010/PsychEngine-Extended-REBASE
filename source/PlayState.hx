@@ -75,11 +75,13 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-#if (hxCodec == "2.6.0")
-import VideoHandler as MP4Handler;
-#else
-import vlc.MP4Handler;
+#if (hxCodec >= "3.0.0") import hxcodec.flixel.FlxVideo as MP4Handler;
+#elseif (hxCodec >= "2.6.1") import hxcodec.VideoHandler as MP4Handler;
+#elseif (hxCodec == "2.6.0") import MP4Handler;
+#else import vlc.MP4Handler; #end
 #end
+#if HXVLC_ALLOWED
+import objects.VideoSprite;
 #end
 
 using StringTools;
@@ -1649,6 +1651,64 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
+    #if HXVLC_ALLOWED
+	public var videoCutscene:VideoSprite = null;
+	public function startVideo(name:String, forMidSong:Bool = false, canSkip:Bool = true, loop:Bool = false, playOnLoad:Bool = true)
+	{
+		#if VIDEOS_ALLOWED
+		inCutscene = true;
+		canPause = false;
+
+		var foundFile:Bool = false;
+		var fileName:String = Paths.video(name);
+
+		#if sys
+		if (FileSystem.exists(fileName))
+		#else
+		if (OpenFlAssets.exists(fileName))
+		#end
+		foundFile = true;
+
+		if (foundFile)
+		{
+			videoCutscene = new VideoSprite(fileName, forMidSong, canSkip, loop);
+
+			// Finish callback
+			if (!forMidSong)
+			{
+				function onVideoEnd()
+				{
+					if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null && !endingSong && !isCameraOnForcedPos)
+					{
+						moveCameraSection();
+						FlxG.camera.snapToTarget();
+					}
+					videoCutscene = null;
+					canPause = false;
+					inCutscene = false;
+					startAndEnd();
+				}
+				videoCutscene.finishCallback = onVideoEnd;
+				videoCutscene.onSkip = onVideoEnd;
+			}
+			add(videoCutscene);
+
+			if (playOnLoad)
+				videoCutscene.videoSprite.play();
+			return videoCutscene;
+		}
+		#if LUA_ALLOWED
+		else addTextToDebug("Video not found: " + fileName, FlxColor.RED);
+		#else
+		else FlxG.log.error("Video not found: " + fileName);
+		#end
+		#else
+		FlxG.log.warn('Platform not supported!');
+		startAndEnd();
+		#end
+		return null;
+	}
+	#else
 	public function startVideo(name:String)
 	{
 		#if VIDEOS_ALLOWED
@@ -1688,6 +1748,7 @@ class PlayState extends MusicBeatState
 		return;
 		#end
 	}
+	#end
 
 	function startAndEnd()
 	{

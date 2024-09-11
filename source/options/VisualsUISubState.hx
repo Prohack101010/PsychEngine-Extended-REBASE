@@ -27,7 +27,7 @@ import Controls;
 
 using StringTools;
 
-class VisualsSubState extends BaseOptionsMenu
+class VisualsUISubState extends BaseOptionsMenu
 {
 	public function new()
 	{
@@ -57,6 +57,15 @@ class VisualsSubState extends BaseOptionsMenu
 			'Psych',
 			['Psych', 'NovaFlare']);
 		addOption(option);
+		
+		#if INDIECROSS_FORCED
+		var option:Option = new Option('Indie Cross Menus',
+			'If unchecked, Indie Cross Mod not using Custom Menus (if you have any bug disable this).',
+			'hideHud',
+			'bool',
+			true);
+		addOption(option);
+		#end
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
