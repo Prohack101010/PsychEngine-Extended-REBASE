@@ -4,6 +4,10 @@ import Paths;
 import flixel.addons.ui.*; //Flixel-UI
 #end
 
+//Shaders
+import shaders.*;
+import shaders.flixel.system.FlxShader;
+
 // Extra
 import indiecrossmenus.*; //Indie Cross Menus
 import extras.states.*; //Extra States
@@ -35,6 +39,7 @@ import js.html.*;
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxNewHitbox;
 import mobile.flixel.FlxVirtualPad;
+import mobile.input.*;
 import mobile.backend.*;
 import mobile.flixel.*;
 import mobile.objects.*;
