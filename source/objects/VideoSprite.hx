@@ -23,6 +23,9 @@ class VideoSprite extends FlxSpriteGroup {
 	public var waiting:Bool = false;
 	public var didPlay:Bool = false;
 	private var controls(get, never):Controls;
+	
+	inline function get_controls():Controls
+		return PlayerSettings.player1.controls;
 
 	public function new(videoName:String, isWaiting:Bool, canSkip:Bool = false, shouldLoop:Dynamic = false) {
 		super();
