@@ -58,7 +58,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			['Psych', 'NovaFlare']);
 		addOption(option);
 		
-		#if INDIECROSS_FORCED
+		#if !INDIECROSS_FORCED
 		var option:Option = new Option('Indie Cross Menus',
 			'If unchecked, Indie Cross Mod not using Custom Menus (if you have any bug disable this).',
 			'hideHud',

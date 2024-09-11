@@ -250,10 +250,10 @@ class Paths
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		var songdiffKey:String = '${formatToSongPath(song)}/Voices-$diffvoice';
         
-		var voices = returnSound('songs', songKey);
+		var voices = returnSound('songs', songKey, 'songs');
 		try
 		{
-		    voices = returnSound('songs', songdiffKey);
+		    voices = returnSound('songs', songdiffKey, 'songs');
 		}
 		catch(e:Dynamic) {}
 		
@@ -267,10 +267,10 @@ class Paths
 		var songdiffKey:String = '${formatToSongPath(song)}/Inst-$diffvoice';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 		
-		var inst = returnSound('songs', songKey);
+		var inst = returnSound('songs', songKey, 'songs');
 		try
 		{
-		    inst = returnSound('songs', songdiffKey);
+		    inst = returnSound('songs', songdiffKey, 'songs');
 		}
 		catch(e:Dynamic) {}
 		

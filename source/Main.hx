@@ -74,9 +74,6 @@ class Main extends Sprite
 		{
 			Lib.current.stage.addEventListener(Event.RESIZE, init);
 		}
-		#if VIDEOS_ALLOWED
-		hxvlc.util.Handle.init(#if (hxvlc >= "1.8.0")  ['--no-lua'] #end);
-		#end
 	}
 
 	private function init(?E:Event):Void
@@ -107,8 +104,6 @@ class Main extends Sprite
 		if (game.zoom == -1.0)
 			game.zoom = 1.0;
 		#end
-		
-		WeekData.loadTheFirstEnabledMod();
 	
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
