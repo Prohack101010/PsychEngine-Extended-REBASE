@@ -22,6 +22,7 @@ class VideoSprite extends FlxSpriteGroup {
 
 	public var waiting:Bool = false;
 	public var didPlay:Bool = false;
+	private var controls(get, never):Controls;
 
 	public function new(videoName:String, isWaiting:Bool, canSkip:Bool = false, shouldLoop:Dynamic = false) {
 		super();
@@ -112,7 +113,7 @@ class VideoSprite extends FlxSpriteGroup {
 	{
 		if(canSkip)
 		{
-			if(Controls.ACCEPT || FlxG.android.justReleased.BACK)
+			if(controls.ACCEPT || FlxG.android.justReleased.BACK)
 			{
 				holdingTime = Math.max(0, Math.min(_timeToSkip, holdingTime + elapsed));
 			}
