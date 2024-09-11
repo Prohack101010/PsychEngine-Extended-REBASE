@@ -42,7 +42,7 @@ class VideoSprite extends FlxSpriteGroup {
 
 		// initialize sprites
 		videoSprite = new FlxVideoSprite();
-		videoSprite.antialiasing = ClientPrefs.data.antialiasing;
+		videoSprite.antialiasing = ClientPrefs.globalAntialiasing;
 		add(videoSprite);
 		if(canSkip) this.canSkip = true;
 
@@ -112,7 +112,7 @@ class VideoSprite extends FlxSpriteGroup {
 	{
 		if(canSkip)
 		{
-			if(Controls.instance.pressed('accept'))
+			if(Controls.ACCEPT || FlxG.android.justReleased.BACK)
 			{
 				holdingTime = Math.max(0, Math.min(_timeToSkip, holdingTime + elapsed));
 			}
