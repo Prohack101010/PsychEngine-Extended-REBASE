@@ -3025,7 +3025,7 @@ class FunkinLua {
 			if (addToCustomSubstate)
 			{
 				if (PlayState.instance.luaTouchPad != null || !PlayState.instance.members.contains(PlayState.instance.luaTouchPad))
-					CustomSubstate.insertLuaTpad(posAtCustomSubstate);
+					FunkinLua.insertLuaTpad(posAtCustomSubstate);
 			}
 			else
 				PlayState.instance.addLuaTouchPad();
@@ -4030,16 +4030,13 @@ class HScript
 	
 	public static function insertLuaTpad(?pos:Int = -1)
 	{
-		if(instance != null)
-		{
-			var tagObject:FlxObject = PlayState.instance.luaTouchPad;
+		var tagObject:FlxObject = PlayState.instance.luaTouchPad;
 
-			if(tagObject != null)
-			{
-				if(pos < 0) instance.add(tagObject);
-				else instance.insert(pos, tagObject);
-				return true;
-			}
+		if(tagObject != null)
+		{
+			if(pos < 0) instance.add(tagObject);
+			else instance.insert(pos, tagObject);
+			return true;
 		}
 		return false;
 	}

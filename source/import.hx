@@ -34,6 +34,16 @@ import sys.io.*;
 import js.html.*;
 #end
 
+//Lua VirtualPad
+import mobile.objects.MobileControls;
+import mobile.objects.IMobileControls;
+import mobile.objects.TouchPad;
+import mobile.objects.TouchButton;
+import mobile.input.MobileInputID;
+import mobile.backend.MobileData;
+import mobile.input.MobileInputManager;
+import mobile.backend.MobileData;
+
 // Mobile
 #if mobile
 import mobile.flixel.FlxHitbox;
