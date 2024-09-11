@@ -85,7 +85,7 @@ class MobileData
 	{
 		// Dynamic Controls Color
 		var data:Dynamic;
-		data = ClientPrefsdefault;
+		data = ClientPrefs;
 
 		buttonsInstance.buttonLeft.color = data.arrowRGB[0][0];
 		buttonsInstance.buttonDown.color = data.arrowRGB[1][0];

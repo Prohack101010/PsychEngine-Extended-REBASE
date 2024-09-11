@@ -4034,8 +4034,8 @@ class HScript
 
 		if(tagObject != null)
 		{
-			if(pos < 0) instance.add(tagObject);
-			else instance.insert(pos, tagObject);
+			if(pos < 0) PlayState.instance.add(tagObject);
+			else PlayState.instance.insert(pos, tagObject);
 			return true;
 		}
 		return false;

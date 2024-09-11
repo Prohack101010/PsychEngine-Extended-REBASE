@@ -165,7 +165,7 @@ class Paths
 		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);
 	}
 
-	inline static function getLibraryPathForce(file:String, library:String, ?level:String)
+	inline public static function getLibraryPathForce(file:String, library:String, ?level:String)
 	{
 		if(level == null) level = library;
 		var returnPath = '$library:assets/$level/$file';
@@ -806,6 +806,27 @@ class Paths
 			}
 		}
 		return globalMods;
+	}
+	
+	public static function readDirectory(directory:String):Array<String>
+	{
+		#if MODS_ALLOWED
+		return FileSystem.readDirectory(directory);
+		#else
+		var dirs:Array<String> = [];
+		for(dir in Assets.list().filter(folder -> folder.startsWith(directory)))
+		{
+			@:privateAccess
+			for(library in lime.utils.Assets.libraries.keys())
+			{
+				if(library != 'default' && Assets.exists('$library:$dir') && (!dirs.contains('$library:$dir') || !dirs.contains(dir)))
+					dirs.push('$library:$dir');
+				else if(Assets.exists(dir) && !dirs.contains(dir))
+					dirs.push(dir);
+			}
+		}
+		return dirs;
+		#end
 	}
 
 	static public function getModDirectories():Array<String> {
