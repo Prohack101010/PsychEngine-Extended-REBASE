@@ -74,11 +74,11 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-#if VIDEOS_ALLOWED
-#if (hxCodec >= "3.0.0") import hxcodec.flixel.FlxVideo as MP4Handler;
-#elseif (hxCodec >= "2.6.1") import hxcodec.VideoHandler as MP4Handler;
+#if (VIDEOS_ALLOWED && !HXVLC_ALLOWED)
+#if (hxCodec >= "3.0.0") import hxcodec.flixel.FlxVideo as VideoSprite;
+#elseif (hxCodec >= "2.6.1") import hxcodec.VideoHandler as VideoSprite;
 #elseif (hxCodec == "2.6.0") import MP4Handler;
-#else import vlc.MP4Handler; #end
+#else import vlc.MP4Handler as VideoSprite; #end
 #end
 #if HXVLC_ALLOWED
 import objects.VideoSprite;
@@ -1726,7 +1726,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		var video:MP4Handler = new MP4Handler();
+		var video:VideoSprite = new VideoSprite();
 		#if (hxCodec < "3.0.0")
 		video.playVideo(filepath);
 		video.finishCallback = function()
