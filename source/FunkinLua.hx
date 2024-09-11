@@ -3018,6 +3018,23 @@ class FunkinLua {
 		{
 			PlayState.instance.makeLuaVirtualPad(DPadMode, ActionMode);
 		});
+		
+		Lua_helper.add_callback(lua, "addTouchPad", (DPadMode:String, ActionMode:String, ?addToCustomSubstate:Bool = false, ?posAtCustomSubstate:Int = -1) ->
+		{
+			PlayState.instance.makeLuaTouchPad(DPadMode, ActionMode);
+			if (addToCustomSubstate)
+			{
+				if (PlayState.instance.luaTouchPad != null || !PlayState.instance.members.contains(PlayState.instance.luaTouchPad))
+					CustomSubstate.insertLuaTpad(posAtCustomSubstate);
+			}
+			else
+				PlayState.instance.addLuaTouchPad();
+		});
+
+		Lua_helper.add_callback(lua, "removeTouchPad", () ->
+		{
+			PlayState.instance.removeLuaTouchPad();
+		});
 
 		Lua_helper.add_callback(lua, "removeVirtualPad", () ->
 		{
@@ -4009,6 +4026,22 @@ class HScript
 			}
 			return false;
 		});
+	}
+	
+	public static function insertLuaTpad(?pos:Int = -1)
+	{
+		if(instance != null)
+		{
+			var tagObject:FlxObject = PlayState.instance.luaTouchPad;
+
+			if(tagObject != null)
+			{
+				if(pos < 0) instance.add(tagObject);
+				else instance.insert(pos, tagObject);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public function execute(codeToRun:String):Dynamic

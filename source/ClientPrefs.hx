@@ -117,28 +117,9 @@ class ClientPrefs {
 		'debug_2'		=> [EIGHT, NONE]
 	];
 	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
-	
-	public static var mobileBinds:Map<String, Array<MobileInputID>> = [
-		'note_up'		=> [noteUP, UP2],
-		'note_left'		=> [noteLEFT, LEFT2],
-		'note_down'		=> [noteDOWN, DOWN2],
-		'note_right'	=> [noteRIGHT, RIGHT2],
-
-		'ui_up'			=> [UP, noteUP],
-		'ui_left'		=> [LEFT, noteLEFT],
-		'ui_down'		=> [DOWN, noteDOWN],
-		'ui_right'		=> [RIGHT, noteRIGHT],
-
-		'accept'		=> [A],
-		'back'			=> [B],
-		'pause'			=> [#if android NONE #else P #end],
-		'reset'			=> [NONE]
-	];
-	public static var defaultMobileBinds:Map<String, Array<MobileInputID>> = null;
 
 	public static function loadDefaultKeys() {
 		defaultKeys = keyBinds.copy();
-		defaultMobileBinds = mobileBinds.copy();
 		//trace(defaultKeys);
 	}
 
@@ -212,7 +193,6 @@ class ClientPrefs {
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v2' , CoolUtil.getSavePath()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
 		save.data.customControls = keyBinds;
-		save.data.customMobileControls = mobileBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
 	}
@@ -424,13 +404,6 @@ class ClientPrefs {
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
 			for (control => keys in loadedControls) {
 				keyBinds.set(control, keys);
-			}
-			reloadControls();
-		}
-		if(save != null && save.data.customMobileControls != null) {
-			var loadedControls:Map<String, Array<MobileInputID>> = save.data.customMobileControls;
-			for (control => keys in loadedControls) {
-				mobileBinds.set(control, keys);
 			}
 			reloadControls();
 		}

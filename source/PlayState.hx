@@ -91,6 +91,7 @@ class PlayState extends MusicBeatState
 	
 	#if mobile
 	public var luaVirtualPad:FlxVirtualPad;
+	public var luaTouchPad:TouchPad;
 	#end
 	
 	public static var ratingStuff:Array<Dynamic> = [
@@ -3475,6 +3476,32 @@ class PlayState extends MusicBeatState
 	    removeMobileControls();
 	}
     */
+    
+    public function makeLuaTouchPad(DPadMode:String, ActionMode:String) {
+		if(members.contains(luaTouchPad)) return;
+
+		if(!variables.exists("luaTouchPad"))
+			variables.set("luaTouchPad", luaTouchPad);
+
+		luaTouchPad = new TouchPad(DPadMode, ActionMode, NONE);
+		luaTouchPad.alpha = ClientPrefs.VirtualPadAlpha;
+	}
+	
+	public function addLuaTouchPad() {
+		if(luaTouchPad == null || members.contains(luaTouchPad)) return;
+
+		var target = FunkinLua.getInstance();
+		target.insert(target.members.length + 1, luaTouchPad);
+	}
+
+	public function removeLuaTouchPad() {
+		if (luaTouchPad != null) {
+			luaTouchPad.kill();
+			luaTouchPad.destroy();
+			remove(luaTouchPad);
+			luaTouchPad = null;
+		}
+	}
     
     public function makeLuaVirtualPad(DPadMode:String, ActionMode:String) {
 		if (luaVirtualPad != null)
