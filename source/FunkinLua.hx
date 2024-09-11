@@ -3823,6 +3823,19 @@ class FunkinLua {
 				return coverMeInPiss;
 	    }
 	}
+	
+	public static function insertLuaTpad(?pos:Int = -1)
+	{
+		var tagObject:FlxObject = PlayState.instance.luaTouchPad;
+
+		if(tagObject != null)
+		{
+			if(pos < 0) PlayState.instance.add(tagObject);
+			else PlayState.instance.insert(pos, tagObject);
+			return true;
+		}
+		return false;
+	}
 
 	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
 	{
@@ -4026,19 +4039,6 @@ class HScript
 			}
 			return false;
 		});
-	}
-	
-	public static function insertLuaTpad(?pos:Int = -1)
-	{
-		var tagObject:FlxObject = PlayState.instance.luaTouchPad;
-
-		if(tagObject != null)
-		{
-			if(pos < 0) PlayState.instance.add(tagObject);
-			else PlayState.instance.insert(pos, tagObject);
-			return true;
-		}
-		return false;
 	}
 
 	public function execute(codeToRun:String):Dynamic
