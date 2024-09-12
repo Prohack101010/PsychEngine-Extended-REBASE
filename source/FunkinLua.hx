@@ -97,7 +97,11 @@ class FunkinLua {
 			var resultStr:String = Lua.tostring(lua, result);
 			if(resultStr != null && result != 0) {
 				trace('Error on lua script! ' + resultStr);
+                #if android
+                StorageUtil.showPopUp(resultStr, "Error on .LUA script!");
+                #else
                 luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
+                #end
 				lua = null;
 				return;
 			}
