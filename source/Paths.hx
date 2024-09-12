@@ -165,7 +165,7 @@ class Paths
 		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);
 	}
 
-	inline static function getLibraryPathForce(file:String, library:String)
+	inline public static function getLibraryPathForce(file:String, library:String)
 	{
 		var returnPath = '$library:assets/$library/$file';
 		return returnPath;
@@ -333,7 +333,7 @@ class Paths
 		return list;
 	}
 	
-	static public function cacheBitmap(file:String, ?bitmap:BitmapData = null,)
+	static public function cacheBitmap(file:String, ?bitmap:BitmapData = null)
 	{
 		if(bitmap == null)
 		{
@@ -553,6 +553,27 @@ class Paths
 		#end
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
+	}
+	
+	public static function readDirectory(directory:String):Array<String>
+	{
+		#if MODS_ALLOWED
+		return FileSystem.readDirectory(directory);
+		#else
+		var dirs:Array<String> = [];
+		for(dir in Assets.list().filter(folder -> folder.startsWith(directory)))
+		{
+			@:privateAccess
+			for(library in lime.utils.Assets.libraries.keys())
+			{
+				if(library != 'default' && Assets.exists('$library:$dir') && (!dirs.contains('$library:$dir') || !dirs.contains(dir)))
+					dirs.push('$library:$dir');
+				else if(Assets.exists(dir) && !dirs.contains(dir))
+					dirs.push(dir);
+			}
+		}
+		return dirs;
+		#end
 	}
 	
 	public static function returnSoundString(path:String, key:String, ?library:String)
