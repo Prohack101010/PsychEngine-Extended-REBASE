@@ -44,6 +44,9 @@ import mobile.backend.MobileData;
 import mobile.input.MobileInputManager;
 import mobile.backend.MobileData;
 
+// Desktop
+import Discord
+
 // Mobile no #if Mobile because it brokes windows build
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxNewHitbox;
