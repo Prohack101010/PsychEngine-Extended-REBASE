@@ -2999,6 +2999,7 @@ class FunkinLua {
 			MusicBeatState.mobilec.visible = enabled;
 			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
 		});
+		#end
 		
 		/*
 		Lua_helper.add_callback(lua, "ExtraHitboxType", function(type:String):Void //Only Hitbox For Now
@@ -3051,7 +3052,6 @@ class FunkinLua {
 			}
 			PlayState.instance.addLuaVirtualPadCamera();
 		});
-		#end
 		#if android
 		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
 		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
