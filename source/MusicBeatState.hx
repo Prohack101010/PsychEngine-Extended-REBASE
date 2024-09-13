@@ -20,11 +20,8 @@ import flixel.FlxCamera;
 import flixel.FlxBasic;
 import backend.PsychCamera;
 
-#if mobile
 import flixel.input.actions.FlxActionInput;
 import mobile.flixel.FlxVirtualPad;
-#end
-import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;
 
 class MusicBeatState extends FlxUIState
@@ -45,7 +42,6 @@ class MusicBeatState extends FlxUIState
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
-	#if mobile
 	var _virtualpad:FlxVirtualPad;
 	public static var mobilec:MobileControls;
 	
