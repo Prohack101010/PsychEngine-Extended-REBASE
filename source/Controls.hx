@@ -10,11 +10,12 @@ import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
+import mobile.flixel.FlxButton;
 
 #if mobile
 import flixel.group.FlxGroup;
 import mobile.flixel.FlxVirtualPad;
-import mobile.flixel.FlxButton;
+
 import flixel.ui.FlxButton as FlxButtonOld;
 import mobile.flixel.FlxButton as FlxNewButton;
 #end
