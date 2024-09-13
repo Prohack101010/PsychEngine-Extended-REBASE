@@ -123,7 +123,6 @@ class MusicBeatState extends FlxUIState
 		FlxG.cameras.add(camvpadcontrol, false);
 		_virtualpad.cameras = [camvpadcontrol];
 	}
-	#end
 	
 	override function destroy() {
 		if (trackedinputsNOTES.length > 0)
