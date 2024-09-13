@@ -221,6 +221,7 @@ class FunkinLua {
 		set('noResetButton', ClientPrefs.noReset);
 		set('lowQuality', ClientPrefs.lowQuality);
 		set('shadersEnabled', ClientPrefs.shaders);
+		set('IndieCrossEnabled', TitleState.IndieCrossEnabled);
 		set('scriptName', scriptName);
 		set('currentModDirectory', Paths.currentModDirectory);
 
