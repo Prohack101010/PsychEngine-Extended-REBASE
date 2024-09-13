@@ -51,7 +51,7 @@ class ClientPrefs {
 	public static var storageType:String = "EXTERNAL_DATA";
 	#end
 	//VirtualPad
-	public static var virtualpadType:String = #if OLD_VIRTUALPAD_USING "Old" #else "New" #end;
+	public static var virtualpadType:String = "New";
 	public static var VirtualPadSkin:String = 'original';
 	public static var VirtualPadAlpha:Float = 0.75;
 	public static var coloredvpad:Bool = true;

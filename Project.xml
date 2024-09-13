@@ -45,10 +45,11 @@
 	
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
 	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This --> <!-- I love ios by default because not needed for android, definitely not needed for ios too but why not -KralOyuncu -->
-	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -Bruh I forgot to remove if mobile -->
+	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
 	<define name="INDIECROSS_FORCED" if="desktop" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MOD -->
 	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
-	<define name="OLD_VIRTUALPAD_USING" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO USE NEW VIRTUALPAD TYPE -->
+	<!-- I Hate My Friends Because They Want This but I dont want to use this -->
+	<define name="USE_OLD_VIRTUALPAD" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO USE NEW VIRTUALPAD TYPE -->
 	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
