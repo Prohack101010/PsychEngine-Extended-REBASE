@@ -45,10 +45,10 @@ import mobile.input.MobileInputManager;
 import mobile.backend.MobileData;
 
 // Mobile
-#if mobile
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxNewHitbox;
 import mobile.flixel.FlxVirtualPad;
+#if mobile
 import mobile.input.*;
 import mobile.backend.*;
 import mobile.flixel.*;
