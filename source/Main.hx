@@ -110,7 +110,7 @@ class Main extends Sprite
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		
 		//Test
-		#if OLD_VIRTUALPAD_USING ClientPrefs.virtualpadType = "Old" #else ClientPrefs.virtualpadType = "New" #end
+		ClientPrefs.virtualpadType = #if OLD_VIRTUALPAD_USING "Old"; #else "New"; #end
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
