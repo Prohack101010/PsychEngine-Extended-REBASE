@@ -44,11 +44,10 @@ import mobile.backend.MobileData;
 import mobile.input.MobileInputManager;
 import mobile.backend.MobileData;
 
-// Mobile
+// Mobile no #if Mobile because it brokes windows build
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxNewHitbox;
 import mobile.flixel.FlxVirtualPad;
-#if mobile
 import mobile.input.*;
 import mobile.backend.*;
 import mobile.flixel.*;
@@ -58,7 +57,6 @@ import mobile.states.*;
 import mobile.substates.*;
 import mobile.psychlua.*;
 import mobile.backend.Data;
-#end
 
 // Android
 #if android
