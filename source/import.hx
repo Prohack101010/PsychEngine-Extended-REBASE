@@ -47,7 +47,7 @@ import mobile.backend.MobileData;
 // Desktop
 import Discord
 
-// Mobile no #if Mobile because it brokes windows build
+// Mobile no if Mobile because it brokes windows build
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxNewHitbox;
 import mobile.flixel.FlxVirtualPad;
