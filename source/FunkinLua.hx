@@ -2992,7 +2992,7 @@ class FunkinLua {
 				period = 0;
 			return lime.ui.Haptic.vibrate(period, duration);
 		});
-		
+
 		#if mobile
 		Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
 		{
@@ -3052,7 +3052,7 @@ class FunkinLua {
 			PlayState.instance.addLuaVirtualPadCamera();
 		});
 		#end
-		
+		#if android
 		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
 		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
 		Lua_helper.add_callback(lua, "isTablet", AndroidTools.isTablet());
