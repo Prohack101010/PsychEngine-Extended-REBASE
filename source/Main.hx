@@ -112,11 +112,11 @@ class Main extends Sprite
 		//Fix USE_OLD_VIRTUALPAD
 		#if USE_OLD_VIRTUALPAD
 		if (ClientPrefs.virtualpadType == 'New')
-		    ClientPrefs.VirtualPadSkin = 'original'
+		    ClientPrefs.VirtualPadSkin = 'original';
 		ClientPrefs.virtualpadType = "Old";
 		#else
 		if (ClientPrefs.virtualpadType == 'Old')
-		    ClientPrefs.VirtualPadSkin = 'original'
+		    ClientPrefs.VirtualPadSkin = 'original';
 		ClientPrefs.virtualpadType = "New";
 		#end
 
