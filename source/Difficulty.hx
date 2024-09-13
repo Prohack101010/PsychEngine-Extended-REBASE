@@ -14,7 +14,7 @@ class Difficulty
 	];
 	public static var list:Array<String> = [];
 	private static var defaultDifficulty(default, never):String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
-	private static var defaultIndieCrossDifficulty(default, never):String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode for indie cross
+	private static var defaultIndieCrossDifficulty(default, never):String = 'Hard'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode for indie cross
 
 	inline public static function getFilePath(num:Null<Int> = null)
 	{
