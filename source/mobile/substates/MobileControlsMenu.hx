@@ -181,16 +181,6 @@ class MobileControlsMenu extends MusicBeatState
 			}
 			trackbutton(touch);
 		}
-		
-		#if desktop
-		if (FlxG.android.justReleased.BACK)
-		{
-			save();
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new options.OptionsState());
-		}
-		#end
 	}
 
 	function changeSelection(change:Int = 0)
