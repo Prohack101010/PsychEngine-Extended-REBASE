@@ -416,14 +416,10 @@ class FreeplayMain extends MusicBeatState
 				colorTween.cancel();
 			}
 			
-			IndieCrossLoading.stopMusic = true;
-			
 			if (FlxG.keys.pressed.SHIFT){
-			    IndieCrossLoading.target = new ChartingState();
-				MusicBeatState.switchState(new IndieCrossLoading());
+				IndieCrossLoading.loadAndSwitchState(new ChartingState());
 			}else{
-			    IndieCrossLoading.target = new PlayState();
-				MusicBeatState.switchState(new IndieCrossLoading());
+				IndieCrossLoading.loadAndSwitchState(new PlayState());
 			}
 
 			FlxG.sound.music.volume = 0;
