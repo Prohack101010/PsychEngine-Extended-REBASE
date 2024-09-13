@@ -3116,6 +3116,7 @@ class FunkinLua {
 			if (text != null) return luaTrace('setActivityTitle: No text specified.');
 			PsychJNI.setActivityTitle(text);
 		});
+		#end
 		
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
 
