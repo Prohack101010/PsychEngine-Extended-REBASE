@@ -11,13 +11,12 @@ import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 import mobile.flixel.FlxButton;
+import flixel.ui.FlxButton as FlxButtonOld;
+import mobile.flixel.FlxButton as FlxNewButton;
 
 #if mobile
 import flixel.group.FlxGroup;
 import mobile.flixel.FlxVirtualPad;
-
-import flixel.ui.FlxButton as FlxButtonOld;
-import mobile.flixel.FlxButton as FlxNewButton;
 #end
 
 #if (haxe >= "4.0.0")
