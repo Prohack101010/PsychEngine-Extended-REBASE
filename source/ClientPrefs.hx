@@ -43,7 +43,7 @@ class ClientPrefs {
 	//Psych Extended
 	public static var touchmenus:Bool = false;
 	public static var Modpack:Bool = false;
-	public static var IndieCrossMenus:Bool = #if INDIECROSS_SUPPORTED true #else false #end;
+	public static var IndieCrossMenus:Bool = #if (INDIECROSS_FORCED || INDIECROSS_ASSETS) true #else false #end;
 	public static var breakgetvarinarray:Bool = false;
 	//Mobile
 	public static var wideScreen:Bool = false;

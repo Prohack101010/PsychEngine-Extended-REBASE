@@ -9,6 +9,7 @@ import shaders.*;
 import shaders.flixel.system.FlxShader;
 
 // Extra
+import indiecrossmenus.LoadingState as IndieCrossLoading;
 import indiecrossmenus.*; //Indie Cross Menus
 import extras.states.*; //Extra States
 import extras.substates.*; //Extra Substates

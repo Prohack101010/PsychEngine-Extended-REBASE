@@ -99,22 +99,19 @@ class FreeplayMain extends MusicBeatState
 		WeekData.loadTheFirstEnabledMod();
 
 		//cuphead
-		addSong('snake-eyes', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
-		addSong('technicolor-tussle', 0, 'cupheadP1', FlxColor.fromRGB(146, 113, 253));
-		addSong('knockout', 0, 'cupheadP2', FlxColor.fromRGB(146, 113, 253));
+		addSong('snake-eyes', 0, 'cuphead', FlxColor.fromRGB(146, 113, 253));
+		addSong('technicolor-tussle', 0, 'cuphead', FlxColor.fromRGB(146, 113, 253));
+		addSong('knockout', 0, 'AngryCuphead', FlxColor.fromRGB(146, 113, 253));
         //sans
-		addSong('whoopee', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-		addSong('sansational', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
-		addSong('final-stretch', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
 		addSong('whoopee', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
 		addSong('sansational', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
 		addSong('burning-in-hell', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
 		addSong('final-stretch', 1, 'sans', FlxColor.fromRGB(146, 113, 253));
 		//bendy
-		addSong('imminent-demise', 2, 'dad', FlxColor.fromRGB(146, 113, 253));
-		addSong('terrible-sin', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));
-		addSong('last-reel', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));
-		addSong('nightmare-run', 2, 'bendyP1', FlxColor.fromRGB(146, 113, 253));		
+		addSong('imminent-demise', 2, 'bendyDA', FlxColor.fromRGB(146, 113, 253));
+		addSong('terrible-sin', 2, 'bendy', FlxColor.fromRGB(146, 113, 253));
+		addSong('last-reel', 2, 'bendy', FlxColor.fromRGB(146, 113, 253));
+		addSong('nightmare-run', 2, 'bendy', FlxColor.fromRGB(146, 113, 253));		
 
 		bg = new FlxSprite().loadGraphic(Paths.image('BG'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -419,10 +416,14 @@ class FreeplayMain extends MusicBeatState
 				colorTween.cancel();
 			}
 			
+			IndieCrossLoading.stopMusic = true;
+			
 			if (FlxG.keys.pressed.SHIFT){
-				LoadingState.loadAndSwitchState(new ChartingState());
+			    IndieCrossLoading.target = new ChartingState();
+				MusicBeatState.switchState(new IndieCrossLoading());
 			}else{
-				LoadingState.loadAndSwitchState(new PlayState());
+			    IndieCrossLoading.target = new PlayState();
+				MusicBeatState.switchState(new IndieCrossLoading());
 			}
 
 			FlxG.sound.music.volume = 0;

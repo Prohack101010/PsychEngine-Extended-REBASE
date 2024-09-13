@@ -106,6 +106,7 @@ class FreeplayBonus extends MusicBeatState
 
 		addSong('ritual', 2, 'sammy', FlxColor.fromRGB(146, 113, 253));
 		addSong('freaky-machine', 2, 'bendyDA', FlxColor.fromRGB(146, 113, 253));
+		addSong('saness', 2, 'saness', FlxColor.fromRGB(146, 113, 253));
 
 		bg = new FlxSprite().loadGraphic(Paths.image('BG'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -409,11 +410,14 @@ class FreeplayBonus extends MusicBeatState
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
+			IndieCrossLoading.stopMusic = true;
 			
 			if (FlxG.keys.pressed.SHIFT){
-				LoadingState.loadAndSwitchState(new ChartingState());
+			    IndieCrossLoading.target = new ChartingState();
+				MusicBeatState.switchState(new IndieCrossLoading());
 			}else{
-				LoadingState.loadAndSwitchState(new PlayState());
+			    IndieCrossLoading.target = new PlayState();
+				MusicBeatState.switchState(new IndieCrossLoading());
 			}
 
 			FlxG.sound.music.volume = 0;

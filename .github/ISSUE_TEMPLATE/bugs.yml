@@ -34,6 +34,7 @@ body:
       options:
         - "Android"
         - "IOS"
+        - "Windows"
     validations:
       required: true
 

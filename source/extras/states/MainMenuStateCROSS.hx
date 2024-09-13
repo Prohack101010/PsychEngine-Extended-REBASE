@@ -329,7 +329,7 @@ class MainMenuStateCROSS extends MusicBeatState
 				case "freeplay":
 					MusicBeatState.switchState(new FreeplaySelect());
 				case "options":
-					LoadingState.loadAndSwitchState(new options.OptionsState());
+					IndieCrossLoading.loadAndSwitchState(new options.OptionsState());
 					options.OptionsState.onPlayState = false;
 					if (PlayState.SONG != null)
 					{
