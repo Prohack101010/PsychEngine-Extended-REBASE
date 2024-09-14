@@ -20,6 +20,7 @@ using StringTools;
 
 class MobileControlSelectSubState extends MusicBeatSubstate
 {
+    public static var instance:MobileControlSelectSubState;
     var vpad:FlxVirtualPad;
     var hbox:FlxHitbox;
     var newhbox:FlxNewHitbox;
@@ -43,9 +44,11 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     var ui:FlxCamera;
     var reset:UIButton;
     var keyboard:UIButton;
+    public static var inControlsSubstate:Bool = false;
 
     override public function create():Void
     {
+        instance = this;
         super.create();
 
         // Transparent background and UI
@@ -202,6 +205,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			removeVirtualPad();
+			leftArrow.visible = leftArrow.visible = controlitems.visible = exit.visible = reset.visible = keyboard.visible = upPozition.visible = downPozition.visible = leftPozition.visible = rightPozition.visible = shiftPozition.visible = spacePozition.visible = false;
+			inControlsSubstate = true;
 			openSubState(new options.ControlsSubState());
 		});
 		keyboard.color = FlxColor.GRAY;

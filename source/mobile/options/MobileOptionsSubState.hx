@@ -45,7 +45,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 	
-	var virtualpadTypes:Array<String> = ["Old", "New"];
+	var virtualpadTypes:Array<String> = ["New", "Old"];
 	final lastVirtualPadType:String = ClientPrefs.virtualpadType;
 	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	var virtualpadSkinListModsFolder:Array<String> = CoolUtil.coolTextFile(Paths.modsImages('virtualpad/virtualpadSkinList.txt'));
@@ -187,7 +187,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 		
-		/* not now (maybe later)
+		// I Want To Test This Again
 		var option:Option = new Option('VirtualPad Type',
 			'Which VirtualPad should use??',
 			'virtualpadType',
@@ -195,7 +195,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			null,
 			virtualpadTypes);
 		addOption(option);
-		*/
 		
 		var option:Option = new Option('Modpack Folder',
 			'If checked, game uses modpack folder instead of mods folder.',
@@ -238,13 +237,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		}
 		#end
 		
-		/*
 		if (ClientPrefs.virtualpadType != lastVirtualPadType) {
+		    ClientPrefs.VirtualPadSkin = 'original';
 		    ClientPrefs.saveSettings();
+		    ClientPrefs.VirtualPadSkin = 'original';
 		    CoolUtil.showPopUp('VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
 		    lime.system.System.exit(0);
 		}
-		*/
 	}
 	
 	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
@@ -264,17 +263,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	
 	function resetVirtualPad()
 	{
-	/*
-	    if (ClientPrefs.virtualpadType != lastVirtualPadType) {
-	        ClientPrefs.saveSettings();
-		    CoolUtil.showPopUp('If you want to change virtualpad skin you needed restart the game!!\nPress OK to close the game.', 'Notice!');
-		    lime.system.System.exit(0);
-		}
-		else
-		{
-	*/
 	    removeVirtualPad();
 	    addVirtualPad(FULL, A_B_C);
-	//  }
 	}
 }

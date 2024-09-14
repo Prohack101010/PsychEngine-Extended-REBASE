@@ -68,6 +68,7 @@ class ControlsSubState extends MusicBeatSubstate {
 	private var grpInputsAlt:Array<AttachedText> = [];
 	var rebindingKey:Bool = false;
 	var nextAccept:Int = 5;
+	var SelectSubstate = MobileControlSelectSubState.instance;
 
 	public function new() {
 		super();
@@ -133,6 +134,11 @@ class ControlsSubState extends MusicBeatSubstate {
 
 			if (controls.BACK) {
 				ClientPrefs.reloadControls();
+				if (MobileControlSelectSubState.inControlsSubstate)
+				{
+				    SelectSubstate.leftArrow.visible = SelectSubstate.leftArrow.visible = SelectSubstate.controlitems.visible = SelectSubstate.exit.visible = SelectSubstate.reset.visible = SelectSubstate.keyboard.visible = SelectSubstate.upPozition.visible = SelectSubstate.downPozition.visible = SelectSubstate.leftPozition.visible = SelectSubstate.rightPozition.visible = SelectSubstate.shiftPozition.visible = SelectSubstate.spacePozition.visible = true;
+				    MobileControlSelectSubState.inControlsSubstate = false; // Not Needed But IDK
+				}
 				close();
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
