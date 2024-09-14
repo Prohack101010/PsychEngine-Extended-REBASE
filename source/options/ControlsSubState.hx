@@ -68,7 +68,7 @@ class ControlsSubState extends MusicBeatSubstate {
 	private var grpInputsAlt:Array<AttachedText> = [];
 	var rebindingKey:Bool = false;
 	var nextAccept:Int = 5;
-	var SelectSubstate = MobileControlSelectSubState.instance;
+	var SelectSubstate = MobileControlSelectSubState;
 
 	public function new() {
 		super();

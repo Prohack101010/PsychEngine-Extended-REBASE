@@ -20,20 +20,19 @@ using StringTools;
 
 class MobileControlSelectSubState extends MusicBeatSubstate
 {
-    public static var instance:MobileControlSelectSubState;
     var vpad:FlxVirtualPad;
     var hbox:FlxHitbox;
     var newhbox:FlxNewHitbox;
-    var upPozition:FlxText;
-    var downPozition:FlxText;
-    var leftPozition:FlxText;
-    var rightPozition:FlxText;
-    var shiftPozition:FlxText;
-    var spacePozition:FlxText;
+    public static var upPozition:FlxText;
+    public static var downPozition:FlxText;
+    public static var leftPozition:FlxText;
+    public static var rightPozition:FlxText;
+    public static var shiftPozition:FlxText;
+    public static var spacePozition:FlxText;
     var inputvari:PsychAlphabet;
-    var leftArrow:FlxSprite;
-    var rightArrow:FlxSprite;
-    var controlitems:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
+    public static var leftArrow:FlxSprite;
+    public static var rightArrow:FlxSprite;
+    public static var controlitems:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
     var curSelected:Int = 0;
     var buttonistouched:Bool = false;
     var bindbutton:FlxButton;
@@ -42,13 +41,12 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     
     var bg:FlxBackdrop;
     var ui:FlxCamera;
-    var reset:UIButton;
-    var keyboard:UIButton;
+    public static var reset:UIButton;
+    public static var keyboard:UIButton;
     public static var inControlsSubstate:Bool = false;
 
     override public function create():Void
     {
-        instance = this;
         super.create();
 
         // Transparent background and UI
@@ -165,7 +163,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         tipText.cameras = [ui];
         add(tipText);
 
-        var exit = new UIButton(0, 35, "Exit & Save", () ->
+        public static var exit = new UIButton(0, 35, "Exit & Save", () ->
         {
             save();
             FlxTransitionableState.skipNextTransIn = true;
