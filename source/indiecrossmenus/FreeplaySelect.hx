@@ -184,7 +184,7 @@ class FreeplaySelect extends MusicBeatState
 		//the code below adds to the number of options, the code above removes the amount of options -thatblockboi
 		if (SelectionWeek < 1)
 		{
-			SelectionWeek = Difficulty.list.length;
+			SelectionWeek = Difficulty.defaultIndieCrossList.length;
 		}
 	}
 }

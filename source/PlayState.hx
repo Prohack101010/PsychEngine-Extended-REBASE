@@ -3450,88 +3450,21 @@ class PlayState extends MusicBeatState
 		#end
 	}
 	
-	/*
-	public static function addLuaMobileControls()
+	function addPlayStateMobileControls()
 	{
 	    addMobileControls();
 	}
 	
-	public static function RemoveLuaMobileControls()
+	function removePlayStateMobileControls()
 	{
 	    removeMobileControls();
 	}
-    */
-    
-    public function makeLuaTouchPad(DPadMode:String, ActionMode:String) {
-		if(members.contains(luaTouchPad)) return;
-
-		if(!variables.exists("luaTouchPad"))
-			variables.set("luaTouchPad", luaTouchPad);
-
-		luaTouchPad = new TouchPad(DPadMode, ActionMode, NONE);
-		luaTouchPad.alpha = ClientPrefs.VirtualPadAlpha;
-	}
-	
-	public function addLuaTouchPad() {
-		if(luaTouchPad == null || members.contains(luaTouchPad)) return;
-
-		var target = FunkinLua.getInstance();
-		target.insert(target.members.length + 1, luaTouchPad);
-	}
-
-	public function removeLuaTouchPad() {
-		if (luaTouchPad != null) {
-			luaTouchPad.kill();
-			luaTouchPad.destroy();
-			remove(luaTouchPad);
-			luaTouchPad = null;
-		}
-	}
-    
-    public function makeLuaVirtualPad(DPadMode:String, ActionMode:String) {
-		if (luaVirtualPad != null)
-			removeLuaVirtualPad();
-
-		luaVirtualPad = new FlxVirtualPad(Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode), 0.75, ClientPrefs.globalAntialiasing);
-		add(luaVirtualPad);
-		
-		controls.setVirtualPadUI(luaVirtualPad, Data.dpadMode.get(DPadMode), Data.actionMode.get(ActionMode));
-		trackedinputsUI = controls.trackedInputsUI;
-		controls.trackedInputsUI = [];
-	}
-	
-	public function addLuaVirtualPad() {
-		if(luaVirtualPad == null || members.contains(luaVirtualPad)) return;
-
-		var target = FunkinLua.getInstance();
-		target.insert(target.members.length + 1, luaVirtualPad);
-	}
-
-	public function addLuaVirtualPadCamera() {
-		if(luaVirtualPad != null)
-			luaVirtualPad.cameras = [luaVpadCam];
-	}
-
-	public function removeLuaVirtualPad() {
-		if (luaVirtualPad != null) {
-			luaVirtualPad.kill();
-			luaVirtualPad.destroy();
-			remove(luaVirtualPad);
-			luaVirtualPad = null;
-		}
-	}
-	
+    	
 	// this things used in indie cross psych extended/0.6.3 port
 	function addCupheadGameoverButtons() // Why not
 	{
 	    addVirtualPad(UP_DOWN, A);
 		addVirtualPadCamera();
-	}
-	
-	function addButton(DPadMode:FlxDPadMode, ActionMode:FlxActionMode) // i added this only for test
-	{
-	    addVirtualPad(DPadMode, ActionMode); //Fuck u VirtualPad
-	    addVirtualPadCamera();
 	}
     
 	function openOptionsMenu()
