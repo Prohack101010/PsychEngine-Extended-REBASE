@@ -3001,57 +3001,6 @@ class FunkinLua {
 		});
 		#end
 		
-		/*
-		Lua_helper.add_callback(lua, "ExtraHitboxType", function(type:String):Void //Only Hitbox For Now
-		{
-			PlayState.RemoveLuaMobileControls();
-			FunkinLua.MobileCType = type;
-			PlayState.addLuaMobileControls();
-		});
-		*/
-		
-		Lua_helper.add_callback(lua, "addVirtualPad", (DPadMode:String, ActionMode:String) ->
-		{
-			PlayState.instance.makeLuaVirtualPad(DPadMode, ActionMode);
-			PlayState.instance.addLuaVirtualPad();
-		});
-		
-		Lua_helper.add_callback(lua, "makeVirtualPad", (DPadMode:String, ActionMode:String) ->
-		{
-			PlayState.instance.makeLuaVirtualPad(DPadMode, ActionMode);
-		});
-		
-		Lua_helper.add_callback(lua, "addTouchPad", (DPadMode:String, ActionMode:String, ?addToCustomSubstate:Bool = false, ?posAtCustomSubstate:Int = -1) ->
-		{
-			PlayState.instance.makeLuaTouchPad(DPadMode, ActionMode);
-			if (addToCustomSubstate)
-			{
-				if (PlayState.instance.luaTouchPad != null || !PlayState.instance.members.contains(PlayState.instance.luaTouchPad))
-					FunkinLua.insertLuaTpad(posAtCustomSubstate);
-			}
-			else
-				PlayState.instance.addLuaTouchPad();
-		});
-
-		Lua_helper.add_callback(lua, "removeTouchPad", () ->
-		{
-			PlayState.instance.removeLuaTouchPad();
-		});
-
-		Lua_helper.add_callback(lua, "removeVirtualPad", () ->
-		{
-			PlayState.instance.removeLuaVirtualPad();
-		});
-
-		Lua_helper.add_callback(lua, "addVirtualPadCamera", () ->
-		{
-			if (PlayState.instance.luaVirtualPad == null)
-			{
-				luaTrace('addVirtualPadCamera: VPAD does not exist.');
-				return;
-			}
-			PlayState.instance.addLuaVirtualPadCamera();
-		});
 		#if android
 		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
 		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
