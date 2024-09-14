@@ -494,7 +494,7 @@ class TitleState extends MusicBeatState
     					if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
                 			MusicBeatState.switchState(new MainMenuStateOld());
                 		#if (INDIECROSS_ASSETS || INDIECROSS_FORCED)
-                	    else if (Paths.currentModDirectory == 'Indie Cross v1.5 2.2.2' || Paths.currentModDirectory == 'Indie-Cross-v1.5-0.6.3') //Temporary Solution, I'm changing this later
+                	    else if (ClientPrefs.IndieCrossMenus && Paths.currentModDirectory == 'Indie Cross v1.5 2.2.2') //Temporary Solution, I'm changing this later
                 	    {
                 	        TitleState.IndieCrossEnabled = true;
                 	        MusicBeatState.switchState(new MainMenuStateCROSS());

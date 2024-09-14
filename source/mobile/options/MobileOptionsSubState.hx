@@ -256,7 +256,10 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	
 	function disableIndieCrossMenus()
 	{
-	    TitleState.IndieCrossEnabled = false;
+	    if (TitleState.IndieCrossEnabled)
+	        TitleState.IndieCrossEnabled = false;
+	    else
+	        TitleState.IndieCrossEnabled = true;
 	}
 	
 	function resetVirtualPad()

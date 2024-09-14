@@ -65,6 +65,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
+		option.onChange = disableIndieCrossMenus; // Now Functional
 		#end
 
 		var option:Option = new Option('Note Splashes',
@@ -173,6 +174,14 @@ class VisualsUISubState extends BaseOptionsMenu
 	{
 		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		super.destroy();
+	}
+	
+	function disableIndieCrossMenus()
+	{
+	    if (TitleState.IndieCrossEnabled)
+	        TitleState.IndieCrossEnabled = false;
+	    else
+	        TitleState.IndieCrossEnabled = true;
 	}
 
 	function onChangeFPSCounter()

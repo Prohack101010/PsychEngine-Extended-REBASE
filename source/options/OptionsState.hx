@@ -29,7 +29,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var stateType:Int = 0;
@@ -50,19 +50,15 @@ class OptionsState extends MusicBeatState
 			case 'Mobile Controls':
     			FlxTransitionableState.skipNextTransIn = true;
     			FlxTransitionableState.skipNextTransOut = true;
-    			MusicBeatState.switchState(new MobileControlsMenu());
-			case 'Controls':
-				#if mobile
-				if (ClientPrefs.VirtualPadAlpha == 0) { removeVirtualPad(); }
-				else {
-    				FlxTransitionableState.skipNextTransIn = true;
-    			    FlxTransitionableState.skipNextTransOut = true;
-    			    MusicBeatState.switchState(new MobileControlsMenu());
-			    }
-			    if (ClientPrefs.VirtualPadAlpha == 0) { openSubState(new options.ControlsSubState()); }
-				#else
-				openSubState(new options.ControlsSubState());
+    			#if mobile
+				removeVirtualPad();
 				#end
+    			openSubState(new MobileControlSelectSubState());
+			case 'Controls':
+			    #if mobile
+				removeVirtualPad();
+				#end
+				openSubState(new options.ControlsSubState());
 			case 'Graphics':
 				#if mobile
 				removeVirtualPad();
@@ -99,7 +95,7 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 		
-		if (ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
+		// if (ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;

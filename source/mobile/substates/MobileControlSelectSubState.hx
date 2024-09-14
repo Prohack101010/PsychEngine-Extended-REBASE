@@ -1,135 +1,188 @@
 package mobile.substates;
 
-import flixel.FlxObject;
+import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
+import flixel.text.FlxText;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
+import mobile.objects.MobileControls.Config;
+import flixel.ui.FlxButton as UIButtonOld;
+import mobile.flixel.FlxButton as UIButton;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.util.FlxGradient;
-import mobile.backend.TouchFunctions;
-import flixel.input.touch.FlxTouch;
-import flixel.ui.FlxButton as UIButton;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.FlxCamera;
+
+using StringTools;
 
 class MobileControlSelectSubState extends MusicBeatSubstate
 {
-	var options:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Hitbox'];
-	var control:MobileControls;
-	var leftArrow:FlxSprite;
-	var rightArrow:FlxSprite;
-	var itemText:Alphabet;
-	var positionText:FlxText;
-	var positionTextBg:FlxSprite;
-	var bg:FlxBackdrop;
-	var ui:FlxCamera;
-	var curOption:Int = MobileData.mode;
-	var buttonBinded:Bool = false;
-	var bindButton:TouchButton;
-	var reset:UIButton;
-	var tweenieShit:Float = 0;
+    var vpad:FlxVirtualPad;
+    var hbox:FlxHitbox;
+    var newhbox:FlxNewHitbox;
+    var upPozition:FlxText;
+    var downPozition:FlxText;
+    var leftPozition:FlxText;
+    var rightPozition:FlxText;
+    var shiftPozition:FlxText;
+    var spacePozition:FlxText;
+    var inputvari:PsychAlphabet;
+    var leftArrow:FlxSprite;
+    var rightArrow:FlxSprite;
+    var controlitems:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
+    var curSelected:Int = 0;
+    var buttonistouched:Bool = false;
+    var bindbutton:FlxButton;
+    var config:Config;
+    var extendConfig:Config;
+    
+    var bg:FlxBackdrop;
+    var ui:FlxCamera;
+    var reset:UIButton;
 
-	public function new()
-	{
-		super();
-		if (hitboxExtend != 0)
-			options.push('Pad-Extra');
+    override public function create():Void
+    {
+        super.create();
 
-		bg = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true,
-			FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255)),
-			FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255))));
-		bg.velocity.set(40, 40);
-		bg.alpha = 0;
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		FlxTween.tween(bg, {alpha: 0.45}, 0.3, {
-			ease: FlxEase.quadOut,
-			onComplete: (twn:FlxTween) ->
-			{
-				FlxTween.tween(ui, {alpha: 1}, 0.2, {ease: FlxEase.circOut});
-			}
-		});
-		add(bg);
+        // Transparent background and UI
+        bg = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true,
+            FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255)),
+            FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255))));
+        bg.velocity.set(40, 40);
+        bg.alpha = 0;
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
+        FlxTween.tween(bg, {alpha: 0.45}, 0.3, {
+            ease: FlxEase.quadOut,
+            onComplete: (twn:FlxTween) ->
+            {
+                FlxTween.tween(ui, {alpha: 1}, 0.2, {ease: FlxEase.circOut});
+            }
+        });
+        add(bg);
 
-		FlxG.mouse.visible = !FlxG.onMobile;
+        ui = new FlxCamera();
+        ui.bgColor.alpha = 0;
+        ui.alpha = 0;
+        FlxG.cameras.add(ui, false);
 
-		ui = new FlxCamera();
-		ui.bgColor.alpha = 0;
-		ui.alpha = 0;
-		FlxG.cameras.add(ui, false);
+        config = new Config('saved-controls');
+        curSelected = config.getcontrolmode();
 
-		itemText = new Alphabet(0, 60, '');
-		itemText.alignment = LEFT;
-		itemText.cameras = [ui];
-		add(itemText);
+        extendConfig = new Config('saved-extendControls');
 
-		leftArrow = new FlxSprite(0, itemText.y - 25);
-		leftArrow.frames = Paths.getSparrowAtlas('campaign_menu_UI_assets');
-		leftArrow.animation.addByPrefix('idle', 'arrow left');
-		leftArrow.animation.addByPrefix('press', "arrow push left");
-		leftArrow.animation.play('idle');
-		leftArrow.cameras = [ui];
-		add(leftArrow);
+        var titleText:Alphabet = new Alphabet(75, 60, "Controls", true);
+        titleText.scaleX = 0.6;
+        titleText.scaleY = 0.6;
+        titleText.alpha = 0.4;
+        titleText.cameras = [ui];
+        add(titleText);
 
-		itemText.x = leftArrow.width + 70;
-		leftArrow.x = itemText.x - 60;
+        vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+        vpad.alpha = 0;
+        vpad.cameras = [ui];
+        add(vpad);
 
-		rightArrow = new FlxSprite().loadGraphicFromSprite(leftArrow);
-		rightArrow.flipX = true;
-		rightArrow.setPosition(itemText.x + itemText.width + 10, itemText.y - 25);
-		rightArrow.cameras = [ui];
-		add(rightArrow);
+        hbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
+        hbox.visible = false;
+        hbox.cameras = [ui];
+        add(hbox);
 
-		positionText = new FlxText(0, FlxG.height, FlxG.width / 4, '');
-		positionText.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, FlxTextAlign.LEFT);
-		positionText.visible = false;
+        newhbox = new FlxNewHitbox();
+        newhbox.visible = false;
+        newhbox.cameras = [ui];
+        add(newhbox);
 
-		positionTextBg = FlxGradient.createGradientFlxSprite(250, 150, [FlxColor.BLACK, FlxColor.BLACK, FlxColor.BLACK, FlxColor.TRANSPARENT], 1, 360);
-		positionTextBg.setPosition(0, FlxG.height - positionTextBg.height);
-		positionTextBg.visible = false;
-		positionTextBg.alpha = 0.8;
-		add(positionTextBg);
-		positionText.cameras = [ui];
-		add(positionText);
+        inputvari = new PsychAlphabet(0, 50, controlitems[curSelected], false, false, 0.05, 0.8);
+        inputvari.screenCenter(X);
+        inputvari.cameras = [ui];
+        add(inputvari);
 
-		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
+        var ui_tex = Paths.getSparrowAtlas('mobilecontrols/menu/arrows');
+
+        leftArrow = new FlxSprite(inputvari.x - 60, inputvari.y + 50);
+        leftArrow.frames = ui_tex;
+        leftArrow.animation.addByPrefix('idle', "arrow left");
+        leftArrow.animation.addByPrefix('press', "arrow push left");
+        leftArrow.animation.play('idle');
+        leftArrow.cameras = [ui];
+        add(leftArrow);
+
+        rightArrow = new FlxSprite(inputvari.x + inputvari.width + 10, leftArrow.y);
+        rightArrow.frames = ui_tex;
+        rightArrow.animation.addByPrefix('idle', 'arrow right');
+        rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
+        rightArrow.animation.play('idle');
+        rightArrow.cameras = [ui];
+        add(rightArrow);
+
+        upPozition = new FlxText(10, FlxG.height - 164, 0,"Button Up X:" + vpad.buttonUp.x +" Y:" + vpad.buttonUp.y, 16);
+        upPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        upPozition.borderSize = 2;
+        upPozition.cameras = [ui];
+        add(upPozition);
+
+        downPozition = new FlxText(10, FlxG.height - 144, 0,"Button Down X:" + vpad.buttonDown.x +" Y:" + vpad.buttonDown.y, 16);
+        downPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        downPozition.borderSize = 2;
+        downPozition.cameras = [ui];
+        add(downPozition);
+
+        leftPozition = new FlxText(10, FlxG.height - 124, 0,"Button Left X:" + vpad.buttonLeft.x +" Y:" + vpad.buttonLeft.y, 16);
+        leftPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        leftPozition.borderSize = 2;
+        leftPozition.cameras = [ui];
+        add(leftPozition);
+
+        rightPozition = new FlxText(10, FlxG.height - 104, 0,"Button RIght x:" + vpad.buttonRight.x +" Y:" + vpad.buttonRight.y, 16);
+        rightPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        rightPozition.borderSize = 2;
+        rightPozition.cameras = [ui];
+        add(rightPozition);
+
+        spacePozition = new FlxText(10, FlxG.height - 84, 0,"Button Space X:" + vpad.buttonG.x +" Y:" + vpad.buttonG.y, 16);
+        spacePozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        spacePozition.borderSize = 2;
+        spacePozition.cameras = [ui];
+        add(spacePozition);
+
+        shiftPozition = new FlxText(10, FlxG.height - 64, 0,"Button Shift X:" + vpad.buttonF.x +" Y:" + vpad.buttonF.y, 16);
+        shiftPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        shiftPozition.borderSize = 2;
+        shiftPozition.cameras = [ui];
+        add(shiftPozition);
+
+        var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press Exit & Save to Go Back to Options Menu', 16);
+        tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        tipText.borderSize = 2;
+        tipText.scrollFactor.set();
+        tipText.cameras = [ui];
+        add(tipText);
+
+        var exit = new UIButton(0, 35, "Exit & Save", () ->
+        {
+            save();
+            FlxTransitionableState.skipNextTransIn = true;
+            FlxTransitionableState.skipNextTransOut = true;
+            FlxG.sound.play(Paths.sound('cancelMenu'));
+            close();
+        });
+        exit.color = FlxColor.LIME;
+        exit.setGraphicSize(Std.int(exit.width) * 3);
+        exit.updateHitbox();
+        exit.x = FlxG.width - exit.width - 70;
+        exit.label.setFormat(Paths.font('vcr.ttf'), 28, FlxColor.WHITE, FlxTextAlign.CENTER);
+        exit.label.fieldWidth = exit.width;
+        exit.label.x = ((exit.width - exit.label.width) / 2) + exit.x;
+        exit.label.offset.y = -10;
+        exit.cameras = [ui];
+        add(exit);
+        
+        reset = new UIButton(exit.x, exit.height + exit.y + 20, "Reset", () ->
 		{
-			if (options[curOption].toLowerCase().contains('pad'))
-				control.touchPad.setExtrasDefaultPos();
-			if (options[curOption] == 'Pad-Extra')
-			{
-				var nuhuh = new FlxText(0, 0, FlxG.width / 2, 'Pad-Extra Is Just A Binding Option\nPlease Select A Different Option To Exit.');
-				nuhuh.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, FlxTextAlign.CENTER);
-				nuhuh.screenCenter();
-				nuhuh.cameras = [ui];
-				add(nuhuh);
-				FlxTween.tween(nuhuh, {alpha: 0}, 3.4, {
-					ease: FlxEase.circOut,
-					onComplete: (twn:FlxTween) ->
-					{
-						nuhuh.destroy();
-						remove(nuhuh);
-					}
-				});
-				return;
-			}
-			MobileData.mode = curOption;
-			if (options[curOption] == 'Pad-Custom')
-				MobileData.setTouchPadCustom(control.touchPad);
-			controls.isInSubstate = FlxG.mouse.visible = false;
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MobileData.forcedMode = null;
-			close();
-		});
-		exit.color = FlxColor.LIME;
-		exit.setGraphicSize(Std.int(exit.width) * 3);
-		exit.updateHitbox();
-		exit.x = FlxG.width - exit.width - 70;
-		exit.label.setFormat(Paths.font('vcr.ttf'), 28, FlxColor.WHITE, FlxTextAlign.CENTER);
-		exit.label.fieldWidth = exit.width;
-		exit.label.x = ((exit.width - exit.label.width) / 2) + exit.x;
-		exit.label.offset.y = -10; // WHY THE FUCK I CAN'T CHANGE THE LABEL Y
-		exit.cameras = [ui];
-		add(exit);
-
-		reset = new UIButton(exit.x, exit.height + exit.y + 20, "Reset", () ->
-		{
-			changeOption(0); // realods the current control mode ig?
+			changeSelection(0); // realods the current control mode ig?
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		});
 		reset.color = FlxColor.RED;
@@ -142,186 +195,231 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		reset.cameras = [ui];
 		add(reset);
 
-		changeOption(0);
-	}
+        changeSelection(0);
+    }
 
-	override function update(elapsed:Float)
-	{
-		checkArrowButton(leftArrow, () ->
-		{
-			changeOption(-1);
-		});
+    override function update(elapsed:Float)
+    {
+        super.update(elapsed);
 
-		checkArrowButton(rightArrow, () ->
-		{
-			changeOption(1);
-		});
+        leftArrow.x = inputvari.x - 60;
+        rightArrow.x = inputvari.x + inputvari.width + 10;
+        inputvari.screenCenter(X);
 
-		if (options[curOption] == 'Pad-Custom' || options[curOption] == 'Pad-Extra')
-		{
-			if (buttonBinded)
-			{
-				if (TouchFunctions.touchJustReleased)
-				{
-					bindButton = null;
-					buttonBinded = false;
-				}
-				else
-					moveButton(TouchFunctions.touch, bindButton);
-			}
-			else
-			{
-				control.touchPad.forEachAlive((button:TouchButton) ->
-				{
-					if (button.justPressed)
-						moveButton(TouchFunctions.touch, button);
-				});
-			}
-			control.touchPad.forEachAlive((button:TouchButton) ->
-			{
-				if (button != bindButton && buttonBinded)
-				{
-					bindButton.centerBounds();
-					button.bounds.immovable = true;
-					bindButton.bounds.immovable = false;
-					button.centerBounds();
-					FlxG.overlap(bindButton.bounds, button.bounds, function(a:Dynamic, b:Dynamic)
-					{ // these args dosen't work fuck them :/
-						bindButton.centerInBounds();
-						button.centerBounds();
-						bindButton.bounds.immovable = true;
-						button.bounds.immovable = false;
-						// trace('button${bindButton.tag} & button${button.tag} collided');
-					}, function(a:Dynamic, b:Dynamic)
-					{
-						if (!bindButton.bounds.immovable)
-						{
-							if (bindButton.bounds.x > button.bounds.x)
-								bindButton.bounds.x = button.bounds.x + button.bounds.width;
-							else
-								bindButton.bounds.x = button.bounds.x - button.bounds.width;
+        for (touch in FlxG.touches.list)
+        {		
+            if(touch.overlaps(leftArrow) && touch.justPressed)
+            {
+                changeSelection(-1);
+            }
+            else if (touch.overlaps(rightArrow) && touch.justPressed)
+            {
+                changeSelection(1);
+            }
+            trackbutton(touch);
+        }
+    }
 
-							if (bindButton.bounds.y > button.bounds.y)
-								bindButton.bounds.y = button.bounds.y + button.bounds.height;
-							else if (bindButton.bounds.y != button.bounds.y)
-								bindButton.bounds.y = button.bounds.y - button.bounds.height;
-						}
-						return true;
-					});
-					/*FlxG.collide(bindButton.bounds, button.bounds, function(a:Dynamic, b:Dynamic) { // these args dosen't work fuck them :/
-						bindButton.centerInBounds();
-						button.centerBounds();
-						bindButton.bounds.immovable = true;
-						button.bounds.immovable = false;
-						trace('button${bindButton.tag} & button${button.tag} collided');
-					});*/
-				}
-			});
-		}
+    function changeSelection(change:Int = 0)
+    {
+        curSelected += change;
 
-		tweenieShit += 180 * elapsed;
+        if (curSelected < 0)
+            curSelected = controlitems.length - 1;
+        if (curSelected >= controlitems.length)
+            curSelected = 0;
 
-		super.update(elapsed);
-	}
+        inputvari.changeText(controlitems[curSelected]);
 
-	function changeControls(?type:Int, ?extraMode:Bool = false)
-	{
-		if (type == null)
-			type = curOption;
-		if (control != null)
-			control.destroy();
-		if (members.contains(control))
-			remove(control);
-		control = new MobileControls(type, extraMode);
-		add(control);
-		control.cameras = [ui];
-	}
+        buttonistouched = false;
 
-	function changeOption(change:Int)
-	{
-		FlxG.sound.play(Paths.sound('scrollMenu'));
-		curOption += change;
+        var daChoice:String = controlitems[Math.floor(curSelected)];
 
-		if (curOption < 0)
-			curOption = options.length - 1;
-		if (curOption >= options.length)
-			curOption = 0;
+        switch (daChoice)
+        {
+            case 'Pad-Right':
+                reset.visible = false;
+                remove(vpad);
+                vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+                add(vpad);
+                loadcustom(false);
+            case 'Pad-Left':
+                reset.visible = false;
+                remove(vpad);
+                vpad = new FlxVirtualPad(FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+                add(vpad);
+                loadcustom(false);
+            case 'Pad-Custom':
+                reset.visible = true;
+                remove(vpad);
+                vpad = new FlxVirtualPad(RIGHT_FULL, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+                add(vpad);
+                loadcustom(true);
+            case 'Duo':
+                reset.visible = false;
+                remove(vpad);
+                vpad = new FlxVirtualPad(DUO, controlExtend, 0.75, ClientPrefs.globalAntialiasing);
+                add(vpad);
+                loadcustom(false);
+            case 'Hitbox':
+                reset.visible = false;
+                vpad.alpha = 0;
+            case 'Keyboard':
+                reset.visible = false;
+                remove(vpad);
+                vpad.alpha = 0;
+        }
 
-		switch (curOption)
-		{
-			case 0 | 1 | 3:
-				reset.visible = false;
-				changeControls();
-			case 2:
-				reset.visible = true;
-				changeControls();
-			case 5:
-				reset.visible = true;
-				changeControls(0, true);
-				control.touchPad.forEachAlive((button:TouchButton) ->
-				{
-					var ignore = ['G', 'S'];
-					if (!ignore.contains(button.tag.toUpperCase()))
-						button.visible = button.active = false;
-				});
-		}
-		updatePosText();
-		setOptionText();
-	}
+        if (daChoice != "Hitbox")
+        {
+            hbox.visible = false;
+            newhbox.visible = false;
+        }
+        else
+        {
+            if(ClientPrefs.hitboxmode != 'New'){
+                hbox.visible = true;
+            }else{
+                newhbox.visible = true;
+            }
+        }
 
-	function setOptionText()
-	{
-		itemText.text = options[curOption].replace('-', ' ');
-		itemText.updateHitbox();
-		itemText.offset.set(0, 15);
-		FlxTween.tween(rightArrow, {x: itemText.x + itemText.width + 10}, 0.1, {ease: FlxEase.quintOut});
-	}
+        if (daChoice != "Hitbox" && daChoice != "Keyboard")
+        {
+            spacePozition.visible = true;
+            shiftPozition.visible = true;
+        }
+        else
+        {
+            spacePozition.visible = false;
+            shiftPozition.visible = false;
+        }
 
-	function updatePosText()
-	{
-		var optionName = options[curOption];
-		if (optionName == 'Pad-Custom' || optionName == 'Pad-Extra')
-		{
-			positionText.visible = positionTextBg.visible = true;
-			if (optionName == 'Pad-Custom')
-			{
-				positionText.text = 'LEFT X: ${control.touchPad.buttonLeft.x} - Y: ${control.touchPad.buttonLeft.y}\nDOWN X: ${control.touchPad.buttonDown.x} - Y: ${control.touchPad.buttonDown.y}\n\nUP X: ${control.touchPad.buttonUp.x} - Y: ${control.touchPad.buttonUp.y}\nRIGHT X: ${control.touchPad.buttonRight.x} - Y: ${control.touchPad.buttonRight.y}';
-			}
-			else
-			{
-				positionText.text = 'S X: ${control.touchPad.buttonExtra.x} - Y: ${control.touchPad.buttonExtra.y}\n\n\n\nG X: ${control.touchPad.buttonExtra2.x} - Y: ${control.touchPad.buttonExtra2.y}';
-			}
-			positionText.setPosition(0, (((positionTextBg.height - positionText.height) / 2) + positionTextBg.y));
-		}
-		else
-			positionText.visible = positionTextBg.visible = false;
-	}
+        if (daChoice != "Pad-Custom")
+        {
+            upPozition.visible = false;
+            downPozition.visible = false;
+            leftPozition.visible = false;
+            rightPozition.visible = false;
+        }
+        else
+        {
+            upPozition.visible = true;
+            downPozition.visible = true;
+            leftPozition.visible = true;
+            rightPozition.visible = true;
+        }
+    }
 
-	function checkArrowButton(button:FlxSprite, func:Void->Void)
-	{
-		if (TouchFunctions.touchOverlapObject(button))
-		{
-			if (TouchFunctions.touchPressed)
-				button.animation.play('press');
-			if (TouchFunctions.touchJustPressed)
-			{
-				if (options[curOption] == "Pad-Extra" && control.touchPad != null)
-					control.touchPad.setExtrasDefaultPos();
-				func();
-			}
-		}
-		if (TouchFunctions.touchJustReleased && button.animation.curAnim.name == 'press')
-			button.animation.play('idle');
-		if (FlxG.keys.justPressed.LEFT && button == leftArrow || FlxG.keys.justPressed.RIGHT && button == rightArrow)
-			func();
-	}
+    function trackbutton(touch:flixel.input.touch.FlxTouch)
+    {
+        var daChoice:String = controlitems[Math.floor(curSelected)];
 
-	function moveButton(touch:FlxTouch, button:TouchButton):Void
-	{
-		bindButton = button;
-		buttonBinded = bindButton == null ? false : true;
-		bindButton.x = touch.x - Std.int(bindButton.width / 2);
-		bindButton.y = touch.y - Std.int(bindButton.height / 2);
-		updatePosText();
-	}
+        if (daChoice == 'Pad-Custom')
+        {
+            if (buttonistouched)
+            {
+                if (bindbutton.justReleased && touch.justReleased)
+                {
+                    bindbutton = null;
+                    buttonistouched = false;
+                }
+                else 
+                {
+                    movebutton(touch, bindbutton);
+                    setbuttontexts();
+                }
+            }
+            else 
+            {
+                if (vpad.buttonUp.justPressed) {
+                    movebutton(touch, vpad.buttonUp);
+                }
+
+                if (vpad.buttonDown.justPressed) {
+                    movebutton(touch, vpad.buttonDown);
+                }
+
+                if (vpad.buttonRight.justPressed) {
+                    movebutton(touch, vpad.buttonRight);
+                }
+
+                if (vpad.buttonLeft.justPressed) {
+                    movebutton(touch, vpad.buttonLeft);
+                }
+            }
+        }
+        if (daChoice != 'Hitbox')
+        {
+            if (buttonistouched)
+            {
+                if (bindbutton.justReleased && touch.justReleased)
+                {
+                    bindbutton = null;
+                    buttonistouched = false;
+                }
+                else 
+                {
+                    movebutton(touch, bindbutton);
+                    setbuttontexts();
+                }
+            }
+            else 
+            {
+                if (vpad.buttonG.justPressed) {
+                    movebutton(touch, vpad.buttonG);
+                }
+
+                if (vpad.buttonF.justPressed) {
+                    movebutton(touch, vpad.buttonF);
+                }
+            }
+        }
+    }
+
+    function movebutton(touch:flixel.input.touch.FlxTouch, button:FlxButton)
+    {
+        button.x = touch.x - vpad.buttonUp.width / 2;
+        button.y = touch.y - vpad.buttonUp.height / 2;
+        bindbutton = button;
+        buttonistouched = true;
+    }
+
+    function setbuttontexts()
+    {
+        upPozition.text = "Button Up X:" + vpad.buttonUp.x +" Y:" + vpad.buttonUp.y;
+        downPozition.text = "Button Down X:" + vpad.buttonDown.x +" Y:" + vpad.buttonDown.y;
+        leftPozition.text = "Button Left X:" + vpad.buttonLeft.x +" Y:" + vpad.buttonLeft.y;
+        rightPozition.text = "Button RIght x:" + vpad.buttonRight.x +" Y:" + vpad.buttonRight.y;
+        spacePozition.text = "Button Space X:" + vpad.buttonG.x +" Y:" + vpad.buttonG.y;
+        shiftPozition.text = "Button Shift X:" + vpad.buttonF.x +" Y:" + vpad.buttonF.y;
+    }
+
+    function save()
+    {
+        config.setcontrolmode(curSelected);
+        var daChoice:String = controlitems[Math.floor(curSelected)];
+
+        if (daChoice == 'Pad-Custom')
+        {
+            config.savecustom(vpad);
+        }
+        if (daChoice != 'Hitbox')
+        {
+            extendConfig.savecustom(vpad);
+        }
+    }
+
+    function loadcustom(needFix:Bool):Void
+    {
+        if (needFix)
+        {
+            vpad = config.loadcustom(vpad);	
+            vpad = extendConfig.loadcustom(vpad);
+        }
+        else
+        {
+            vpad = extendConfig.loadcustom(vpad);
+        }
+    }
 }
