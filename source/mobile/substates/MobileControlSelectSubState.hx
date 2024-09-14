@@ -30,7 +30,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     public static var shiftPozition:FlxText;
     public static var spacePozition:FlxText;
     public static var inputvari:PsychAlphabet;
-     leftArrow:FlxSprite;
+    public static var leftArrow:FlxSprite;
     public static var rightArrow:FlxSprite;
     public static var controlitems:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
     var curSelected:Int = 0;
