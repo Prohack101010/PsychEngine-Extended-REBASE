@@ -84,6 +84,7 @@ class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 48.5;
 	public static var STRUM_X_MIDDLESCROLL = -278;
+	public static var IndieCrossStateType:Int = 0; // 0 = Default, 1 = Main, 2 = Bonus, 3 = Nightmare
 
 	public var luaVirtualPad:FlxVirtualPad;
 	public var luaTouchPad:TouchPad;
@@ -4245,6 +4246,12 @@ class PlayState extends MusicBeatState
 				}
 				if (ClientPrefs.FreeplayStyle == 'NF Engine')
     			    MusicBeatState.switchState(new FreeplayStateNF());
+    			else if (PlayState.IndieCrossStateType == 1)
+    			    MusicBeatState.switchState(new FreeplayMain());
+    			else if (PlayState.IndieCrossStateType == 2)
+    			    MusicBeatState.switchState(new FreeplayBonus());
+    			else if (PlayState.IndieCrossStateType == 3)
+    			    MusicBeatState.switchState(new FreeplayNightmare());
     		    else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                     MusicBeatState.switchState(new FreeplayStateNOVA());
     			else

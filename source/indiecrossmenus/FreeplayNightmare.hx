@@ -407,6 +407,7 @@ class FreeplayNightmare extends MusicBeatState
 				colorTween.cancel();
 			}
 			
+			PlayState.IndieCrossStateType = 3;
 			if (FlxG.keys.pressed.SHIFT){
 				IndieCrossLoading.loadAndSwitchState(new ChartingState());
 			}else{

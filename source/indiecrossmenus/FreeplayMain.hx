@@ -416,6 +416,7 @@ class FreeplayMain extends MusicBeatState
 				colorTween.cancel();
 			}
 			
+			PlayState.IndieCrossStateType = 1;
 			if (FlxG.keys.pressed.SHIFT){
 				IndieCrossLoading.loadAndSwitchState(new ChartingState());
 			}else{

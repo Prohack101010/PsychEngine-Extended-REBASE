@@ -23,29 +23,15 @@ class Difficulty
 		var fileSuffix:String = list[num];
 		if (TitleState.IndieCrossEnabled)
 		    fileSuffix = defaultIndieCrossList[num]; // TOOK ME A WHOLE FUCKING DAY TO FIX THIS PEICE OF SHIT -KarimAkra
-		    
-		if (TitleState.IndieCrossEnabled)
-		{
-    		if(fileSuffix != defaultIndieCrossDifficulty)
-    		{
-    			fileSuffix = '-' + fileSuffix;
-    		}
-    		else
-    		{
-    			fileSuffix = '';
-    		}
+		 
+        if(fileSuffix != defaultDifficulty)
+    	{
+    		fileSuffix = '-' + fileSuffix;
     	}
-        else
-        {
-            if(fileSuffix != defaultDifficulty)
-    		{
-    			fileSuffix = '-' + fileSuffix;
-    		}
-    		else
-    		{
-    			fileSuffix = '';
-    		}
-        }
+    	else
+    	{
+    		fileSuffix = '';
+    	}
 		return Paths.formatToSongPath(fileSuffix);
 	}
 	
