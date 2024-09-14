@@ -41,6 +41,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     
     var bg:FlxBackdrop;
     var ui:FlxCamera;
+    public static var exit:UIButton;
     public static var reset:UIButton;
     public static var keyboard:UIButton;
     public static var inControlsSubstate:Bool = false;
@@ -163,7 +164,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         tipText.cameras = [ui];
         add(tipText);
 
-        public static var exit = new UIButton(0, 35, "Exit & Save", () ->
+        exit = new UIButton(0, 35, "Exit & Save", () ->
         {
             save();
             FlxTransitionableState.skipNextTransIn = true;
