@@ -18,7 +18,7 @@ import flixel.FlxCamera;
 
 using StringTools;
 
-class MobileControlsMenu extends MusicBeatState
+class MobileControlsMenu extends MusicBeatSubState
 {
     var vpad:FlxVirtualPad;
     var hbox:FlxHitbox;
