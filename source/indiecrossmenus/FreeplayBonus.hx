@@ -206,7 +206,7 @@ class FreeplayBonus extends MusicBeatState
 		text.scrollFactor.set();
 		//add(text);
 		
-		addVirtualPad(FULL, A_B_C_X_Y_Z);
+		addVirtualPad(FULL, A_B);
 		super.create();
 	}
 
@@ -215,7 +215,7 @@ class FreeplayBonus extends MusicBeatState
 		persistentUpdate = true;
 		super.closeSubState();
 		removeVirtualPad();
-		addVirtualPad(FULL, A_B_C_X_Y_Z);
+		addVirtualPad(FULL, A_B);
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)

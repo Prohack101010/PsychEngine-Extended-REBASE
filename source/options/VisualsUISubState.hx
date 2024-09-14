@@ -58,7 +58,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			['Psych', 'NovaFlare']);
 		addOption(option);
 		
-		#if !INDIECROSS_FORCED
+		#if (!INDIECROSS_FORCED && INDIECROSS_ASSETS)
 		var option:Option = new Option('Indie Cross Menus',
 			'If unchecked, Indie Cross Mod not using Custom Menus (if you have any bug disable this).',
 			'IndieCrossMenus',
@@ -178,7 +178,7 @@ class VisualsUISubState extends BaseOptionsMenu
 	
 	function disableIndieCrossMenus()
 	{
-	    if (TitleState.IndieCrossEnabled)
+	    if (TitleState.IndieCrossEnabled && ClientPrefs.IndieCrossMenus)
 	        TitleState.IndieCrossEnabled = false;
 	    else
 	        TitleState.IndieCrossEnabled = true;

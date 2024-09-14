@@ -49,7 +49,7 @@
 	<define name="INDIECROSS_FORCED" if="desktop" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MOD -->
 	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
 	<!-- I Hate My Friends Because They Want This but I dont want to use this -->
-	<define name="USE_OLD_VIRTUALPAD" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO USE NEW VIRTUALPAD TYPE -->
+	<define name="USE_OLD_VIRTUALPAD" if="desktop" /> <!-- DELETE THIS IF YOU WANT TO USE NEW VIRTUALPAD TYPE -->
 	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->

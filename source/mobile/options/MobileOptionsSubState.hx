@@ -256,7 +256,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	
 	function disableIndieCrossMenus()
 	{
-	    if (TitleState.IndieCrossEnabled)
+	    if (TitleState.IndieCrossEnabled && ClientPrefs.IndieCrossMenus)
 	        TitleState.IndieCrossEnabled = false;
 	    else
 	        TitleState.IndieCrossEnabled = true;
