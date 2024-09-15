@@ -34,7 +34,6 @@ class CreditsState extends MusicBeatState
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 	var descBox:AttachedSprite;
-	var getpackfile:Array<ModMetadata> = [];
 
 	var offsetThing:Float = -75;
 

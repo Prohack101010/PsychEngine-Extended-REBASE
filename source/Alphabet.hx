@@ -202,6 +202,7 @@ class Alphabet extends FlxSpriteGroup
 					if (consecutiveSpaces > 0)
 					{
 						xPos += 28 * consecutiveSpaces * scaleX;
+						rowData[rows] = xPos;
 						if(!bold && xPos >= FlxG.width * 0.65)
 						{
 							xPos = 0;
@@ -213,6 +214,7 @@ class Alphabet extends FlxSpriteGroup
 					var letter:AlphaCharacter = new AlphaCharacter(xPos, rows * Y_PER_ROW * scaleY, character, bold, this);
 					letter.x += letter.letterOffset[0] * scaleX;
 					letter.y -= letter.letterOffset[1] * scaleY;
+					letter.rowWidth = 0;
 					letter.row = rows;
 
 					var off:Float = 0;
