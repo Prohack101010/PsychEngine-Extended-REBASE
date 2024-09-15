@@ -101,7 +101,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if(optionsArray[i].type == 'bool') {
-				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, Std.string(optionsArray[i].getValue() == 'true');
+				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, Std.string(optionsArray[i].getValue()) == 'true');
 				checkbox.sprTracker = optionText;
 				checkbox.ID = i;
 				checkboxGroup.add(checkbox);
@@ -366,7 +366,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	function reloadCheckboxes() {
 		for (checkbox in checkboxGroup) {
-			checkbox.daValue = Std.string(optionsArray[checkbox.ID].getValue() == 'true'));
+			checkbox.daValue = Std.string(optionsArray[checkbox.ID].getValue()) == 'true'));
 		}
 	}
 }
