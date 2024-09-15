@@ -5078,15 +5078,8 @@ class PlayState extends MusicBeatState
 				limoKillingState = 1;
 
 				#if ACHIEVEMENTS_ALLOWED
-				Achievements.henchmenDeath++;
-				FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
-				var achieve:String = checkForAchievement(['roadkill_enthusiast']);
-				if (achieve != null) {
-					startAchievement(achieve);
-				} else {
-					FlxG.save.flush();
-				}
-				FlxG.log.add('Deaths: ' + Achievements.henchmenDeath);
+				var kills = Achievements.addScore("roadkill_enthusiast");
+				FlxG.log.add('Henchmen kills: $kills');
 				#end
 			}
 		}
