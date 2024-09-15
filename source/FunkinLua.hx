@@ -75,7 +75,6 @@ class FunkinLua {
 	#end
 	public var camTarget:FlxCamera;
 	public var scriptName:String = '';
-	public static var MobileCType:String = '';
 	public var closed:Bool = false;
 
 	#if hscript

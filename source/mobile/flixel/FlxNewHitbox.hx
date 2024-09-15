@@ -39,7 +39,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 	public function new():Void
 	{
 		super();
-		if (ClientPrefs.hitboxExtend == 0 && PlayState.MobileCType == 'NORMAL' || PlayState.MobileCType == 'NOTHING'){
+		if (ClientPrefs.hitboxExtend == 0 && PlayState.MobileCType == 'DEFAULT' || PlayState.MobileCType == 'NORMAL'){
             add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFC24B99));
 		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
 		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
@@ -48,7 +48,7 @@ class FlxNewHitbox extends FlxSpriteGroup
     		hitbox_hint = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
     		add(hitbox_hint);
     		}
-        }else{
+        }else if (PlayState.MobileCType != 'NORMAL' || ClientPrefs.hitboxExtend != 0 && PlayState.MobileCType != 'DEFAULT') {
             if (ClientPrefs.hitboxLocation == 'Bottom'){
 		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
 		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
@@ -69,7 +69,7 @@ class FlxNewHitbox extends FlxSpriteGroup
         		    add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
         		}
-                else if (PlayState.MobileCType == 'NORMAL') {
+                else if (PlayState.MobileCType == 'DEFAULT') {
                     switch (ClientPrefs.hitboxExtend){
     					case 1:		        
                             add(buttonSpace = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
@@ -107,7 +107,7 @@ class FlxNewHitbox extends FlxSpriteGroup
         		    add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
         		}
-                else if (PlayState.MobileCType == 'NORMAL') {
+                else if (PlayState.MobileCType == 'DEFAULT') {
                     switch (ClientPrefs.hitboxExtend){
     					case 1:		        
                             add(buttonSpace = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
@@ -145,7 +145,7 @@ class FlxNewHitbox extends FlxSpriteGroup
         		    add(buttonShift = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 5 * 2, FlxG.height / 2, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFFFF00));
         		}
-                else if (PlayState.MobileCType == 'NORMAL') {
+                else if (PlayState.MobileCType == 'DEFAULT') {
                     switch (ClientPrefs.hitboxExtend){
     					case 1:		        
                             add(buttonSpace = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFFFF00));

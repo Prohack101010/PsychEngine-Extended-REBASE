@@ -326,7 +326,7 @@ class PlayState extends MusicBeatState
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 	
-	public static var MobileCType:String = 'NORMAL';
+	public static var MobileCType:String = 'DEFAULT';
 	
 	// Opponent Play
 	public var opponentDrain:Bool = false;
@@ -1218,10 +1218,10 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camHUD];
 		
 		#if mobile
-		addMobileControls();
-		MusicBeatState.mobilec.visible = false;
-	    if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) {
-		MusicBeatState.mobilec.alpha = 0.000001;
+		if (MobileCType == 'DEFAULT') {
+    		addMobileControls();
+    		MusicBeatState.mobilec.visible = false;
+    	    if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) { MusicBeatState.mobilec.alpha = 0.000001; }
 		}
 		#end
 
@@ -2174,8 +2174,10 @@ class PlayState extends MusicBeatState
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
 			#if mobile
-			MusicBeatState.mobilec.visible = true;
-			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
+			if (MobileCType == 'DEFAULT') {
+    			MusicBeatState.mobilec.visible = true;
+    			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
+    		}
 			#end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
@@ -3455,6 +3457,11 @@ class PlayState extends MusicBeatState
 	function changeHitboxButtons(mode:String)
 	{
 	    removeMobileControls();
+	    addMobileControls(mode);
+	}
+	
+	function addNewHitboxButtons(mode:String)
+	{
 	    addMobileControls(mode);
 	}
 		

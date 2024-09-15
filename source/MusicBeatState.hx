@@ -83,8 +83,8 @@ class MusicBeatState extends FlxUIState
 		
 		switch (mode.toLowerCase())
 		{
-		    case 'nothing':
-				PlayState.MobileCType = 'NOTHING';
+		    case 'normal':
+				PlayState.MobileCType = 'NORMAL';
 				mobilec.visible = true;
 			case 'shift':
 			    PlayState.MobileCType = 'SHIFT';
@@ -96,7 +96,7 @@ class MusicBeatState extends FlxUIState
 				PlayState.MobileCType = 'BOTH';
 				mobilec.visible = true;
 			default:
-				PlayState.MobileCType = 'NORMAL';
+				PlayState.MobileCType = 'DEFAULT';
 				mobilec.visible = false;
 		}
 

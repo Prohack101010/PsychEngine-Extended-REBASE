@@ -234,14 +234,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			lime.system.System.exit(0);
 		}
 		#end
-		
-		if (ClientPrefs.virtualpadType != lastVirtualPadType) {
-		    ClientPrefs.VirtualPadSkin = 'original';
-		    ClientPrefs.saveSettings();
-		    ClientPrefs.VirtualPadSkin = 'original';
-		    CoolUtil.showPopUp('VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
-		    lime.system.System.exit(0);
-		}
 	}
 	
 	function onChangePadAlpha()

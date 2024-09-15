@@ -152,7 +152,15 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
-		    if (ClientPrefs.virtualpadType == lastVirtualPadType) //Null Object Fix
+		    if (ClientPrefs.virtualpadType != lastVirtualPadType) //Null Object Fix
+		    {
+        		ClientPrefs.VirtualPadSkin = 'original';
+        		ClientPrefs.saveSettings();
+        		ClientPrefs.VirtualPadSkin = 'original';
+        		CoolUtil.showPopUp('VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
+        		lime.system.System.exit(0);
+        	}
+        	else
 			    close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
