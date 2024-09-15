@@ -4610,9 +4610,8 @@ class PlayState extends MusicBeatState
 				}
 			});
 			
-			if (!parsedHoldArray.contains(true) && !opponentChart || endingSong && !opponentChart) {
+			if (!parsedHoldArray.contains(true) && !opponentChart || endingSong && !opponentChart)
 				playerDance();
-			}
 
 			#if ACHIEVEMENTS_ALLOWED
 			else checkForAchievement(['oversinging']);
@@ -5431,7 +5430,7 @@ class PlayState extends MusicBeatState
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
 	}
-
+	
 	#if ACHIEVEMENTS_ALLOWED
 	private function checkForAchievement(achievesToCheck:Array<String> = null)
 	{
@@ -5439,8 +5438,8 @@ class PlayState extends MusicBeatState
 
 		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('botplay', false));
 		if(cpuControlled) return;
-				
-				for (name in achievesToCheck) {
+
+		for (name in achievesToCheck) {
 			if(!Achievements.exists(name)) continue;
 
 			var unlock:Bool = false;
@@ -5450,18 +5449,23 @@ class PlayState extends MusicBeatState
 				{
 					case 'ur_bad':
 						unlock = (ratingPercent < 0.2 && !practiceMode);
+
 					case 'ur_good':
 						unlock = (ratingPercent >= 1 && !usedPractice);
+
 					case 'oversinging':
 						unlock = (boyfriend.holdTimer >= 10 && !usedPractice);
+
 					case 'hype':
 						unlock = (!boyfriendIdled && !usedPractice);
+
 					case 'two_keys':
 						unlock = (!usedPractice && keysPressed.length <= 2);
-					case 'toastie':
-						unlock = (!ClientPrefs.shaders && ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing);
 
-				case 'debugger':
+					case 'toastie':
+						unlock = (!ClientPrefs.shaders && ClientPrefs.lowQuality && !ClientPrefs.antialiasing);
+
+					case 'debugger':
 						unlock = (Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice);
 				}
 			}

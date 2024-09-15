@@ -329,8 +329,31 @@ class Paths
 		} catch(e) {
 			trace(e);
 		}
+		
+		// Scan for folders that aren't on modsList.txt yet
+		for (folder in getModDirectories())
+		{
+			if(folder.trim().length > 0 && FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) &&
+			!ignoreModFolders.contains(folder.toLowerCase()) && !added.contains(folder))
+			{
+				added.push(folder);
+				list.push([folder, true]); //i like it false by default. -bb //Well, i like it True! -Shadow Mario (2022)
+				//Shadow Mario (2023): What the fuck was bb thinking
+			}
+		}
+
+		// Now save file
+		var fileStr:String = '';
+		for (values in list)
+		{
+			if(fileStr.length > 0) fileStr += '\n';
+			fileStr += values[0] + '|' + (values[1] ? '1' : '0');
+		}
+
+		File.saveContent('modsList.txt', fileStr);
+		updatedOnState = true;
+		//trace('Saved modsList.txt');
 		#end
-		return list;
 	}
 	
 	static public function cacheBitmap(file:String, ?bitmap:BitmapData = null)
@@ -404,7 +427,7 @@ class Paths
 				if (FileSystem.exists(mods('$mod/$key')))
 					return true;
 
-			if (FileSystem.exists(mods(Mods.currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))
+			if (FileSystem.exists(mods(Paths.currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))
 				return true;
 			
 			if (FileSystem.exists(mods('$key')))
@@ -689,6 +712,28 @@ class Paths
 		#end
 	}
 	
+	public static function getPack(?folder:String = null):Dynamic
+	{
+		#if MODS_ALLOWED
+		if(folder == null) folder = Paths.currentModDirectory;
+
+		var path = Paths.mods(folder + '/pack.json');
+		if(FileSystem.exists(path)) {
+			try {
+				#if sys
+				var rawJson:String = File.getContent(path);
+				#else
+				var rawJson:String = Assets.getText(path);
+				#end
+				if(rawJson != null && rawJson.length > 0) return tjson.TJSON.parse(rawJson);
+			} catch(e:Dynamic) {
+				trace(e);
+			}
+		}
+		#end
+		return null;
+	}
+		
 	#if flxanimate
 	public static function loadAnimateAtlas(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
 	{

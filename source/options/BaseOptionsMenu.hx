@@ -44,6 +44,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	public var title:String;
 	public var rpcTitle:String;
+	
+	public var bg:FlxSprite;
 	final lastVirtualPadType:String = ClientPrefs.virtualpadType;
 
 	public function new()
@@ -57,7 +59,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		DiscordClient.changePresence(rpcTitle, null);
 		#end
 		
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -99,7 +101,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			grpOptions.add(optionText);
 
 			if(optionsArray[i].type == 'bool') {
-				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, optionsArray[i].getValue() == true);
+				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, Std.string(optionsArray[i].getValue() == 'true');
 				checkbox.sprTracker = optionText;
 				checkbox.ID = i;
 				checkboxGroup.add(checkbox);
@@ -135,6 +137,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	public function addOption(option:Option) {
 		if(optionsArray == null || optionsArray.length < 1) optionsArray = [];
 		optionsArray.push(option);
+		return option;
 	}
 
 	var nextAccept:Int = 5;
@@ -363,7 +366,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	function reloadCheckboxes() {
 		for (checkbox in checkboxGroup) {
-			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
+			checkbox.daValue = Std.string(optionsArray[checkbox.ID].getValue() == 'true'));
 		}
 	}
 }

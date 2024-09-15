@@ -58,6 +58,8 @@ import hscript.Expr;
 import Discord;
 #end
 
+import tjson.TJSON as Json;
+
 using StringTools;
 
 class FunkinLua {
@@ -71,6 +73,7 @@ class FunkinLua {
 	#end
 	public var camTarget:FlxCamera;
 	public var scriptName:String = '';
+	public var modFolder:String = null;
 	public var closed:Bool = false;
 
 	#if hscript
@@ -104,10 +107,14 @@ class FunkinLua {
 			trace(e);
 			return;
 		}
-		scriptName = script;
+		scriptName = script.trim();
 		initHaxeModule();
 
 		trace('lua file loaded succesfully:' + script);
+		
+		var myFolder:Array<String> = this.scriptName.split('/');
+		if(myFolder[0] + '/' == Paths.mods() && (Paths.currentModDirectory == myFolder[1] || Paths.getGlobalMods().contains(myFolder[1]))) //is inside mods folder
+			this.modFolder = myFolder[1];
 
 		// Lua shit
 		set('Function_StopLua', Function_StopLua);
@@ -2533,6 +2540,67 @@ class FunkinLua {
 				}
 			}
 		});
+		
+		// mod settings
+		Lua_helper.add_callback(lua, "getModSetting", function(saveTag:String, ?modName:String = null) {
+			if(modName == null)
+			{
+				if(this.modFolder == null)
+				{
+					luaTrace('getModSetting: Argument #2 is null and script is not inside a packed Mod folder!', false, false, FlxColor.RED);
+					return null;
+				} 
+				modName = this.modFolder;
+			}
+
+			if(FlxG.save.data.modSettings == null) FlxG.save.data.modSettings = new Map<String, Dynamic>();
+
+			var settings:Map<String, Dynamic> = FlxG.save.data.modSettings.get(modName);
+			var path:String = Paths.mods('$modName/data/settings.json');
+			if(FileSystem.exists(path))
+			{
+				if(settings == null || !settings.exists(saveTag))
+				{
+					if(settings == null) settings = new Map<String, Dynamic>();
+					var data:String = File.getContent(path);
+					try
+					{
+						luaTrace('getModSetting: Trying to find default value for "$saveTag" in Mod: "$modName"');
+						var parsedJson:Dynamic = Json.parse(data);
+						for (i in 0...parsedJson.length)
+						{
+							var sub:Dynamic = parsedJson[i];
+							if(sub != null && sub.save != null && sub.value != null && !settings.exists(sub.save))
+							{
+								luaTrace('getModSetting: Found unsaved value "${sub.save}" in Mod: "$modName"');
+								settings.set(sub.save, sub.value);
+							}
+						}
+						FlxG.save.data.modSettings.set(modName, settings);
+					}
+					catch(e:Dynamic)
+					{
+						var errorTitle = 'Mod name: ' + Paths.currentModDirectory;
+						var errorMsg = 'An error occurred: $e';
+						#if windows
+						lime.app.Application.current.window.alert(errorMsg, errorTitle);
+						#end
+						trace('$errorTitle - $errorMsg');
+					}
+				}
+			}
+			else
+			{
+				FlxG.save.data.modSettings.remove(modName);
+				luaTrace('getModSetting: $path could not be found!', false, false, FlxColor.RED);
+				return null;
+			}
+
+			if(settings.exists(saveTag)) return settings.get(saveTag);
+			luaTrace('getModSetting: "$saveTag" could not be found inside $modName\'s settings!', false, false, FlxColor.RED);
+			return null;
+		});
+		//
 
 		Lua_helper.add_callback(lua, "debugPrint", function(text1:Dynamic = '', text2:Dynamic = '', text3:Dynamic = '', text4:Dynamic = '', text5:Dynamic = '') {
 			if (text1 == null) text1 = '';
