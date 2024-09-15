@@ -326,7 +326,7 @@ class PlayState extends MusicBeatState
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 	
-	public static var MobileCType:String = '';
+	public static var MobileCType:String = 'NORMAL';
 	
 	// Opponent Play
 	public var opponentDrain:Bool = false;
@@ -3457,25 +3457,7 @@ class PlayState extends MusicBeatState
 	    removeMobileControls();
 	    addMobileControls(mode);
 	}
-	
-	function addMobileControlsBoth()
-	{
-	    removeMobileControls();
-	    addMobileControls('both');
-	}
-	
-	function addMobileControlsSpace()
-	{
-	    removeMobileControls();
-	    addMobileControls('space');
-	}
-	
-	function addMobileControlsShift()
-	{
-	    removeMobileControls();
-	    addMobileControls('shift');
-	}
-	
+		
 	function addCustomMobileControls(mode:String)
 	{
 	    addMobileControls(mode);

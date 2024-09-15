@@ -32,6 +32,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     public static var inputvari:PsychAlphabet;
     public static var leftArrow:FlxSprite;
     public static var rightArrow:FlxSprite;
+    public static var tipText:FlxText;
+    public static var titleText:Alphabet;
     public static var controlitems:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
     var curSelected:Int = 0;
     var buttonistouched:Bool = false;
@@ -76,7 +78,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
         extendConfig = new Config('saved-extendControls');
 
-        var titleText:Alphabet = new Alphabet(75, 60, " Mobile Controls", true);
+        titleText = new Alphabet(75, 60, " Mobile Controls", true);
         titleText.scaleX = 0.6;
         titleText.scaleY = 0.6;
         titleText.alpha = 0.4;
@@ -157,7 +159,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         shiftPozition.cameras = [ui];
         add(shiftPozition);
 
-        var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press Exit & Save to Go Back to Options Menu', 16);
+        tipText = new FlxText(10, FlxG.height - 24, 0, 'Press Exit & Save to Go Back to Options Menu', 16);
         tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         tipText.borderSize = 2;
         tipText.scrollFactor.set();
@@ -204,7 +206,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			removeVirtualPad();
-			leftArrow.visible = rightArrow.visible = inputvari.visible = exit.visible = reset.visible = keyboard.visible = upPozition.visible = downPozition.visible = leftPozition.visible = rightPozition.visible = shiftPozition.visible = spacePozition.visible = false;
+			leftArrow.visible = rightArrow.visible = inputvari.visible = exit.visible = reset.visible = keyboard.visible = upPozition.visible = downPozition.visible = leftPozition.visible = rightPozition.visible = shiftPozition.visible = spacePozition.visible = tipText.visible = false;
+			titleText.text = 'Controls';
 			inControlsSubstate = true;
 			openSubState(new options.ControlsSubState());
 		});
@@ -256,7 +259,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
         buttonistouched = false;
 
-        var daChoice:String = controlitems[Math.floor(curSelected)];
+        public static var daChoice:String = controlitems[Math.floor(curSelected)];
 
         switch (daChoice)
         {

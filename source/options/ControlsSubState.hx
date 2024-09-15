@@ -136,7 +136,21 @@ class ControlsSubState extends MusicBeatSubstate {
 				ClientPrefs.reloadControls();
 				if (MobileControlSelectSubState.inControlsSubstate)
 				{
-				    SelectSubstate.leftArrow.visible = SelectSubstate.rightArrow.visible = SelectSubstate.inputvari.visible = SelectSubstate.exit.visible = SelectSubstate.reset.visible = SelectSubstate.keyboard.visible = SelectSubstate.upPozition.visible = SelectSubstate.downPozition.visible = SelectSubstate.leftPozition.visible = SelectSubstate.rightPozition.visible = SelectSubstate.shiftPozition.visible = SelectSubstate.spacePozition.visible = true;
+				    SelectSubstate.leftArrow.visible = SelectSubstate.rightArrow.visible = SelectSubstate.inputvari.visible = SelectSubstate.exit.visible = SelectSubstate.reset.visible = SelectSubstate.keyboard.visible = tipText.visible = true;
+				    
+				    if (SelectSubstate.daChoice == "Pad-Custom")
+                    {
+                        SelectSubstate.upPozition.visible = true;
+                        SelectSubstate.downPozition.visible = true;
+                        SelectSubstate.leftPozition.visible = true;
+                        SelectSubstate.rightPozition.visible = true;
+                    }
+                    else if (SelectSubstate.daChoice != "Hitbox" && SelectSubstate.daChoice != "Keyboard")
+                    {
+                        SelectSubstate.spacePozition.visible = true;
+                        SelectSubstate.shiftPozition.visible = true;
+                    }
+                    SelectSubstate.titleText.text = 'Mobile Controls';
 				    MobileControlSelectSubState.inControlsSubstate = false; // Not Needed But IDK
 				}
 				close();

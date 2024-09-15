@@ -79,10 +79,13 @@ class MusicBeatState extends FlxUIState
 	
 	public function addMobileControls(?mode:Null<String>) {
 		mobilec = new MobileControls();
-		PlayState.MobileCType = '';
+		// PlayState.MobileCType = ''; it brokes the code
 		
 		switch (mode.toLowerCase())
 		{
+		    case 'nothing':
+				PlayState.MobileCType = 'NOTHING';
+				mobilec.visible = true;
 			case 'shift':
 			    PlayState.MobileCType = 'SHIFT';
 			    mobilec.visible = true;
@@ -93,7 +96,7 @@ class MusicBeatState extends FlxUIState
 				PlayState.MobileCType = 'BOTH';
 				mobilec.visible = true;
 			default:
-				PlayState.MobileCType = '';
+				PlayState.MobileCType = 'NORMAL';
 				mobilec.visible = false;
 		}
 
