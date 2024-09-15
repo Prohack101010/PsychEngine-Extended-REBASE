@@ -23,6 +23,11 @@ import psychlua.*; //Psych-LUA
 import backend.ui.*; //Psych-UI
 import backend.animation.PsychAnimationController; //Psych Animation Controller
 
+//New Lua System
+#if ACHIEVEMENTS_ALLOWED
+import Achievements;
+#end
+
 // FlxAnimate
 #if flxanimate
 import flxanimate.*;
