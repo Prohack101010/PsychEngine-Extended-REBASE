@@ -3455,12 +3455,30 @@ class PlayState extends MusicBeatState
 	function changeHitboxButtons(mode:String)
 	{
 	    removeMobileControls();
-	    addCustomMobileHitboxControls(mode);
+	    addMobileControls(mode);
+	}
+	
+	function addMobileControlsBoth()
+	{
+	    removeMobileControls();
+	    addMobileControls('both');
+	}
+	
+	function addMobileControlsSpace()
+	{
+	    removeMobileControls();
+	    addMobileControls('space');
+	}
+	
+	function addMobileControlsShift()
+	{
+	    removeMobileControls();
+	    addMobileControls('shift');
 	}
 	
 	function addCustomMobileControls(mode:String)
 	{
-	    addCustomMobileHitboxControls(mode);
+	    addMobileControls(mode);
 	}
 	
 	function addPlayStateMobileControls()

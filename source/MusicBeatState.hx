@@ -72,60 +72,30 @@ class MusicBeatState extends FlxUIState
 	public function removeMobileControls() {
 		if (trackedinputsNOTES.length > 0)
 			controls.removeVirtualControlsInput(trackedinputsNOTES);
-
-		if (MobileControls != null)
-			MobileControls = FlxDestroyUtil.destroy(MobileControls);
+			
+		if (mobilec != null)
+			remove(mobilec);
 	}
 	
-	public function addCustomMobileHitboxControls(?mode:Null<String>) {
+	public function addMobileControls(?mode:Null<String>) {
 		mobilec = new MobileControls();
+		PlayState.MobileCType = '';
 		
 		switch (mode.toLowerCase())
 		{
 			case 'shift':
 			    PlayState.MobileCType = 'SHIFT';
+			    mobilec.visible = true;
 			case 'space':
 				PlayState.MobileCType = 'SPACE';
+				mobilec.visible = true;
 			case 'both':
 				PlayState.MobileCType = 'BOTH';
+				mobilec.visible = true;
 			default:
 				PlayState.MobileCType = '';
+				mobilec.visible = false;
 		}
-		
-    	switch (mobilec.mode)
-    	{
-    		case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
-    			controls.setVirtualPadNOTES(mobilec.vpad, FULL, NONE);
-    			MusicBeatState.checkHitbox = false;
-    		case DUO:
-    			controls.setVirtualPadNOTES(mobilec.vpad, DUO, NONE);
-    			MusicBeatState.checkHitbox = false;
-    		case HITBOX:
-    		   if(ClientPrefs.hitboxmode != 'New'){
-    			controls.setHitBox(mobilec.hbox);
-    			}else{
-    			controls.setNewHitBox(mobilec.newhbox);
-    			}
-    			MusicBeatState.checkHitbox = true;
-    		default:
-    	}
-
-		trackedinputsNOTES = controls.trackedInputsNOTES;
-		controls.trackedInputsNOTES = [];
-
-		var camcontrol = new flixel.FlxCamera();
-		FlxG.cameras.add(camcontrol, false);
-		camcontrol.bgColor.alpha = 0;
-		mobilec.cameras = [camcontrol];
-
-		mobilec.visible = false;
-
-		add(mobilec);
-	}
-	
-	public function addMobileControls() {
-		mobilec = new MobileControls();
-		PlayState.MobileCType = ''; // ne olur ne olmaz Garantiye almak gerek
 
 		switch (mobilec.mode)
 		{
@@ -152,8 +122,6 @@ class MusicBeatState extends FlxUIState
 		FlxG.cameras.add(camcontrol, false);
 		camcontrol.bgColor.alpha = 0;
 		mobilec.cameras = [camcontrol];
-
-		mobilec.visible = false;
 
 		add(mobilec);
 	}
