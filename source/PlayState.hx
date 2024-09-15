@@ -4617,6 +4617,7 @@ class PlayState extends MusicBeatState
 			#if ACHIEVEMENTS_ALLOWED
 			else checkForAchievement(['oversinging']);
 			#end
+		}
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if(ClientPrefs.controllerMode || strumsBlocked.contains(true))
@@ -5077,8 +5078,15 @@ class PlayState extends MusicBeatState
 				limoKillingState = 1;
 
 				#if ACHIEVEMENTS_ALLOWED
-				var kills = Achievements.addScore("roadkill_enthusiast");
-				FlxG.log.add('Henchmen kills: $kills');
+				Achievements.henchmenDeath++;
+				FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
+				var achieve:String = checkForAchievement(['roadkill_enthusiast']);
+				if (achieve != null) {
+					startAchievement(achieve);
+				} else {
+					FlxG.save.flush();
+				}
+				FlxG.log.add('Deaths: ' + Achievements.henchmenDeath);
 				#end
 			}
 		}
@@ -5439,7 +5447,7 @@ class PlayState extends MusicBeatState
 		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('botplay', false));
 		if(cpuControlled) return;
 				
-			for (name in achievesToCheck) {
+				for (name in achievesToCheck) {
 			if(!Achievements.exists(name)) continue;
 
 			var unlock:Bool = false;
