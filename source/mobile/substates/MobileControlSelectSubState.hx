@@ -34,6 +34,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     public static var rightArrow:FlxSprite;
     public static var tipText:FlxText;
     public static var titleText:Alphabet;
+    public static var daChoice:String;
     public static var controlitems:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
     var curSelected:Int = 0;
     var buttonistouched:Bool = false;
@@ -259,7 +260,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
         buttonistouched = false;
 
-        public static var daChoice:String = controlitems[Math.floor(curSelected)];
+        daChoice = controlitems[Math.floor(curSelected)];
 
         switch (daChoice)
         {
@@ -345,7 +346,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
     function trackbutton(touch:flixel.input.touch.FlxTouch)
     {
-        var daChoice:String = controlitems[Math.floor(curSelected)];
+        daChoice = controlitems[Math.floor(curSelected)];
 
         if (daChoice == 'Pad-Custom')
         {
@@ -430,7 +431,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     function save()
     {
         config.setcontrolmode(curSelected);
-        var daChoice:String = controlitems[Math.floor(curSelected)];
+        daChoice = controlitems[Math.floor(curSelected)];
 
         if (daChoice == 'Pad-Custom')
         {
