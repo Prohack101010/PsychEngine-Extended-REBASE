@@ -190,6 +190,7 @@ class ClientPrefs {
 		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
 	
 	
+	    #if ACHIEVEMENTS_ALLOWED Achievements.save(); #end
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
@@ -200,6 +201,7 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+	    #if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}

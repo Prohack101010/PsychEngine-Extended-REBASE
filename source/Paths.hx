@@ -678,6 +678,17 @@ class Paths
 		return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
 	}
 	
+	public static function loadTopMod()
+	{
+		Paths.currentModDirectory = '';
+
+		#if MODS_ALLOWED
+		var list:Array<String> = Paths.getGlobalMods();
+		if(list != null && list[0] != null)
+			Paths.currentModDirectory = list[0];
+		#end
+	}
+	
 	#if flxanimate
 	public static function loadAnimateAtlas(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
 	{

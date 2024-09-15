@@ -106,21 +106,9 @@ class Main extends Sprite
 		#end
 	
 		ClientPrefs.loadDefaultKeys();
+		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
-		
-		/*
-		//Fix USE_OLD_VIRTUALPAD
-		#if USE_OLD_VIRTUALPAD
-		if (ClientPrefs.virtualpadType == 'New')
-		    ClientPrefs.VirtualPadSkin = 'original';
-		ClientPrefs.virtualpadType = "Old";
-		#else
-		if (ClientPrefs.virtualpadType == 'Old')
-		    ClientPrefs.VirtualPadSkin = 'original';
-		ClientPrefs.virtualpadType = "New";
-		#end
-		*/
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);

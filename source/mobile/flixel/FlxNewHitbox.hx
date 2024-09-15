@@ -48,7 +48,7 @@ class FlxNewHitbox extends FlxSpriteGroup
     		hitbox_hint = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
     		add(hitbox_hint);
     		}
-        }else if (PlayState.MobileCType != 'NORMAL' || ClientPrefs.hitboxExtend != 0 && PlayState.MobileCType != 'DEFAULT') {
+        }else {
             if (ClientPrefs.hitboxLocation == 'Bottom'){
 		        add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFFC24B99));
 		        add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 0.8), 0xFF00FFFF));
