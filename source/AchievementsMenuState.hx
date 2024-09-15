@@ -121,6 +121,8 @@ class AchievementsMenuState extends MusicBeatState
 		add(nameText);
 		
 		_changeSelection();
+		
+		addVirtualPad(FULL, A_B_C);
 		super.create();
 		
 		FlxG.camera.follow(camFollow, null, 0.15);
@@ -198,7 +200,7 @@ class AchievementsMenuState extends MusicBeatState
 				}
 			}
 			
-			if(controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
+			if(controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0) || _virtualpad.buttonC.pressed && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
 			{
 				openSubState(new ResetAchievementSubstate());
 			}

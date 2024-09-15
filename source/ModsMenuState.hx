@@ -294,6 +294,7 @@ class ModsMenuState extends MusicBeatState
 		_lastControllerMode = ClientPrefs.controllerMode;
 
 		changeSelectedMod();
+		
 		super.create();
 	}
 	
