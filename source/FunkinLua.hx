@@ -898,7 +898,6 @@ class FunkinLua {
 		});
 		
 		addLocalCallback("runNewHaxeCode", function(codeToRun:String, ?varsToBring:Any = null, ?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):Dynamic {
-			#if SScript
 			initHaxeModuleCode(funk, codeToRun, varsToBring);
 			final retVal:TeaCall = hscript.executeCode(funcToRun, funcArgs);
 			if (retVal != null) {
@@ -915,9 +914,6 @@ class FunkinLua {
 			{
 				return hscript.returnValue;
 			}
-			#else
-			luaTrace("runHaxeCode: HScript isn't supported on this platform!", false, false, FlxColor.RED);
-			#end
 			return null;
 		});
 
