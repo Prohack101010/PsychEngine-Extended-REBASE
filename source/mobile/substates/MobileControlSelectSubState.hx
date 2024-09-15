@@ -204,7 +204,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			removeVirtualPad();
-			leftArrow.visible = leftArrow.visible = inputvari.visible = exit.visible = reset.visible = keyboard.visible = upPozition.visible = downPozition.visible = leftPozition.visible = rightPozition.visible = shiftPozition.visible = spacePozition.visible = false;
+			leftArrow.visible = rightArrow.visible = inputvari.visible = exit.visible = reset.visible = keyboard.visible = upPozition.visible = downPozition.visible = leftPozition.visible = rightPozition.visible = shiftPozition.visible = spacePozition.visible = false;
 			inControlsSubstate = true;
 			openSubState(new options.ControlsSubState());
 		});

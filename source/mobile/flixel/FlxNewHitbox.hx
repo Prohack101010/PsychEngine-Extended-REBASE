@@ -38,7 +38,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 	public function new():Void
 	{
 		super();
-		if (ClientPrefs.hitboxExtend == 0 && FunkinLua.MobileCType == ''){
+		if (ClientPrefs.hitboxExtend == 0 && PlayState.MobileCType == ''){
             add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFC24B99));
 		    add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF00FFFF));
 		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
@@ -58,17 +58,17 @@ class FlxNewHitbox extends FlxSpriteGroup
         		add(hitbox_hint);
         		}
         		
-        		if (FunkinLua.MobileCType == 'SPACE') {
+        		if (PlayState.MobileCType == 'SPACE') {
         		    add(buttonSpace = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
         		}
-        		else if (FunkinLua.MobileCType == 'SHIFT') {
+        		else if (PlayState.MobileCType == 'SHIFT') {
         		    add(buttonShift = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFF0000));
         		}
-        		else if (FunkinLua.MobileCType == 'BOTH') {
+        		else if (PlayState.MobileCType == 'BOTH') {
         		    add(buttonShift = createHint(0, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 2, (FlxG.height / 5) * 4, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
         		}
-                else if (FunkinLua.MobileCType == '') {
+                else if (PlayState.MobileCType == '') {
                     switch (ClientPrefs.hitboxExtend){
     					case 1:		        
                             add(buttonSpace = createHint(0, (FlxG.height / 5) * 4, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
@@ -96,17 +96,17 @@ class FlxNewHitbox extends FlxSpriteGroup
         		add(hitbox_hint);
         		}
  
-                if (FunkinLua.MobileCType == 'SPACE') {
+                if (PlayState.MobileCType == 'SPACE') {
         		    add(buttonSpace = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
         		}
-        		else if (FunkinLua.MobileCType == 'SHIFT') {
+        		else if (PlayState.MobileCType == 'SHIFT') {
         		    add(buttonShift = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFF0000));
         		}
-        		else if (FunkinLua.MobileCType == 'BOTH') {
+        		else if (PlayState.MobileCType == 'BOTH') {
         		    add(buttonShift = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height / 5), 0xFFFF00));
         		}
-                else if (FunkinLua.MobileCType == '') {
+                else if (PlayState.MobileCType == '') {
                     switch (ClientPrefs.hitboxExtend){
     					case 1:		        
                             add(buttonSpace = createHint(0, 0, FlxG.width, Std.int(FlxG.height / 5), 0xFFFF00));
@@ -134,17 +134,17 @@ class FlxNewHitbox extends FlxSpriteGroup
         		add(hitbox_hint);
         		}
 		        
-		        if (FunkinLua.MobileCType == 'SPACE') {
+		        if (PlayState.MobileCType == 'SPACE') {
         		    add(buttonSpace = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFFFF00));
         		}
-        		else if (FunkinLua.MobileCType == 'SHIFT') {
+        		else if (PlayState.MobileCType == 'SHIFT') {
         		    add(buttonShift = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFF0000));
         		}
-        		else if (FunkinLua.MobileCType == 'BOTH') {
+        		else if (PlayState.MobileCType == 'BOTH') {
         		    add(buttonShift = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFF0000));
                     add(buttonSpace = createHint(FlxG.width / 5 * 2, FlxG.height / 2, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFFFF00));
         		}
-                else if (FunkinLua.MobileCType == '') {
+                else if (PlayState.MobileCType == '') {
                     switch (ClientPrefs.hitboxExtend){
     					case 1:		        
                             add(buttonSpace = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 1), 0xFFFF00));

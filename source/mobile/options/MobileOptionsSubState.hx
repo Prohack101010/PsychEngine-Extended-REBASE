@@ -173,6 +173,14 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = resetVirtualPad;
 		
+		var option:Option = new Option('VirtualPad Type',
+			'Which VirtualPad should use??',
+			'virtualpadType',
+			'string',
+			null,
+			virtualpadTypes);
+		addOption(option);
+		
 		var option:Option = new Option('Touch Screens (WIP)',
 			'WIP',
 			'touchmenus',
@@ -185,15 +193,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'breakgetvarinarray',
 			'bool',
 			false);
-		addOption(option);
-		
-		// I Want To Test This Again
-		var option:Option = new Option('VirtualPad Type',
-			'Which VirtualPad should use??',
-			'virtualpadType',
-			'string',
-			null,
-			virtualpadTypes);
 		addOption(option);
 		
 		var option:Option = new Option('Modpack Folder',
@@ -246,16 +245,15 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		}
 	}
 	
-	var OGpadAlpha:Float = ClientPrefs.VirtualPadAlpha;
 	function onChangePadAlpha()
 	{
 	ClientPrefs.saveSettings();
-	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha / OGpadAlpha;
+	_virtualpad.alpha = curOption.getValue();
 	}
 	
 	function disableIndieCrossMenus()
 	{
-	    if (TitleState.IndieCrossEnabled && ClientPrefs.IndieCrossMenus)
+	    if (TitleState.IndieCrossEnabled)
 	        TitleState.IndieCrossEnabled = false;
 	    else
 	        TitleState.IndieCrossEnabled = true;

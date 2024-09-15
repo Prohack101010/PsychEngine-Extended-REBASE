@@ -326,6 +326,8 @@ class PlayState extends MusicBeatState
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 	
+	public static var MobileCType:String = '';
+	
 	// Opponent Play
 	public var opponentDrain:Bool = false;
 	public static var opponentChart:Bool = false;
@@ -3448,6 +3450,17 @@ class PlayState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
+	}
+	
+	function changeHitboxButtons(mode:String)
+	{
+	    removeMobileControls();
+	    addCustomMobileHitboxControls(mode);
+	}
+	
+	function addCustomMobileControls(mode:String)
+	{
+	    addCustomMobileHitboxControls(mode);
 	}
 	
 	function addPlayStateMobileControls()

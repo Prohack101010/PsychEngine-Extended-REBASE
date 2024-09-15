@@ -180,7 +180,7 @@ class VisualsUISubState extends BaseOptionsMenu
 	{
 	    if (TitleState.IndieCrossEnabled && ClientPrefs.IndieCrossMenus)
 	        TitleState.IndieCrossEnabled = false;
-	    else
+	    if (!TitleState.IndieCrossEnabled && !ClientPrefs.IndieCrossMenus)
 	        TitleState.IndieCrossEnabled = true;
 	}
 
