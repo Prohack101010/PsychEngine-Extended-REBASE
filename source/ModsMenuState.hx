@@ -19,7 +19,7 @@ class ModsMenuState extends MusicBeatState
 {
 	var bg:FlxSprite;
 	var icon:FlxSprite;
-	var modName:Alphabet;
+	var modName:AlphabetNew;
 	var modDesc:FlxText;
 	var modRestartText:FlxText;
 	var modsList:ModsList = null;
@@ -186,7 +186,7 @@ class ModsMenuState extends MusicBeatState
 		add(icon);
 
 		modNameInitialY = icon.y + 80;
-		modName = new Alphabet(icon.x + 165, modNameInitialY, "", true);
+		modName = new AlphabetNew(icon.x + 165, modNameInitialY, "", true);
 		modName.scaleY = 0.8;
 		add(modName);
 
@@ -291,7 +291,7 @@ class ModsMenuState extends MusicBeatState
 		
 		add(bgList);
 		add(modsGroup);
-		_lastControllerMode = controls.controllerMode;
+		_lastControllerMode = ClientPrefs.controllerMode;
 
 		changeSelectedMod();
 		super.create();
@@ -337,21 +337,21 @@ class ModsMenuState extends MusicBeatState
 
 		if(Math.abs(FlxG.mouse.deltaX) > 10 || Math.abs(FlxG.mouse.deltaY) > 10)
 		{
-			controls.controllerMode = false;
+			ClientPrefs.controllerMode = false;
 			if(!FlxG.mouse.visible) FlxG.mouse.visible = true;
 		}
 		
-		if(controls.controllerMode != _lastControllerMode)
+		if(ClientPrefs.controllerMode != _lastControllerMode)
 		{
-			if(controls.controllerMode) FlxG.mouse.visible = false;
-			_lastControllerMode = controls.controllerMode;
+			if(ClientPrefs.controllerMode) FlxG.mouse.visible = false;
+			_lastControllerMode = ClientPrefs.controllerMode;
 		}
 
 		if(controls.UI_DOWN_R || controls.UI_UP_R) holdTime = 0;
 
 		if(modsList.all.length > 0)
 		{
-			if(controls.controllerMode && holdingMod)
+			if(ClientPrefs.controllerMode && holdingMod)
 			{
 				holdingMod = false;
 				holdingElapsed = 0;
@@ -904,8 +904,8 @@ class ModItem extends FlxSpriteGroup
 class MenuButton extends FlxSpriteGroup
 {
 	public var bg:FlxSprite;
-	public var textOn:Alphabet;
-	public var textOff:Alphabet;
+	public var textOn:AlphabetNew;
+	public var textOff:AlphabetNew;
 	public var icon:FlxSprite;
 	public var onClick:Void->Void = null;
 	public var enabled(default, set):Bool = true;
@@ -919,7 +919,7 @@ class MenuButton extends FlxSpriteGroup
 
 		if(text != null)
 		{
-			textOn = new Alphabet(0, 0, "", false);
+			textOn = new AlphabetNew(0, 0, "", false);
 			textOn.setScale(0.6);
 			textOn.text = text;
 			textOn.alpha = 0.6;
@@ -928,7 +928,7 @@ class MenuButton extends FlxSpriteGroup
 			textOn.y -= 30;
 			add(textOn);
 			
-			textOff = new Alphabet(0, 0, "", true);
+			textOff = new AlphabetNew(0, 0, "", true);
 			textOff.setScale(0.52);
 			textOff.text = text;
 			textOff.alpha = 0.6;
@@ -962,7 +962,7 @@ class MenuButton extends FlxSpriteGroup
 			return;
 		}
 
-		if(!ignoreCheck && !Controls.instance.controllerMode && FlxG.mouse.justMoved && FlxG.mouse.visible)
+		if(!ignoreCheck && !ClientPrefs.controllerMode && FlxG.mouse.justMoved && FlxG.mouse.visible)
 			onFocus = FlxG.mouse.overlaps(this);
 
 		if(onFocus && onClick != null && FlxG.mouse.justPressed)
@@ -971,7 +971,7 @@ class MenuButton extends FlxSpriteGroup
 		if(_needACheck)
 		{
 			_needACheck = false;
-			if(!Controls.instance.controllerMode)
+			if(!ClientPrefs.controllerMode)
 				setButtonVisibility(FlxG.mouse.overlaps(this));
 		}
 	}
