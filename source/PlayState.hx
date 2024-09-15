@@ -5463,7 +5463,7 @@ class PlayState extends MusicBeatState
 						unlock = (!usedPractice && keysPressed.length <= 2);
 
 					case 'toastie':
-						unlock = (!ClientPrefs.shaders && ClientPrefs.lowQuality && !ClientPrefs.antialiasing);
+						unlock = (!ClientPrefs.shaders && ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing);
 
 					case 'debugger':
 						unlock = (Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice);
