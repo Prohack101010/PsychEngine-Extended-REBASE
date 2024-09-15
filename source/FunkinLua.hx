@@ -3120,62 +3120,6 @@ class FunkinLua {
 		}
 		return false;
 	}
-	
-	public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):TeaCall {
-		if (funcToRun == null) return null;
-
-		if(!exists(funcToRun)) {
-			#if LUA_ALLOWED
-			luaTrace(origin + ' - No HScript function named: $funcToRun', false, false, FlxColor.RED);
-			#else
-			PlayState.instance.addTextToDebug(origin + ' - No HScript function named: $funcToRun', FlxColor.RED);
-			#end
-			return null;
-		}
-
-		final callValue = public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):TeaCall {
-		if (funcToRun == null) return null;
-
-		if(!exists(funcToRun)) {
-			#if LUA_ALLOWED
-			luaTrace(origin + ' - No HScript function named: $funcToRun', false, false, FlxColor.RED);
-			#else
-			PlayState.instance.addTextToDebug(origin + ' - No HScript function named: $funcToRun', FlxColor.RED);
-			#end
-			return null;
-		}
-
-		final callValue = call(funcToRun, funcArgs);
-		if (!callValue.succeeded)
-		{
-			final e = callValue.exceptions[0];
-			if (e != null) {
-				var msg:String = e.toString();
-				#if LUA_ALLOWED
-				luaTrace('$origin: ${lastCalledFunction} - $msg', false, false, FlxColor.RED);
-				return null;
-				#end
-				PlayState.instance.addTextToDebug('$origin - $msg', FlxColor.RED);
-			}
-			return null;
-		}
-		return callValue;
-	}(funcToRun, funcArgs);
-		if (!callValue.succeeded)
-		{
-			final e = callValue.exceptions[0];
-			if (e != null) {
-				var msg:String = e.toString();
-				#if LUA_ALLOWED
-				luaTrace('$origin: ${lastCalledFunction} - $msg', false, false, FlxColor.RED);
-				return null;
-				#end
-				PlayState.instance.addTextToDebug('$origin - $msg', FlxColor.RED);
-			}
-			return null;
-		}
-		return callValue;
-	}
 
 	#if hscript
 	public function initHaxeModule()
@@ -4040,6 +3984,38 @@ class HScript
 	public function get_variables()
 	{
 		return interp.variables;
+	}
+	
+	public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):TeaCall {
+		if (funcToRun == null) return null;
+
+		if(!exists(funcToRun)) {
+			#if LUA_ALLOWED
+			FunkinLua.luaTrace(origin + ' - No HScript function named: $funcToRun', false, false, FlxColor.RED);
+			#else
+			PlayState.instance.addTextToDebug(origin + ' - No HScript function named: $funcToRun', FlxColor.RED);
+			#end
+			return null;
+		}
+
+		final callValue = call(funcToRun, funcArgs);
+		if (!callValue.succeeded)
+		{
+			final e = callValue.exceptions[0];
+			if (e != null) {
+				var msg:String = e.toString();
+				#if LUA_ALLOWED
+				if(parentLua != null)
+				{
+					FunkinLua.luaTrace('$origin: ${parentLua.lastCalledFunction} - $msg', false, false, FlxColor.RED);
+					return null;
+				}
+				#end
+				PlayState.instance.addTextToDebug('$origin - $msg', FlxColor.RED);
+			}
+			return null;
+		}
+		return callValue;
 	}
 
 	public function new()
