@@ -1,15 +1,4 @@
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxCamera;
-import flixel.tweens.FlxTween;
-import flixel.group.FlxSpriteGroup;
-import flixel.util.FlxColor;
-import flixel.text.FlxText;
-
-#if MODS_ALLOWED
-import sys.io.File;
-import sys.FileSystem;
-#end
+package;
 
 #if ACHIEVEMENTS_ALLOWED
 import objects.AchievementPopup;
@@ -19,8 +8,6 @@ import haxe.Json;
 #if LUA_ALLOWED
 import FunkinLua;
 #end
-
-using StringTools;
 
 typedef Achievement =
 {
@@ -49,15 +36,16 @@ class Achievements {
 		createAchievement('ur_bad',					{name: "What a Funkin' Disaster!", description: "Complete a Song with a rating lower than 20%."});
 		createAchievement('ur_good',				{name: "Perfectionist", description: "Complete a Song with a rating of 100%."});
 		createAchievement('roadkill_enthusiast',	{name: "Roadkill Enthusiast", description: "Watch the Henchmen die 50 times.", maxScore: 50, maxDecimals: 0});
-		createAchievement('oversinging', 			{name: "Oversinging Much...?", description: "Hold down a note for 10 seconds."});
-		createAchievement('hype',					{name: "Hyperactive", description: "Finish a Song without going Idle."});
+		createAchievement('oversinging', 			{name: "Oversinging Much...?", description: "Sing for 10 seconds without going back to Idle."});
+		createAchievement('hype',					{name: "Hyperactive", description: "Finish a Song without going back to Idle."});
 		createAchievement('two_keys',				{name: "Just the Two of Us", description: "Finish a Song pressing only two keys."});
-		createAchievement('toastier',				{name: "Toaster Gamer", description: "Have you tried to run the game on a toaster?"});
+		createAchievement('toastie',				{name: "Toaster Gamer", description: "Have you tried to run the game on a toaster?"});
 		createAchievement('debugger',				{name: "Debugger", description: "Beat the \"Test\" Stage from the Chart Editor.", hidden: true});
 		
 		//dont delete this thing below
 		_originalLength = _sortID + 1;
 	}
+
 	public static var achievements:Map<String, Achievement> = new Map<String, Achievement>();
 	public static var variables:Map<String, Float> = [];
 	public static var achievementsUnlocked:Array<String> = [];
@@ -95,7 +83,7 @@ class Achievements {
 		FlxG.save.data.achievementsUnlocked = achievementsUnlocked;
 		FlxG.save.data.achievementsVariables = variables;
 	}
-
+	
 	public static function getScore(name:String):Float
 		return _scoreFunc(name, 0);
 
@@ -138,7 +126,7 @@ class Achievements {
 		}
 		return -1;
 	}
-	
+
 	static var _lastUnlock:Int = -999;
 	public static function unlock(name:String, autoStartPopup:Bool = true):String {
 		if(!achievements.exists(name))
@@ -167,6 +155,7 @@ class Achievements {
 		if(autoStartPopup) startPopup(name);
 		return name;
 	}
+
 	inline public static function isUnlocked(name:String)
 		return achievementsUnlocked.contains(name);
 
@@ -228,7 +217,7 @@ class Achievements {
 		if(FileSystem.exists(path)) {
 			try {
 				var rawJson:String = File.getContent(path).trim();
-				if(rawJson != null && rawJson.length > 0) retVal = Json.parse(rawJson); //Json.parse('{"achievements": $rawJson}').achievements;
+				if(rawJson != null && rawJson.length > 0) retVal = tjson.TJSON.parse(rawJson); //Json.parse('{"achievements": $rawJson}').achievements;
 				
 				if(addMods && retVal != null)
 				{
@@ -274,6 +263,7 @@ class Achievements {
 		}
 		return retVal;
 	}
+	#end
 
 	#if LUA_ALLOWED
 	public static function addLuaCallbacks(lua:State)
@@ -325,7 +315,6 @@ class Achievements {
 		});
 		Lua_helper.add_callback(lua, "achievementExists", function(name:String) return achievements.exists(name));
 	}
-	#end
 	#end
 }
 #end

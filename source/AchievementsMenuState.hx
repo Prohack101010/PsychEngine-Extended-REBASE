@@ -1,21 +1,8 @@
 package;
 
-import flash.text.TextField;
-import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.ui.FlxBar;
 import flixel.util.FlxSort;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import lime.utils.Assets;
-import flixel.FlxSubState;
-import Achievements;
-
-using StringTools;
+import objects.Bar;
 
 #if ACHIEVEMENTS_ALLOWED
 class AchievementsMenuState extends MusicBeatState
@@ -27,14 +14,11 @@ class AchievementsMenuState extends MusicBeatState
 	public var nameText:FlxText;
 	public var descText:FlxText;
 	public var progressTxt:FlxText;
-	private var progressBarBG:AttachedSprite; //The image used for the health bar.
-	public var progressBar:FlxBar;
+	public var progressBar:Bar;
 
 	var camFollow:FlxObject;
 
 	var MAX_PER_ROW:Int = 4;
-
-	public var progressValue:Float = 0;
 
 	override function create()
 	{
@@ -53,15 +37,11 @@ class AchievementsMenuState extends MusicBeatState
 				options.push(makeAchievement(achievement, data, unlocked, data.mod));
 		}
 
-		// TO DO: check for mods
-
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
-		FlxG.camera.follow(camFollow, null, 0);
-		FlxG.camera.scroll.y = -FlxG.height;
 
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
-		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
+		menuBG.antialiasing = ClientPrefs.data.antialiasing;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
@@ -74,7 +54,7 @@ class AchievementsMenuState extends MusicBeatState
 		options.sort(sortByID);
 		for (option in options)
 		{
-			var hasAntialias:Bool = ClientPrefs.globalAntialiasing;
+			var hasAntialias:Bool = ClientPrefs.data.antialiasing;
 			var graphic = null;
 			if(option.unlocked)
 			{
@@ -99,7 +79,7 @@ class AchievementsMenuState extends MusicBeatState
 			spr.antialiasing = hasAntialias;
 			grpOptions.add(spr);
 		}
-		#if MODS_ALLOWED Paths.loadTopMod(); #end
+		#if MODS_ALLOWED WeekData.loadTheFirstEnabledMod(); #end
 
 		var box:FlxSprite = new FlxSprite(0, -30).makeGraphic(1, 1, FlxColor.BLACK);
 		box.scale.set(grpOptions.width + 60, grpOptions.height + 60);
@@ -125,33 +105,25 @@ class AchievementsMenuState extends MusicBeatState
 		descText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER);
 		descText.scrollFactor.set();
 
-		progressBarBG = new AttachedSprite('healthBar');
-		progressBarBG.screenCenter(X);
-		progressBarBG.y = descText.y + 52;
-		progressBarBG.xAdd = -4;
-		progressBarBG.yAdd = -4;
-
-		progressBar = new FlxBar(progressBarBG.x + 4, progressBarBG.y + 4, LEFT_TO_RIGHT, Std.int(progressBarBG.width - 8), Std.int(progressBarBG.height - 8), this, 'progressValue');
+		progressBar = new Bar(0, descText.y + 52);
+		progressBar.screenCenter(X);
 		progressBar.scrollFactor.set();
-		insert(members.indexOf(progressBarBG), progressBar);
-		progressBarBG.sprTracker = progressBar;
-		progressBar.visible = progressBarBG.visible = false;
-		progressBar.createFilledBar(FlxColor.BLACK, FlxColor.WHITE);
+		progressBar.enabled = false;
 		
 		progressTxt = new FlxText(50, progressBar.y - 6, FlxG.width - 100, "", 32);
 		progressTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		progressTxt.scrollFactor.set();
 		progressTxt.borderSize = 2;
 
-		for (i in [progressBarBG, progressBar, progressTxt, descText, nameText])
-			add(i);
+		add(progressBar);
+		add(progressTxt);
+		add(descText);
+		add(nameText);
 		
 		_changeSelection();
 		super.create();
 		
-		addVirtualPad(FULL, A_B);
-
-		FlxG.camera.follow(camFollow, null, 9);
+		FlxG.camera.follow(camFollow, null, 0.15);
 		FlxG.camera.scroll.y = -FlxG.height;
 	}
 
@@ -234,7 +206,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.switchState(new MainMenuState());
+			MusicBeatState.switchState(new MainMenuState());
 			goingBack = true;
 		}
 		super.update(elapsed);
@@ -247,7 +219,7 @@ class AchievementsMenuState extends MusicBeatState
 		var hasProgress = options[curSelected].maxProgress > 0;
 		nameText.text = options[curSelected].displayName;
 		descText.text = options[curSelected].description;
-		progressTxt.visible = progressBarBG.visible = progressBar.visible = hasProgress;
+		progressTxt.visible = progressBar.visible = hasProgress;
 
 		if(barTween != null) barTween.cancel();
 
@@ -257,15 +229,12 @@ class AchievementsMenuState extends MusicBeatState
 			var val2:Float = options[curSelected].maxProgress;
 			progressTxt.text = CoolUtil.floorDecimal(val1, options[curSelected].decProgress) + ' / ' + CoolUtil.floorDecimal(val2, options[curSelected].decProgress);
 
-			barTween = FlxTween.num(progressValue, (val1 / val2) * 100, 0.5, {ease: FlxEase.quadOut,
-				onUpdate: function(twn:FlxTween) {
-					var barValue = FlxMath.lerp(progressValue, (val1 / val2) * 100, twn.percent);
-					if (barValue != 0)
-						progressValue = barValue;
-				}
+			barTween = FlxTween.tween(progressBar, {percent: (val1 / val2) * 100}, 0.5, {ease: FlxEase.quadOut,
+				onComplete: function(twn:FlxTween) progressBar.updateBar(),
+				onUpdate: function(twn:FlxTween) progressBar.updateBar()
 			});
 		}
-		else progressValue = 0;
+		else progressBar.percent = 0;
 
 		var maxRows = Math.floor(grpOptions.members.length / MAX_PER_ROW);
 		if(maxRows > 0)
@@ -354,17 +323,14 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 				option.name = state.nameText.text = '???';
 				if(option.maxProgress > 0) state.progressTxt.text = '0 / ' + option.maxProgress;
 				state.grpOptions.members[state.curSelected].loadGraphic(Paths.image('achievements/lockedachievement'));
-				state.grpOptions.members[state.curSelected].antialiasing = ClientPrefs.globalAntialiasing;
+				state.grpOptions.members[state.curSelected].antialiasing = ClientPrefs.data.antialiasing;
 
 				if(state.progressBar.visible)
 				{
 					if(state.barTween != null) state.barTween.cancel();
-					state.barTween = FlxTween.num(state.progressValue, 0, 0.5, {ease: FlxEase.quadOut,
-					onUpdate: function(twn:FlxTween) {
-						var barValue = FlxMath.lerp(state.progressValue, 0, twn.percent);
-						if (barValue != 0)
-							state.progressValue = barValue;
-					}
+					state.barTween = FlxTween.tween(state.progressBar, {percent: 0}, 0.5, {ease: FlxEase.quadOut,
+						onComplete: function(twn:FlxTween) state.progressBar.updateBar(),
+						onUpdate: function(twn:FlxTween) state.progressBar.updateBar()
 					});
 				}
 				Achievements.save();
