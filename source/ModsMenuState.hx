@@ -6,7 +6,7 @@ import flixel.math.FlxPoint;
 import flixel.ui.FlxButton;
 import flixel.FlxBasic;
 import flixel.graphics.FlxGraphic;
-import flash.geom.Rectangle;
+import openfl.geom.Rectangle;
 import lime.utils.Assets;
 import tjson.TJSON as Json;
 
@@ -685,4 +685,341 @@ class ModsMenuState extends MusicBeatState
 		updateItemPositions();
 
 		icon.loadGraphic(curMod.icon.graphic, true, 150, 150);
-		icon.antialiasing 
+		icon.antialiasing = curMod.icon.antialiasing;
+
+		if(curMod.totalFrames > 0)
+		{
+			icon.animation.add("icon", [for (i in 0...curMod.totalFrames) i], curMod.iconFps);
+			icon.animation.play("icon");
+			icon.animation.curAnim.curFrame = curMod.icon.animation.curAnim.curFrame;
+		}
+
+		if(modName.scaleX != 0.8) modName.setScale(0.8);
+		modName.text = curMod.name;
+		var newScale = Math.min(620 / (modName.width / 0.8), 0.8);
+		modName.setScale(newScale, Math.min(newScale * 1.35, 0.8));
+		modName.y = modNameInitialY - (modName.height / 2);
+		modRestartText.visible = curMod.mustRestart;
+		modDesc.text = curMod.desc;
+
+		for (button in buttons) if(button.focusChangeCallback != null) button.focusChangeCallback(button.onFocus);
+		settingsButton.enabled = (curMod.settings != null && curMod.settings.length > 0);
+	}
+
+	var centerMod:Int = 2;
+	function updateItemPositions()
+	{
+		var maxVisible = Math.max(4, centerMod + 2);
+		var minVisible = Math.max(0, centerMod - 2);
+		for (i => mod in modsGroup.members)
+		{
+			if(mod == null)
+			{
+				trace('Mod #$i is null, maybe it was ' + modsList.all[i]);
+				continue;
+			}
+
+			mod.visible = (i >= minVisible && i <= maxVisible);
+			mod.x = bgList.x + 5;
+			mod.y = bgList.y + (86 * (i - centerMod + 2)) + 5;
+			
+			mod.alpha = 0.6;
+			if(i == curSelectedMod) mod.alpha = 1;
+			mod.selectBg.visible = (i == curSelectedMod && hoveringOnMods);
+		}
+	}
+
+	var waitingToRestart:Bool = false;
+	function moveModToPosition(?mod:String = null, position:Int = 0)
+	{
+		if(mod == null) mod = modsList.all[curSelectedMod];
+		if(position >= modsList.all.length) position = 0;
+		else if(position < 0) position = modsList.all.length-1;
+
+		trace('Moved mod $mod to position $position');
+		var id:Int = modsList.all.indexOf(mod);
+		if(position == id) return;
+
+		var curMod:ModItem = modsGroup.members[id];
+		if(curMod == null) return;
+
+		if(curMod.mustRestart || modsGroup.members[position].mustRestart) waitingToRestart = true;
+
+		modsGroup.remove(curMod, true);
+		modsList.all.remove(mod);
+		//if(position > id) position--;
+		modsGroup.insert(position, curMod);
+		modsList.all.insert(position, mod);
+
+		curSelectedMod = position;
+		updateModDisplayData();
+		updateItemPositions();
+		
+		if(!hoveringOnMods)
+		{
+			var curMod:ModItem = modsGroup.members[curSelectedMod];
+			if(curMod != null) curMod.selectBg.visible = false;
+		}
+		FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
+	}
+
+	function checkToggleButtons()
+	{
+		buttonEnableAll.visible = buttonEnableAll.enabled = modsList.disabled.length > 0;
+		buttonDisableAll.visible = buttonDisableAll.enabled = !buttonEnableAll.visible;
+	}
+
+	function reload()
+	{
+		saveTxt();
+		FlxG.autoPause = true;
+		FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransOut = true;
+		var curMod:ModItem = modsGroup.members[curSelectedMod];
+		MusicBeatState.switchState(new ModsMenuState(curMod != null ? curMod.folder : null));
+	}
+	
+	function saveTxt()
+	{
+		var fileStr:String = '';
+		for (mod in modsList.all)
+		{
+			if(mod.trim().length < 1) continue;
+
+			if(fileStr.length > 0) fileStr += '\n';
+
+			var on = '1';
+			if(modsList.disabled.contains(mod)) on = '0';
+			fileStr += '$mod|$on';
+		}
+
+		var path:String = 'modsList.txt';
+		File.saveContent(path, fileStr);
+	}
+}
+
+class ModItem extends FlxSpriteGroup
+{
+	public var selectBg:FlxSprite;
+	public var icon:FlxSprite;
+	public var text:FlxText;
+	public var totalFrames:Int = 0;
+
+	// options
+	public var name:String = 'Unknown Mod';
+	public var desc:String = 'No description provided.';
+	public var iconFps:Int = 10;
+	public var bgColor:FlxColor = 0xFF665AFF;
+	public var pack:Dynamic = null;
+	public var folder:String = 'unknownMod';
+	public var mustRestart:Bool = false;
+	public var settings:Array<Dynamic> = null;
+
+	public function new(folder:String)
+	{
+		super();
+
+		this.folder = folder;
+		pack = Paths.getPack(folder);
+
+		var path:String = Paths.mods('$folder/data/settings.json');
+		if(FileSystem.exists(path))
+		{
+			var data:String = File.getContent(path);
+			try
+			{
+				//trace('trying to load settings: $folder');
+				settings = Json.parse(data);
+			}
+			catch(e:Dynamic)
+			{
+				var errorTitle = 'Mod name: ' + Paths.currentModDirectory;
+				var errorMsg = 'An error occurred: $e';
+				#if windows
+				lime.app.Application.current.window.alert(errorMsg, errorTitle);
+				#end
+				trace('$errorTitle - $errorMsg');
+			}
+		}
+
+		selectBg = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
+		selectBg.alpha = 0.8;
+		selectBg.visible = false;
+		add(selectBg);
+
+		icon = new FlxSprite(5, 5);
+		icon.antialiasing = ClientPrefs.globalAntialiasing;
+		add(icon);
+
+		text = new FlxText(95, 38, 230, "", 16);
+		text.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		text.borderSize = 2;
+		text.y -= Std.int(text.height / 2);
+		add(text);
+
+		var isPixel = false;
+		var bmp = Paths.cacheBitmap(Paths.mods('$folder/pack.png'));
+		if(bmp == null)
+		{
+			bmp = Paths.cacheBitmap(Paths.mods('$folder/pack-pixel.png'));
+			isPixel = true;
+		}
+
+		if(bmp != null)
+		{
+			icon.loadGraphic(bmp, true, 150, 150);
+			if(isPixel) icon.antialiasing = false;
+		}
+		else icon.loadGraphic(Paths.image('unknownMod'), true, 150, 150);
+		icon.scale.set(0.5, 0.5);
+		icon.updateHitbox();
+		
+		this.name = folder;
+		if(pack != null)
+		{
+			if(pack.name != null) this.name = pack.name;
+			if(pack.description != null) this.desc = pack.description;
+			if(pack.iconFramerate != null) this.iconFps = pack.iconFramerate;
+			if(pack.color != null)
+			{
+				this.bgColor = FlxColor.fromRGB(pack.color[0] != null ? pack.color[0] : 170,
+											  pack.color[1] != null ? pack.color[1] : 0,
+											  pack.color[2] != null ? pack.color[2] : 255);
+			}
+			this.mustRestart = (pack.restart == true);
+		}
+		text.text = this.name;
+
+		if(bmp != null)
+		{
+			totalFrames = Math.floor(bmp.width / 150) * Math.floor(bmp.height / 150);
+			icon.animation.add("icon", [for (i in 0...totalFrames) i], iconFps);
+			icon.animation.play("icon");
+		}
+		selectBg.scale.set(width + 5, height + 5);
+		selectBg.updateHitbox();
+	}
+}
+
+class MenuButton extends FlxSpriteGroup
+{
+	public var bg:FlxSprite;
+	public var textOn:Alphabet;
+	public var textOff:Alphabet;
+	public var icon:FlxSprite;
+	public var onClick:Void->Void = null;
+	public var enabled(default, set):Bool = true;
+	public function new(x:Float, y:Float, width:Int, height:Int, ?text:String = null, ?img:FlxGraphic = null, onClick:Void->Void = null, animWidth:Int = 0, animHeight:Int = 0)
+	{
+		super(x, y);
+		
+		bg = FlxSpriteUtil.drawRoundRect(new FlxSprite().makeGraphic(width, height, FlxColor.TRANSPARENT), 0, 0, width, height, 15, 15, FlxColor.WHITE);
+		bg.color = FlxColor.BLACK;
+		add(bg);
+
+		if(text != null)
+		{
+			textOn = new Alphabet(0, 0, "", false);
+			textOn.setScale(0.6);
+			textOn.text = text;
+			textOn.alpha = 0.6;
+			textOn.visible = false;
+			centerOnBg(textOn);
+			textOn.y -= 30;
+			add(textOn);
+			
+			textOff = new Alphabet(0, 0, "", true);
+			textOff.setScale(0.52);
+			textOff.text = text;
+			textOff.alpha = 0.6;
+			centerOnBg(textOff);
+			add(textOff);
+		}
+		else if(img != null)
+		{
+			icon = new FlxSprite();
+			if(animWidth > 0 || animHeight > 0) icon.loadGraphic(img, true, animWidth, animHeight);
+			else icon.loadGraphic(img);
+			centerOnBg(icon);
+			add(icon);
+		}
+
+		this.onClick = onClick;
+		setButtonVisibility(false);
+	}
+
+	public var focusChangeCallback:Bool->Void = null;
+	public var onFocus(default, set):Bool = false;
+	public var ignoreCheck:Bool = false;
+	private var _needACheck:Bool = false;
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if(!enabled)
+		{
+			onFocus = false;
+			return;
+		}
+
+		if(!ignoreCheck && !Controls.instance.controllerMode && FlxG.mouse.justMoved && FlxG.mouse.visible)
+			onFocus = FlxG.mouse.overlaps(this);
+
+		if(onFocus && onClick != null && FlxG.mouse.justPressed)
+			onClick();
+
+		if(_needACheck)
+		{
+			_needACheck = false;
+			if(!Controls.instance.controllerMode)
+				setButtonVisibility(FlxG.mouse.overlaps(this));
+		}
+	}
+
+	function set_onFocus(newValue:Bool)
+	{
+		var lastFocus:Bool = onFocus;
+		onFocus = newValue;
+		if(onFocus != lastFocus && enabled) setButtonVisibility(onFocus);
+		return newValue;
+	}
+
+	function set_enabled(newValue:Bool)
+	{
+		enabled = newValue;
+		setButtonVisibility(false);
+		alpha = enabled ? 1 : 0.4;
+
+		_needACheck = enabled;
+		return newValue;
+	}
+
+	public function setButtonVisibility(focusVal:Bool)
+	{
+		alpha = 1;
+		bg.color = focusVal ? FlxColor.WHITE : FlxColor.BLACK;
+		bg.alpha = focusVal ? 0.8 : 0.6;
+
+		var focusAlpha = focusVal ? 1 : 0.6;
+		if(textOn != null && textOff != null)
+		{
+			textOn.alpha = textOff.alpha = focusAlpha;
+			textOn.visible = focusVal;
+			textOff.visible = !focusVal;
+		}
+		else if(icon != null)
+		{
+			icon.alpha = focusAlpha;
+			icon.color = focusVal ? FlxColor.BLACK : FlxColor.WHITE;
+		}
+
+		if(!enabled) alpha = 0.4;
+		if(focusChangeCallback != null) focusChangeCallback(focusVal);
+	}
+
+	public function centerOnBg(spr:FlxSprite)
+	{
+		spr.x = bg.width/2 - spr.width/2;
+		spr.y = bg.height/2 - spr.height/2;
+	}
+}
