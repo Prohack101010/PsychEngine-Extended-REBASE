@@ -44,6 +44,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	public var title:String;
 	public var rpcTitle:String;
+	final lastVirtualPadType:String = ClientPrefs.virtualpadType;
 
 	public function new()
 	{
