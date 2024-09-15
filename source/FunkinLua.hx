@@ -896,6 +896,30 @@ class FunkinLua {
 			if(retVal != null && !isOfTypes(retVal, [Bool, Int, Float, String, Array])) retVal = null;
 			return retVal;
 		});
+		
+		addLocalCallback("runNewHaxeCode", function(codeToRun:String, ?varsToBring:Any = null, ?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):Dynamic {
+			#if SScript
+			initHaxeModuleCode(funk, codeToRun, varsToBring);
+			final retVal:TeaCall = hscript.executeCode(funcToRun, funcArgs);
+			if (retVal != null) {
+				if(retVal.succeeded)
+					return (retVal.returnValue == null || isOfTypes(retVal.returnValue, [Bool, Int, Float, String, Array])) ? retVal.returnValue : null;
+
+				final e = retVal.exceptions[0];
+				final calledFunc:String = if(hscript.origin == lastCalledFunction) funcToRun else lastCalledFunction;
+				if (e != null)
+					luaTrace(hscript.origin + ":" + calledFunc + " - " + e, false, false, FlxColor.RED);
+				return null;
+			}
+			else if (hscript.returnValue != null)
+			{
+				return hscript.returnValue;
+			}
+			#else
+			luaTrace("runHaxeCode: HScript isn't supported on this platform!", false, false, FlxColor.RED);
+			#end
+			return null;
+		});
 
 		Lua_helper.add_callback(lua, "addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
 			#if hscript
@@ -3072,6 +3096,25 @@ class FunkinLua {
 		call('onCreate', []);
 		#end
 	}
+	
+	public static function initHaxeModuleCode(parent:FunkinLua, code:String, ?varsToBring:Any = null)
+	{
+		var hs:HScript = try parent.hscript catch (e) null;
+		if(hs == null)
+		{
+			trace('initializing haxe interp for: ${parent.scriptName}');
+			parent.hscript = new HScript(parent, code, varsToBring);
+		}
+		else
+		{
+			hs.doString(code);
+			@:privateAccess
+			if(hs.parsingException != null)
+			{
+				PlayState.instance.addTextToDebug('ERROR ON LOADING (${hs.origin}): ${hs.parsingException.message}', FlxColor.RED);
+			}
+		}
+	}
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{
@@ -3080,6 +3123,62 @@ class FunkinLua {
 			if(Std.isOfType(value, type)) return true;
 		}
 		return false;
+	}
+	
+	public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):TeaCall {
+		if (funcToRun == null) return null;
+
+		if(!exists(funcToRun)) {
+			#if LUA_ALLOWED
+			luaTrace(origin + ' - No HScript function named: $funcToRun', false, false, FlxColor.RED);
+			#else
+			PlayState.instance.addTextToDebug(origin + ' - No HScript function named: $funcToRun', FlxColor.RED);
+			#end
+			return null;
+		}
+
+		final callValue = public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):TeaCall {
+		if (funcToRun == null) return null;
+
+		if(!exists(funcToRun)) {
+			#if LUA_ALLOWED
+			luaTrace(origin + ' - No HScript function named: $funcToRun', false, false, FlxColor.RED);
+			#else
+			PlayState.instance.addTextToDebug(origin + ' - No HScript function named: $funcToRun', FlxColor.RED);
+			#end
+			return null;
+		}
+
+		final callValue = call(funcToRun, funcArgs);
+		if (!callValue.succeeded)
+		{
+			final e = callValue.exceptions[0];
+			if (e != null) {
+				var msg:String = e.toString();
+				#if LUA_ALLOWED
+				luaTrace('$origin: ${lastCalledFunction} - $msg', false, false, FlxColor.RED);
+				return null;
+				#end
+				PlayState.instance.addTextToDebug('$origin - $msg', FlxColor.RED);
+			}
+			return null;
+		}
+		return callValue;
+	}(funcToRun, funcArgs);
+		if (!callValue.succeeded)
+		{
+			final e = callValue.exceptions[0];
+			if (e != null) {
+				var msg:String = e.toString();
+				#if LUA_ALLOWED
+				luaTrace('$origin: ${lastCalledFunction} - $msg', false, false, FlxColor.RED);
+				return null;
+				#end
+				PlayState.instance.addTextToDebug('$origin - $msg', FlxColor.RED);
+			}
+			return null;
+		}
+		return callValue;
 	}
 
 	#if hscript
@@ -3990,6 +4089,12 @@ class HScript
 			}
 			return false;
 		});
+	}
+	
+	public function addLocalCallback(name:String, myFunction:Dynamic)
+	{
+		callbacks.set(name, myFunction);
+		Lua_helper.add_callback(lua, name, null); //just so that it gets called
 	}
 
 	public function execute(codeToRun:String):Dynamic
