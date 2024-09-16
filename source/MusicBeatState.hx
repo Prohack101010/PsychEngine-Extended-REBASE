@@ -79,7 +79,7 @@ class MusicBeatState extends FlxUIState
 	
 	public function addMobileControls(?mode:Null<String>) {
 		mobilec = new MobileControls();
-		// PlayState.MobileCType = ''; it brokes the code
+		PlayState.MobileCType = 'DEFAULT';
 		
 		switch (mode.toLowerCase())
 		{
@@ -96,8 +96,7 @@ class MusicBeatState extends FlxUIState
 				PlayState.MobileCType = 'BOTH';
 				mobilec.visible = true;
 			default:
-				PlayState.MobileCType = 'DEFAULT';
-				mobilec.visible = false;
+				// do nothing
 		}
 
 		switch (mobilec.mode)

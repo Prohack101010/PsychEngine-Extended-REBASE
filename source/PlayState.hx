@@ -335,6 +335,7 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+	    MobileCType = 'DEFAULT';
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
 
