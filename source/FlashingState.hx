@@ -34,7 +34,8 @@ class FlashingState extends MusicBeatState
     			Press B to ignore this message.\n
     			You've been warned!",
     			32);
-		} else
+		}
+		else
 		{
     		warnText = new FlxText(0, 0, FlxG.width,
     			"Hey, watch out!\n
@@ -43,7 +44,7 @@ class FlashingState extends MusicBeatState
     			Press ESCAPE to ignore this message.\n
     			You've been warned!",
     			32);
-		)
+		}
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
