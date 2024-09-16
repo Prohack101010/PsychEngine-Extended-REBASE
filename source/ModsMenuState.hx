@@ -175,6 +175,7 @@ class ModsMenuState extends MusicBeatState
 			FlxG.autoPause = false;
 			changeSelectedMod();
 			return super.create();
+			addVirtualPad(NONE, B);
 		}
 		//
 
@@ -294,6 +295,12 @@ class ModsMenuState extends MusicBeatState
 		_lastControllerMode = ClientPrefs.controllerMode;
 
 		changeSelectedMod();
+		
+		addVirtualPad(UP_DOWN, B);
+		_virtualpad.y -= 215; // so that you can press the buttons.
+		#if mobile
+		_virtualpad.alpha = 0.3;
+		#end
 		
 		super.create();
 	}

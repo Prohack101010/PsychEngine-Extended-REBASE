@@ -2,7 +2,7 @@ package options;
 
 import Character;
 
-class ModSettingsSubState extends BaseOptionsMenu
+class ModSettingsSubState extends BaseSettingsMenu
 {
 	var save:Map<String, Dynamic> = new Map<String, Dynamic>();
 	var folder:String;

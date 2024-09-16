@@ -202,6 +202,7 @@ class AchievementsMenuState extends MusicBeatState
 			
 			if(controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0) || _virtualpad.buttonC.pressed && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
 			{
+			    persistentUpdate = false;
 				openSubState(new ResetAchievementSubstate());
 			}
 		}
@@ -251,6 +252,13 @@ class AchievementsMenuState extends MusicBeatState
 			if(spr.ID == curSelected) spr.alpha = 1;
 		});
 	}
+	
+	override function closeSubState() {
+		persistentUpdate = true;
+		removeVirtualPad();
+		addVirtualPad(FULL, A_B_C);
+		super.closeSubState();
+	}
 }
 
 class ResetAchievementSubstate extends MusicBeatSubstate
@@ -293,6 +301,8 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		noText.scrollFactor.set();
 		add(noText);
 		updateOptions();
+		
+		addVirtualPad(LEFT_RIGHT, A);
 	}
 
 	override function update(elapsed:Float)
