@@ -43,36 +43,30 @@ class OptionsState extends MusicBeatState
 		}
 		switch(label) {
 			case 'Note Colors':
-				#if mobile
-				removeVirtualPad();
-				#end
+				if (ClientPrefs.mobileC)
+				    removeVirtualPad();
 				openSubState(new options.NotesSubState());
 			case 'Mobile Controls':
     			FlxTransitionableState.skipNextTransIn = true;
     			FlxTransitionableState.skipNextTransOut = true;
-    			#if mobile
+    			if (ClientPrefs.mobileC)
 				removeVirtualPad();
-				#end
     			openSubState(new MobileControlSelectSubState());
 			case 'Controls':
-			    #if mobile
-				removeVirtualPad();
-				#end
+			    if (ClientPrefs.mobileC)
+				    removeVirtualPad();
 				openSubState(new options.ControlsSubState());
 			case 'Graphics':
-				#if mobile
-				removeVirtualPad();
-				#end
+				if (ClientPrefs.mobileC)
+				    removeVirtualPad();
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals and UI':
-				#if mobile
-				removeVirtualPad();
-				#end
+				if (ClientPrefs.mobileC)
+				    removeVirtualPad();
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
-				#if mobile
-				removeVirtualPad();
-				#end
+				if (ClientPrefs.mobileC)
+				    removeVirtualPad();
 				openSubState(new options.GameplaySettingsSubState());
 			#if mobile
 			case 'Mobile Options':
@@ -127,9 +121,8 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		#if mobile
-		addVirtualPad(UP_DOWN, A_B);
-		#end
+		if (ClientPrefs.mobileC)
+		    addVirtualPad(UP_DOWN, A_B);
 
 		super.create();
 	}

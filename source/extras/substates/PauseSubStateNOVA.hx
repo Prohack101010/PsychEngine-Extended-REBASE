@@ -172,7 +172,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 		backButton.scale.set(0.45, 0.45);
 		backButton.updateHitbox();
 		backButton.visible = false;
-		#if mobile backButton.y -= 127; #end
+		if (ClientPrefs.mobileC) backButton.y -= 127;
 	
 		if (Difficulty.list.length < 2) options.remove('Difficulty');
 	

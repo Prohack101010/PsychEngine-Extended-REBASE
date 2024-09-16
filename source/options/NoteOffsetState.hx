@@ -198,10 +198,11 @@ class NoteOffsetState extends MusicBeatState
 		Conductor.changeBPM(128.0);
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 1, true);
 
-		#if mobile
-		addVirtualPad(FULL, A_B_C);
-		addVirtualPadCamera();
-		#end
+		if (ClientPrefs.mobileC)
+		{
+    		addVirtualPad(FULL, A_B_C);
+    		addVirtualPadCamera();
+		}
 
 		super.create();
 	}
@@ -301,7 +302,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 
-			if(controls.RESET #if mobile || _virtualpad.buttonC.justPressed #end)
+			if(controls.RESET || ClientPrefs.mobileC && _virtualpad.buttonC.justPressed)
 			{
 				for (i in 0...ClientPrefs.comboOffset.length)
 				{
@@ -339,7 +340,7 @@ class NoteOffsetState extends MusicBeatState
 				updateNoteDelay();
 			}
 
-			if(controls.RESET #if mobile || _virtualpad.buttonC.justPressed #end)
+			if(controls.RESET || ClientPrefs.mobileC && _virtualpad.buttonC.justPressed)
 			{
 				holdTime = 0;
 				barPercent = 0;

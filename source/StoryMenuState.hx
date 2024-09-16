@@ -269,19 +269,17 @@ class StoryMenuState extends MusicBeatState
 			else if (upP || downP || SwipeUtil.swipeUp || SwipeUtil.swipeDown)
 				changeDifficulty();
 
-    			if(FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonX.justPressed #end)
+    			if(FlxG.keys.justPressed.CONTROL || ClientPrefs.mobileC && _virtualpad.buttonX.justPressed)
     			{
-    				#if mobile
-    				removeVirtualPad();
-    				#end
+    				if (ClientPrefs.mobileC)
+    				    removeVirtualPad();
     				persistentUpdate = false;
     				openSubState(new GameplayChangersSubstate());
     			}
-    			else if(controls.RESET #if mobile || _virtualpad.buttonY.justPressed #end)
+    			else if(controls.RESET || ClientPrefs.mobileC && _virtualpad.buttonY.justPressed)
     			{
-    				#if mobile
-    				removeVirtualPad();
-    				#end
+    				if (ClientPrefs.mobileC)
+    				    removeVirtualPad();
     				persistentUpdate = false;
     				openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
     				//FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -293,7 +291,7 @@ class StoryMenuState extends MusicBeatState
     			}
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek #if android || FlxG.android.justReleased.BACK && !movedBack && !selectedWeek #end #if mobile || SwipeUtil.swipeRight && !movedBack && !selectedWeek #end)
+		if (controls.BACK && !movedBack && !selectedWeek #if android || FlxG.android.justReleased.BACK && !movedBack && !selectedWeek #end || ClientPrefs.mobileC && SwipeUtil.swipeRight && !movedBack && !selectedWeek #end)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;

@@ -80,9 +80,8 @@ class MenuCharacterEditorState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
 
-		#if mobile
-		addVirtualPad(FULL, A_B);
-		#end
+		if (ClientPrefs.mobileC)
+		    addVirtualPad(FULL, A_B);
 
 		super.create();
 	}
@@ -297,21 +296,21 @@ class MenuCharacterEditorState extends MusicBeatState
 			}
 
 			var shiftMult:Int = 1;
-			if(FlxG.keys.pressed.SHIFT #if mobile || _virtualpad.buttonA.pressed #end) shiftMult = 10;
+			if(FlxG.keys.pressed.SHIFT || ClientPrefs.mobileC && _virtualpad.buttonA.pressed) shiftMult = 10;
 
-			if(FlxG.keys.justPressed.LEFT #if mobile || _virtualpad.buttonLeft.justPressed #end) {
+			if(FlxG.keys.justPressed.LEFT || ClientPrefs.mobileC && _virtualpad.buttonLeft.justPressed) {
 				characterFile.position[0] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.RIGHT #if mobile || _virtualpad.buttonRight.justPressed #end) {
+			if(FlxG.keys.justPressed.RIGHT || ClientPrefs.mobileC && _virtualpad.buttonRight.justPressed) {
 				characterFile.position[0] -= shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.UP #if mobile || _virtualpad.buttonUp.justPressed #end) {
+			if(FlxG.keys.justPressed.UP || ClientPrefs.mobileC && _virtualpad.buttonUp.justPressed) {
 				characterFile.position[1] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.DOWN #if mobile || _virtualpad.buttonDown.justPressed #end) {
+			if(FlxG.keys.justPressed.DOWN || ClientPrefs.mobileC && _virtualpad.buttonDown.justPressed) {
 				characterFile.position[1] -= shiftMult;
 				updateOffset();
 			}

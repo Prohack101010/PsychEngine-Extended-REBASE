@@ -161,10 +161,11 @@ class DialogueCharacterEditorState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
 
-		#if mobile
-		addVirtualPad(FULL, A_B_X_Y);
-		addVirtualPadCamera();
-		#end
+		if (ClientPrefs.mobileC)
+		{
+    		addVirtualPad(FULL, A_B_X_Y);
+    		addVirtualPadCamera();
+		}
 		
 		super.create();
 	}
@@ -537,7 +538,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.SPACE #if mobile || _virtualpad.buttonA.justPressed #end && UI_mainbox.selected_tab_id == 'Character') {
+			if(FlxG.keys.justPressed.SPACE && UI_mainbox.selected_tab_id == 'Character' || ClientPrefs.mobileC && _virtualpad.buttonA.justPressed && UI_mainbox.selected_tab_id == 'Character') {
 				character.playAnim(character.jsonFile.animations[curAnim].anim);
 				daText.resetDialogue();
 				updateTextBox();
@@ -566,8 +567,8 @@ class DialogueCharacterEditorState extends MusicBeatState
 			if(UI_mainbox.selected_tab_id == 'Animations' && curSelectedAnim != null && character.dialogueAnimations.exists(curSelectedAnim)) {
 				var moved:Bool = false;
 				var animShit:DialogueAnimArray = character.dialogueAnimations.get(curSelectedAnim);
-				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A #if mobile || _virtualpad.buttonLeft.justPressed #end, FlxG.keys.justPressed.W #if mobile || _virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.D #if mobile || _virtualpad.buttonRight.justPressed #end, FlxG.keys.justPressed.S #if mobile || _virtualpad.buttonDown.justPressed #end];
-				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT #if mobile || _virtualpad.buttonLeft.justPressed #end, FlxG.keys.justPressed.UP #if mobile || _virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.RIGHT #if mobile || _virtualpad.buttonRight.justPressed #end, FlxG.keys.justPressed.DOWN #if mobile || _virtualpad.buttonDown.justPressed #end];
+				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A || ClientPrefs.mobileC && _virtualpad.buttonLeft.justPressed, FlxG.keys.justPressed.W || ClientPrefs.mobileC && _virtualpad.buttonUp.justPressed, FlxG.keys.justPressed.D || ClientPrefs.mobileC && _virtualpad.buttonRight.justPressed, FlxG.keys.justPressed.S || ClientPrefs.mobileC && _virtualpad.buttonDown.justPressed];
+				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT || ClientPrefs.mobileC && _virtualpad.buttonLeft.justPressed, FlxG.keys.justPressed.UP || ClientPrefs.mobileC && _virtualpad.buttonUp.justPressed, FlxG.keys.justPressed.RIGHT || ClientPrefs.mobileC && _virtualpad.buttonRight.justPressed, FlxG.keys.justPressed.DOWN || ClientPrefs.mobileC && _virtualpad.buttonDown.justPressed];
 				for (i in 0...controlArrayLoop.length) {
 					if(controlArrayLoop[i]) {
 						if(i % 2 == 1) {
@@ -605,7 +606,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 				camGame.zoom += elapsed * camGame.zoom;
 				if(camGame.zoom > 1) camGame.zoom = 1;
 			}
-			if(FlxG.keys.justPressed.H #if mobile || _virtualpad.buttonX.justPressed #end) {
+			if(FlxG.keys.justPressed.H || ClientPrefs.mobileC && _virtualpad.buttonX.justPressed) {
 				if(UI_mainbox.selected_tab_id == 'Animations') {
 					currentGhosts++;
 					if(currentGhosts > 2) currentGhosts = 0;
@@ -618,7 +619,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 					hudGroup.visible = !hudGroup.visible;
 				}
 			}
-			if(FlxG.keys.justPressed.R #if mobile || _virtualpad.buttonY.justPressed #end) {
+			if(FlxG.keys.justPressed.R || ClientPrefs.mobileC && _virtualpad.buttonY.justPressed) {
 				camGame.zoom = 1;
 				mainGroup.setPosition(0, 0);
 				hudGroup.visible = true;
@@ -660,7 +661,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			if(UI_mainbox.selected_tab_id == 'Character')
 			{
 				var negaMult:Array<Int> = [1, -1];
-				var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W #if mobile || _virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.S #if mobile || _virtualpad.buttonDown.justPressed #end];
+				var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W || ClientPrefs.mobileC && _virtualpad.buttonUp.justPressed, FlxG.keys.justPressed.S || ClientPrefs.mobileC && _virtualpad.buttonDown.justPressed];
 
 				if(controlAnim.contains(true))
 				{

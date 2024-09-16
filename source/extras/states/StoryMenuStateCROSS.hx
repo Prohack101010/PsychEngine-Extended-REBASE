@@ -254,9 +254,8 @@ class StoryMenuStateCROSS extends MusicBeatState
 				curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
 				changeDifficulty(1);
 
-		#if mobile
-		addVirtualPad(FULL, A_B_C);
-		#end
+		if (ClientPrefs.mobileC)
+		    addVirtualPad(FULL, A_B_C);
 
 		new FlxTimer().start(0.5, function(tmr:FlxTimer)
 		{

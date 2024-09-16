@@ -108,9 +108,8 @@ class MainMenuStateCROSS extends MusicBeatState
     		#end
     	#end
 
-		#if mobile
-		addVirtualPad(NONE, NONE);
-		#end
+		if (ClientPrefs.mobileC)
+		    addVirtualPad(NONE, NONE);
 
 		super.create();
 	}
@@ -164,7 +163,7 @@ class MainMenuStateCROSS extends MusicBeatState
 			{
 				enterBitches();
 			}
-			else if (FlxG.keys.justPressed.E #if mobile || _virtualpad.buttonE.justPressed #end)
+			else if (FlxG.keys.justPressed.E || ClientPrefs.mobileC && _virtualpad.buttonE.justPressed)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());

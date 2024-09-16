@@ -167,18 +167,19 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		changeSelection();
 		reloadCheckboxes();
 
-        #if mobile
-		#if ios
-		if (ClientPrefs.touchmenus)
-		    addVirtualPad(LEFT_RIGHT, A_B_C);
-		#elseif android
-		if (ClientPrefs.touchmenus)
-		    addVirtualPad(LEFT_RIGHT, A_C);
-		#end
-		if (!ClientPrefs.touchmenus)
-		    addVirtualPad(FULL, A_B_C);
-		addVirtualPadCamera();
-		#end
+        if (ClientPrefs.mobileC)
+        {
+    		#if ios
+    		if (ClientPrefs.touchmenus)
+    		    addVirtualPad(LEFT_RIGHT, A_B_C);
+    		#elseif android
+    		if (ClientPrefs.touchmenus)
+    		    addVirtualPad(LEFT_RIGHT, A_C);
+    		#end
+    		if (!ClientPrefs.touchmenus)
+    		    addVirtualPad(FULL, A_B_C);
+    		addVirtualPadCamera();
+		}
 		
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
@@ -205,7 +206,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
+		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end || ClientPrefs.mobileC && ClientPrefs.touchmenus && SwipeUtil.swipeRight) {
 			
 			close();
 			ClientPrefs.saveSettings();
@@ -320,7 +321,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET #if mobile || _virtualpad.buttonC.justPressed #end)
+			if(controls.RESET || ClientPrefs.mobileC && _virtualpad.buttonC.justPressed)
 			{
 				for (i in 0...optionsArray.length)
 				{

@@ -351,7 +351,7 @@ class MainMenuState extends MusicBeatState
 				}
 				else CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 			}
-			else if (FlxG.keys.anyJustPressed(debugKeys) #if mobile || _virtualpad.buttonE.justPressed #end)
+			else if (FlxG.keys.anyJustPressed(debugKeys) || ClientPrefs.mobileC && _virtualpad.buttonE.justPressed)
 			{
 				selectedSomethin = true;
 				FlxG.mouse.visible = false;

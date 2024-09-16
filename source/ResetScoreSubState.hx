@@ -71,13 +71,14 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(noText);
 		updateOptions();
 
-        #if mobile
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, NONE);
-        else
-            addVirtualPad(LEFT_RIGHT, A_B);
-        addVirtualPadCamera();
-        #end
+        if (ClientPrefs.mobileC)
+        {
+            if (ClientPrefs.touchmenus)
+                addVirtualPad(NONE, NONE);
+            else
+                addVirtualPad(LEFT_RIGHT, A_B);
+            addVirtualPadCamera();
+        }
         cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 
@@ -97,7 +98,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end) {
+		if(controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end || ClientPrefs.mobileC && ClientPrefs.touchmenus && SwipeUtil.swipeRight) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
             close();
 		} else if(controls.ACCEPT) {

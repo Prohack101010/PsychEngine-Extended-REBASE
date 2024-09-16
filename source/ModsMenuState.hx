@@ -45,6 +45,8 @@ class ModsMenuState extends MusicBeatState
 
 	var noModsSine:Float = 0;
 	var noModsTxt:FlxText;
+	
+	final LastControllerMode:Bool = ClientPrefs.ControllerMode; //Mobile Fix
 
 	var _lastControllerMode:Bool = false;
 	var startMod:String = null;
@@ -175,7 +177,7 @@ class ModsMenuState extends MusicBeatState
 			FlxG.autoPause = false;
 			changeSelectedMod();
 			return super.create();
-			addVirtualPad(NONE, B);
+			if (ClientPrefs.mobileC) addVirtualPad(NONE, B);
 		}
 		//
 
@@ -296,11 +298,12 @@ class ModsMenuState extends MusicBeatState
 
 		changeSelectedMod();
 		
-		addVirtualPad(UP_DOWN, B);
-		_virtualpad.y -= 215; // so that you can press the buttons.
-		#if mobile
-		_virtualpad.alpha = 0.3;
-		#end
+		if (ClientPrefs.mobileC)
+		{
+    		addVirtualPad(UP_DOWN, B);
+    		_virtualpad.y -= 215; // so that you can press the buttons.
+    		_virtualpad.alpha = 0.3;
+		}
 		
 		super.create();
 	}
@@ -336,7 +339,10 @@ class ModsMenuState extends MusicBeatState
 				}
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
 			}
-			else MusicBeatState.switchState(new MainMenuState());
+			else {
+    			MusicBeatState.switchState(new MainMenuState());
+    			ClientPrefs.ControllerMode = LastControllerMode;
+			}
 
 			persistentUpdate = false;
 			FlxG.mouse.visible = false;

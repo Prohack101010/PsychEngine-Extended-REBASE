@@ -91,9 +91,8 @@ class NotesSubState extends MusicBeatSubstate
 
 		changeSelection();
 
-		#if mobile
-		addVirtualPad(FULL, A_B_C);
-		#end
+		if (ClientPrefs.mobileC)
+		    addVirtualPad(FULL, A_B_C);
 	}
 
 	var changingNote:Bool = false;
@@ -106,7 +105,7 @@ class NotesSubState extends MusicBeatSubstate
 				} else if(controls.UI_RIGHT_P) {
 					updateValue(1);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
-				} else if(controls.RESET #if mobile || _virtualpad.buttonC.justPressed #end) {
+				} else if(controls.RESET || ClientPrefs.mobileC && _virtualpad.buttonC.justPressed) {
 					resetValue(curSelected, typeSelected);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				}
@@ -147,7 +146,7 @@ class NotesSubState extends MusicBeatSubstate
 				changeType(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if(controls.RESET #if mobile || _virtualpad.buttonC.justPressed #end) {
+			if(controls.RESET || ClientPrefs.mobileC && _virtualpad.buttonC.justPressed) {
 				for (i in 0...3) {
 					resetValue(curSelected, i);
 				}

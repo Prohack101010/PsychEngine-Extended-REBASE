@@ -175,18 +175,18 @@ class CreditsState extends MusicBeatState
 		intendedColor = bg.color;
 		changeSelection();
 
-        #if mobile
-        #if ios
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, A_B);
-        #end
-        #if android
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, A);
-        #end
-        if (!ClientPrefs.touchmenus)
-            addVirtualPad(UP_DOWN, A_B);
-        #end
+        if (ClientPrefs.mobileC)
+            #if ios
+            if (ClientPrefs.touchmenus)
+                addVirtualPad(NONE, A_B);
+            #end
+            #if android
+            if (ClientPrefs.touchmenus)
+                addVirtualPad(NONE, A);
+            #end
+            if (!ClientPrefs.touchmenus)
+                addVirtualPad(UP_DOWN, A_B);
+        }
 		super.create();
 	}
 
@@ -239,7 +239,7 @@ class CreditsState extends MusicBeatState
     		if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
     			CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     		}
-    		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end #if mobile || ClientPrefs.touchmenus && SwipeUtil.swipeRight #end)
+    		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end || ClientPrefs.mobileC && ClientPrefs.touchmenus && SwipeUtil.swipeRight)
     		{
     			if(colorTween != null) {
     				colorTween.cancel();
