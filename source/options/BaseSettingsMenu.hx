@@ -30,13 +30,12 @@ using StringTools;
 
 import CheckboxThingie;
 import AttachedText;
-import options.Option;
 
 class BaseSettingsMenu extends MusicBeatSubstate
 {
-	private var curOption:Option = null;
+	private var curOption:OptionNew = null;
 	private var curSelected:Int = 0;
-	private var optionsArray:Array<Option>;
+	private var optionsArray:Array<OptionNew>;
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
@@ -124,7 +123,7 @@ class BaseSettingsMenu extends MusicBeatSubstate
 		reloadCheckboxes();
 	}
 
-	public function addOption(option:Option) {
+	public function addOption(option:OptionNew) {
 		if(optionsArray == null || optionsArray.length < 1) optionsArray = [];
 		optionsArray.push(option);
 		return option;
@@ -240,7 +239,7 @@ class BaseSettingsMenu extends MusicBeatSubstate
 
 			if(controls.RESET)
 			{
-				var leOption:Option = optionsArray[curSelected];
+				var leOption:OptionNew = optionsArray[curSelected];
 				leOption.setValue(leOption.defaultValue);
 				if(leOption.type != 'bool')
 				{
@@ -259,7 +258,7 @@ class BaseSettingsMenu extends MusicBeatSubstate
 		super.update(elapsed);
 	}
 
-	function updateTextFrom(option:Option) {
+	function updateTextFrom(option:OptionNew) {
 		var text:String = option.displayFormat;
 		var val:Dynamic = option.getValue();
 		if(option.type == 'percent') val *= 100;

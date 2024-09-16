@@ -17,6 +17,7 @@ import ModsMenuState; //I'm adding Indie Cross Support because Lily's Psych 0.6.
 
 // 0.7x Support
 import objects.Alphabet as AlphabetNew;
+import extras.options.Option as OptionNew;
 import backend.Mods;
 import objects.AudioDisplay;
 import objects.shape.ShapeEX;
