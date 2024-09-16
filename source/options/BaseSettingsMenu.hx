@@ -29,7 +29,7 @@ import Controls;
 using StringTools;
 
 import CheckboxThingie;
-import AttachedTextNew;
+import AttachedText;
 
 class BaseSettingsMenu extends MusicBeatSubstate
 {
