@@ -46,7 +46,7 @@ class ModsMenuState extends MusicBeatState
 	var noModsSine:Float = 0;
 	var noModsTxt:FlxText;
 	
-	final LastControllerMode:Bool = ClientPrefs.ControllerMode; //Mobile Fix
+	final LastControllerMode:Bool = ClientPrefs.controllerMode; //Mobile Fix
 
 	var _lastControllerMode:Bool = false;
 	var startMod:String = null;
@@ -341,7 +341,7 @@ class ModsMenuState extends MusicBeatState
 			}
 			else {
     			MusicBeatState.switchState(new MainMenuState());
-    			ClientPrefs.ControllerMode = LastControllerMode;
+    			ClientPrefs.controllerMode = LastControllerMode;
 			}
 
 			persistentUpdate = false;

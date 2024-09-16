@@ -128,6 +128,7 @@ class ClientPrefs {
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.wideScreen = wideScreen;
+		FlxG.save.data.mobileC = mobileC;
 		FlxG.save.data.marvelousRating = marvelousRating;
 		FlxG.save.data.marvelousSprite = marvelousSprite;
 		FlxG.save.data.marvelousWindow = marvelousWindow;
@@ -206,6 +207,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.wideScreen != null) {
 			wideScreen = FlxG.save.data.wideScreen;
+		}
+		if(FlxG.save.data.mobileC != null) {
+			mobileC = FlxG.save.data.mobileC;
 		}
 		if(FlxG.save.data.marvelousRating != null) {
 			marvelousRating = FlxG.save.data.marvelousRating;
