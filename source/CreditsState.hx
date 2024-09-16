@@ -176,6 +176,7 @@ class CreditsState extends MusicBeatState
 		changeSelection();
 
         if (ClientPrefs.mobileC)
+        {
             #if ios
             if (ClientPrefs.touchmenus)
                 addVirtualPad(NONE, A_B);
