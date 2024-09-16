@@ -291,7 +291,7 @@ class StoryMenuState extends MusicBeatState
     			}
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek #if android || FlxG.android.justReleased.BACK && !movedBack && !selectedWeek #end || ClientPrefs.mobileC && SwipeUtil.swipeRight && !movedBack && !selectedWeek #end)
+		if (controls.BACK && !movedBack && !selectedWeek #if android || FlxG.android.justReleased.BACK && !movedBack && !selectedWeek #end || ClientPrefs.mobileC && SwipeUtil.swipeRight && !movedBack && !selectedWeek)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
