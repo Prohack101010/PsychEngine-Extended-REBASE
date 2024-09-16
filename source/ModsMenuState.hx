@@ -571,6 +571,18 @@ class ModsMenuState extends MusicBeatState
 		}
 		super.update(elapsed);
 	}
+	
+	override function closeSubState()
+	{
+		super.closeSubState();
+		if (ClientPrefs.mobileC)
+		{
+		    removeVirtualPad();
+    		addVirtualPad(UP_DOWN, B);
+    		_virtualpad.y -= 215; // so that you can press the buttons.
+    		_virtualpad.alpha = 0.3;
+		}
+	}
 
 	function changeSelectedButton(add:Int = 0)
 	{

@@ -1781,17 +1781,15 @@ class ChartingState extends MusicBeatState
 				return;
 			}
  
-			if((FlxG.keys.justPressed.Z || ClientPrefs.mobileC && _virtualpad.buttonV.justPressed) && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if(FlxG.keys.justPressed.Z && FlxG.keys.pressed.CONTROL || ClientPrefs.mobileC && _virtualpad.buttonV.justPressed && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				undo();
 			}
-
-
 
 			if((FlxG.keys.justPressed.Z || ClientPrefs.mobileC && _virtualpad.buttonV.justPressed) && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				--curZoom;
 				updateZoom();
 			}
-			if((FlxG.keys.justPressed.X || ClientPrefs.mobileC && _virtualpad.buttonD.justPressed) && curZoom < zoomList.length-1) {
+			if(FlxG.keys.justPressed.X || ClientPrefs.mobileC && _virtualpad.buttonD.justPressed && curZoom < zoomList.length-1) {
 				curZoom++;
 				updateZoom();
 			}

@@ -47,7 +47,7 @@ class ClientPrefs {
 	public static var breakgetvarinarray:Bool = false;
 	//Mobile
 	public static var wideScreen:Bool = false;
-	public static var mobileC:Bool = #if mobile true #else false #end; //better than using if mobile
+	public static var mobileC:Bool = #if MOBILEC true #else false #end; //better than using if mobile
 	#if android
 	public static var storageType:String = "EXTERNAL_DATA";
 	#end

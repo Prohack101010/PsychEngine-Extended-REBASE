@@ -538,7 +538,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.SPACE && UI_mainbox.selected_tab_id == 'Character' || ClientPrefs.mobileC && _virtualpad.buttonA.justPressed && UI_mainbox.selected_tab_id == 'Character') {
+			if((FlxG.keys.justPressed.SPACE || ClientPrefs.mobileC && _virtualpad.buttonA.justPressed) && UI_mainbox.selected_tab_id == 'Character') {
 				character.playAnim(character.jsonFile.animations[curAnim].anim);
 				daText.resetDialogue();
 				updateTextBox();

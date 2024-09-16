@@ -430,7 +430,7 @@ class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget impleme
 		#if (FLX_MOUSE || FLX_TOUCH)
 		if (dropPanel.visible)
 		{
-			if (ClientPrefs.mobileC) {
+			#if mobile
 				if(list.length > 1 && canScroll) {
 					for (swipe in FlxG.swipes) {
 						var f = swipe.startPosition.x - swipe.endPosition.x;
@@ -451,7 +451,7 @@ class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget impleme
 						}
 					}
 				}
-			} else {
+			#else
 				if(list.length > 1 && canScroll) {
 					var lastScroll:Int = currentScroll;
 					if(FlxG.mouse.wheel > 0 || FlxG.keys.justPressed.UP) {
@@ -469,7 +469,7 @@ class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget impleme
 
 				if (FlxG.mouse.justPressed && !FlxG.mouse.overlaps(this,camera))
 					showList(false);
-			}
+			#end
 		}
 		#end
 	}
