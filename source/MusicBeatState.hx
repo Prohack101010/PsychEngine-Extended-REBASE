@@ -26,6 +26,8 @@ import flixel.util.FlxDestroyUtil;
 
 class MusicBeatState extends FlxUIState
 {
+    public static var instance:MusicBeatState;
+    
 	private var curSection:Int = 0;
 	private var stepsToDo:Int = 0;
 
@@ -63,18 +65,6 @@ class MusicBeatState extends FlxUIState
 		controls.trackedInputsUI = [];
 	}
 	
-	public function addVirtualPadLua(?DPad:String, ?Action:String) {		
-		if (_virtualpad != null)
-			removeVirtualPad();
-
-		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
-		add(_virtualpad);
-
-		controls.setVirtualPadUI(_virtualpad, DPad, Action);
-		trackedinputsUI = controls.trackedInputsUI;
-		controls.trackedInputsUI = [];
-	}
-
 	public function removeVirtualPad() {
 		if (trackedinputsUI.length > 0)
 			controls.removeVirtualControlsInput(trackedinputsUI);

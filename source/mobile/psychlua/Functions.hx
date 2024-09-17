@@ -1,6 +1,8 @@
 package mobile.psychlua;
 
 import FunkinLua;
+import lime.ui.Haptic;
+import mobile.backend.TouchFunctions;
 #if android
 import android.widget.Toast as AndroidToast;
 import android.Tools as AndroidTools;
@@ -18,54 +20,6 @@ class MobileFunctions
 		{
 			MusicBeatState.mobilec.visible = enabled;
 			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
-		});
-
-		Lua_helper.add_callback(lua, "extraButtonPressed", function(button:String)
-		{
-			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
-			{
-				switch (button)
-				{
-					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.pressed;
-					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.pressed;
-				}
-			}
-			return false;
-		});
-
-		Lua_helper.add_callback(lua, "extraButtonJustPressed", function(button:String)
-		{
-			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
-			{
-				switch (button)
-				{
-					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.justPressed;
-					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.justPressed;
-				}
-			}
-			return false;
-		});
-
-		Lua_helper.add_callback(lua, "extraButtonJustReleased", function(button:String)
-		{
-			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
-			{
-				switch (button)
-				{
-					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.justReleased;
-					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.justReleased;
-				}
-			}
-			return false;
 		});
 
 		Lua_helper.add_callback(lua, "vibrate", function(duration:Null<Int>, ?period:Null<Int>)
