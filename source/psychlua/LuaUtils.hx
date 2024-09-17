@@ -5,6 +5,7 @@ import Character;
 
 import openfl.display.BlendMode;
 import Type.ValueType;
+import psychlua.ModchartSprite as ModchartSpriteTest;
 
 import GameOverSubstate;
 
@@ -355,7 +356,7 @@ class LuaUtils
 			return;
 		}
 
-		var target:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
+		var target:ModchartSpriteTest = PlayState.instance.modchartSprites.get(tag);
 		target.kill();
 		PlayState.instance.remove(target, true);
 		target.destroy();

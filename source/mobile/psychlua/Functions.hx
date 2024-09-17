@@ -14,7 +14,7 @@ class MobileFunctions
 	{
 	    var lua:State = funk.lua;
 		
-		Lua_helper.add_callback(lua, 'mobileControlsMode', getMobileControlsAsString());
+		// Lua_helper.add_callback(lua, 'mobileControlsMode', getMobileControlsAsString()); //nope
 		
 		Lua_helper.add_callback(lua, "mobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
 		{
@@ -100,9 +100,10 @@ class MobileFunctions
 		});
 	}
 
+    /*
 	public static function getMobileControlsAsString():String
 	{
-		switch (MobileControls.mode)
+		switch (mobilec.mode)
 		{
 			case 0:
 				return 'left';
@@ -119,6 +120,7 @@ class MobileFunctions
 		}
 		return 'uknown';
 	}
+	*/
 	
 	public static function getExtraControlsVarInArray(instance:Dynamic, variable:String):Any
 	{
