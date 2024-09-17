@@ -45,11 +45,25 @@ class MusicBeatState extends FlxUIState
 	var _virtualpad:FlxVirtualPad;
 	public static var mobilec:MobileControls;
 	
+	public var dpadMode:Map<String, FlxDPadMode>;
+	public var actionMode:Map<String, FlxActionMode>;
 	var MobileControls:MobileControls;
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
 
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
+		if (_virtualpad != null)
+			removeVirtualPad();
+
+		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
+		add(_virtualpad);
+
+		controls.setVirtualPadUI(_virtualpad, DPad, Action);
+		trackedinputsUI = controls.trackedInputsUI;
+		controls.trackedInputsUI = [];
+	}
+	
+	public function addVirtualPadLua(?DPad:String, ?Action:String) {		
 		if (_virtualpad != null)
 			removeVirtualPad();
 
@@ -133,12 +147,6 @@ class MusicBeatState extends FlxUIState
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
 		_virtualpad.cameras = [camcontrol];
-	}
-	public function addVirtualPadCamera2() {
-		var camvpadcontrol = new flixel.FlxCamera();
-		camvpadcontrol.bgColor.alpha = 0;
-		FlxG.cameras.add(camvpadcontrol, false);
-		_virtualpad.cameras = [camvpadcontrol];
 	}
 	
 	override function destroy() {

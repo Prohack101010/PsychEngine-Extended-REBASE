@@ -29,13 +29,13 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     public static var rightPozition:FlxText;
     public static var shiftPozition:FlxText;
     public static var spacePozition:FlxText;
-    public static var inputvari:PsychAlphabet;
+    public static var grpControls:FlxText;
     public static var leftArrow:FlxSprite;
     public static var rightArrow:FlxSprite;
     public static var tipText:FlxText;
     public static var titleText:Alphabet;
     public static var daChoice:String;
-    public static var controlitems:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
+    public static var options:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
     var curSelected:Int = 0;
     var buttonistouched:Bool = false;
     var bindbutton:FlxButton;
@@ -52,6 +52,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     override public function create():Void
     {
         super.create();
+        
+        #if desktop FlxG.mouse.visible = true; #end
 
         // Transparent background and UI
         bg = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true,
@@ -100,29 +102,25 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         newhbox.visible = false;
         newhbox.cameras = [ui];
         add(newhbox);
+        
+        grpControls = new FlxText(0, 100, 0, '', 32);
+		grpControls.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
+		grpControls.borderSize = 3;
+		grpControls.borderQuality = 1;
+		grpControls.screenCenter(X);
+		add(grpControls);
 
-        inputvari = new PsychAlphabet(0, 50, controlitems[curSelected], false, false, 0.05, 0.8);
-        inputvari.screenCenter(X);
-        inputvari.cameras = [ui];
-        add(inputvari);
+        leftArrow = new FlxSprite(grpControls.x - 60, grpControls.y - 25);
+		leftArrow.frames = Paths.getSparrowAtlas('campaign_menu_UI_assets');
+		leftArrow.animation.addByPrefix('idle', 'arrow left');
+		leftArrow.animation.play('idle');
+		add(leftArrow);
 
-        var ui_tex = Paths.getSparrowAtlas('mobilecontrols/menu/arrows');
-
-        leftArrow = new FlxSprite(inputvari.x - 60, inputvari.y + 50);
-        leftArrow.frames = ui_tex;
-        leftArrow.animation.addByPrefix('idle', "arrow left");
-        leftArrow.animation.addByPrefix('press', "arrow push left");
-        leftArrow.animation.play('idle');
-        leftArrow.cameras = [ui];
-        add(leftArrow);
-
-        rightArrow = new FlxSprite(inputvari.x + inputvari.width + 10, leftArrow.y);
-        rightArrow.frames = ui_tex;
-        rightArrow.animation.addByPrefix('idle', 'arrow right');
-        rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
-        rightArrow.animation.play('idle');
-        rightArrow.cameras = [ui];
-        add(rightArrow);
+		rightArrow = new FlxSprite(grpControls.x + grpControls.width + 10, grpControls.y - 25);
+		rightArrow.frames = Paths.getSparrowAtlas('campaign_menu_UI_assets');
+		rightArrow.animation.addByPrefix('idle', 'arrow right');
+		rightArrow.animation.play('idle');
+		add(rightArrow);
 
         upPozition = new FlxText(10, FlxG.height - 164, 0,"Button Up X:" + vpad.buttonUp.x +" Y:" + vpad.buttonUp.y, 16);
         upPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -207,10 +205,10 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			removeVirtualPad();
-			leftArrow.visible = rightArrow.visible = inputvari.visible = exit.visible = reset.visible = keyboard.visible = upPozition.visible = downPozition.visible = leftPozition.visible = rightPozition.visible = shiftPozition.visible = spacePozition.visible = tipText.visible = false;
+			leftArrow.visible = rightArrow.visible = grpControls.visible = exit.visible = reset.visible = keyboard.visible = upPozition.visible = downPozition.visible = leftPozition.visible = rightPozition.visible = shiftPozition.visible = spacePozition.visible = tipText.visible = false;
 			titleText.text = 'Controls';
 			inControlsSubstate = true;
-			openSubState(new options.ControlsSubState());
+			openSubState(new ControlsSubState());
 		});
 		keyboard.color = FlxColor.GRAY;
 		keyboard.setGraphicSize(Std.int(keyboard.width) * 3);
@@ -228,10 +226,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     override function update(elapsed:Float)
     {
         super.update(elapsed);
-
-        leftArrow.x = inputvari.x - 60;
-        rightArrow.x = inputvari.x + inputvari.width + 10;
-        inputvari.screenCenter(X);
 
         for (touch in FlxG.touches.list)
         {		
@@ -252,15 +246,19 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         curSelected += change;
 
         if (curSelected < 0)
-            curSelected = controlitems.length - 1;
-        if (curSelected >= controlitems.length)
+            curSelected = options.length - 1;
+        if (curSelected >= options.length)
             curSelected = 0;
 
-        inputvari.changeText(controlitems[curSelected]);
+        grpControls.text = options[curSelected];
+		grpControls.screenCenter(X);
+
+		leftArrow.x = grpControls.x - 60;
+		rightArrow.x = grpControls.x + grpControls.width + 10;
 
         buttonistouched = false;
 
-        daChoice = controlitems[Math.floor(curSelected)];
+        daChoice = options[Math.floor(curSelected)];
 
         switch (daChoice)
         {
@@ -346,7 +344,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
     function trackbutton(touch:flixel.input.touch.FlxTouch)
     {
-        daChoice = controlitems[Math.floor(curSelected)];
+        daChoice = options[Math.floor(curSelected)];
 
         if (daChoice == 'Pad-Custom')
         {
@@ -431,7 +429,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     function save()
     {
         config.setcontrolmode(curSelected);
-        daChoice = controlitems[Math.floor(curSelected)];
+        daChoice = options[Math.floor(curSelected)];
 
         if (daChoice == 'Pad-Custom')
         {

@@ -6,8 +6,191 @@ import android.widget.Toast as AndroidToast;
 import android.Tools as AndroidTools;
 #end
 
-#if mobile
 class MobileFunctions
+{
+	public static function implement(funk:FunkinLua)
+	{
+		Lua_helper.add_callback(lua, 'mobileControlsMode', getMobileControlsAsString());
+
+		Lua_helper.add_callback(lua, "extraButtonPressed", function(button:String)
+		{
+			button = button.toLowerCase();
+			if (MusicBeatState.instance.mobileControls != null)
+			{
+				switch (button)
+				{
+					case 'second':
+						return MusicBeatState.instance.mobileControls.current.buttonExtra2.pressed;
+					default:
+						return MusicBeatState.instance.mobileControls.current.buttonExtra.pressed;
+				}
+			}
+			return false;
+		});
+
+		Lua_helper.add_callback(lua, "extraButtonJustPressed", function(button:String)
+		{
+			button = button.toLowerCase();
+			if (MusicBeatState.instance.mobileControls != null)
+			{
+				switch (button)
+				{
+					case 'second':
+						return MusicBeatState.instance.mobileControls.current.buttonExtra2.justPressed;
+					default:
+						return MusicBeatState.instance.mobileControls.current.buttonExtra.justPressed;
+				}
+			}
+			return false;
+		});
+
+		Lua_helper.add_callback(lua, "extraButtonJustReleased", function(button:String)
+		{
+			button = button.toLowerCase();
+			if (MusicBeatState.instance.mobileControls != null)
+			{
+				switch (button)
+				{
+					case 'second':
+						return MusicBeatState.instance.mobileControls.current.buttonExtra2.justReleased;
+					default:
+						return MusicBeatState.instance.mobileControls.current.buttonExtra.justReleased;
+				}
+			}
+			return false;
+		});
+
+		Lua_helper.add_callback(lua, "vibrate", function(duration:Null<Int>, ?period:Null<Int>)
+		{
+			if (period == null)
+				period = 0;
+			if (duration == null)
+				return FunkinLua.luaTrace('vibrate: No duration specified.');
+			return Haptic.vibrate(period, duration);
+		});
+
+		Lua_helper.add_callback(lua, "addVirtualPad", (DPadMode:String, ActionMode:String) ->
+		{
+			PlayState.instance.makeLuaVirtualPad(DPadMode, ActionMode);
+			PlayState.instance.addLuaVirtualPad();
+		});
+
+		Lua_helper.add_callback(lua, "removeVirtualPad", () ->
+		{
+			PlayState.instance.removeLuaVirtualPad();
+		});
+
+		Lua_helper.add_callback(lua, "addVirtualPadCamera", () ->
+		{
+			if (PlayState.instance.luaVirtualPad == null)
+			{
+				FunkinLua.luaTrace('addVirtualPadCamera: VPAD does not exist.');
+				return;
+			}
+			PlayState.instance.addLuaVirtualPadCamera();
+		});
+
+		Lua_helper.add_callback(lua, "virtualPadJustPressed", function(button:Dynamic):Bool
+		{
+			if (PlayState.instance.luaVirtualPad == null)
+			{
+				//FunkinLua.luaTrace('virtualPadJustPressed: VPAD does not exist.');
+				return false;
+			}
+			return PlayState.instance.luaVirtualPadJustPressed(button);
+		});
+
+		Lua_helper.add_callback(lua, "virtualPadPressed", function(button:Dynamic):Bool
+		{
+			if (PlayState.instance.luaVirtualPad == null)
+			{
+				//FunkinLua.luaTrace('virtualPadPressed: VPAD does not exist.');
+				return false;
+			}
+			return PlayState.instance.luaVirtualPadPressed(button);
+		});
+
+		Lua_helper.add_callback(lua, "virtualPadJustReleased", function(button:Dynamic):Bool
+		{
+			if (PlayState.instance.luaVirtualPad == null)
+			{
+				//FunkinLua.luaTrace('virtualPadJustReleased: VPAD does not exist.');
+				return false;
+			}
+			return PlayState.instance.luaVirtualPadJustReleased(button);
+		});
+
+		Lua_helper.add_callback(lua, "touchJustPressed", TouchFunctions.touchJustPressed);
+		Lua_helper.add_callback(lua, "touchPressed", TouchFunctions.touchPressed);
+		Lua_helper.add_callback(lua, "touchJustReleased", TouchFunctions.touchJustReleased);
+		Lua_helper.add_callback(lua, "touchPressedObject", function(object:String):Bool
+		{
+			var obj = PlayState.instance.getLuaObject(object);
+			if (obj == null)
+			{
+				FunkinLua.luaTrace('touchPressedObject: $object does not exist.');
+				return false;
+			}
+			return TouchFunctions.touchOverlapObject(obj) && TouchFunctions.touchPressed;
+		});
+
+		Lua_helper.add_callback(lua, "touchJustPressedObject", function(object:String):Bool
+		{
+			var obj = PlayState.instance.getLuaObject(object);
+			if (obj == null)
+			{
+				FunkinLua.luaTrace('touchJustPressedObject: $object does not exist.');
+				return false;
+			}
+			return TouchFunctions.touchOverlapObject(obj) && TouchFunctions.touchJustPressed;
+		});
+
+		Lua_helper.add_callback(lua, "touchJustReleasedObject", function(object:String):Bool
+		{
+			var obj = PlayState.instance.getLuaObject(object);
+			if (obj == null)
+			{
+				FunkinLua.luaTrace('touchJustPressedObject: $object does not exist.');
+				return false;
+			}
+			return TouchFunctions.touchOverlapObject(obj) && TouchFunctions.touchJustReleased;
+		});
+
+		Lua_helper.add_callback(lua, "touchOverlapsObject", function(object:String):Bool
+		{
+			var obj = PlayState.instance.getLuaObject(object);
+			if (obj == null)
+			{
+				FunkinLua.luaTrace('touchOverlapsObject: $object does not exist.');
+				return false;
+			}
+			return TouchFunctions.touchOverlapObject(obj);
+		});
+	}
+
+	public static function getMobileControlsAsString():String
+	{
+		switch (MobileControls.mode)
+		{
+			case 0:
+				return 'left';
+			case 1:
+				return 'right';
+			case 2:
+				return 'custom';
+			case 3:
+				return 'duo';
+			case 4:
+				return 'hitbox';
+			case 5:
+				return 'none';
+		}
+		return 'uknown';
+	}
+}
+
+#if mobile
+class AndroidFunctions
 {
 	public static function implement(funk:FunkinLua)
 	{

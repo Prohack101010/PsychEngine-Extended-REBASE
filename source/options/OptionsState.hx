@@ -43,34 +43,21 @@ class OptionsState extends MusicBeatState
 		}
 		switch(label) {
 			case 'Note Colors':
-				if (ClientPrefs.mobileC)
-				    removeVirtualPad();
 				openSubState(new options.NotesSubState());
 			case 'Mobile Controls':
     			FlxTransitionableState.skipNextTransIn = true;
     			FlxTransitionableState.skipNextTransOut = true;
-    			if (ClientPrefs.mobileC)
-				removeVirtualPad();
     			openSubState(new MobileControlSelectSubState());
 			case 'Controls':
-			    if (ClientPrefs.mobileC)
-				    removeVirtualPad();
 				openSubState(new options.ControlsSubState());
 			case 'Graphics':
-				if (ClientPrefs.mobileC)
-				    removeVirtualPad();
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals and UI':
-				if (ClientPrefs.mobileC)
-				    removeVirtualPad();
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
-				if (ClientPrefs.mobileC)
-				    removeVirtualPad();
 				openSubState(new options.GameplaySettingsSubState());
 			#if mobile
 			case 'Mobile Options':
-				removeVirtualPad();
 			    openSubState(new MobileOptionsSubState());
 			#end
 			case 'Adjust Delay and Combo':
@@ -89,7 +76,7 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 		
-		if (ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
+		if (ClientPrefs.mobileC && ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -129,8 +116,8 @@ class OptionsState extends MusicBeatState
 
 	override function closeSubState() {
 		super.closeSubState();
-		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B);
+		if (ClientPrefs.mobileC) removeVirtualPad();
+		if (ClientPrefs.mobileC) addVirtualPad(UP_DOWN, A_B);
 		persistentUpdate = true;
 		ClientPrefs.saveSettings();
 	}

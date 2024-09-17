@@ -8,6 +8,9 @@ import llua.State;
 import llua.Convert;
 #end
 
+import psychlua.LuaUtils;
+import psychlua.LuaUtils.LuaTweenOptions;
+
 import mobile.psychlua.Functions; //separate Funkinlua and Mobile Functions
 
 // import animateatlas.AtlasFrameMaker;
@@ -3077,7 +3080,8 @@ class FunkinLua {
 		
 		#if ACHIEVEMENTS_ALLOWED Achievements.addLuaCallbacks(lua); #end
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
-		#if MOBILEC MobileFunctions.implement(this); #end
+		#if mobile MobileFunctions.implement(this); #end
+		#if android AndroidFunctions.implement(this); #end
 
 		call('onCreate', []);
 		#end
