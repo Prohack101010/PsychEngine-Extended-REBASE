@@ -168,6 +168,7 @@ class FunkinLua {
 		set('ratingName', '');
 		set('ratingFC', '');
 		set('version', MainMenuState.psychEngineVersion.trim());
+		set('versionEx', MainMenuState.psychExtendedVersion.trim());
 
 		set('inGameOver', false);
 		set('mustHitSection', false);
@@ -3076,7 +3077,7 @@ class FunkinLua {
 		
 		#if ACHIEVEMENTS_ALLOWED Achievements.addLuaCallbacks(lua); #end
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
-		MobileFunctions.implement(this);
+		#if MOBILEC MobileFunctions.implement(this); #end
 
 		call('onCreate', []);
 		#end

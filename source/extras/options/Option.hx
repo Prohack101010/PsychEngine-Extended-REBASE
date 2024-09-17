@@ -25,13 +25,13 @@ class Option
 	public var description:String = '';
 	public var name:String = 'Unknown';
 
-	public function new(name:String, description:String = '', variable:String, type:String = 'bool', ?options:Array<String> = null)
+	public function new(name:String, description:String = '', variable:String, type:String = 'bool', defaultValue:Dynamic = 'null variable value', ?options:Array<String> = null)
 	{
 		this.name = name;
 		this.description = description;
 		this.variable = variable;
 		this.type = type;
-		this.defaultValue = Reflect.getProperty(ClientPrefs, variable);
+		this.defaultValue = defaultValue;
 		this.options = options;
 
 		if(defaultValue == 'null variable value')
