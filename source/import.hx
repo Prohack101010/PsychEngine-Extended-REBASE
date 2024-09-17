@@ -21,7 +21,6 @@ import objects.AudioDisplay;
 import objects.shape.ShapeEX;
 import psychlua.*; //Psych-LUA
 import backend.ui.*; //Psych-UI
-import psychlua.ModchartSprite;
 import mobile.psychlua.Functions;
 import objects.Alphabet as AlphabetNew;
 import extras.options.BaseSettingsMenu;
