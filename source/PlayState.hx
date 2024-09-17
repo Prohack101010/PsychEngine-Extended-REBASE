@@ -5483,7 +5483,7 @@ class PlayState extends MusicBeatState
 		if(!variables.exists("luaVirtualPad"))
 			variables.set("luaVirtualPad", luaVirtualPad);
 			
-		luaVirtualPad = new FlxVirtualPad(dpadMode.get(DPad), actionMode.get(Action));
+		luaVirtualPad = new FlxVirtualPad(dpadMode.get(DPadMode), actionMode.get(ActionMode));
 		luaVirtualPad.alpha = ClientPrefs.VirtualPadAlpha;
 	}
 
@@ -5509,32 +5509,5 @@ class PlayState extends MusicBeatState
 			luaVirtualPad.destroy();
 			remove(luaVirtualPad);
 		}
-	}
-
-	public function luaVirtualPadPressed(button:Dynamic):Bool {
-		if(Std.isOfType(button, String))
-			return luaVirtualPad.buttonPressed(button);
-		else if(Std.isOfType(button, Array))
-			return luaVirtualPad.anyPressed(button);
-		else
-			return false;
-	}
-
-	public function luaVirtualPadJustPressed(button:Dynamic):Bool {
-		if(Std.isOfType(button, String))
-			return luaVirtualPad.buttonJustPressed(button);
-		else if(Std.isOfType(button, Array))
-			return luaVirtualPad.anyJustPressed(button);
-		else
-			return false;
-	}
-
-	public function luaVirtualPadJustReleased(button:Dynamic):Bool {
-		if(Std.isOfType(button, String))
-			return luaVirtualPad.buttonJustReleased(button);
-		else if(Std.isOfType(button, Array))
-			return luaVirtualPad.anyJustReleased(button);
-		else
-			return false;
 	}
 }

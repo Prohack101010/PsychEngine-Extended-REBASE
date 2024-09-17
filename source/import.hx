@@ -9,22 +9,23 @@ import shaders.*;
 import shaders.flixel.system.FlxShader;
 
 // Extra
-import indiecrossmenus.LoadingState as IndieCrossLoading;
-import indiecrossmenus.*; //Indie Cross Menus
 import extras.states.*; //Extra States
 import extras.substates.*; //Extra Substates
+import indiecrossmenus.*; //Indie Cross Menus
+import indiecrossmenus.LoadingState as IndieCrossLoading;
 import ModsMenuState; //I'm adding Indie Cross Support because Lily's Psych 0.6.3 port is very weird and sucks (crashes and bugs)
 
 // 0.7x Support
-import objects.Alphabet as AlphabetNew;
-import extras.options.Option as OptionNew;
-import objects.AttachedText as AttachedTextNew;
-import extras.options.BaseSettingsMenu;
 import backend.Mods;
 import objects.AudioDisplay;
 import objects.shape.ShapeEX;
 import psychlua.*; //Psych-LUA
 import backend.ui.*; //Psych-UI
+import mobile.psychlua.Functions;
+import objects.Alphabet as AlphabetNew;
+import extras.options.BaseSettingsMenu;
+import extras.options.Option as OptionNew;
+import objects.AttachedText as AttachedTextNew;
 import backend.animation.PsychAnimationController; //Psych Animation Controller
 
 //New Lua System
@@ -45,14 +46,13 @@ import js.html.*;
 #end
 
 //Lua VirtualPad
+import mobile.objects.TouchPad;
+import mobile.input.MobileInputID;
+import mobile.objects.TouchButton;
+import mobile.backend.MobileData;
 import mobile.objects.MobileControls;
 import mobile.objects.IMobileControls;
-import mobile.objects.TouchPad;
-import mobile.objects.TouchButton;
-import mobile.input.MobileInputID;
-import mobile.backend.MobileData;
 import mobile.input.MobileInputManager;
-import mobile.backend.MobileData;
 
 // Desktop
 #if desktop
@@ -60,30 +60,30 @@ import Discord;
 #end
 
 // Mobile no if Mobile because it brokes windows build
-import mobile.flixel.FlxHitbox;
-import mobile.flixel.FlxNewHitbox;
-import mobile.flixel.FlxVirtualPad;
-import mobile.input.*;
-import mobile.backend.*;
 import mobile.flixel.*;
+import mobile.input.*;
+import mobile.states.*;
 import mobile.objects.*;
 import mobile.options.*;
-import mobile.states.*;
-import mobile.substates.*;
+import mobile.backend.*;
 import mobile.psychlua.*;
+import mobile.substates.*;
 import mobile.backend.Data;
+import mobile.flixel.FlxHitbox;
+import mobile.flixel.FlxVirtualPad;
+import mobile.flixel.FlxNewHitbox;
 
 // Android
 #if android
-import android.content.Context as AndroidContext;
-import android.widget.Toast as AndroidToast;
-import android.os.Environment as AndroidEnvironment;
-import android.Permissions as AndroidPermissions;
-import android.Settings as AndroidSettings;
 import android.Tools as AndroidTools;
+import android.Settings as AndroidSettings;
+import android.widget.Toast as AndroidToast;
+import android.content.Context as AndroidContext;
+import android.Permissions as AndroidPermissions;
 import android.os.Build.VERSION as AndroidVersion;
-import android.os.Build.VERSION_CODES as AndroidVersionCode;
+import android.os.Environment as AndroidEnvironment;
 import android.os.BatteryManager as AndroidBatteryManager;
+import android.os.Build.VERSION_CODES as AndroidVersionCode;
 #end
 
 // Lua
@@ -95,17 +95,17 @@ import llua.Convert;
 #end
 
 //Flixel
-import flixel.sound.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
-import flixel.util.FlxDestroyUtil;
+import flixel.util.FlxColor;
+import flixel.text.FlxText;
+import flixel.util.FlxTimer;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
+import flixel.sound.FlxSound;
+import flixel.util.FlxDestroyUtil;
 import flixel.tweens.FlxTween;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;

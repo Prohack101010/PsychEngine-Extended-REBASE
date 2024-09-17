@@ -10,7 +10,15 @@ class MobileFunctions
 {
 	public static function implement(funk:FunkinLua)
 	{
+	    var lua:State = funk.lua;
+		
 		Lua_helper.add_callback(lua, 'mobileControlsMode', getMobileControlsAsString());
+		
+		Lua_helper.add_callback(lua, "mobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
+		{
+			MusicBeatState.mobilec.visible = enabled;
+			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
+		});
 
 		Lua_helper.add_callback(lua, "extraButtonPressed", function(button:String)
 		{
@@ -90,36 +98,6 @@ class MobileFunctions
 			PlayState.instance.addLuaVirtualPadCamera();
 		});
 
-		Lua_helper.add_callback(lua, "virtualPadJustPressed", function(button:Dynamic):Bool
-		{
-			if (PlayState.instance.luaVirtualPad == null)
-			{
-				//FunkinLua.luaTrace('virtualPadJustPressed: VPAD does not exist.');
-				return false;
-			}
-			return PlayState.instance.luaVirtualPadJustPressed(button);
-		});
-
-		Lua_helper.add_callback(lua, "virtualPadPressed", function(button:Dynamic):Bool
-		{
-			if (PlayState.instance.luaVirtualPad == null)
-			{
-				//FunkinLua.luaTrace('virtualPadPressed: VPAD does not exist.');
-				return false;
-			}
-			return PlayState.instance.luaVirtualPadPressed(button);
-		});
-
-		Lua_helper.add_callback(lua, "virtualPadJustReleased", function(button:Dynamic):Bool
-		{
-			if (PlayState.instance.luaVirtualPad == null)
-			{
-				//FunkinLua.luaTrace('virtualPadJustReleased: VPAD does not exist.');
-				return false;
-			}
-			return PlayState.instance.luaVirtualPadJustReleased(button);
-		});
-
 		Lua_helper.add_callback(lua, "touchJustPressed", TouchFunctions.touchJustPressed);
 		Lua_helper.add_callback(lua, "touchPressed", TouchFunctions.touchPressed);
 		Lua_helper.add_callback(lua, "touchJustReleased", TouchFunctions.touchJustReleased);
@@ -186,87 +164,6 @@ class MobileFunctions
 				return 'none';
 		}
 		return 'uknown';
-	}
-}
-
-#if mobile
-class AndroidFunctions
-{
-	public static function implement(funk:FunkinLua)
-	{
-		var lua:State = funk.lua;
-		
-		Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
-		{
-			MusicBeatState.mobilec.visible = enabled;
-			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
-		});
-		
-		#if android
-		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
-		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
-		Lua_helper.add_callback(lua, "isTablet", AndroidTools.isTablet());
-		Lua_helper.add_callback(lua, "isChromebook", AndroidTools.isChromebook());
-		Lua_helper.add_callback(lua, "isDeXMode", AndroidTools.isDeXMode());
-		Lua_helper.add_callback(lua, "backJustPressed", FlxG.android.justPressed.BACK);
-		Lua_helper.add_callback(lua, "backPressed", FlxG.android.pressed.BACK);
-		Lua_helper.add_callback(lua, "backJustReleased", FlxG.android.justReleased.BACK);
-		Lua_helper.add_callback(lua, "menuJustPressed", FlxG.android.justPressed.MENU);
-		Lua_helper.add_callback(lua, "menuPressed", FlxG.android.pressed.MENU);
-		Lua_helper.add_callback(lua, "menuJustReleased", FlxG.android.justReleased.MENU);
-		Lua_helper.add_callback(lua, "getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
-		Lua_helper.add_callback(lua, "setOrientation", function(hint:Null<String>):Void
-		{
-			switch (hint.toLowerCase())
-			{
-				case 'portrait':
-					hint = 'Portrait';
-				case 'portraitupsidedown' | 'upsidedownportrait' | 'upsidedown':
-					hint = 'PortraitUpsideDown';
-				case 'landscapeleft' | 'leftlandscape':
-					hint = 'LandscapeLeft';
-				case 'landscaperight' | 'rightlandscape' | 'landscape':
-					hint = 'LandscapeRight';
-				default:
-					hint = null;
-			}
-			if (hint == null)
-				return FunkinLua.luaTrace('setOrientation: No orientation specified.');
-			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, hint);
-		});
-		Lua_helper.add_callback(lua, "minimizeWindow", () -> AndroidTools.minimizeWindow());
-		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>)
-		{
-			if (text == null)
-				return FunkinLua.luaTrace('showToast: No text specified.');
-			else if (duration == null)
-				return FunkinLua.luaTrace('showToast: No duration specified.');
-
-			if (xOffset == null)
-				xOffset = 0;
-			if (yOffset == null)
-				yOffset = 0;
-
-			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
-		});
-		Lua_helper.add_callback(lua, "isScreenKeyboardShown", () -> PsychJNI.isScreenKeyboardShown());
-
-		Lua_helper.add_callback(lua, "clipboardHasText", () -> PsychJNI.clipboardHasText());
-		Lua_helper.add_callback(lua, "clipboardGetText", () -> PsychJNI.clipboardGetText());
-		Lua_helper.add_callback(lua, "clipboardSetText", function(text:Null<String>):Void
-		{
-			if (text != null) return FunkinLua.luaTrace('clipboardSetText: No text specified.');
-			PsychJNI.clipboardSetText(text);
-		});
-
-		Lua_helper.add_callback(lua, "manualBackButton", () -> PsychJNI.manualBackButton());
-
-		Lua_helper.add_callback(lua, "setActivityTitle", function(text:Null<String>):Void
-		{
-			if (text != null) return FunkinLua.luaTrace('setActivityTitle: No text specified.');
-			PsychJNI.setActivityTitle(text);
-		});
-		#end	
 	}
 	
 	public static function getExtraControlsVarInArray(instance:Dynamic, variable:String):Any
@@ -385,6 +282,81 @@ class AndroidFunctions
 		}
 
 		return Reflect.getProperty(instance, variable);
+	}
+}
+
+#if mobile
+class AndroidFunctions
+{
+	public static function implement(funk:FunkinLua)
+	{
+		var lua:State = funk.lua;
+		
+		#if android
+		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
+		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
+		Lua_helper.add_callback(lua, "isTablet", AndroidTools.isTablet());
+		Lua_helper.add_callback(lua, "isChromebook", AndroidTools.isChromebook());
+		Lua_helper.add_callback(lua, "isDeXMode", AndroidTools.isDeXMode());
+		Lua_helper.add_callback(lua, "backJustPressed", FlxG.android.justPressed.BACK);
+		Lua_helper.add_callback(lua, "backPressed", FlxG.android.pressed.BACK);
+		Lua_helper.add_callback(lua, "backJustReleased", FlxG.android.justReleased.BACK);
+		Lua_helper.add_callback(lua, "menuJustPressed", FlxG.android.justPressed.MENU);
+		Lua_helper.add_callback(lua, "menuPressed", FlxG.android.pressed.MENU);
+		Lua_helper.add_callback(lua, "menuJustReleased", FlxG.android.justReleased.MENU);
+		Lua_helper.add_callback(lua, "getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
+		Lua_helper.add_callback(lua, "setOrientation", function(hint:Null<String>):Void
+		{
+			switch (hint.toLowerCase())
+			{
+				case 'portrait':
+					hint = 'Portrait';
+				case 'portraitupsidedown' | 'upsidedownportrait' | 'upsidedown':
+					hint = 'PortraitUpsideDown';
+				case 'landscapeleft' | 'leftlandscape':
+					hint = 'LandscapeLeft';
+				case 'landscaperight' | 'rightlandscape' | 'landscape':
+					hint = 'LandscapeRight';
+				default:
+					hint = null;
+			}
+			if (hint == null)
+				return FunkinLua.luaTrace('setOrientation: No orientation specified.');
+			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, hint);
+		});
+		Lua_helper.add_callback(lua, "minimizeWindow", () -> AndroidTools.minimizeWindow());
+		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>)
+		{
+			if (text == null)
+				return FunkinLua.luaTrace('showToast: No text specified.');
+			else if (duration == null)
+				return FunkinLua.luaTrace('showToast: No duration specified.');
+
+			if (xOffset == null)
+				xOffset = 0;
+			if (yOffset == null)
+				yOffset = 0;
+
+			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
+		});
+		Lua_helper.add_callback(lua, "isScreenKeyboardShown", () -> PsychJNI.isScreenKeyboardShown());
+
+		Lua_helper.add_callback(lua, "clipboardHasText", () -> PsychJNI.clipboardHasText());
+		Lua_helper.add_callback(lua, "clipboardGetText", () -> PsychJNI.clipboardGetText());
+		Lua_helper.add_callback(lua, "clipboardSetText", function(text:Null<String>):Void
+		{
+			if (text != null) return FunkinLua.luaTrace('clipboardSetText: No text specified.');
+			PsychJNI.clipboardSetText(text);
+		});
+
+		Lua_helper.add_callback(lua, "manualBackButton", () -> PsychJNI.manualBackButton());
+
+		Lua_helper.add_callback(lua, "setActivityTitle", function(text:Null<String>):Void
+		{
+			if (text != null) return FunkinLua.luaTrace('setActivityTitle: No text specified.');
+			PsychJNI.setActivityTitle(text);
+		});
+		#end	
 	}
 }
 #end
