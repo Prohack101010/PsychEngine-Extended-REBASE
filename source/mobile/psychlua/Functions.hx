@@ -30,6 +30,11 @@ class MobileFunctions
 				return FunkinLua.luaTrace('vibrate: No duration specified.');
 			return Haptic.vibrate(period, duration);
 		});
+		
+		Lua_helper.add_callback(lua, "addVirtualPadV1", (DPadMode:String, ActionMode:String) ->
+		{
+			PlayState.instance.makeAlternativeVirtualPad(DPadMode, ActionMode);
+		});
 
 		Lua_helper.add_callback(lua, "addVirtualPad", (DPadMode:String, ActionMode:String) ->
 		{

@@ -52,6 +52,18 @@ class MusicBeatState extends FlxUIState
 	var MobileControls:MobileControls;
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
+	
+	public function addAlternativeVirtualPad(?DPad:dpadMode, ?Action:actionMode) {		
+		if (_virtualpad != null)
+			removeVirtualPad();
+
+		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
+		add(_virtualpad);
+
+		controls.setVirtualPadUI(_virtualpad, DPad, Action);
+		trackedinputsUI = controls.trackedInputsUI;
+		controls.trackedInputsUI = [];
+	}
 
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
 		if (_virtualpad != null)

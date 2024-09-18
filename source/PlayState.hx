@@ -5479,6 +5479,10 @@ class PlayState extends MusicBeatState
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
 	
+	public function makeAlternativeVirtualPad(DPadMode:String, ActionMode:String) {
+	    addAlternativeVirtualPad(DPadMode, ActionMode);
+	}
+	
 	public function makeLuaVirtualPad(DPadMode:String, ActionMode:String) {
 		if(!variables.exists("luaVirtualPad"))
 			variables.set("luaVirtualPad", luaVirtualPad);

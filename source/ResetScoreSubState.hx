@@ -73,10 +73,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 
         if (ClientPrefs.mobileC)
         {
-            if (ClientPrefs.touchmenus)
-                addVirtualPad(NONE, NONE);
-            else
-                addVirtualPad(LEFT_RIGHT, A_B);
+            if (!ClientPrefs.touchmenus) addVirtualPad(LEFT_RIGHT, A_B);
             addVirtualPadCamera();
         }
         cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
@@ -93,12 +90,12 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		if(week == -1) icon.alpha += elapsed * 2.5;
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P || ClientPrefs.touchmenus && SwipeUtil.swipeLeft || ClientPrefs.touchmenus && SwipeUtil.swipeRight) {
+		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end || ClientPrefs.mobileC && ClientPrefs.touchmenus && SwipeUtil.swipeRight) {
+		if(controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
             close();
 		} else if(controls.ACCEPT) {
@@ -113,7 +110,7 @@ class ResetScoreSubState extends MusicBeatSubstate
                         close();
 		}
 		
-    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.touchmenus)
+    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.mobileC)
     	{
     		onYes = true;
     		if(onYes) {
@@ -124,17 +121,13 @@ class ResetScoreSubState extends MusicBeatSubstate
         		}
         	}
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-        	yesText.alpha = 1.25;
-		    yesText.scale.set(1, 1);
             close();
         }
     		
-    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.touchmenus)
+    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.mobileC)
     	{
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
             close();
-            noText.alpha = 1.25;
-		    noText.scale.set(1, 1);
     	}
 		super.update(elapsed);
 	}
@@ -144,11 +137,11 @@ class ResetScoreSubState extends MusicBeatSubstate
 		var alphas:Array<Float> = [0.6, 1.25];
 		var confirmInt:Int = onYes ? 1 : 0;
 
-        if (ClientPrefs.touchmenus) {
-		yesText.alpha = alphas[confirmInt];
-		yesText.scale.set(scales[confirmInt], scales[confirmInt]);
-		noText.alpha = alphas[1 - confirmInt];
-		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
+        if (ClientPrefs.mobileC) {
+		yesText.alpha = 1.25;
+		yesText.scale.set(1, 1);
+		noText.alpha = 1.25;
+		noText.scale.set(1, 1);
 		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
 		}
 		else {

@@ -122,7 +122,7 @@ class AchievementsMenuState extends MusicBeatState
 		
 		_changeSelection();
 		
-		addVirtualPad(FULL, A_B_C);
+		if (ClientPrefs.mobileC) addVirtualPad(FULL, A_B_C);
 		super.create();
 		
 		FlxG.camera.follow(camFollow, null, 0.15);
@@ -255,8 +255,7 @@ class AchievementsMenuState extends MusicBeatState
 	
 	override function closeSubState() {
 		persistentUpdate = true;
-		removeVirtualPad();
-		addVirtualPad(FULL, A_B_C);
+		if (ClientPrefs.mobileC) { removeVirtualPad(); addVirtualPad(FULL, A_B_C); }
 		super.closeSubState();
 	}
 }
@@ -301,13 +300,11 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		noText.scrollFactor.set();
 		add(noText);
 		updateOptions();
-		
-		addVirtualPad(LEFT_RIGHT, A);
 	}
 
 	override function update(elapsed:Float)
 	{
-		if(controls.BACK)
+		if(controls.BACK || FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.mobileC)
 		{
 			close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -322,37 +319,9 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		}
 
 		if(controls.ACCEPT)
-		{
-			if(onYes)
-			{
-				var state:AchievementsMenuState = cast FlxG.state;
-				var option:Dynamic = state.options[state.curSelected];
-
-				Achievements.variables.remove(option.name);
-				Achievements.achievementsUnlocked.remove(option.name);
-				option.unlocked = false;
-				option.curProgress = 0;
-				option.name = state.nameText.text = '???';
-				if(option.maxProgress > 0) state.progressTxt.text = '0 / ' + option.maxProgress;
-				state.grpOptions.members[state.curSelected].loadGraphic(Paths.image('achievements/lockedachievement'));
-				state.grpOptions.members[state.curSelected].antialiasing = ClientPrefs.globalAntialiasing;
-
-				if(state.progressBar.visible)
-				{
-					if(state.barTween != null) state.barTween.cancel();
-					state.barTween = FlxTween.tween(state.progressBar, {percent: 0}, 0.5, {ease: FlxEase.quadOut,
-						onComplete: function(twn:FlxTween) state.progressBar.updateBar(),
-						onUpdate: function(twn:FlxTween) state.progressBar.updateBar()
-					});
-				}
-				Achievements.save();
-				FlxG.save.flush();
-
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-			}
-			close();
-			return;
-		}
+			onYesFunction();
+		
+		if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.mobileC) { onYes = true; onYesFunction(); }
 	}
 
 	function updateOptions() {
@@ -360,11 +329,44 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		var alphas:Array<Float> = [0.6, 1.25];
 		var confirmInt:Int = onYes ? 1 : 0;
 
-		yesText.alpha = alphas[confirmInt];
-		yesText.scale.set(scales[confirmInt], scales[confirmInt]);
-		noText.alpha = alphas[1 - confirmInt];
-		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
+		yesText.alpha = 1.25;
+		yesText.scale.set(1, 1);
+		noText.alpha = 1.25;
+		noText.scale.set(1, 1);
 		FlxG.sound.play(Paths.sound('scrollMenu'));
+	}
+	
+	function onYesFunction()
+	{
+	    if(onYes)
+		{
+			var state:AchievementsMenuState = cast FlxG.state;
+			var option:Dynamic = state.options[state.curSelected];
+
+			Achievements.variables.remove(option.name);
+			Achievements.achievementsUnlocked.remove(option.name);
+			option.unlocked = false;
+			option.curProgress = 0;
+			option.name = state.nameText.text = '???';
+			if(option.maxProgress > 0) state.progressTxt.text = '0 / ' + option.maxProgress;
+			state.grpOptions.members[state.curSelected].loadGraphic(Paths.image('achievements/lockedachievement'));
+			state.grpOptions.members[state.curSelected].antialiasing = ClientPrefs.globalAntialiasing;
+
+			if(state.progressBar.visible)
+			{
+				if(state.barTween != null) state.barTween.cancel();
+				state.barTween = FlxTween.tween(state.progressBar, {percent: 0}, 0.5, {ease: FlxEase.quadOut,
+					onComplete: function(twn:FlxTween) state.progressBar.updateBar(),
+					onUpdate: function(twn:FlxTween) state.progressBar.updateBar()
+				});
+			}
+			Achievements.save();
+			FlxG.save.flush();
+
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+		}
+		close();
+		return;
 	}
 }
 #end
