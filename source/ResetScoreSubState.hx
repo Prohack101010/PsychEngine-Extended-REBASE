@@ -124,6 +124,8 @@ class ResetScoreSubState extends MusicBeatSubstate
         		}
         	}
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+        	yesText.alpha = 1.25;
+		    yesText.scale.set(1, 1);
             close();
         }
     		
@@ -131,6 +133,8 @@ class ResetScoreSubState extends MusicBeatSubstate
     	{
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
             close();
+            noText.alpha = 1.25;
+		    noText.scale.set(1, 1);
     	}
 		super.update(elapsed);
 	}
@@ -141,10 +145,10 @@ class ResetScoreSubState extends MusicBeatSubstate
 		var confirmInt:Int = onYes ? 1 : 0;
 
         if (ClientPrefs.touchmenus) {
-		yesText.alpha = 1.25;
-		yesText.scale.set(1, 1);
-		noText.alpha = 1.25;
-		noText.scale.set(1, 1);
+		yesText.alpha = alphas[confirmInt];
+		yesText.scale.set(scales[confirmInt], scales[confirmInt]);
+		noText.alpha = alphas[1 - confirmInt];
+		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
 		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
 		}
 		else {
