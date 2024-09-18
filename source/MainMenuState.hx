@@ -6,6 +6,11 @@ import lime.app.Application;
 import editors.MasterEditorMenu;
 import options.OptionsState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+
+//Lua
+import flixel.util.FlxTimer;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxSave;
 import FunkinLua;
 
 //0.6.3 import
