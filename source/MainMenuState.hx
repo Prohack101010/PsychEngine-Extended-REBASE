@@ -6,6 +6,7 @@ import lime.app.Application;
 import editors.MasterEditorMenu;
 import options.OptionsState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import FunkinLua;
 
 //0.6.3 import
 import flixel.FlxG;
