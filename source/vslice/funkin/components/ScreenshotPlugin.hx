@@ -1,4 +1,4 @@
-package funkin.components;
+package vslice.funkin.components;
 
 import flixel.FlxBasic;
 import flixel.FlxCamera;
@@ -20,8 +20,8 @@ import openfl.geom.Rectangle;
 import openfl.utils.ByteArray;
 import openfl.events.MouseEvent;
 
-import funkin.DateUtil;
-import funkin.FileUtil;
+import vslice.funkin.DateUtil;
+import vslice.funkin.FileUtil;
 
 typedef ScreenshotPluginParams =
 {

@@ -16,7 +16,7 @@ import flixel.math.FlxMath;
  */
 class IntervalShake implements IFlxDestroyable
 {
-  static var _pool:FlxPool<IntervalShake> = new FlxPool<funkin.IntervalShake>(IntervalShake);
+  static var _pool:FlxPool<IntervalShake> = new FlxPool<vslice.funkin.IntervalShake>(IntervalShake);
 
   /**
    * Internal map for looking up which objects are currently shaking and getting their shake data.

@@ -2446,7 +2446,7 @@ class FunkinLua {
 			}
 			FlxG.sound.play(Paths.sound(sound), volume);
 		});
-		Lua_helper.add_callback(lua, "playRandomSound", function(sound:String, random1:String, random2:String, volume:Float = 1, ?tag:String = null) {
+		Lua_helper.add_callback(lua, "playRandomSound", function(sound:String, random1:Int, random2:Int, volume:Float = 1, ?tag:String = null) {
 			if(tag != null && tag.length > 0) {
 				tag = tag.replace('.', '');
 				if(PlayState.instance.modchartSounds.exists(tag)) {

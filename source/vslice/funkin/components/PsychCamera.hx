@@ -1,4 +1,4 @@
-package funkin.components;
+package vslice.funkin.components;
 
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;

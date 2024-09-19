@@ -1,6 +1,6 @@
-package funkin.components;
+package vslice.funkin.components;
 
-import funkin.MemoryUtil;
+import vslice.funkin.MemoryUtil;
 import openfl.text.TextFormat;
 import openfl.system.System;
 import openfl.text.TextField;
