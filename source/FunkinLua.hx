@@ -2446,6 +2446,20 @@ class FunkinLua {
 			}
 			FlxG.sound.play(Paths.sound(sound), volume);
 		});
+		Lua_helper.add_callback(lua, "playRandomSound", function(sound:String, random1:String, random2:String, volume:Float = 1, ?tag:String = null) {
+			if(tag != null && tag.length > 0) {
+				tag = tag.replace('.', '');
+				if(PlayState.instance.modchartSounds.exists(tag)) {
+					PlayState.instance.modchartSounds.get(tag).stop();
+				}
+				PlayState.instance.modchartSounds.set(tag, FlxG.sound.play(Paths.soundRandom(sound, random1, random2), volume, false, null, true, function() {
+					PlayState.instance.modchartSounds.remove(tag);
+					PlayState.instance.callOnLuas('onSoundFinished', [tag]);
+				}));
+				return;
+			}
+			FlxG.sound.play(Paths.soundRandom(sound, random1, random2), volume);
+		});
 		Lua_helper.add_callback(lua, "stopSound", function(tag:String) {
 			if(tag != null && tag.length > 1 && PlayState.instance.modchartSounds.exists(tag)) {
 				PlayState.instance.modchartSounds.get(tag).stop();

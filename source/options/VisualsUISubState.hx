@@ -39,7 +39,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'FreeplayStyle',
 			'string',
 			'Psych',
-			['Psych', 'NovaFlare', 'NF Engine']);
+			['Psych', 'NovaFlare', 'NF Engine', 'V-Slice']);
 		addOption(option);
 		
 		var option:Option = new Option('Main Menu Style:',
@@ -178,9 +178,9 @@ class VisualsUISubState extends BaseOptionsMenu
 	
 	function disableIndieCrossMenus()
 	{
-	    if (TitleState.IndieCrossEnabled && ClientPrefs.IndieCrossMenus)
+	    if (TitleState.IndieCrossEnabled)
 	        TitleState.IndieCrossEnabled = false;
-	    if (!TitleState.IndieCrossEnabled && !ClientPrefs.IndieCrossMenus)
+	    if (!TitleState.IndieCrossEnabled)
 	        TitleState.IndieCrossEnabled = true;
 	}
 

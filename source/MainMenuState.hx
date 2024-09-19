@@ -378,6 +378,21 @@ class MainMenuState extends MusicBeatState
                     			    MusicBeatState.switchState(new FreeplayStateNF());
                     			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                     			    MusicBeatState.switchState(new FreeplayStateNOVA());
+                    			else if (ClientPrefs.FreeplayStyle == 'V-Slice') {
+                                    persistentDraw = true;
+            						persistentUpdate = false;
+            
+            						openSubState(new vslice.states.freeplay.FreeplayState());
+            						subStateOpened.addOnce(state -> {
+            							for (i in 0...menuItems.members.length) {
+            								menuItems.members[i].revive();
+            								menuItems.members[i].alpha = 1;
+            								menuItems.members[i].visible = true;
+            								selectedSomethin = false;
+            							}
+            							changeItem(0);
+            						});
+                                }
                     			else
                     			    MusicBeatState.switchState(new FreeplayState());
 
