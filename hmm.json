@@ -102,13 +102,6 @@
       "url": "https://github.com/beihu235/funkVis-FrequencyFixed"
     },
     {
-      "name": "FlxPartialSound",
-      "type": "git",
-      "dir": null,
-      "ref": "f986332ba5ab02abd386ce662578baf04904604a",
-      "url": "https://github.com/FunkinCrew/FlxPartialSound.git"
-    },
-    {
       "name": "grig.audio",
       "type": "git",
       "dir": "src",

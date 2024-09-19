@@ -128,7 +128,6 @@ class Main extends Sprite
 		#if mobile
 		FlxG.scaleMode = new MobileScaleMode();
 		#end
-		Data.setup();
 		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);

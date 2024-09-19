@@ -1751,7 +1751,7 @@ class ChartingState extends MusicBeatState
 			if (FlxG.keys.justPressed.ENTER || ClientPrefs.mobileC && _virtualpad.buttonA.justPressed)
 			{
 				autosaveSong();
-				FlxG.mouse.visible = false;
+				#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
 				if(vocals != null) vocals.stop();
@@ -1777,7 +1777,7 @@ class ChartingState extends MusicBeatState
 				PlayState.chartingMode = false;
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-				FlxG.mouse.visible = false;
+				#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 				return;
 			}
  

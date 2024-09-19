@@ -46,10 +46,10 @@
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
 	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This --> <!-- I love ios by default because not needed for android, definitely not needed for ios too but why not -KralOyuncu -->
 	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
+	<define name="HIDE_CURSOR" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO USE CURSOR -->
+	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
 	<define name="MOBILEC" if="mobile" /> <!-- DELETE THIS IF YOU DONT WANT TO USE MOBILE CONTROLS -->
 	<define name="INDIECROSS_FORCED" if="desktop" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MOD -->
-	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
-	<!-- I Hate My Friends Because They Want This but I dont want to use this -->
 	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
@@ -145,7 +145,6 @@
 	
 	<!-- Extra packages-->
 	<haxelib name="hxvlc" if="HXVLC_ALLOWED"/>
-	<haxelib name="FlxPartialSound" />
 	<haxelib name="grig.audio" />
 	<haxelib name="flxanimate"/>
 	<haxelib name="funkin.vis"/>

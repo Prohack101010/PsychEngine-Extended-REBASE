@@ -8,6 +8,7 @@ import android.widget.Toast as AndroidToast;
 import android.Tools as AndroidTools;
 #end
 
+#if MOBILEC
 class MobileFunctions
 {
 	public static function implement(funk:FunkinLua)
@@ -104,28 +105,6 @@ class MobileFunctions
 			return TouchFunctions.touchOverlapObject(obj);
 		});
 	}
-
-    /*
-	public static function getMobileControlsAsString():String
-	{
-		switch (mobilec.mode)
-		{
-			case 0:
-				return 'left';
-			case 1:
-				return 'right';
-			case 2:
-				return 'custom';
-			case 3:
-				return 'duo';
-			case 4:
-				return 'hitbox';
-			case 5:
-				return 'none';
-		}
-		return 'uknown';
-	}
-	*/
 	
 	public static function getExtraControlsVarInArray(instance:Dynamic, variable:String):Any
 	{
@@ -245,8 +224,9 @@ class MobileFunctions
 		return Reflect.getProperty(instance, variable);
 	}
 }
+#end
 
-#if mobile
+#if android
 class AndroidFunctions
 {
 	public static function implement(funk:FunkinLua)

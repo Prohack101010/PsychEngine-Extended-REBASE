@@ -359,7 +359,7 @@ class ModsMenuState extends MusicBeatState
 
 			persistentUpdate = false;
 			FlxG.autoPause = true;
-			FlxG.mouse.visible = false;
+			#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 			return;
 		}
 
@@ -371,7 +371,7 @@ class ModsMenuState extends MusicBeatState
 		
 		if(ClientPrefs.controllerMode != _lastControllerMode)
 		{
-			if(ClientPrefs.controllerMode) FlxG.mouse.visible = false;
+			#if HIDE_CURSOR if(ClientPrefs.controllerMode) FlxG.mouse.visible = false; #end
 			_lastControllerMode = ClientPrefs.controllerMode;
 		}
 

@@ -45,21 +45,12 @@ import sys.io.*;
 import js.html.*;
 #end
 
-//Lua VirtualPad
-import mobile.objects.TouchPad;
-import mobile.input.MobileInputID;
-import mobile.objects.TouchButton;
-import mobile.backend.MobileData;
-import mobile.objects.MobileControls;
-import mobile.objects.IMobileControls;
-import mobile.input.MobileInputManager;
-
 // Desktop
 #if desktop
 import Discord;
 #end
 
-// Mobile no if Mobile because it brokes windows build
+// Mobile Things
 import mobile.flixel.*;
 import mobile.input.*;
 import mobile.states.*;

@@ -200,7 +200,7 @@ class TitleState extends MusicBeatState
 			StoryMenuState.weekCompleted = FlxG.save.data.weekCompleted;
 		}
 
-		FlxG.mouse.visible = false;
+		#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 		#if FREEPLAY
 		if (ClientPrefs.FreeplayStyle == 'NF Engine')
 		    MusicBeatState.switchState(new FreeplayStateNF());

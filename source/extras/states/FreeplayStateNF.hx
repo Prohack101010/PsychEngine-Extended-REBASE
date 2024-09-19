@@ -1238,7 +1238,7 @@ class FreeplayStateNF extends MusicBeatState {
 				destroyFreeplayVocals();
 				FlxG.sound.music.stop();
 				LoadingState.loadAndSwitchState(new PlayState());
-				FlxG.mouse.visible = false;
+				#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 		
 				//FlxG.sound.music.volume = 0;
 					
@@ -1248,7 +1248,7 @@ class FreeplayStateNF extends MusicBeatState {
 				if (searching) {closeSearchMenu(); backText.text = 'EXIT'; return;}
 				if (listening) {closeListenMenu(); backText.text = 'EXIT'; return;}
 				WeekData.loadTheFirstEnabledMod();
-				FlxG.mouse.visible = false;
+				#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 				if(colorTween != null) {
 					colorTween.cancel();
 				}

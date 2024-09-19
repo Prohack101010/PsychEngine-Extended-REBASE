@@ -299,7 +299,7 @@ class MainMenuState extends MusicBeatState
 			else
 			{
 				timeNotMoving += elapsed;
-				if(timeNotMoving > 1) FlxG.mouse.visible = false;
+				#if HIDE_CURSOR if(timeNotMoving > 1) FlxG.mouse.visible = false; #end
 			}
 
 			switch(curColumn)
@@ -334,7 +334,7 @@ class MainMenuState extends MusicBeatState
 			if (controls.BACK)
 			{
 				selectedSomethin = true;
-				FlxG.mouse.visible = false;
+				#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
@@ -345,7 +345,7 @@ class MainMenuState extends MusicBeatState
 				if (optionShit[curSelected] != 'donate')
 				{
 					selectedSomethin = true;
-					FlxG.mouse.visible = false;
+					#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 
 					if (ClientPrefs.flashing)
 						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
@@ -378,21 +378,6 @@ class MainMenuState extends MusicBeatState
                     			    MusicBeatState.switchState(new FreeplayStateNF());
                     			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                     			    MusicBeatState.switchState(new FreeplayStateNOVA());
-                    			else if (ClientPrefs.FreeplayStyle == 'V-Slice') {
-                                    persistentDraw = true;
-            						persistentUpdate = false;
-            
-            						openSubState(new vslice.states.freeplay.FreeplayState());
-            						subStateOpened.addOnce(state -> {
-            							for (i in 0...menuItems.members.length) {
-            								menuItems.members[i].revive();
-            								menuItems.members[i].alpha = 1;
-            								menuItems.members[i].visible = true;
-            								selectedSomethin = false;
-            							}
-            							changeItem(0);
-            						});
-                                }
                     			else
                     			    MusicBeatState.switchState(new FreeplayState());
 
@@ -426,7 +411,7 @@ class MainMenuState extends MusicBeatState
 			else if (FlxG.keys.anyJustPressed(debugKeys) || ClientPrefs.mobileC && _virtualpad.buttonE.justPressed)
 			{
 				selectedSomethin = true;
-				FlxG.mouse.visible = false;
+				#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 		}
