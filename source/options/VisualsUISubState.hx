@@ -39,7 +39,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'FreeplayStyle',
 			'string',
 			'Psych',
-			['Psych', 'NovaFlare', 'NF Engine', 'V-Slice']);
+			['Psych', 'NovaFlare', 'NF Engine']);
 		addOption(option);
 		
 		var option:Option = new Option('Main Menu Style:',
