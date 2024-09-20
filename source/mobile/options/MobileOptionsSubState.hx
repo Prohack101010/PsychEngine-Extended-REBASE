@@ -165,7 +165,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'Changes VirtualPad Alpha -cool feature',
 			'VirtualPadAlpha',
 			'float',
-			0.75);
+			#if mobile 0.75 #else 0 #end);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0;
 		option.maxValue = 1;

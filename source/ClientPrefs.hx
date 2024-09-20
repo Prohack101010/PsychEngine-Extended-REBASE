@@ -55,7 +55,7 @@ class ClientPrefs {
 	//VirtualPad
 	public static var virtualpadType:String = "New";
 	public static var VirtualPadSkin:String = 'original';
-	public static var VirtualPadAlpha:Float = 0.75;
+	public static var VirtualPadAlpha:Float = #if mobile 0.75 #else 0 #end;
 	public static var coloredvpad:Bool = true;
 	public static var VPadSpaceExtend:Bool = true;
 	public static var VPadShiftExtend:Bool = true;
