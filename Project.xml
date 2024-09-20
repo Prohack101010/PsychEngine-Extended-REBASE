@@ -53,6 +53,7 @@
 	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
+	<define name="BASE_GAME_ASSETS" unless="desktop || mobile" />
 	<define name="MODS_ALLOWED" if="desktop || mobile" />
 	<define name="LUA_ALLOWED" if="desktop || mobile"/>
 	<define name="ACHIEVEMENTS_ALLOWED" />
@@ -104,18 +105,25 @@
 	<assets path="assets/songs"         library="songs"         exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"        library="shared"        exclude="*.ogg" if="web"/>
 	<assets path="assets/shared"        library="shared"        exclude="*.mp3" unless="web"/>
-	<assets path="assets/week2"         library="week2"         exclude="*.ogg" if="web"/>
-	<assets path="assets/week2"         library="week2"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week3"         library="week3"         exclude="*.ogg" if="web"/>
-	<assets path="assets/week3"         library="week3"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week4"         library="week4"         exclude="*.ogg" if="web"/>
-	<assets path="assets/week4"         library="week4"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week5"         library="week5"         exclude="*.ogg" if="web"/>
-	<assets path="assets/week5"         library="week5"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week6"         library="week6"         exclude="*.ogg" if="web"/>
-	<assets path="assets/week6"         library="week6"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week7"         library="week7"         exclude="*.ogg" if="web"/>
-	<assets path="assets/week7"         library="week7"         exclude="*.mp3" unless="web"/>
+	<section if="BASE_GAME_ASSETS">
+	<assets path="assets/base_game/videos"         rename="assets/videos"         library="videos"        if="VIDEOS_ALLOWED"/>
+	<assets path="assets/base_game/songs"         rename="assets/songs"         library="songs"         exclude="*.ogg" if="web"/>
+	<assets path="assets/base_game/songs"         rename="assets/songs"         library="songs"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/base_game/shared"        rename="assets/shared"         library="shared"        exclude="*.ogg" if="web"/>
+	<assets path="assets/base_game/shared"        rename="assets/shared"         library="shared"        exclude="*.mp3" unless="web"/>
+	<assets path="assets/base_game/week2"         rename="assets/week2"         library="week2"         exclude="*.ogg" if="web"/>
+	<assets path="assets/base_game/week2"         rename="assets/week2"         library="week2"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/base_game/week3"         rename="assets/week3"         library="week3"         exclude="*.ogg" if="web"/>
+	<assets path="assets/base_game/week3"         rename="assets/week3"         library="week3"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/base_game/week4"         rename="assets/week4"         library="week4"         exclude="*.ogg" if="web"/>
+	<assets path="assets/base_game/week4"         rename="assets/week4"         library="week4"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/base_game/week5"         rename="assets/week5"         library="week5"         exclude="*.ogg" if="web"/>
+	<assets path="assets/base_game/week5"         rename="assets/week5"         library="week5"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/base_game/week6"         rename="assets/week6"         library="week6"         exclude="*.ogg" if="web"/>
+	<assets path="assets/base_game/week6"         rename="assets/week6"         library="week6"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/base_game/week7"         rename="assets/week7"         library="week7"         exclude="*.ogg" if="web"/>
+	<assets path="assets/base_game/week7"         rename="assets/week7"         library="week7"         exclude="*.mp3" unless="web"/>
+	</section>
 	
 	<section if="MODS_ALLOWED">
 		<assets path='example_mods' rename='mods' embed='false'/>
