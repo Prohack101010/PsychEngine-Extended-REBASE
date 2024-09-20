@@ -60,9 +60,6 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
-#if mobile
-import mobile.backend.Data;
-#end
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -87,7 +84,6 @@ class PlayState extends MusicBeatState
 	public static var IndieCrossStateType:Int = 0; // 0 = Default, 1 = Main, 2 = Bonus, 3 = Nightmare
 
 	public var luaVirtualPad:FlxVirtualPad;
-	public var luaTouchPad:TouchPad;
 	
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
