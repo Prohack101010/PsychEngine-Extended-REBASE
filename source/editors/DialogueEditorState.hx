@@ -105,8 +105,7 @@ class DialogueEditorState extends MusicBeatState
 		add(daText);
 		changeText();
 
-		if (ClientPrefs.mobileC)
-		    addVirtualPad(FULL, A_B_C);
+		addVirtualPad(FULL, A_B_C);
 
 		super.create();
 	}
@@ -358,7 +357,7 @@ class DialogueEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.SPACE || ClientPrefs.mobileC && _virtualpad.buttonC.justPressed) {
+			if(FlxG.keys.justPressed.SPACE || _virtualpad.buttonC.justPressed) {
 				reloadText(false);
 			}
 			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end #if ios || _virtualpad.buttonB.pressed #end) {
@@ -367,8 +366,8 @@ class DialogueEditorState extends MusicBeatState
 				transitioning = true;
 			}
 			var negaMult:Array<Int> = [1, -1];
-			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W || ClientPrefs.mobileC && _virtualpad.buttonUp.justPressed, FlxG.keys.justPressed.S || ClientPrefs.mobileC && _virtualpad.buttonDown.justPressed];
-			var controlText:Array<Bool> = [FlxG.keys.justPressed.D || ClientPrefs.mobileC && _virtualpad.buttonLeft.justPressed, FlxG.keys.justPressed.A || ClientPrefs.mobileC && _virtualpad.buttonRight.justPressed];
+			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W || _virtualpad.buttonUp.justPressed, FlxG.keys.justPressed.S || _virtualpad.buttonDown.justPressed];
+			var controlText:Array<Bool> = [FlxG.keys.justPressed.D || _virtualpad.buttonLeft.justPressed, FlxG.keys.justPressed.A || _virtualpad.buttonRight.justPressed];
 			for (i in 0...controlAnim.length) {
 				if(controlAnim[i] && character.jsonFile.animations.length > 0) {
 					curAnim -= negaMult[i];
@@ -387,7 +386,7 @@ class DialogueEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.O || ClientPrefs.mobileC && _virtualpad.buttonA.justPressed) {
+			if(FlxG.keys.justPressed.O || _virtualpad.buttonA.justPressed) {
 				dialogueFile.dialogue.remove(dialogueFile.dialogue[curSelected]);
 				if(dialogueFile.dialogue.length < 1) //You deleted everything, dumbo!
 				{

@@ -122,7 +122,7 @@ class AchievementsMenuState extends MusicBeatState
 		
 		_changeSelection();
 		
-		if (ClientPrefs.mobileC) addVirtualPad(FULL, A_B_C);
+		addVirtualPad(FULL, A_B_C);
 		super.create();
 		
 		FlxG.camera.follow(camFollow, null, 0.15);
@@ -255,7 +255,8 @@ class AchievementsMenuState extends MusicBeatState
 	
 	override function closeSubState() {
 		persistentUpdate = true;
-		if (ClientPrefs.mobileC) { removeVirtualPad(); addVirtualPad(FULL, A_B_C); }
+		removeVirtualPad();
+		addVirtualPad(FULL, A_B_C);
 		super.closeSubState();
 	}
 }

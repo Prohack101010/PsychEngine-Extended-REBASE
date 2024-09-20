@@ -69,11 +69,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		
 		add(camFollow);
 
-		if (ClientPrefs.mobileC)
-		{
-    		addVirtualPad(NONE, A_B);
-    		addVirtualPadCamera();
-		}
+    	addVirtualPad(NONE, A_B);
+    	addVirtualPadCamera();
 	}
 
     public var startedDeath:Bool = false;

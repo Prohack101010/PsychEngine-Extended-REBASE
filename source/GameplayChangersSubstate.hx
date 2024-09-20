@@ -167,19 +167,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		changeSelection();
 		reloadCheckboxes();
 
-        if (ClientPrefs.mobileC)
-        {
-    		#if ios
-    		if (ClientPrefs.touchmenus)
-    		    addVirtualPad(LEFT_RIGHT, A_B_C);
-    		#elseif android
-    		if (ClientPrefs.touchmenus)
-    		    addVirtualPad(LEFT_RIGHT, A_C);
-    		#end
-    		if (!ClientPrefs.touchmenus)
-    		    addVirtualPad(FULL, A_B_C);
-    		addVirtualPadCamera();
-		}
+        addVirtualPad(FULL, A_B_C);
+    	addVirtualPadCamera();
 		
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
@@ -197,16 +186,16 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P || ClientPrefs.touchmenus && SwipeUtil.swipeUp)
+		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P || ClientPrefs.touchmenus && SwipeUtil.swipeDown)
+		if (controls.UI_DOWN_P)
 		{
 			changeSelection(1);
 		}
 
-		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end || ClientPrefs.mobileC && ClientPrefs.touchmenus && SwipeUtil.swipeRight) {
+		if (controls.BACK) {
 			
 			close();
 			ClientPrefs.saveSettings();
@@ -321,7 +310,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET || ClientPrefs.mobileC && _virtualpad.buttonC.justPressed)
+			if(controls.RESET || _virtualpad.buttonC.justPressed)
 			{
 				for (i in 0...optionsArray.length)
 				{

@@ -35,8 +35,7 @@ class OutdatedState extends MusicBeatState
 		warnText.screenCenter(Y);
 		add(warnText);
 
-		if (ClientPrefs.mobileC)
-		    addVirtualPad(NONE, A_B);
+		addVirtualPad(NONE, A_B);
 	}
 
 	override function update(elapsed:Float)

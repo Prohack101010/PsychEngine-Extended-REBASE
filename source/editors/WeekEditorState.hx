@@ -640,8 +640,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		addEditorBox();
 		changeSelection();
 
-		if (ClientPrefs.mobileC)
-		    addVirtualPad(UP_DOWN, NONE);
+		addVirtualPad(UP_DOWN, NONE);
 
 		super.create();
 	}

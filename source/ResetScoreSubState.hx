@@ -71,11 +71,8 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(noText);
 		updateOptions();
 
-        if (ClientPrefs.mobileC)
-        {
-            if (!ClientPrefs.touchmenus) addVirtualPad(LEFT_RIGHT, A_B);
-            addVirtualPadCamera();
-        }
+        addVirtualPad(LEFT_RIGHT, A_B);
+        addVirtualPadCamera();
         cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 

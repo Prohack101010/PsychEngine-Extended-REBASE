@@ -174,20 +174,8 @@ class CreditsState extends MusicBeatState
 		bg.color = getCurrentBGColor();
 		intendedColor = bg.color;
 		changeSelection();
-
-        if (ClientPrefs.mobileC)
-        {
-            #if ios
-            if (ClientPrefs.touchmenus)
-                addVirtualPad(NONE, A_B);
-            #end
-            #if android
-            if (ClientPrefs.touchmenus)
-                addVirtualPad(NONE, A);
-            #end
-            if (!ClientPrefs.touchmenus)
-                addVirtualPad(UP_DOWN, A_B);
-        }
+		
+        addVirtualPad(UP_DOWN, A_B);
 		super.create();
 	}
 
@@ -210,18 +198,18 @@ class CreditsState extends MusicBeatState
 				var upP = controls.UI_UP_P;
 				var downP = controls.UI_DOWN_P;
 
-				if (upP || ClientPrefs.touchmenus && SwipeUtil.swipeUp)
+				if (upP)
 				{
 					changeSelection(-shiftMult);
 					holdTime = 0;
 				}
-				if (downP || ClientPrefs.touchmenus && SwipeUtil.swipeDown)
+				if (downP)
 				{
 					changeSelection(shiftMult);
 					holdTime = 0;
 				}
 
-				if(controls.UI_DOWN || controls.UI_UP || ClientPrefs.touchmenus && SwipeUtil.swipeDown || ClientPrefs.touchmenus && SwipeUtil.swipeUp)
+				if(controls.UI_DOWN || controls.UI_UP)
 				{
 					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 					holdTime += elapsed;
@@ -229,10 +217,7 @@ class CreditsState extends MusicBeatState
 
 					if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 					{
-						if (ClientPrefs.touchmenus)
-						    changeSelection((checkNewHold - checkLastHold) * (SwipeUtil.swipeUp ? -shiftMult : shiftMult));
-						else
-						    changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
+						changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
 					}
 				}
 			}
@@ -240,7 +225,7 @@ class CreditsState extends MusicBeatState
     		if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
     			CoolUtil.browserLoad(creditsStuff[curSelected][3]);
     		}
-    		if (controls.BACK #if android || ClientPrefs.touchmenus && FlxG.android.justReleased.BACK #end || ClientPrefs.mobileC && ClientPrefs.touchmenus && SwipeUtil.swipeRight)
+    		if (controls.BACK)
     		{
     			if(colorTween != null) {
     				colorTween.cancel();

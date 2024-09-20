@@ -1214,7 +1214,7 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 		
-		if (ClientPrefs.mobileC && MobileCType == 'DEFAULT') {
+		if (MobileCType == 'DEFAULT') {
     		addMobileControls();
     		MusicBeatState.mobilec.visible = false;
     	    if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) { MusicBeatState.mobilec.alpha = 0.000001; }
@@ -2168,7 +2168,7 @@ class PlayState extends MusicBeatState
 		var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
-			if (ClientPrefs.mobileC && MobileCType == 'DEFAULT') {
+			if (MobileCType == 'DEFAULT') {
     			MusicBeatState.mobilec.visible = true;
     			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
     		}
@@ -4060,7 +4060,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (ClientPrefs.mobileC) MusicBeatState.mobilec.visible = false;
+		MusicBeatState.mobilec.visible = false;
 		timeBarBG.visible = false;
 		timeBar.visible = false;
 		timeTxt.visible = false;

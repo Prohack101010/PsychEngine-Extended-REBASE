@@ -186,17 +186,7 @@ class StoryMenuState extends MusicBeatState
 		changeWeek();
 		changeDifficulty();
 
-        #if android
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, X_Y);
-        else
-            addVirtualPad(NONE, A_X_Y);
-        #elseif ios
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, B_X_Y);
-        else
-            addVirtualPad(NONE, A_B_X_Y);
-        #end
+        addVirtualPad(NONE, A_B_X_Y);
 
 		super.create();
 	}
@@ -205,17 +195,7 @@ class StoryMenuState extends MusicBeatState
 		persistentUpdate = true;
 		changeWeek();
 		removeVirtualPad();
-		#if android
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, X_Y);
-        else
-            addVirtualPad(NONE, A_X_Y);
-        #elseif ios
-        if (ClientPrefs.touchmenus)
-            addVirtualPad(NONE, B_X_Y);
-        else
-            addVirtualPad(NONE, A_B_X_Y);
-        #end
+		addVirtualPad(NONE, A_B_X_Y);
 		super.closeSubState();
 	}
 
@@ -269,17 +249,15 @@ class StoryMenuState extends MusicBeatState
 			else if (upP || downP || SwipeUtil.swipeUp || SwipeUtil.swipeDown)
 				changeDifficulty();
 
-    			if(FlxG.keys.justPressed.CONTROL || ClientPrefs.mobileC && _virtualpad.buttonX.justPressed)
+    			if(FlxG.keys.justPressed.CONTROL || _virtualpad.buttonX.justPressed)
     			{
-    				if (ClientPrefs.mobileC)
-    				    removeVirtualPad();
+    				removeVirtualPad();
     				persistentUpdate = false;
     				openSubState(new GameplayChangersSubstate());
     			}
-    			else if(controls.RESET || ClientPrefs.mobileC && _virtualpad.buttonY.justPressed)
+    			else if(controls.RESET || _virtualpad.buttonY.justPressed)
     			{
-    				if (ClientPrefs.mobileC)
-    				    removeVirtualPad();
+    				removeVirtualPad();
     				persistentUpdate = false;
     				openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
     				//FlxG.sound.play(Paths.sound('scrollMenu'));

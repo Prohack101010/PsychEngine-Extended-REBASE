@@ -48,8 +48,7 @@ class FlashingState extends MusicBeatState
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
-        if (ClientPrefs.mobileC)
-            addVirtualPad(NONE, A_B);
+        addVirtualPad(NONE, A_B);
 	}
 
 	override function update(elapsed:Float)

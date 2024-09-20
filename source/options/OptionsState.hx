@@ -29,7 +29,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay', 'Mobile Options'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var stateType:Int = 0;
@@ -77,6 +77,7 @@ class OptionsState extends MusicBeatState
 		#end
 		
 		if (ClientPrefs.mobileC && ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Mobile Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay' #if mobile , 'Mobile Options' #end]; }
+		if (!ClientPrefs.mobileC && ClientPrefs.VirtualPadAlpha != 0) { options = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay', 'Mobile Options']; }
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -108,16 +109,15 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		if (ClientPrefs.mobileC)
-		    addVirtualPad(UP_DOWN, A_B);
+		addVirtualPad(UP_DOWN, A_B);
 
 		super.create();
 	}
 
 	override function closeSubState() {
 		super.closeSubState();
-		if (ClientPrefs.mobileC) removeVirtualPad();
-		if (ClientPrefs.mobileC) addVirtualPad(UP_DOWN, A_B);
+		removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B);
 		persistentUpdate = true;
 		ClientPrefs.saveSettings();
 	}

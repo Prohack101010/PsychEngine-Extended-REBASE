@@ -82,8 +82,7 @@ class MasterEditorMenu extends MusicBeatState
 
 		#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 
-		if (ClientPrefs.mobileC)
-		    addVirtualPad(FULL, A_B);
+		addVirtualPad(FULL, A_B);
 
 		super.create();
 	}

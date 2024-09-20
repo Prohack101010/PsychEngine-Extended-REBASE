@@ -108,6 +108,8 @@ class Main extends Sprite
 		ClientPrefs.loadDefaultKeys();
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		
+		ClientPrefs.mobileC = #if MOBILEC true #else false #end; //simple than others
+		
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
@@ -125,9 +127,8 @@ class Main extends Sprite
 		
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 		
-		#if mobile
-		FlxG.scaleMode = new MobileScaleMode();
-		#end
+		if (ClientPrefs.MobileScaleMode)
+		    FlxG.scaleMode = new MobileScaleMode();
 		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);

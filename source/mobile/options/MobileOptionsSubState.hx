@@ -54,6 +54,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 		
+	if (ClientPrefs.mobileC) {
 		if (ClientPrefs.virtualpadType == 'New')
 		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getSharedPath('images/virtualpad/virtualpadSkinList.txt'));
 		    
@@ -99,6 +100,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 		
+		#if mobile
 		var option:Option = new Option('Wide Screen Mode',
 			'If checked, The game will stetch to fill your whole screen. (WARNING: Can result in bad visuals & break some mods that resizes the game/cameras)',
 			'wideScreen',
@@ -106,6 +108,14 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			true);
 		option.onChange = () -> FlxG.scaleMode = new MobileScaleMode();
 		addOption(option);
+		
+		var option:Option = new Option('Use Mobile Scale Mode',
+			'If checked, The game will stetch to fill your screen into 16:9 format.',
+			'MobileScaleMode',
+			'bool',
+			true);
+		addOption(option);
+		#end
 		  
 		  var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
@@ -149,6 +159,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
+	}
 		
 		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
 			'Changes VirtualPad Alpha -cool feature',
@@ -164,6 +175,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
         option.onChange = onChangePadAlpha;
 		super();
 		
+	if (ClientPrefs.mobileC) {
 		var option:Option = new Option('Colored VirtualPad',
 			'If unchecked, disables VirtualPad colors\n(can be used to make custom colored VirtualPad)',
 			'coloredvpad',
@@ -179,28 +191,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			null,
 			virtualpadTypes);
 		addOption(option);
-		
-		var option:Option = new Option('Touch Screens (WIP)',
-			'WIP',
-			'touchmenus',
-			'bool',
-			false);
-		addOption(option);
-		
-		var option:Option = new Option('Fix High-end Mods',
-			'If checked, will cause some objects not to load\n(If you are experiencing crashes in High-End mods, try this)',
-			'breakgetvarinarray',
-			'bool',
-			false);
-		addOption(option);
-		
-		var option:Option = new Option('Modpack Folder',
-			'If checked, game uses modpack folder instead of mods folder.',
-			'Modpack',
-			'bool',
-			false);
-		addOption(option);
-		option.onChange = disableIndieCrossMenus; // Fix Indie Cross Bug
+	}
 		
 		#if android
 		var option:Option = new Option('Storage Type',
@@ -238,16 +229,8 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	
 	function onChangePadAlpha()
 	{
-	ClientPrefs.saveSettings();
-	_virtualpad.alpha = curOption.getValue();
-	}
-	
-	function disableIndieCrossMenus()
-	{
-	    if (TitleState.IndieCrossEnabled)
-	        TitleState.IndieCrossEnabled = false;
-	    else
-	        TitleState.IndieCrossEnabled = true;
+    	ClientPrefs.saveSettings();
+    	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha;
 	}
 	
 	function resetVirtualPad()

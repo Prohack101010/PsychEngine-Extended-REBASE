@@ -62,7 +62,7 @@
 	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 	<define name="CRASH_HANDLER" if="desktop release || mobile" />
 
-    <assets path="indiecross/preload" rename="assets" if="INDIECROSS_ASSETS || INDIECROSS_FORCED"/>/> <!-- Required menus for Indie Cross 0.6.3 port by KralOyuncu -->
+    <assets path="assets/indiecross/preload" rename="assets" if="INDIECROSS_ASSETS || INDIECROSS_FORCED"/>/> <!-- Required menus for Indie Cross 0.6.3 port by KralOyuncu -->
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
