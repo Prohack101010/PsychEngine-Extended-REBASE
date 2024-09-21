@@ -5,6 +5,7 @@ import flixel.graphics.FlxGraphic;
 import Discord.DiscordClient;
 #end
 import states.stages.objects.*;
+import states.stages.*;
 import flixel.FlxBasic;
 import Section.SwagSection;
 import Song.SwagSong;
