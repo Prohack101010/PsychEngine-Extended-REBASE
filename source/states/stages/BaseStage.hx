@@ -168,7 +168,7 @@ class BaseStage extends FlxBasic
 	inline private function get_members() return game.members;
 	inline private function set_game(value:MusicBeatState)
 	{
-		onPlayState = (Std.isOfType(value, states.PlayState));
+		onPlayState = (Std.isOfType(value, PlayState));
 		game = value;
 		return value;
 	}

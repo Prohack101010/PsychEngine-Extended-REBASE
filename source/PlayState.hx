@@ -4,6 +4,7 @@ import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
 #end
+import states.stages.objects.*;
 import flixel.FlxBasic;
 import Section.SwagSection;
 import Song.SwagSong;
@@ -656,7 +657,7 @@ class PlayState extends MusicBeatState
 		generateSong(SONG.song);
 
 		#if LUA_ALLOWED
-		for (notetype in noteTypeMap.keys())
+		for (notetype in noteTypes)
 		{
 			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
 			if(FileSystem.exists(luaToLoad))
@@ -672,7 +673,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-		for (event in eventPushedMap.keys())
+		for (event in eventsPushed)
 		{
 			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
 			if(FileSystem.exists(luaToLoad))
@@ -795,11 +796,11 @@ class PlayState extends MusicBeatState
 		startingSong = true;
 		
 		#if LUA_ALLOWED
-		for (notetype in noteTypes())
+		for (notetype in noteTypes)
 		{
 			startLuasOnFolder('custom_notetypes/' + notetype + '.lua');
 		}
-		for (event in eventsPushed())
+		for (event in eventsPushed)
 		{
 			startLuasOnFolder('custom_events/' + event + '.lua');
 		}
