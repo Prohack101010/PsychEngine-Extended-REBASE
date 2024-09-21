@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxObject;
 import flixel.util.FlxSort;
+import flixel.ui.FlxBar;
 
 #if ACHIEVEMENTS_ALLOWED
 class AchievementsMenuState extends MusicBeatState
