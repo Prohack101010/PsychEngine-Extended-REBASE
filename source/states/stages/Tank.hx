@@ -201,9 +201,9 @@ class Tank extends BaseStage
 		prepareCutscene();
 		cutsceneHandler.endTime = 12;
 		cutsceneHandler.music = 'DISTORTO';
-		precacheSound('wellWellWell');
-		precacheSound('killYou');
-		precacheSound('bfBeep');
+		precacheList.set('wellWellWell', 'sound');
+		precacheList.set('killYou', 'sound');
+		precacheList.set('bfBeep', 'sound');
 
 		var wellWellWell:FlxSound = new FlxSound().loadEmbedded(Paths.sound('wellWellWell'));
 		FlxG.sound.list.add(wellWellWell);
@@ -252,7 +252,7 @@ class Tank extends BaseStage
 		cutsceneHandler.music = 'DISTORTO';
 		tankman.x += 40;
 		tankman.y += 10;
-		precacheSound('tankSong2');
+		precacheList.set('tankSong2', 'sound');
 
 		var tightBars:FlxSound = new FlxSound().loadEmbedded(Paths.sound('tankSong2'));
 		FlxG.sound.list.add(tightBars);
@@ -293,7 +293,7 @@ class Tank extends BaseStage
 		{
 			spr.y += 100;
 		});
-		precacheSound('stressCutscene');
+		precacheList.set('stressCutscene', 'sound');
 
 		tankman2.frames = Paths.getSparrowAtlas('cutscenes/stress2');
 		addBehindDad(tankman2);
@@ -312,7 +312,10 @@ class Tank extends BaseStage
 		gfCutscene.animation.play('dieBitch', true);
 		gfCutscene.animation.pause();
 		addBehindGF(gfCutscene);
-		if (!ClientPrefs.lowQuality) gfCutscene.alpha = 0.00001;
+		if (!ClientPrefs.lowQuality)
+		{
+			gfCutscene.alpha = 0.00001;
+		}
 
 		picoCutscene.frames = AtlasFrameMaker.construct('cutscenes/stressPico');
 		picoCutscene.animation.addByPrefix('anim', 'Pico Badass', 24, false);
@@ -330,6 +333,26 @@ class Tank extends BaseStage
 
 		tankman.animation.addByPrefix('godEffingDamnIt', 'TANK TALK 3', 24, false);
 		tankman.animation.play('godEffingDamnIt', true);
+
+		var calledTimes:Int = 0;
+		var zoomBack:Void->Void = function()
+		{
+			var camPosX:Float = 630;
+			var camPosY:Float = 425;
+			camFollow.set(camPosX, camPosY);
+			camFollowPos.setPosition(camPosX, camPosY);
+			FlxG.camera.zoom = 0.8;
+			cameraSpeed = 1;
+
+			calledTimes++;
+			if (calledTimes > 1)
+			{
+				foregroundSprites.forEach(function(spr:BGSprite)
+				{
+					spr.y -= 100;
+				});
+			}
+		}
 
 		cutsceneHandler.onStart = function()
 		{
@@ -411,7 +434,7 @@ class Tank extends BaseStage
 			};
 
 			camFollow.set(boyfriend.x + 280, boyfriend.y + 200);
-			game.cameraSpeed = 12;
+			cameraSpeed = 12;
 			FlxTween.tween(FlxG.camera, {zoom: 0.9 * 1.2 * 1.2}, 0.25, {ease: FlxEase.elasticOut});
 		});
 

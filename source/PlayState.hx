@@ -1754,10 +1754,7 @@ class PlayState extends MusicBeatState
 				babyArrow.alpha = targetAlpha;
 
 			if (player == 1)
-			{
-				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) playerStrums.add(babyArrow);
-				else opponentStrums.add(babyArrow);
-			}
+				playerStrums.add(babyArrow);
 			else
 			{
 				if(ClientPrefs.middleScroll)
@@ -1767,8 +1764,7 @@ class PlayState extends MusicBeatState
 						babyArrow.x += FlxG.width / 2 + 25;
 					}
 				}
-				if (!opponentChart || opponentChart && ClientPrefs.middleScroll) opponentStrums.add(babyArrow);
-				else playerStrums.add(babyArrow);
+				opponentStrums.add(babyArrow);
 			}
 
 			strumLineNotes.add(babyArrow);
