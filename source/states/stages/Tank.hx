@@ -201,9 +201,9 @@ class Tank extends BaseStage
 		prepareCutscene();
 		cutsceneHandler.endTime = 12;
 		cutsceneHandler.music = 'DISTORTO';
-		precacheList.set('wellWellWell', 'sound');
-		precacheList.set('killYou', 'sound');
-		precacheList.set('bfBeep', 'sound');
+		precacheSound('wellWellWell');
+		precacheSound('killYou');
+		precacheSound('bfBeep');
 
 		var wellWellWell:FlxSound = new FlxSound().loadEmbedded(Paths.sound('wellWellWell'));
 		FlxG.sound.list.add(wellWellWell);
@@ -252,7 +252,7 @@ class Tank extends BaseStage
 		cutsceneHandler.music = 'DISTORTO';
 		tankman.x += 40;
 		tankman.y += 10;
-		precacheList.set('tankSong2', 'sound');
+		precacheSound('tankSong2');
 
 		var tightBars:FlxSound = new FlxSound().loadEmbedded(Paths.sound('tankSong2'));
 		FlxG.sound.list.add(tightBars);
@@ -293,7 +293,7 @@ class Tank extends BaseStage
 		{
 			spr.y += 100;
 		});
-		precacheList.set('stressCutscene', 'sound');
+		precacheSound('stressCutscene');
 
 		tankman2.frames = Paths.getSparrowAtlas('cutscenes/stress2');
 		addBehindDad(tankman2);
