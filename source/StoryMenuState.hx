@@ -213,13 +213,13 @@ class StoryMenuState extends MusicBeatState
 		{
 			var upP = controls.UI_UP_P;
 			var downP = controls.UI_DOWN_P;
-			if (upP || SwipeUtil.swipeUp)
+			if (upP || Swipe.Up)
 			{
 				changeWeek(-1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
-			if (downP || SwipeUtil.swipeDown)
+			if (downP || Swipe.Down)
 			{
 				changeWeek(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -246,7 +246,7 @@ class StoryMenuState extends MusicBeatState
 				changeDifficulty(1);
 			else if (FlxG.mouse.overlaps(leftArrow) && FlxG.mouse.justPressed || controls.UI_LEFT_P)
 				changeDifficulty(-1);
-			else if (upP || downP || SwipeUtil.swipeUp || SwipeUtil.swipeDown)
+			else if (upP || downP || Swipe.Up || Swipe.Down)
 				changeDifficulty();
 
     			if(FlxG.keys.justPressed.CONTROL || _virtualpad.buttonX.justPressed)
@@ -269,7 +269,7 @@ class StoryMenuState extends MusicBeatState
     			}
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek #if android || FlxG.android.justReleased.BACK && !movedBack && !selectedWeek #end || ClientPrefs.mobileC && SwipeUtil.swipeRight && !movedBack && !selectedWeek)
+		if (controls.BACK && !movedBack && !selectedWeek #if android || FlxG.android.justReleased.BACK && !movedBack && !selectedWeek #end)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
@@ -484,4 +484,53 @@ class StoryMenuState extends MusicBeatState
 		intendedScore = Highscore.getWeekScore(loadedWeeks[curWeek].fileName, curDifficulty);
 		#end
 	}
+}
+
+class Swipe
+{
+  /**
+   * Indicates if there is a down swipe gesture detected.
+   */
+  public static var Down(get, never):Bool;
+
+  /**
+   * Indicates if there is an up swipe gesture detected.
+   */
+  public static var Up(get, never):Bool;
+
+  /**
+   * Determines if there is a down swipe in the FlxG.swipes array.
+   *
+   * @return True if any swipe direction is down, false otherwise.
+   */
+  @:noCompletion
+  static function get_Down():Bool
+  {
+    #if FLX_POINTER_INPUT
+    for (swipe in FlxG.swipes)
+    {
+      if (swipe.degrees > -135 && swipe.degrees < -45 && swipe.distance > 20) return true;
+    }
+    #end
+
+    return false;
+  }
+
+  /**
+   * Determines if there is an up swipe in the FlxG.swipes array.
+   *
+   * @return True if any swipe direction is up, false otherwise.
+   */
+  @:noCompletion
+  static function get_Up():Bool
+  {
+    #if FLX_POINTER_INPUT
+    for (swipe in FlxG.swipes)
+    {
+      if (swipe.degrees > 45 && swipe.degrees < 135 && swipe.distance > 20) return true;
+    }
+    #end
+
+    return false;
+  }
 }

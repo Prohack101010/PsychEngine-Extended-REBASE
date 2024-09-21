@@ -418,33 +418,6 @@ class Paths
 		return 'assets/fonts/$key';
 	}
 	
-	public static function fileExistsAternative(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String = null)
-	{
-		#if MODS_ALLOWED
-		if(!ignoreMods)
-		{
-			for(mod in Mods.getGlobalMods())
-				if (FileSystem.exists(mods('$mod/$key')))
-					return true;
-
-			if (FileSystem.exists(mods(Paths.currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))
-				return true;
-			
-			if (FileSystem.exists(mods('$key')))
-				return true;
-			if (FileSystem.exists(#if mobile Sys.getCwd() + #end 'assets/shared/' + key))
-				return true;
-			if (FileSystem.exists(#if mobile Sys.getCwd() + #end 'assets/' + key))
-				return true;
-		}
-		#end
-
-		if(OpenFlAssets.exists(getPath(key, type, library, false))) {
-			return true;
-		}
-		return false;
-	}
-
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
 	{
 		#if MODS_ALLOWED

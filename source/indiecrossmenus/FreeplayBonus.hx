@@ -413,9 +413,9 @@ class FreeplayBonus extends MusicBeatState
 			
 			PlayState.IndieCrossStateType = 2;
 			if (FlxG.keys.pressed.SHIFT){
-				IndieCrossLoading.loadAndSwitchState(new ChartingState());
+				LoadingState.loadAndSwitchState(new ChartingState());
 			}else{
-				IndieCrossLoading.loadAndSwitchState(new PlayState());
+				LoadingState.loadAndSwitchState(new PlayState());
 			}
 
 			FlxG.sound.music.volume = 0;

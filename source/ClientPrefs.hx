@@ -65,7 +65,7 @@ class ClientPrefs {
 	public static var hitboxtype:String = 'Gradient';
 	public static var hitboxExtend:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
-	public static var hitboxalpha:Float = 0.7; //someone request this lol
+	public static var hitboxalpha:Float = #if mobile 0.7 #else 0 #end; //someone request this lol
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 

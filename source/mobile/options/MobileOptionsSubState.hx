@@ -108,13 +108,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			true);
 		option.onChange = () -> FlxG.scaleMode = new MobileScaleMode();
 		addOption(option);
-		
-		var option:Option = new Option('Use Mobile Scale Mode',
-			'If checked, The game will stetch to fill your screen into 16:9 format.',
-			'MobileScaleMode',
-			'bool',
-			true);
-		addOption(option);
 		#end
 		  
 		  var option:Option = new Option('Extra Control Location:',

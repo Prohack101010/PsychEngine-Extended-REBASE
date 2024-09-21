@@ -430,7 +430,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 
 		new FlxTimer().start(waitDuration, function(tmr:FlxTimer)
 		{
-			IndieCrossLoading.loadAndSwitchState(new PlayState());
+			LoadingState.loadAndSwitchState(new PlayState());
 		});
 
 		stopspamming = true;

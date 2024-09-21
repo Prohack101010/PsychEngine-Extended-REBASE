@@ -160,7 +160,7 @@ class MainMenuStateCROSS extends MusicBeatState
 			{
 				enterBitches();
 			}
-			else if (FlxG.keys.justPressed.E || _virtualpad.buttonE.justPressed)
+			else if (FlxG.keys.justPressed.E)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
@@ -329,7 +329,7 @@ class MainMenuStateCROSS extends MusicBeatState
 				case "freeplay":
 					MusicBeatState.switchState(new FreeplaySelect());
 				case "options":
-					IndieCrossLoading.loadAndSwitchState(new options.OptionsState());
+					LoadingState.loadAndSwitchState(new options.OptionsState());
 					options.OptionsState.onPlayState = false;
 					if (PlayState.SONG != null)
 					{

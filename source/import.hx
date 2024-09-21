@@ -12,7 +12,6 @@ import shaders.flixel.system.FlxShader;
 import extras.states.*; //Extra States
 import extras.substates.*; //Extra Substates
 import indiecrossmenus.*; //Indie Cross Menus
-import indiecrossmenus.LoadingState as IndieCrossLoading;
 import ModsMenuState; //I'm adding Indie Cross Support because Lily's Psych 0.6.3 port is very weird and sucks (crashes and bugs)
 
 // 0.7x Support
