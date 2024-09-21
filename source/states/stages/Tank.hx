@@ -342,7 +342,7 @@ class Tank extends BaseStage
 			camFollow.set(camPosX, camPosY);
 			camFollowPos.setPosition(camPosX, camPosY);
 			FlxG.camera.zoom = 0.8;
-			cameraSpeed = 1;
+			game.cameraSpeed = 1;
 
 			calledTimes++;
 			if (calledTimes > 1)
@@ -434,7 +434,7 @@ class Tank extends BaseStage
 			};
 
 			camFollow.set(boyfriend.x + 280, boyfriend.y + 200);
-			cameraSpeed = 12;
+			game.cameraSpeed = 12;
 			FlxTween.tween(FlxG.camera, {zoom: 0.9 * 1.2 * 1.2}, 0.25, {ease: FlxEase.elasticOut});
 		});
 
