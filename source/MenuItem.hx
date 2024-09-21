@@ -14,8 +14,8 @@ class MenuItem extends FlxSprite
 	public function new(x:Float, y:Float, weekName:String = '')
 	{
 		super(x, y);
-		try { loadGraphic(Paths.image('storymenu/' + weekName)); }
-		catch(e:Dynamic) { loadGraphic(Paths.image('storymenu/imagenotfound')); }
+		if(!Paths.fileExists('images/storymenu/' + weekName + '.png', IMAGE)) loadGraphic(Paths.image('storymenu/imagenotfound'));
+		else loadGraphic(Paths.image('storymenu/' + weekName));
 		//trace('Test added: ' + WeekData.getWeekNumber(weekNum) + ' (' + weekNum + ')');
 		antialiasing = ClientPrefs.globalAntialiasing;
 	}

@@ -200,6 +200,7 @@ class PlayState extends MusicBeatState
 	//Gameplay settings
 	public var healthGain:Float = 1;
 	public var healthLoss:Float = 1;
+	public var DisableFlxPitch:Bool = false;
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
@@ -393,6 +394,7 @@ class PlayState extends MusicBeatState
 		// Gameplay settings
 		healthGain = ClientPrefs.getGameplaySetting('healthgain', 1);
 		healthLoss = ClientPrefs.getGameplaySetting('healthloss', 1);
+		DisableFlxPitch = ClientPrefs.getGameplaySetting('disableflxpitch', false);
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
@@ -1507,8 +1509,10 @@ class PlayState extends MusicBeatState
 	    #if FLX_PITCH
 		if(generatedMusic)
 		{
-			if(vocals != null) vocals.pitch = value;
-			FlxG.sound.music.pitch = value;
+			if(vocals != null && !DisableFlxPitch) vocals.pitch = value;
+			if (!DisableFlxPitch) FlxG.sound.music.pitch = value;
+			if (DisableFlxPitch) vocals.pitch = 1;
+			if (DisableFlxPitch) FlxG.sound.music.pitch = 1;
 		}
 		playbackRate = value;
 		FlxG.animationTimeScale = value;
@@ -1721,6 +1725,7 @@ class PlayState extends MusicBeatState
 	public function changeTheSettingsBitch() {
 		healthGain = ClientPrefs.getGameplaySetting('healthgain', 1);
 		healthLoss = ClientPrefs.getGameplaySetting('healthloss', 1);
+		DisableFlxPitch = ClientPrefs.getGameplaySetting('disableflxpitch', false);
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
@@ -2393,13 +2398,13 @@ class PlayState extends MusicBeatState
 		vocals.pause();
 
 		FlxG.sound.music.time = time;
-		#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
+		#if FLX_PITCH if (!DisableFlxPitch) FlxG.sound.music.pitch = playbackRate; #end
 		FlxG.sound.music.play();
 
 		if (Conductor.songPosition <= vocals.length)
 		{
 			vocals.time = time;
-			#if FLX_PITCH vocals.pitch = playbackRate; #end
+			#if FLX_PITCH if (!DisableFlxPitch) vocals.pitch = playbackRate; #end
 		}
 		vocals.play();
 		Conductor.songPosition = time;
@@ -2427,7 +2432,7 @@ class PlayState extends MusicBeatState
 		lastReportedPlayheadPosition = 0;
 
 		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
+		#if FLX_PITCH if (!DisableFlxPitch) FlxG.sound.music.pitch = playbackRate; #end
 		FlxG.sound.music.onComplete = finishSong.bind();
 		vocals.play();
 
@@ -2495,7 +2500,7 @@ class PlayState extends MusicBeatState
 		}
 		catch(e:Dynamic) {}
 
-		vocals.pitch = playbackRate;
+		if (!DisableFlxPitch) vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
 		
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
@@ -2932,12 +2937,12 @@ class PlayState extends MusicBeatState
 		vocals.pause();
 
 		FlxG.sound.music.play();
-		#if FLX_PITCH FlxG.sound.music.pitch = playbackRate; #end
+		#if FLX_PITCH if (!DisableFlxPitch) FlxG.sound.music.pitch = playbackRate; #end
 		Conductor.songPosition = FlxG.sound.music.time;
 		if (Conductor.songPosition <= vocals.length)
 		{
 			vocals.time = Conductor.songPosition;
-			vocals.pitch = playbackRate;
+			if (!DisableFlxPitch) vocals.pitch = playbackRate;
 		}
 		vocals.play();
 	}

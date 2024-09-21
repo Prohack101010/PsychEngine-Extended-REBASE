@@ -269,7 +269,7 @@ class StoryMenuState extends MusicBeatState
     			}
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek #if android || FlxG.android.justReleased.BACK && !movedBack && !selectedWeek #end)
+		if (controls.BACK && !movedBack && !selectedWeek || Swipe.Right && !movedBack && !selectedWeek)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
@@ -369,8 +369,10 @@ class StoryMenuState extends MusicBeatState
 		WeekData.setDirectoryFromWeek(loadedWeeks[curWeek]);
 
 		var diff:String = Difficulty.getString(curDifficulty);
-		var newImage:FlxGraphic = Paths.image('menudifficulties/imagenotfound');
-		try { newImage = Paths.image('menudifficulties/' + Paths.formatToSongPath(diff)); } catch(e:Dynamic) {}
+		var newImage:FlxGraphic;
+		
+		if(!Paths.fileExists('images/menudifficulties/' + Paths.formatToSongPath(diff) + '.png', IMAGE)) newImage = Paths.image('menudifficulties/imagenotfound');
+		else newImage = Paths.image('menudifficulties/' + Paths.formatToSongPath(diff));
 		//trace(Paths.currentModDirectory + ', menudifficulties/' + Paths.formatToSongPath(diff));
 
 		if(sprDifficulty.graphic != newImage)
@@ -493,6 +495,11 @@ class Swipe
    * Indicates if there is a down swipe gesture detected.
    */
   public static var Down(get, never):Bool;
+  
+  /**
+   * Indicates if there is a right swipe gesture detected.
+   */
+  public static var Right(get, never):Bool;
 
   /**
    * Indicates if there is an up swipe gesture detected.
@@ -511,6 +518,24 @@ class Swipe
     for (swipe in FlxG.swipes)
     {
       if (swipe.degrees > -135 && swipe.degrees < -45 && swipe.distance > 20) return true;
+    }
+    #end
+
+    return false;
+  }
+  
+  /**
+   * Determines if there is a right swipe in the FlxG.swipes array.
+   *
+   * @return True if any swipe direction is right, false otherwise.
+   */
+  @:noCompletion
+  static function get_Right():Bool
+  {
+    #if FLX_POINTER_INPUT
+    for (swipe in FlxG.swipes)
+    {
+      if (swipe.degrees > -45 && swipe.degrees < 45 && swipe.distance > 20) return true;
     }
     #end
 
