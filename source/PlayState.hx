@@ -2407,6 +2407,7 @@ class PlayState extends MusicBeatState
 						gf.playAnim('cheer', true);
 						gf.specialAnim = true;
 						gf.heyTimer = flValue2;
+					}
 				}
 				if(value != 1) {
 					boyfriend.playAnim('hey', true);
