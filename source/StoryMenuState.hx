@@ -186,7 +186,7 @@ class StoryMenuState extends MusicBeatState
 		changeWeek();
 		changeDifficulty();
 
-        addVirtualPad(NONE, A_B_X_Y);
+        addVirtualPad(NONE, B_X_Y);
 
 		super.create();
 	}
@@ -195,7 +195,7 @@ class StoryMenuState extends MusicBeatState
 		persistentUpdate = true;
 		changeWeek();
 		removeVirtualPad();
-		addVirtualPad(NONE, A_B_X_Y);
+		addVirtualPad(NONE, B_X_Y);
 		super.closeSubState();
 	}
 
@@ -369,7 +369,8 @@ class StoryMenuState extends MusicBeatState
 		WeekData.setDirectoryFromWeek(loadedWeeks[curWeek]);
 
 		var diff:String = Difficulty.getString(curDifficulty);
-		var newImage:FlxGraphic = Paths.image('menudifficulties/' + Paths.formatToSongPath(diff));
+		var newImage:FlxGraphic = Paths.image('menudifficulties/imagenotfound');
+		try { newImage = Paths.image('menudifficulties/' + Paths.formatToSongPath(diff)); } catch(e:Dynamic) {}
 		//trace(Paths.currentModDirectory + ', menudifficulties/' + Paths.formatToSongPath(diff));
 
 		if(sprDifficulty.graphic != newImage)
