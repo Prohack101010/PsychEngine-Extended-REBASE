@@ -108,10 +108,6 @@ class Main extends Sprite
 		if (game.zoom == -1.0)
 			game.zoom = 1.0;
 		#end
-		
-		#if mobile
-		FlxG.scaleMode = new MobileScaleMode();
-		#end
 	
 		ClientPrefs.loadDefaultKeys();
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
@@ -132,6 +128,10 @@ class Main extends Sprite
 		#end
 		
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+		
+		#if mobile
+		FlxG.scaleMode = new MobileScaleMode();
+		#end
 		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
