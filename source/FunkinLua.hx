@@ -3083,13 +3083,14 @@ class FunkinLua {
 			return list;
 		});
 		
-		Lua_helper.add_callback(lua, "vibrate", (duration:Null<Int>, ?period:Null<Int>) ->
+		Lua_helper.add_callback(lua, "saveScore", function():Void
 		{
-			if (duration == null)
-				return luaTrace('vibrate: No duration specified.');
-			else if (period == null)
-				period = 0;
-			return lime.ui.Haptic.vibrate(period, duration);
+			PlayState.instance.saveScore();
+		});
+		
+		Lua_helper.add_callback(lua, "saveWeekScore", function():Void
+		{
+			PlayState.instance.saveWeekScore();
 		});
 		
 		#if ACHIEVEMENTS_ALLOWED Achievements.addLuaCallbacks(lua); #end

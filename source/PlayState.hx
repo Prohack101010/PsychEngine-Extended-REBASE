@@ -3430,6 +3430,23 @@ class PlayState extends MusicBeatState
 	{
 	    addMobileControls(mode);
 	}
+	
+	function saveWeekScore()
+	{
+	    campaignScore += songScore;
+		campaignMisses += songMisses;
+	    StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+        Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
+		FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+		FlxG.save.flush();
+	}
+	
+	function saveScore(?Type:String = 'Normal')
+	{
+	    var percent:Float = ratingPercent;
+		if(Math.isNaN(percent)) percent = 0;
+		Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent, NoteMs, NoteTime);
+	}
 		
 	function addCustomMobileControls(mode:String)
 	{

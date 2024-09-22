@@ -22,6 +22,21 @@ class MobileFunctions
 			MusicBeatState.mobilec.visible = enabled;
 			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
 		});
+		
+		Lua_helper.add_callback(lua, "addCustomHitboxControls", function(mode:String):Void
+		{
+			PlayState.instance.addCustomMobileControls(mode);
+		});
+		
+		Lua_helper.add_callback(lua, "addMobileControls", function():Void
+		{
+			PlayState.instance.addPlayStateMobileControls();
+		});
+		
+		Lua_helper.add_callback(lua, "removeMobileControls", function():Void
+		{
+			PlayState.instance.removePlayStateMobileControls();
+		});
 
 		Lua_helper.add_callback(lua, "vibrate", function(duration:Null<Int>, ?period:Null<Int>)
 		{
@@ -32,23 +47,23 @@ class MobileFunctions
 			return Haptic.vibrate(period, duration);
 		});
 		
-		Lua_helper.add_callback(lua, "addVirtualPadV1", (DPadMode:String, ActionMode:String) ->
+		Lua_helper.add_callback(lua, "addVirtualPadV1", function(DPadMode:String, ActionMode:String):Void
 		{
 			PlayState.instance.makeAlternativeVirtualPad(DPadMode, ActionMode);
 		});
-
-		Lua_helper.add_callback(lua, "addVirtualPad", (DPadMode:String, ActionMode:String) ->
+		
+		Lua_helper.add_callback(lua, "addVirtualPad", function(DPadMode:String, ActionMode:String):Void
 		{
 			PlayState.instance.makeLuaVirtualPad(DPadMode, ActionMode);
 			PlayState.instance.addLuaVirtualPad();
 		});
-
-		Lua_helper.add_callback(lua, "removeVirtualPad", () ->
+		
+		Lua_helper.add_callback(lua, "removeVirtualPad", function():Void
 		{
 			PlayState.instance.removeLuaVirtualPad();
 		});
-
-		Lua_helper.add_callback(lua, "addVirtualPadCamera", () ->
+		
+		Lua_helper.add_callback(lua, "addVirtualPadCamera", function():Void
 		{
 			if (PlayState.instance.luaVirtualPad == null)
 			{
