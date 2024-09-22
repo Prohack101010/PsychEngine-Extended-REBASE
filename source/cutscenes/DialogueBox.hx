@@ -155,7 +155,7 @@ class DialogueBox extends FlxSpriteGroup
 		}
 
 		#if mobile
-        var justTouched:Bool = false;
+                var justTouched:Bool = false;
 
 		for (touch in FlxG.touches.list)
 		{

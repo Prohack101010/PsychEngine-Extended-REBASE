@@ -1,6 +1,11 @@
 package cutscenes;
 
 import haxe.Json;
+
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
 import lime.utils.Assets;
 
 typedef DialogueAnimArray = {
@@ -46,7 +51,7 @@ class DialogueCharacter extends FlxSprite
 		frames = Paths.getSparrowAtlas('dialogue/' + jsonFile.image);
 		reloadAnimations();
 
-		antialiasing = ClientPrefs.data.antialiasing;
+		antialiasing = ClientPrefs.globalAntialiasing;
 		if(jsonFile.no_antialiasing == true) antialiasing = false;
 	}
 
@@ -57,16 +62,16 @@ class DialogueCharacter extends FlxSprite
 		#if MODS_ALLOWED
 		var path:String = Paths.modFolders(characterPath);
 		if (!FileSystem.exists(path)) {
-			path = Paths.getSharedPath(characterPath);
+			path = Paths.getPreloadPath(characterPath);
 		}
 
 		if(!FileSystem.exists(path)) {
-			path = Paths.getSharedPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
+			path = Paths.getPreloadPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
 		}
 		rawJson = File.getContent(path);
 
 		#else
-		var path:String = Paths.getSharedPath(characterPath);
+		var path:String = Paths.getPreloadPath(characterPath);
 		rawJson = Assets.getText(path);
 		#end
 		
