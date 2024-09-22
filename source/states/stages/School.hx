@@ -2,7 +2,7 @@ package states.stages;
 
 import states.stages.objects.*;
 import GameOverSubstate;
-import objects.DialogueBox;
+import cutscenes.DialogueBox;
 
 #if MODS_ALLOWED
 import sys.FileSystem;

@@ -49,15 +49,6 @@ import StoryMenuState;
 import FreeplayState;
 import states.stages.BaseStage;
 
-// stage objects
-import stages.objects.PhillyGlow;
-import stages.objects.PhillyTrain;
-import stages.objects.BackgroundDancer;
-import stages.objects.BackgroundGirls;
-import stages.objects.TankmenBG;
-import stages.objects.BackgroundTank;
-import stages.objects.DadBattleFog;
-
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -639,7 +630,7 @@ class PlayState extends MusicBeatState
 		generateSong(SONG.song);
 
 		#if LUA_ALLOWED
-		for (notetype in noteTypeMap.keys())
+		for (notetype in noteTypes)
 		{
 			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
 			if(FileSystem.exists(luaToLoad))
@@ -655,7 +646,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-		for (event in eventPushedMap.keys())
+		for (event in eventsPushed)
 		{
 			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
 			if(FileSystem.exists(luaToLoad))

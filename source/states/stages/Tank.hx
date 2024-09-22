@@ -4,7 +4,7 @@ import flixel.system.FlxSound;
 import animateatlas.AtlasFrameMaker;
 
 import states.stages.objects.*;
-import objects.CutsceneHandler;
+import cutscenes.CutsceneHandler;
 import GameOverSubstate;
 import Character;
 

@@ -5,7 +5,9 @@ import flixel.addons.ui.*; //Flixel-UI
 #end
 
 //Stage Objects
-import stages.objects.*;
+import cutscenes.*;
+import states.stages.*;
+import states.stages.objects.*;
 
 //Shaders
 import shaders.*;
