@@ -1,4 +1,7 @@
-package states.stages.objects;
+package;
+
+import flixel.FlxSprite;
+import flixel.graphics.frames.FlxAtlasFrames;
 
 class BackgroundGirls extends FlxSprite
 {
@@ -9,10 +12,9 @@ class BackgroundGirls extends FlxSprite
 
 		// BG fangirls dissuaded
 		frames = Paths.getSparrowAtlas('weeb/bgFreaks');
+
 		swapDanceType();
 
-		setGraphicSize(Std.int(width * PlayState.daPixelZoom));
-		updateHitbox();
 		animation.play('danceLeft');
 	}
 
