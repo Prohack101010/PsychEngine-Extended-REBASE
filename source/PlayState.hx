@@ -3420,18 +3420,18 @@ class PlayState extends MusicBeatState
 		#end
 	}
 	
-	function changeHitboxButtons(mode:String)
+	public function changeHitboxButtons(mode:String)
 	{
 	    removeMobileControls();
 	    addMobileControls(mode);
 	}
 	
-	function addNewHitboxButtons(mode:String)
+	public function addNewHitboxButtons(mode:String)
 	{
 	    addMobileControls(mode);
 	}
 	
-	function saveWeekScore()
+	public function saveWeekScore()
 	{
 	    campaignScore += songScore;
 		campaignMisses += songMisses;
@@ -3441,24 +3441,24 @@ class PlayState extends MusicBeatState
 		FlxG.save.flush();
 	}
 	
-	function saveScore(?Type:String = 'Normal')
+	public function saveScore()
 	{
 	    var percent:Float = ratingPercent;
 		if(Math.isNaN(percent)) percent = 0;
 		Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent, NoteMs, NoteTime);
 	}
 		
-	function addCustomMobileControls(mode:String)
+	public function addCustomMobileControls(mode:String)
 	{
 	    addMobileControls(mode);
 	}
 	
-	function addPlayStateMobileControls()
+	public function addPlayStateMobileControls()
 	{
 	    addMobileControls();
 	}
 	
-	function removePlayStateMobileControls()
+	public function removePlayStateMobileControls()
 	{
 	    removeMobileControls();
 	}

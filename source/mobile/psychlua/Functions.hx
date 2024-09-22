@@ -23,6 +23,11 @@ class MobileFunctions
 			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
 		});
 		
+		Lua_helper.add_callback(lua, "changeHitboxButtons", function(mode:String):Void
+		{
+			PlayState.instance.changeHitboxButtons(mode);
+		});
+		
 		Lua_helper.add_callback(lua, "addCustomHitboxControls", function(mode:String):Void
 		{
 			PlayState.instance.addCustomMobileControls(mode);
