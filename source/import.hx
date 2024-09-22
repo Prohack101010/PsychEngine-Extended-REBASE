@@ -4,6 +4,10 @@ import Paths;
 import flixel.addons.ui.*; //Flixel-UI
 #end
 
+//Stages
+import states.stages.*;
+import states.stages.objects.*;
+
 //Shaders
 import shaders.*;
 import shaders.flixel.system.FlxShader;

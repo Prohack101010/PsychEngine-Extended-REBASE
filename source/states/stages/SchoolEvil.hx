@@ -3,7 +3,7 @@ package states.stages;
 import flixel.addons.effects.FlxTrail;
 import states.stages.objects.*;
 import GameOverSubstate;
-import DialogueBox;
+import cutscenes.DialogueBox;
 
 #if MODS_ALLOWED
 import sys.FileSystem;

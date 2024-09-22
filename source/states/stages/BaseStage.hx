@@ -115,6 +115,29 @@ class BaseStage extends FlxBasic
 		if(!onPlayState) return;
 		PlayState.instance.endCallback = myfn;
 	}
+	
+	//precache functions
+	public function precacheImage(key:String) precache(key, 'image');
+	public function precacheSound(key:String) precache(key, 'sound');
+	public function precacheMusic(key:String) precache(key, 'music');
+
+	public function precache(key:String, type:String)
+	{
+		if(onPlayState)
+			PlayState.instance.precacheList.set(key, type);
+		else
+		{
+			switch(type)
+			{
+				case 'image':
+					Paths.image(key);
+				case 'sound':
+					Paths.sound(key);
+				case 'music':
+					Paths.music(key);
+			}
+		}
+	}
 
 	// overrides
 	function startCountdown() if(onPlayState) return PlayState.instance.startCountdown(); else return false;
@@ -140,7 +163,7 @@ class BaseStage extends FlxBasic
 	inline private function get_members() return game.members;
 	inline private function set_game(value:MusicBeatState)
 	{
-		onPlayState = (Std.isOfType(value, states.PlayState));
+		onPlayState = (Std.isOfType(value, PlayState));
 		game = value;
 		return value;
 	}
