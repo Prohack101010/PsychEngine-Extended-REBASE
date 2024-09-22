@@ -1,4 +1,4 @@
-package;
+package stages.objects;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
