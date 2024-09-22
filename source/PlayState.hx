@@ -4,6 +4,7 @@ import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
 #end
+import WiggleEffect.WiggleEffectType;
 import states.stages.objects.*;
 import states.stages.*;
 import flixel.FlxBasic;

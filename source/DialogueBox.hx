@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.text.FlxTypeText;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.text.FlxTypeText;
@@ -64,7 +65,6 @@ class DialogueBox extends FlxSpriteGroup
 				box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-senpaiMad');
 				box.animation.addByPrefix('normalOpen', 'SENPAI ANGRY IMPACT SPEECH', 24, false);
 				box.animation.addByIndices('normal', 'SENPAI ANGRY IMPACT SPEECH instance 1', [4], "", 24);
-
 			case 'thorns':
 				box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-evil');
 				box.animation.addByPrefix('normalOpen', 'Spirit Textbox spawn', 24, false);
@@ -165,19 +165,7 @@ class DialogueBox extends FlxSpriteGroup
 			dialogueStarted = true;
 		}
 
-		#if mobile
-                var justTouched:Bool = false;
-
-		for (touch in FlxG.touches.list)
-		{
-			if (touch.justPressed)
-			{
-				justTouched = true;
-			}
-		}
-		#end
-
-		if(PlayerSettings.player1.controls.ACCEPT #if mobile || justTouched #end)
+		if(Controls.instance.ACCEPT)
 		{
 			if (dialogueEnded)
 			{

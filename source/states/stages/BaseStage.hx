@@ -3,12 +3,10 @@ package states.stages;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.FlxSubState;
-import flixel.math.FlxPoint;
 import MusicBeatState;
 
-import Note.EventNote;
+import objects.Note.EventNote;
 import Character;
-import Boyfriend;
 
 enum Countdown
 {
@@ -33,7 +31,7 @@ class BaseStage extends FlxBasic
 	public var canPause(get, set):Bool;
 	public var members(get, never):Dynamic;
 
-	public var boyfriend(get, never):Boyfriend;
+	public var boyfriend(get, never):Character;
 	public var dad(get, never):Character;
 	public var gf(get, never):Character;
 	public var boyfriendGroup(get, never):FlxSpriteGroup;
@@ -45,14 +43,11 @@ class BaseStage extends FlxBasic
 	public var camOther(get, never):FlxCamera;
 
 	public var defaultCamZoom(get, set):Float;
-	public var camFollow(get, never):FlxPoint;
-	public var camFollowPos(get, never):FlxObject;
+	public var camFollow(get, never):FlxObject;
 
-	public function new(?game:MusicBeatState)
+	public function new()
 	{
-		if (game == null) game = PlayState.instance;
-		this.game = game;
-		
+		this.game = MusicBeatState.getState();
 		if(this.game == null)
 		{
 			FlxG.log.warn('Invalid state for the stage added!');
@@ -89,6 +84,7 @@ class BaseStage extends FlxBasic
 	// Events
 	public function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {}
 	public function eventPushed(event:EventNote) {}
+	public function eventPushedUnique(event:EventNote) {}
 
 	// Things to replace FlxGroup stuff and inject sprites directly into the state
 	function add(object:FlxBasic) game.add(object);
@@ -120,33 +116,9 @@ class BaseStage extends FlxBasic
 		PlayState.instance.endCallback = myfn;
 	}
 
-	//precache functions
-	public function precacheImage(key:String) precache(key, 'image');
-	public function precacheSound(key:String) precache(key, 'sound');
-	public function precacheMusic(key:String) precache(key, 'music');
-
-	public function precache(key:String, type:String)
-	{
-		if(onPlayState)
-			PlayState.instance.precacheList.set(key, type);
-		else
-		{
-			switch(type)
-			{
-				case 'image':
-					Paths.image(key);
-				case 'sound':
-					Paths.sound(key);
-				case 'music':
-					Paths.music(key);
-			}
-		}
-	}
-
 	// overrides
 	function startCountdown() if(onPlayState) return PlayState.instance.startCountdown(); else return false;
 	function endSong() if(onPlayState)return PlayState.instance.endSong(); else return false;
-	function snapCamFollowToPos(x:Float, y:Float) if(onPlayState) PlayState.instance.snapCamFollowToPos(x, y);
 	function moveCameraSection() if(onPlayState) moveCameraSection();
 	function moveCamera(isDad:Bool) if(onPlayState) moveCamera(isDad);
 	inline private function get_paused() return game.paused;
@@ -168,12 +140,12 @@ class BaseStage extends FlxBasic
 	inline private function get_members() return game.members;
 	inline private function set_game(value:MusicBeatState)
 	{
-		onPlayState = (Std.isOfType(value, PlayState));
+		onPlayState = (Std.isOfType(value, states.PlayState));
 		game = value;
 		return value;
 	}
 
-	inline private function get_boyfriend():Boyfriend return game.boyfriend;
+	inline private function get_boyfriend():Character return game.boyfriend;
 	inline private function get_dad():Character return game.dad;
 	inline private function get_gf():Character return game.gf;
 
@@ -191,6 +163,5 @@ class BaseStage extends FlxBasic
 		game.defaultCamZoom = value;
 		return game.defaultCamZoom;
 	}
-	inline private function get_camFollow():FlxPoint return game.camFollow;
-	inline private function get_camFollowPos():FlxObject return game.camFollowPos;
+	inline private function get_camFollow():FlxObject return game.camFollow;
 }

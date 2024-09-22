@@ -48,7 +48,7 @@ class Philly extends BaseStage
 		phillyStreet = new BGSprite('philly/street', -40, 50);
 		add(phillyStreet);
 	}
-	override function eventPushed(event:Note.EventNote)
+	override function eventPushed(event:objects.Note.EventNote)
 	{
 		switch(event.event)
 		{
@@ -69,7 +69,7 @@ class Philly extends BaseStage
 				insert(members.indexOf(blammedLightsBlack) + 1, phillyGlowGradient);
 				if(!ClientPrefs.flashing) phillyGlowGradient.intendedAlpha = 0.7;
 
-				precacheImage('philly/particle'); //precache philly glow particle image
+				Paths.image('philly/particle'); //precache philly glow particle image
 				phillyGlowParticles = new FlxTypedGroup<PhillyGlowParticle>();
 				phillyGlowParticles.visible = false;
 				insert(members.indexOf(phillyGlowGradient) + 1, phillyGlowParticles);
