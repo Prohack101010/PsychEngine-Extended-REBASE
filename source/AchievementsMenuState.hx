@@ -221,7 +221,12 @@ class AchievementsMenuState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+    			MusicBeatState.switchState(new MainMenuStateOld());
+    		else if (TitleState.IndieCrossEnabled)
+    			MusicBeatState.switchState(new MainMenuStateCROSS());
+    		else
+    			MusicBeatState.switchState(new MainMenuState());
 			goingBack = true;
 		}
 		super.update(elapsed);

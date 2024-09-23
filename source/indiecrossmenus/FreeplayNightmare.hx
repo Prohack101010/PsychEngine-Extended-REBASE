@@ -202,7 +202,7 @@ class FreeplayNightmare extends MusicBeatState
 		text.scrollFactor.set();
 		add(text);
 		
-		addVirtualPad(FULL, A_B);
+		addVirtualPad(FULL, A_B_C);
 		super.create();
 	}
 
@@ -211,7 +211,7 @@ class FreeplayNightmare extends MusicBeatState
 		persistentUpdate = true;
 		super.closeSubState();
 		removeVirtualPad();
-		addVirtualPad(FULL, A_B);
+		addVirtualPad(FULL, A_B_C);
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
@@ -284,57 +284,11 @@ class FreeplayNightmare extends MusicBeatState
 			{
 				changeSelection(-shiftMult);
 				holdTime = 0;
-
-				if(instPlaying != curSelected)
-				{
-					#if PRELOAD_ALL
-					destroyFreeplayVocals();
-					FlxG.sound.music.volume = 0;
-					Paths.currentModDirectory = songs[curSelected].folder;
-					var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
-					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
-					if (PlayState.SONG.needsVoices)
-						vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-					else
-						vocals = new FlxSound();
-			
-					FlxG.sound.list.add(vocals);
-					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-					vocals.play();
-					vocals.persist = true;
-					vocals.looped = true;
-					vocals.volume = 0.7;
-					instPlaying = curSelected;
-					#end
-				}
 			}
 			if (downP)
 			{
 				changeSelection(shiftMult);
 				holdTime = 0;
-
-				if(instPlaying != curSelected)
-				{
-					#if PRELOAD_ALL
-					destroyFreeplayVocals();
-					FlxG.sound.music.volume = 0;
-					Paths.currentModDirectory = songs[curSelected].folder;
-					var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
-					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
-					if (PlayState.SONG.needsVoices)
-						vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-					else
-						vocals = new FlxSound();
-		
-					FlxG.sound.list.add(vocals);
-					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-					vocals.play();
-					vocals.persist = true;
-					vocals.looped = true;
-					vocals.volume = 0.7;
-					instPlaying = curSelected;
-					#end
-				}
 			}
 
 			if(controls.UI_DOWN || controls.UI_UP)
@@ -376,9 +330,27 @@ class FreeplayNightmare extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		if(FlxG.keys.justPressed.SPACE || _virtualpad.buttonX.justPressed)
+		else if(FlxG.keys.justPressed.SPACE || _virtualpad.buttonC.justPressed)
 		{
-
+			#if PRELOAD_ALL
+			destroyFreeplayVocals();
+			FlxG.sound.music.volume = 0;
+			Paths.currentModDirectory = songs[curSelected].folder;
+			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
+			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+			if (PlayState.SONG.needsVoices)
+				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+			else
+				vocals = new FlxSound();
+		
+			FlxG.sound.list.add(vocals);
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+			vocals.play();
+			vocals.persist = true;
+			vocals.looped = true;
+			vocals.volume = 0.7;
+			instPlaying = curSelected;
+			#end
 		}
 		else if (accepted)
 		{

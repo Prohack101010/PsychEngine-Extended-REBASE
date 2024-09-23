@@ -353,7 +353,12 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-			    MusicBeatState.switchState(new MainMenuState());
+			    if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+        			MusicBeatState.switchState(new MainMenuStateOld());
+        		else if (TitleState.IndieCrossEnabled)
+        			MusicBeatState.switchState(new MainMenuStateCROSS());
+        		else
+        			MusicBeatState.switchState(new MainMenuState());
 			    ClientPrefs.controllerMode = LastControllerMode;
 			}
 

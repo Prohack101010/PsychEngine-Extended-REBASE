@@ -26,7 +26,7 @@ class FreeplaySelect extends MusicBeatState
 
 	override function create()
 	{
-		FlxG.mouse.visible = true;
+		FlxG.mouse.alpha = 0;
 		#if (desktop && !hl)
 		DiscordClient.changePresence("Selecting Freeplay", null);
 		#end

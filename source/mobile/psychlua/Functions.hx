@@ -17,7 +17,7 @@ class MobileFunctions
 		
 		// Lua_helper.add_callback(lua, 'mobileControlsMode', getMobileControlsAsString()); //nope
 		
-		Lua_helper.add_callback(lua, "mobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
+		Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
 		{
 			MusicBeatState.mobilec.visible = enabled;
 			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
