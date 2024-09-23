@@ -11,6 +11,7 @@ class FreeplaySelect extends MusicBeatState
 {
 	public static var curSelected:Int = 0;
 	public static var optionShit:Array<String> = ['story', 'bonus', 'nightmare'];
+	public static final fuckersScale:Float = 0.675;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	var bg:FlxSprite;
@@ -33,7 +34,7 @@ class FreeplaySelect extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -134,7 +135,7 @@ class FreeplaySelect extends MusicBeatState
 			var freeplayItem:FlxSprite = new FlxSprite();
 			freeplayItem.loadGraphic(Paths.image('freeplayselect/' + str));
 			freeplayItem.origin.set();
-			freeplayItem.scale.set(MainMenuState.fuckersScale, MainMenuState.fuckersScale);
+			freeplayItem.scale.set(fuckersScale, fuckersScale);
 			freeplayItem.updateHitbox();
 			freeplayItem.alpha = 0.5;
 			freeplayItem.setPosition(120 + (i * sep), 20);

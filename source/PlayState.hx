@@ -3435,19 +3435,14 @@ class PlayState extends MusicBeatState
 	{
 	    campaignScore += songScore;
 		campaignMisses += songMisses;
-		
-	    if (TitleState.IndieCrossEnabled)
-    		StoryMenuStateCROSS.weekCompleted.set(WeekData.weeksList[storyWeek], true);
-    	else
-    		StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+		StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
     		
-        Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
+        if (TitleState.IndieCrossEnabled)
+			Highscore.saveWeekScore('week' + storyWeek, campaignScore, storyDifficulty);
+		else if (SONG.validScore)
+    		Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
         
-		if (TitleState.IndieCrossEnabled)
-    		FlxG.save.data.weekCompleted = StoryMenuStateCROSS.weekCompleted;
-    	else
-			FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
-			
+		FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
 		FlxG.save.flush();
 	}
 	
@@ -4114,19 +4109,14 @@ class PlayState extends MusicBeatState
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
-					    if (TitleState.IndieCrossEnabled)
+    					StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+
+                        if (TitleState.IndieCrossEnabled)
 					        Highscore.saveWeekScore('week' + storyWeek, campaignScore, storyDifficulty);
-					    else
-					    {
-    					    StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+					    else if (SONG.validScore)
+    						Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 
-    						if (SONG.validScore)
-    						{
-    							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
-    						}
-
-    					    FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
-    					}
+    					FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
 						FlxG.save.flush();
 					}
 					changedDifficulty = false;
