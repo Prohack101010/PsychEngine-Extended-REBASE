@@ -150,10 +150,10 @@ class BaseSettingsMenu extends MusicBeatSubstate
 
 		if(nextAccept <= 0)
 		{
-			var usesCheckbox = true;
-			if(curOption.type != 'bool')
+			var usesCheckbox = false;
+			if(curOption.type == 'bool')
 			{
-				usesCheckbox = false;
+				usesCheckbox = true;
 			}
 
 			if(usesCheckbox)

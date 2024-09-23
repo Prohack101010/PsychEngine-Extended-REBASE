@@ -40,6 +40,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			#if mobile true #else false #end);
 		addOption(option);
+		
+		var option:Option = new Option('Modpack Folder',
+			'If checked, game uses modpack folder instead of mods folder.',
+			'Modpack',
+			'bool',
+			false);
+		addOption(option);
+		option.onChange = disableIndieCrossMenus; // Fix Indie Cross Bug
 
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', //Name
@@ -55,14 +63,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
-		
-		var option:Option = new Option('Modpack Folder',
-			'If checked, game uses modpack folder instead of mods folder.',
-			'Modpack',
-			'bool',
-			false);
-		addOption(option);
-		option.onChange = disableIndieCrossMenus; // Fix Indie Cross Bug
 
 		var option:Option = new Option('Opponent Notes',
 			'If unchecked, opponent notes get hidden.',

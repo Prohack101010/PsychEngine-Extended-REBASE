@@ -3420,13 +3420,13 @@ class PlayState extends MusicBeatState
 		#end
 	}
 	
-	public function changeHitboxButtons(mode:String)
+	public function changeHitboxControls(mode:String)
 	{
 	    removeMobileControls();
 	    addMobileControls(mode);
 	}
 	
-	public function addNewHitboxButtons(mode:String)
+	public function addHitboxControls(mode:String)
 	{
 	    addMobileControls(mode);
 	}
@@ -3435,9 +3435,19 @@ class PlayState extends MusicBeatState
 	{
 	    campaignScore += songScore;
 		campaignMisses += songMisses;
-	    StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+		
+	    if (TitleState.IndieCrossEnabled)
+    		StoryMenuStateCROSS.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+    	else
+    		StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+    		
         Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
-		FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+        
+		if (TitleState.IndieCrossEnabled)
+    		FlxG.save.data.weekCompleted = StoryMenuStateCROSS.weekCompleted;
+    	else
+			FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+			
 		FlxG.save.flush();
 	}
 	
@@ -3446,11 +3456,6 @@ class PlayState extends MusicBeatState
 	    var percent:Float = ratingPercent;
 		if(Math.isNaN(percent)) percent = 0;
 		Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent, NoteMs, NoteTime);
-	}
-		
-	public function addCustomMobileControls(mode:String)
-	{
-	    addMobileControls(mode);
 	}
 	
 	public function addPlayStateMobileControls()
@@ -4109,14 +4114,19 @@ class PlayState extends MusicBeatState
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
-						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+					    if (TitleState.IndieCrossEnabled)
+					        Highscore.saveWeekScore('week' + storyWeek, campaignScore, storyDifficulty);
+					    else
+					    {
+    					    StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
-						if (SONG.validScore)
-						{
-							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
-						}
+    						if (SONG.validScore)
+    						{
+    							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
+    						}
 
-						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+    					    FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+    					}
 						FlxG.save.flush();
 					}
 					changedDifficulty = false;
@@ -5379,10 +5389,6 @@ class PlayState extends MusicBeatState
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
-	
-	public function makeAlternativeVirtualPad(DPadMode:String, ActionMode:String) {
-	    addAlternativeVirtualPad(DPadMode, ActionMode);
-	}
 	
 	public function makeLuaVirtualPad(DPadMode:String, ActionMode:String) {
 		if(!variables.exists("luaVirtualPad"))

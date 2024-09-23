@@ -167,7 +167,7 @@ class FreeplayBonus extends MusicBeatState
 		bg.color = songs[curSelected].color;
 		intendedColor = bg.color;
 
-		curDifficulty = Math.round(Math.max(0, Difficulty.defaultIndieCrossList.indexOf(lastDifficultyName)));
+		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
 		
 		changeSelection();
 
@@ -467,17 +467,17 @@ class FreeplayBonus extends MusicBeatState
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = Difficulty.defaultIndieCrossList.length-1;
-		if (curDifficulty >= Difficulty.defaultIndieCrossList.length)
+			curDifficulty = Difficulty.list.length - 1;
+		if (curDifficulty >= Difficulty.list.length)
 			curDifficulty = 0;
 
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
 		#end
-
-		lastDifficultyName = Difficulty.getString(curDifficulty);
-		if (Difficulty.defaultIndieCrossList.length > 1)
+		
+		lastDifficultyName = Difficulty.getString(curDifficulty, true);
+		if (Difficulty.list.length > 1)
 			diffText.text = '< ' + lastDifficultyName.toUpperCase() + ' >';
 		else
 			diffText.text = lastDifficultyName.toUpperCase();
@@ -489,7 +489,7 @@ class FreeplayBonus extends MusicBeatState
 	    _updateSongLastDifficulty();
 		if(playSound) FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
-        var lastList:Array<String> = Difficulty.defaultIndieCrossList;
+        var lastList:Array<String> = Difficulty.list;
 		curSelected += change;
 
 		if (curSelected < 0)
@@ -542,13 +542,13 @@ class FreeplayBonus extends MusicBeatState
 		Difficulty.loadFromWeek();
 		
 		var savedDiff:String = songs[curSelected].lastDifficulty;
-		var lastDiff:Int = Difficulty.defaultIndieCrossList.indexOf(lastDifficultyName);
-		if(savedDiff != null && !lastList.contains(savedDiff) && Difficulty.defaultIndieCrossList.contains(savedDiff))
-			curDifficulty = Math.round(Math.max(0, Difficulty.defaultIndieCrossList.indexOf(savedDiff)));
-		else if(lastDiff > -1)
+		var lastDiff:Int = Difficulty.list.indexOf(lastDifficultyName);
+		if (savedDiff != null && !lastList.contains(savedDiff) && Difficulty.list.contains(savedDiff))
+			curDifficulty = Math.round(Math.max(0, Difficulty.list.indexOf(savedDiff)));
+		else if (lastDiff > -1)
 			curDifficulty = lastDiff;
-		else if(Difficulty.defaultIndieCrossList.contains(Difficulty.getDefault()))
-			curDifficulty = Math.round(Math.max(0, Difficulty.defaultIndieCrossList.indexOf(Difficulty.getDefault())));
+		else if (Difficulty.list.contains(Difficulty.getDefault()))
+			curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(Difficulty.getDefault())));
 		else
 			curDifficulty = 0;
 
@@ -558,7 +558,7 @@ class FreeplayBonus extends MusicBeatState
 
 	inline private function _updateSongLastDifficulty()
 	{
-		songs[curSelected].lastDifficulty = Difficulty.getString(curDifficulty);
+		songs[curSelected].lastDifficulty = Difficulty.getString(curDifficulty, true);
 	}
 
 	private function positionHighscore() {

@@ -8,7 +8,7 @@ import android.widget.Toast as AndroidToast;
 import android.Tools as AndroidTools;
 #end
 
-#if MOBILEC
+#if mobile
 class MobileFunctions
 {
 	public static function implement(funk:FunkinLua)
@@ -23,14 +23,14 @@ class MobileFunctions
 			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
 		});
 		
-		Lua_helper.add_callback(lua, "changeHitboxButtons", function(mode:String):Void
+		Lua_helper.add_callback(lua, "changeHitboxControls", function(mode:String):Void
 		{
-			PlayState.instance.changeHitboxButtons(mode);
+			PlayState.instance.changeHitboxControls(mode);
 		});
 		
-		Lua_helper.add_callback(lua, "addCustomHitboxControls", function(mode:String):Void
+		Lua_helper.add_callback(lua, "addHitboxControls", function(mode:String):Void
 		{
-			PlayState.instance.addCustomMobileControls(mode);
+			PlayState.instance.addHitboxControls(mode);
 		});
 		
 		Lua_helper.add_callback(lua, "addMobileControls", function():Void
@@ -50,11 +50,6 @@ class MobileFunctions
 			if (duration == null)
 				return FunkinLua.luaTrace('vibrate: No duration specified.');
 			return Haptic.vibrate(period, duration);
-		});
-		
-		Lua_helper.add_callback(lua, "addVirtualPadV1", function(DPadMode:String, ActionMode:String):Void
-		{
-			PlayState.instance.makeAlternativeVirtualPad(DPadMode, ActionMode);
 		});
 		
 		Lua_helper.add_callback(lua, "addVirtualPad", function(DPadMode:String, ActionMode:String):Void
