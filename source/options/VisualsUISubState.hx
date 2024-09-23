@@ -182,13 +182,16 @@ class VisualsUISubState extends BaseOptionsMenu
 	override function destroy()
 	{
 		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
+		if (!TitleState.IndieCrossEnabled)
+		{
+		    CoolUtil.showPopUp('Indie Cross Menus Has Been Disabled, you needed restart the game!!\nPress OK to close the game.', 'Notice!');
+			lime.system.System.exit(0);
+		}
 		super.destroy();
 	}
 	
 	function disableIndieCrossMenus()
 	{
-	    if (TitleState.IndieCrossEnabled)
-	        TitleState.IndieCrossEnabled = false;
 	    if (!TitleState.IndieCrossEnabled)
 	        TitleState.IndieCrossEnabled = true;
 	}

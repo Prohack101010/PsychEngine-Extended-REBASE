@@ -43,6 +43,8 @@ class FreeplaySelect extends MusicBeatState
 		generateButtons(332);
 
 		changeItem();
+		
+		addVirtualPad(NONE, B);
 
 		super.create();
 	}

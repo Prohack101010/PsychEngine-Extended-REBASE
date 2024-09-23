@@ -163,7 +163,7 @@ class FreeplayNightmare extends MusicBeatState
 		bg.color = songs[curSelected].color;
 		intendedColor = bg.color;
 
-		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
+		curDifficulty = Math.round(Math.max(0, Difficulty.defaultIndieCrossList.indexOf(lastDifficultyName)));
 		
 		changeSelection();
 
@@ -191,10 +191,10 @@ class FreeplayNightmare extends MusicBeatState
 		add(textBG);
 
 		#if PRELOAD_ALL
-		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		var leText:String = "";
 		var size:Int = 16;
 		#else
-		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		var leText:String = "";
 		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
@@ -463,8 +463,8 @@ class FreeplayNightmare extends MusicBeatState
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = Difficulty.list.length - 1;
-		if (curDifficulty >= Difficulty.list.length)
+			curDifficulty = Difficulty.defaultIndieCrossList.length-1;
+		if (curDifficulty >= Difficulty.defaultIndieCrossList.length)
 			curDifficulty = 0;
 
 		#if !switch
@@ -472,8 +472,8 @@ class FreeplayNightmare extends MusicBeatState
 		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
 		#end
 
-		lastDifficultyName = Difficulty.getString(curDifficulty, true);
-		if (Difficulty.list.length > 1)
+		lastDifficultyName = Difficulty.getString(curDifficulty);
+		if (Difficulty.defaultIndieCrossList.length > 1)
 			diffText.text = '< ' + lastDifficultyName.toUpperCase() + ' >';
 		else
 			diffText.text = lastDifficultyName.toUpperCase();
@@ -486,7 +486,7 @@ class FreeplayNightmare extends MusicBeatState
 	    _updateSongLastDifficulty();
 		if(playSound) FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
-        var lastList:Array<String> = Difficulty.list;
+        var lastList:Array<String> = Difficulty.defaultIndieCrossList;
 		curSelected += change;
 
 		if (curSelected < 0)
@@ -539,13 +539,13 @@ class FreeplayNightmare extends MusicBeatState
 		Difficulty.loadFromWeek();
 		
 		var savedDiff:String = songs[curSelected].lastDifficulty;
-		var lastDiff:Int = Difficulty.list.indexOf(lastDifficultyName);
-		if (savedDiff != null && !lastList.contains(savedDiff) && Difficulty.list.contains(savedDiff))
-			curDifficulty = Math.round(Math.max(0, Difficulty.list.indexOf(savedDiff)));
-		else if (lastDiff > -1)
+		var lastDiff:Int = Difficulty.defaultIndieCrossList.indexOf(lastDifficultyName);
+		if(savedDiff != null && !lastList.contains(savedDiff) && Difficulty.defaultIndieCrossList.contains(savedDiff))
+			curDifficulty = Math.round(Math.max(0, Difficulty.defaultIndieCrossList.indexOf(savedDiff)));
+		else if(lastDiff > -1)
 			curDifficulty = lastDiff;
-		else if (Difficulty.list.contains(Difficulty.getDefault()))
-			curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(Difficulty.getDefault())));
+		else if(Difficulty.defaultIndieCrossList.contains(Difficulty.getDefault()))
+			curDifficulty = Math.round(Math.max(0, Difficulty.defaultIndieCrossList.indexOf(Difficulty.getDefault())));
 		else
 			curDifficulty = 0;
 
@@ -555,7 +555,7 @@ class FreeplayNightmare extends MusicBeatState
 
 	inline private function _updateSongLastDifficulty()
 	{
-		songs[curSelected].lastDifficulty = Difficulty.getString(curDifficulty, true);
+		songs[curSelected].lastDifficulty = Difficulty.getString(curDifficulty);
 	}
 
 	private function positionHighscore() {

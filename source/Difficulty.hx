@@ -16,12 +16,12 @@ class Difficulty
 	private static var defaultDifficulty(default, never):String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
 	private static var defaultIndieCrossDifficulty(default, never):String = 'Hard'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode for indie cross
 
-	inline public static function getFilePath(num:Null<Int> = null, ?GetModDiff:Bool = false)
+	inline public static function getFilePath(num:Null<Int> = null)
 	{
 		if(num == null) num = PlayState.storyDifficulty;
             
 		var fileSuffix:String = list[num];
-		if (TitleState.IndieCrossEnabled && !GetModDiff)
+		if (TitleState.IndieCrossEnabled)
 		    fileSuffix = defaultIndieCrossList[num]; // TOOK ME A WHOLE FUCKING DAY TO FIX THIS PEICE OF SHIT -KarimAkra
 		 
         if(fileSuffix != defaultDifficulty)
@@ -70,9 +70,9 @@ class Difficulty
 		list = diffs.copy();
 	}
 
-	inline public static function getString(num:Null<Int> = null, ?GetModDiff:Bool = false):String
+	inline public static function getString(num:Null<Int> = null):String
 	{
-	    if (TitleState.IndieCrossEnabled && !GetModDiff)
+	    if (TitleState.IndieCrossEnabled)
 		    return defaultIndieCrossList[num == null ? PlayState.storyDifficulty : num];
 		else
 		    return list[num == null ? PlayState.storyDifficulty : num];
