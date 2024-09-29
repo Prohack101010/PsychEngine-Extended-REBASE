@@ -15,14 +15,6 @@ class MobileFunctions
 	{
 	    var lua:State = funk.lua;
 		
-		// Lua_helper.add_callback(lua, 'mobileControlsMode', getMobileControlsAsString()); //nope
-		
-		Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void //Indie Cross Psych Port Support
-		{
-			MusicBeatState.mobilec.visible = enabled;
-			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
-		});
-		
 		Lua_helper.add_callback(lua, "changeHitboxControls", function(mode:String):Void
 		{
 			PlayState.instance.changeHitboxControls(mode);

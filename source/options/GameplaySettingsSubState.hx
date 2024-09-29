@@ -47,7 +47,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
-		option.onChange = disableIndieCrossMenus; // Fix Indie Cross Bug
 
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', //Name
@@ -154,14 +153,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		addOption(option);
 
 		super();
-	}
-	
-	function disableIndieCrossMenus()
-	{
-	    if (TitleState.IndieCrossEnabled)
-	        TitleState.IndieCrossEnabled = false;
-	    if (!TitleState.IndieCrossEnabled)
-	        TitleState.IndieCrossEnabled = true;
 	}
 
 	function onChangeHitsoundVolume()
