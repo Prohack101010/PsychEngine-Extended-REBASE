@@ -2177,7 +2177,7 @@ class PlayState extends MusicBeatState
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
 			if (MobileCType == 'DEFAULT') {
     			MusicBeatState.mobilec.visible = true;
-    			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = 1;
+    			if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = ClientPrefs.VirtualPadAlpha; //better for pc build
     		}
 			generateStaticArrows(0);
 			generateStaticArrows(1);

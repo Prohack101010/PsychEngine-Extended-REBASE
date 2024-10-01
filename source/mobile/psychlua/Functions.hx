@@ -8,12 +8,17 @@ import android.widget.Toast as AndroidToast;
 import android.Tools as AndroidTools;
 #end
 
-#if mobile
 class MobileFunctions
 {
 	public static function implement(funk:FunkinLua)
 	{
 	    var lua:State = funk.lua;
+	    
+	    Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void
+		{
+			if (ClientPrefs.mobileC) MusicBeatState.mobilec.visible = enabled;
+			if (MusicBeatState.checkHitbox != true && ClientPrefs.mobileC) MusicBeatState.mobilec.alpha = ClientPrefs.VirtualPadAlpha;
+		});
 		
 		Lua_helper.add_callback(lua, "changeHitboxControls", function(mode:String):Void
 		{
@@ -35,6 +40,7 @@ class MobileFunctions
 			PlayState.instance.removePlayStateMobileControls();
 		});
 
+        #if mobile
 		Lua_helper.add_callback(lua, "vibrate", function(duration:Null<Int>, ?period:Null<Int>)
 		{
 			if (period == null)
@@ -111,6 +117,7 @@ class MobileFunctions
 			}
 			return TouchFunctions.touchOverlapObject(obj);
 		});
+		#end
 	}
 	
 	public static function getExtraControlsVarInArray(instance:Dynamic, variable:String):Any
@@ -231,7 +238,6 @@ class MobileFunctions
 		return Reflect.getProperty(instance, variable);
 	}
 }
-#end
 
 #if android
 class AndroidFunctions
@@ -240,7 +246,6 @@ class AndroidFunctions
 	{
 		var lua:State = funk.lua;
 		
-		#if android
 		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
 		Lua_helper.add_callback(lua, "isAndroidTV", AndroidTools.isAndroidTV());
 		Lua_helper.add_callback(lua, "isTablet", AndroidTools.isTablet());
@@ -304,7 +309,6 @@ class AndroidFunctions
 			if (text != null) return FunkinLua.luaTrace('setActivityTitle: No text specified.');
 			PsychJNI.setActivityTitle(text);
 		});
-		#end	
 	}
 }
 #end

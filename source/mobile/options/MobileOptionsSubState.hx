@@ -63,7 +63,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		    CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList.txt'));
 		#end
 		
-	if (ClientPrefs.mobileC) {
+	if (ClientPrefs.VirtualPadAlpha != 0) {
 		var option:Option = new Option('VirtualPad Skin',
 			"Choose VirtualPad Skin",
 			'VirtualPadSkin',
@@ -103,7 +103,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
         option.onChange = onChangePadAlpha;
 		super();
 		
-	if (ClientPrefs.mobileC) {
+	if (ClientPrefs.VirtualPadAlpha != 0) {
 		var option:Option = new Option('Colored VirtualPad',
 			'If unchecked, disables VirtualPad colors\n(can be used to make custom colored VirtualPad)',
 			'coloredvpad',
@@ -121,7 +121,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 	}
 		
-	if (ClientPrefs.mobileC) {
+	#if mobile //only Mobile Because You Can't Change Mobile Controls Type, Technically You Cant use Hitbox Tyoe into the PC Build
 		var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",
 			'hitboxExtend',
@@ -196,7 +196,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			storageTypes);
 			addOption(option);
 		#end
-	}
+	#end
 
 		super();
 	}

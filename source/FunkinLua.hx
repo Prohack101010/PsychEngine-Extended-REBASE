@@ -3099,16 +3099,10 @@ class FunkinLua {
 			PlayState.instance.saveWeekScore();
 		});
 		
-		Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void //Add This Thing Here Because MobileFunctions Not Load if you Enter The Song First Time
-		{
-			if (ClientPrefs.mobileC) MusicBeatState.mobilec.visible = enabled;
-			if (MusicBeatState.checkHitbox != true && ClientPrefs.mobileC) MusicBeatState.mobilec.alpha = 1;
-		});
-		
 		#if ACHIEVEMENTS_ALLOWED Achievements.addLuaCallbacks(lua); #end
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
-		#if mobile MobileFunctions.implement(this); #end
 		#if android AndroidFunctions.implement(this); #end
+		MobileFunctions.implement(this);
 
 		call('onCreate', []);
 		#end
