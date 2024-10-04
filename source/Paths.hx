@@ -347,6 +347,7 @@ class Paths
     					list.push([folder, (dat[1] == "1")]);
     				}
     			}
+    		}
     		else
     		{
     		    for (mod in CoolUtil.coolTextFile('modsList.txt'))
