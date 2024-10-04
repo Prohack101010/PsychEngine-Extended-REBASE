@@ -16,7 +16,7 @@ import lime.utils.Assets;
 
 class ModsMenuState extends MusicBeatState
 {
-	var bg:FlxSprite;
+    var bg:FlxSprite;
 	var icon:FlxSprite;
 	var modName:AlphabetNew;
 	var modDesc:FlxText;
@@ -56,6 +56,8 @@ class ModsMenuState extends MusicBeatState
 	override function create()
 	{
 		var daButton:String = "BACKSPACE";
+		if (options.GameplaySettingsSubState.lastselectedModpack != ClientPrefs.Modpack)
+            reload();
 
 		#if mobile  daButton = 'B'; #end
 		Paths.clearStoredMemory();
@@ -340,6 +342,7 @@ class ModsMenuState extends MusicBeatState
 			exiting = true;
 			saveTxt();
 
+            ClientPrefs.controllerMode = LastControllerMode;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if(waitingToRestart)
 			{
@@ -362,7 +365,6 @@ class ModsMenuState extends MusicBeatState
         			MusicBeatState.switchState(new MainMenuStateCROSS());
         		else
         			MusicBeatState.switchState(new MainMenuState());
-			    ClientPrefs.controllerMode = LastControllerMode;
 			}
 
 			persistentUpdate = false;
