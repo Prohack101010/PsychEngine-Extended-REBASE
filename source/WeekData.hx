@@ -266,7 +266,7 @@ class WeekData {
 				}
 			}
 		}
-		elseif (FileSystem.exists("modsList.txt") && !ClientPrefs.Modpack)
+		else if (FileSystem.exists("modsList.txt") && !ClientPrefs.Modpack)
 		{
 			var list:Array<String> = CoolUtil.listFromString(File.getContent("modsList.txt"));
 			    
