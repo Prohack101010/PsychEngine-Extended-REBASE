@@ -48,9 +48,9 @@
 	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
 	<define name="HIDE_CURSOR" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO USE CURSOR -->
 	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
-	<define name="MOBILEC" if="mobile" /> <!-- DELETE THIS IF YOU DONT WANT TO USE MOBILE CONTROLS -->
 	<define name="INDIECROSS_FORCED" if="desktop" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MOD -->
-	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
+	<!-- I Removing This Thing For Some Reason -->
+	<!-- <architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="BASE_GAME_ASSETS" />

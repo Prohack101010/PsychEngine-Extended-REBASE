@@ -839,6 +839,8 @@ class ModsMenuState extends MusicBeatState
 		}
 
 		var path:String = 'modsList.txt';
+		if (ClientPrefs.Modpack)
+		    path = 'modpackList.txt';
 		File.saveContent(path, fileStr);
 	}
 }
