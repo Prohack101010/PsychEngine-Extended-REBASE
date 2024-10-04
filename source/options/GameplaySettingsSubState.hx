@@ -29,7 +29,7 @@ using StringTools;
 
 class GameplaySettingsSubState extends BaseOptionsMenu
 {
-    public static var lastselectedModpack:String = ClientPrefs.Modpack;
+    public static var lastselectedModpack:Bool = ClientPrefs.Modpack;
     
 	public function new()
 	{
