@@ -30,7 +30,7 @@ using StringTools;
 class GameplaySettingsSubState extends BaseOptionsMenu
 {
     public static var lastselectedModpack:Bool = ClientPrefs.Modpack;
-    var waitingToRestart:Bool = false
+    var waitingToRestart:Bool = false;
     
 	public function new()
 	{
