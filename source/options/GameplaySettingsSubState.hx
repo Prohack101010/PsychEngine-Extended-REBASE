@@ -158,11 +158,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		super();
 	}
 	
-	function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		if(controls.BACK)
 		{
-		    if (lastselectedModpack =! ClientPrefs.Modpack) waitingToRestart = true;
+		    if (lastselectedModpack != ClientPrefs.Modpack) waitingToRestart = true;
 			if(waitingToRestart)
 			{
 				TitleState.initialized = false;
