@@ -30,6 +30,7 @@ using StringTools;
 class GameplaySettingsSubState extends BaseOptionsMenu
 {
     public static var lastselectedModpack:Bool = ClientPrefs.Modpack;
+    var waitingToRestart:Bool = false
     
 	public function new()
 	{
@@ -43,8 +44,8 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			#if mobile true #else false #end);
 		addOption(option);
 		
-		var option:Option = new Option('Modpack Folder',
-			'If checked, game uses modpack folder instead of mods folder.',
+		var option:Option = new Option('Better Modpack Folder',
+			'If checked, game uses modpack folder and modpackList.txt instead of mods folder and modsList.txt.',
 			'Modpack',
 			'bool',
 			false);
@@ -155,6 +156,27 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		addOption(option);
 
 		super();
+	}
+	
+	override function update(elapsed:Float)
+	{
+		if(controls.BACK)
+		{
+		    if (lastselectedModpack =! ClientPrefs.Modpack) waitingToRestart = true
+			if(waitingToRestart)
+			{
+				TitleState.initialized = false;
+				TitleState.closedState = false;
+				FlxG.sound.music.fadeOut(0.3);
+				if(FreeplayState.vocals != null)
+				{
+					FreeplayState.vocals.fadeOut(0.3);
+					FreeplayState.vocals = null;
+				}
+				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+			}
+			return;
+		}
 	}
 
 	function onChangeHitsoundVolume()

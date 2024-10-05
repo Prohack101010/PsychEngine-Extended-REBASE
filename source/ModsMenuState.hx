@@ -56,8 +56,6 @@ class ModsMenuState extends MusicBeatState
 	override function create()
 	{
 		var daButton:String = "BACKSPACE";
-		if (options.GameplaySettingsSubState.lastselectedModpack != ClientPrefs.Modpack)
-            reload();
 
 		#if mobile  daButton = 'B'; #end
 		Paths.clearStoredMemory();
