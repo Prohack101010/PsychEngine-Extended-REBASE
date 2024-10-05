@@ -158,7 +158,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		super();
 	}
 	
-	override function update(elapsed:Float)
+	function update(elapsed:Float)
 	{
 		if(controls.BACK)
 		{
