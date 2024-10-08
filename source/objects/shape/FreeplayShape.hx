@@ -4,14 +4,13 @@ import openfl.display.BitmapData;
 import openfl.display.BitmapDataChannel;
 import openfl.geom.Point;
 import openfl.geom.Matrix;
+import openfl.geom.ColorTransform;
 import openfl.geom.Rectangle;
 import openfl.display.Shape;
 import objects.shape.ShapeEX;
 
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxStringUtil; 
-
-import extras.states.FreeplayStateNOVA;
 
 class SpecRect extends FlxSprite //freeplay bg rect
 {
@@ -171,7 +170,8 @@ class InfoText extends FlxSpriteGroup //freeplay info
         this.maxData = maxData;
 
         var text:FlxText = new FlxText(0, 0, 0, texts, 18);
-		text.font = Paths.font('montserrat.ttf');	    		
+		text.font =  Paths.font('montserrat.ttf');	
+        text.antialiasing = ClientPrefs.globalAntialiasing;    		
         add(text);
         
         BlackBG = new Rect(130, text.height / 2 - 3, FlxG.width * 0.26, 5, 5, 5, FlxColor.WHITE, 0.6);
@@ -180,8 +180,9 @@ class InfoText extends FlxSpriteGroup //freeplay info
         WhiteBG = new Rect(130, text.height / 2 - 3, FlxG.width * 0.26, 5, 5, 5);
         add(WhiteBG);    
 
-        dataText = new FlxText(515, 0, 0, Std.string(data), 18);
-		dataText.font = Paths.font('montserrat.ttf');	    		
+        dataText = new FlxText(490, 0, 0, Std.string(data), 18);
+		dataText.font =  Paths.font('montserrat.ttf');	
+        dataText.antialiasing = ClientPrefs.globalAntialiasing;    		
         add(dataText);
 
         data = 0;
@@ -205,6 +206,10 @@ class InfoText extends FlxSpriteGroup //freeplay info
             if (Math.abs((WhiteBG._frame.frame.width / WhiteBG.width) - (data / maxData)) < 0.005) WhiteBG._frame.frame.width = Std.int(WhiteBG.width * (data / maxData));
             else WhiteBG._frame.frame.width = Std.int(WhiteBG.width * FlxMath.lerp((data / maxData), (WhiteBG._frame.frame.width / WhiteBG.width), Math.exp(-elapsed * 15)));
             WhiteBG.updateHitbox();
+        }
+        if (WhiteBG._frame.frame.width >= WhiteBG.width)
+        {
+            WhiteBG._frame.frame.width = WhiteBG.width;
         }
         super.update(elapsed);
     }
@@ -259,7 +264,7 @@ class MusicLine extends FlxSpriteGroup
         add(whiteLine);
 
         timeDis = new FlxText(0, 20, 0, '0', 18);
-		timeDis.font = Paths.font('montserrat.ttf');	
+		timeDis.font =  Paths.font('montserrat.ttf');	
         timeDis.alignment = LEFT;  	    		
         timeDis.antialiasing = ClientPrefs.globalAntialiasing;
         add(timeDis);
@@ -275,13 +280,13 @@ class MusicLine extends FlxSpriteGroup
         add(rateReduceRect);
 
         timeMaxDis = new FlxText(0, 20, 0, '0', 18);
-		timeMaxDis.font = Paths.font('montserrat.ttf');	  
+		timeMaxDis.font =  Paths.font('montserrat.ttf');	  
         timeMaxDis.alignment = RIGHT;  	
         timeMaxDis.antialiasing = ClientPrefs.globalAntialiasing;	
         add(timeMaxDis);
 
         playRate = new FlxText(0, 20, 0, '1', 18);
-		playRate.font = Paths.font('montserrat.ttf');	
+		playRate.font =  Paths.font('montserrat.ttf');	
         timeDis.alignment = CENTER;    		
         playRate.antialiasing = ClientPrefs.globalAntialiasing;
         add(playRate);
@@ -299,20 +304,29 @@ class MusicLine extends FlxSpriteGroup
 	}
 
     var holdTime:Float = 0;
+    var canHold:Bool = false;
     override function update(e:Float) {
         super.update(e);
 
         whiteLine.scale.x = FlxG.sound.music.time / FlxG.sound.music.length * blackLine.width;
+
         whiteLine.x = blackLine.x + whiteLine.scale.x / 2;
 
         if (this.visible == false) return; //奇葩bug
 
-        if (FlxG.mouse.justReleased) holdTime = 0;
+        if (FreeplayStateNOVA.instance.ignoreCheck) return;
+
+        if (FlxG.mouse.justReleased) 
+        {
+            holdTime = 0;
+            canHold = false;
+        }
 
         if (FlxG.mouse.overlaps(timeAddRect) || FlxG.mouse.overlaps(timeReduceRect) || FlxG.mouse.overlaps(rateAddRect) || FlxG.mouse.overlaps(rateReduceRect)) {
             if (FlxG.mouse.justPressed) {
-                if (FlxG.mouse.overlaps(timeAddRect)) FreeplayStateNOVA.instance.updateMusicTime(1);
-                else if (FlxG.mouse.overlaps(timeReduceRect)) FreeplayStateNOVA.instance.updateMusicTime(-1);
+                canHold = true;
+                if (FlxG.mouse.overlaps(timeAddRect)) FreeplayStateNOVA.instance.updateMusicTime(1, false);
+                else if (FlxG.mouse.overlaps(timeReduceRect)) FreeplayStateNOVA.instance.updateMusicTime(-1, false);
                 else if (FlxG.mouse.overlaps(rateAddRect)) FreeplayStateNOVA.instance.updateMusicRate(1);
                 else if (FlxG.mouse.overlaps(rateReduceRect)) FreeplayStateNOVA.instance.updateMusicRate(-1);
             }
@@ -321,10 +335,10 @@ class MusicLine extends FlxSpriteGroup
                 holdTime += e;
             }
 
-            if (holdTime > 0.5) {
-                holdTime -= 0.05;
-                if (FlxG.mouse.overlaps(timeAddRect)) FreeplayStateNOVA.instance.updateMusicTime(1);
-                else if (FlxG.mouse.overlaps(timeReduceRect)) FreeplayStateNOVA.instance.updateMusicTime(-1);
+            if (holdTime > 0.5 && canHold) {
+                holdTime -= 0.1;
+                if (FlxG.mouse.overlaps(timeAddRect)) FreeplayStateNOVA.instance.updateMusicTime(1, true);
+                else if (FlxG.mouse.overlaps(timeReduceRect)) FreeplayStateNOVA.instance.updateMusicTime(-1, true);
                 else if (FlxG.mouse.overlaps(rateAddRect)) FreeplayStateNOVA.instance.updateMusicRate(1);
                 else if (FlxG.mouse.overlaps(rateReduceRect)) FreeplayStateNOVA.instance.updateMusicRate(-1);
             }
@@ -346,7 +360,7 @@ class MusicRect extends FlxSpriteGroup
         add(bg);
 
         display = new FlxText(0, 0, 0, text, 15);
-		display.font = Paths.font('montserrat.ttf');		    		
+		display.font =  Paths.font('montserrat.ttf');		    		
         display.antialiasing = ClientPrefs.globalAntialiasing;
         add(display);
         display.x += bg.width / 2 - display.width / 2;
@@ -356,6 +370,8 @@ class MusicRect extends FlxSpriteGroup
     var fouced:Bool = false;
     override function update(elapsed:Float) {
         super.update(elapsed);
+        if (FreeplayStateNOVA.instance.ignoreCheck) return;
+        
         if (FlxG.mouse.overlaps(bg))
         {
             if (!fouced)
@@ -389,7 +405,7 @@ class ExtraTopRect extends FlxSpriteGroup
         super(X, Y);
 		
         text = new FlxText(textOffset, 0, 0, texts, 17);
-		text.font = Paths.font('montserrat.ttf'); 	
+		text.font =  Paths.font('montserrat.ttf'); 	
         text.antialiasing = ClientPrefs.globalAntialiasing;	
 
         background = new FlxSprite(0, 0);
@@ -514,30 +530,35 @@ class ResultRect extends FlxSpriteGroup
         }
         
         shape.graphics.beginFill(0x7FFFFFFF); 
-        shape.graphics.drawRect(0, _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 - 1, _width, 1);
         shape.graphics.endFill();
         
         shape.graphics.beginFill(colorArrayAlpha[0]); 
-        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.marvelousWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
-        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.marvelousWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.marvelousWindow / safeZoneOffset) * _height / 2 - 1, _width, 1);
+        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.marvelousWindow / safeZoneOffset) * _height / 2 - 1, _width, 1);
         shape.graphics.endFill();
         
         shape.graphics.beginFill(colorArrayAlpha[1]); 
-        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.sickWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
-        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.sickWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.sickWindow / safeZoneOffset) * _height / 2 - 1, _width, 1);
+        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.sickWindow / safeZoneOffset) * _height / 2 - 1, _width, 1);
         shape.graphics.endFill();
         
         shape.graphics.beginFill(colorArrayAlpha[2]); 
-        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.goodWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
-        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.goodWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.goodWindow / safeZoneOffset) * _height / 2 - 1, _width, 1);
+        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.goodWindow / safeZoneOffset) * _height / 2 - 1, _width, 1);
         shape.graphics.endFill();
         
         shape.graphics.beginFill(colorArrayAlpha[3]); 
-        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.badWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
-        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.badWindow / safeZoneOffset) * _height / 2 - 1, _width, 2);
+        shape.graphics.drawRect(0, _height / 2 - (ClientPrefs.badWindow / safeZoneOffset) * _height / 2 - 1, _width, 1);
+        shape.graphics.drawRect(0, _height / 2 + (ClientPrefs.badWindow / safeZoneOffset) * _height / 2 - 1, _width, 1);
+        shape.graphics.endFill();
+
+        shape.graphics.beginFill(colorArrayAlpha[4]); 
+        shape.graphics.drawRect(1, _height / 2 - (safeZoneOffset / safeZoneOffset) * _height / 2 - 1, _width, 1);
+        shape.graphics.drawRect(0, _height / 2 + (safeZoneOffset / safeZoneOffset) * _height / 2 - 1, _width, 1);
         shape.graphics.endFill();
         
-        var bitmap:BitmapData = new BitmapData(Std.int(_width), Std.int(_height), true, 0);
+        var bitmap:BitmapData = new BitmapData(Std.int(_width), Std.int(_height + 5), true, 0);
         bitmap.draw(shape);
         
         background.pixels = bitmap;
@@ -553,12 +574,12 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
     public var onClick:Void->Void = null;
     var _y:Float = 0;
 
-	public function new(X:Float, Y:Float, texts:String, color:FlxColor, onClick:Void->Void = null)
+	public function new(X:Float, Y:Float, texts:String, color:FlxColor, onClick:Void->Void = null, specialCheck:Bool = false)
     {
         super(X, Y);
 		
         text = new FlxText(0, 0, 0, texts, 18);
-		text.font = Paths.font('montserrat.ttf'); 	
+		text.font =  Paths.font('montserrat.ttf'); 	
         text.antialiasing = ClientPrefs.globalAntialiasing;	
 
         background = new FlxSprite().loadGraphic(drawRect(text.width + 60));
@@ -576,6 +597,7 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
 
         _y = Y;
         this.onClick = onClick;
+        this.specialCheck = specialCheck;
 	}
 
     function drawRect(width:Float):BitmapData {
@@ -603,6 +625,7 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
 	public var onFocus:Bool = false;
 	public var ignoreCheck:Bool = false;
 	private var _needACheck:Bool = false;
+    var specialCheck = false;
     override function update(elapsed:Float)
     {
         super.update(elapsed);
@@ -611,7 +634,7 @@ class EventRect extends FlxSpriteGroup //freeplay bottom bg rect
         if(!ignoreCheck)
             onFocus = FlxG.mouse.overlaps(this);
 
-        if(onFocus && onClick != null && FlxG.mouse.justReleased)
+        if(onFocus && onClick != null && ((FlxG.mouse.justReleased && !specialCheck) || (FlxG.mouse.justPressed && specialCheck)))
             onClick();
 
         if (onFocus)
@@ -635,13 +658,13 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
     public var background:FlxSprite;
     var icon:HealthIcon;
     var songName:FlxText;
-    var muscan:FlxText;
+    var musican:FlxText;
 
     public var member:Int;
     public var name:String;
     public var haveAdd:Bool = false;
 
-	public function new(X:Float, Y:Float, songNameS:String, songChar:String, songColor:FlxColor)
+	public function new(X:Float, Y:Float, songNameS:String, songChar:String, songmusican:String, songColor:Array<Int>)
     {
         super(X, Y);
 
@@ -649,7 +672,17 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
         add(diffRectGroup);
 
         var mask:Rect = new Rect(0, 0, 700, 90, 25, 25);
-        background = new FlxSprite(0, 0).loadGraphic(Paths.image('menuDesat'));
+
+        var extraLoad:Bool = false;
+        var filesLoad = 'data/' + songNameS + '/background';
+        if (FileSystem.exists(Paths.modFolders(filesLoad + '.png'))){
+            extraLoad = true;
+        } else {
+            filesLoad = 'menuDesat';
+            extraLoad = false;
+        }			
+
+        background = new FlxSprite(0, 0).loadGraphic(Paths.image(filesLoad, null, true, extraLoad));
         
         var matrix:Matrix = new Matrix();
         var data:Float = mask.width / background.width;
@@ -663,15 +696,16 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
         resizedBitmapData.draw(bitmap, matrix);
 		resizedBitmapData.copyChannel(mask.pixels, new Rectangle(0, 0, mask.width, mask.height), new Point(), BitmapDataChannel.ALPHA, BitmapDataChannel.ALPHA);
 
-        background.pixels = resizedBitmapData;
-        background.color = songColor;
-        background.antialiasing = ClientPrefs.globalAntialiasing;
-        add(background);
+        var putBitmapData:BitmapData = new BitmapData(Std.int(mask.width), Std.int(mask.height), true, 0x00000000);
+        putBitmapData.draw(resizedBitmapData);
+        putBitmapData.draw(drawLine(resizedBitmapData.width, resizedBitmapData.height));
 
-        var lineBitmap:BitmapData = drawLine(resizedBitmapData.width, resizedBitmapData.height);
-        var lineSprite = new FlxSprite();
-        lineSprite.pixels = lineBitmap;
-        add(lineSprite); //只能拆分不然会被着色
+        background.pixels = putBitmapData;
+        background.antialiasing = ClientPrefs.globalAntialiasing;
+        if (!extraLoad){
+            background.color =  FlxColor.fromRGB(songColor[0], songColor[1], songColor[2]);
+        }
+        add(background);
 
         icon = new HealthIcon(songChar);
         icon.setGraphicSize(Std.int(background.height * 0.8));
@@ -681,9 +715,16 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
         add(icon);
 
         songName = new FlxText(100, 5, 0, songNameS, 25);
-		songName.font = Paths.font('montserrat.ttf'); 	
+        songName.borderSize = 0;
+        songName.setFormat(Paths.font('montserrat.ttf'), 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, 0xA1393939);
         songName.antialiasing = ClientPrefs.globalAntialiasing;	
         add(songName);
+
+        musican = new FlxText(100, 35, 0, 'Musican: ' + songmusican, 15);
+        musican.borderSize = 0;
+		musican.setFormat(Paths.font('montserrat.ttf'), 15, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, 0xA1393939);
+        musican.antialiasing = ClientPrefs.globalAntialiasing;	
+        add(musican);
 
         this.name = songNameS;
 	}
@@ -779,13 +820,15 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
     }
 
     var haveDiffDis:Bool = false;
-    public function createDiff(color:FlxColor, imme:Bool = false) 
+    public function createDiff(color:FlxColor, charter:Array<String>, imme:Bool = false) 
     {
         desDiff();
         haveDiffDis = true;
         for (diff in 0...Difficulty.list.length)
         {
-            var rect = new DiffRect(Difficulty.list[diff], color, this);
+            var chart:String = charter[diff];
+            if (charter[diff] == null) chart = charter[0];
+            var rect = new DiffRect(Difficulty.list[diff], color, chart, this);
             diffRectGroup.add(rect);
             diffRectArray.push(rect);
             rect.member = diff;
@@ -817,7 +860,6 @@ class DiffRect extends FlxSpriteGroup //songs member for freeplay
 {
     var background:Rect;
     var triItems:FlxSpriteGroup;
-    var bgLine:FlxSprite;
 
     var diffName:FlxText;
     var charterName:FlxText;
@@ -826,7 +868,7 @@ class DiffRect extends FlxSpriteGroup //songs member for freeplay
 
     public var member:Int;
 
-	public function new(name:String, color:FlxColor, point:SongRect)
+	public function new(name:String, color:FlxColor, charter:String, point:SongRect)
     {
         super();
 
@@ -843,13 +885,18 @@ class DiffRect extends FlxSpriteGroup //songs member for freeplay
         }
 
         diffName = new FlxText(15, 5, 0, name, 20);
-		diffName.font = Paths.font('montserrat.ttf'); 	
+        diffName.borderSize = 0;
+		diffName.setFormat(Paths.font('montserrat.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, 0xA1393939);
         diffName.antialiasing = ClientPrefs.globalAntialiasing;	
         add(diffName);
 
-        bgLine = new FlxSprite();
-        bgLine.pixels = drawLine(background.width, background.height);
-        add(bgLine);
+        charterName = new FlxText(15, 30, 0, 'Charter: ' + charter, 12);
+        charterName.borderSize = 0;
+		charterName.setFormat(Paths.font('montserrat.ttf'), 12, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, 0xA1393939);
+        charterName.antialiasing = ClientPrefs.globalAntialiasing;	
+        add(charterName);
+
+        //background.pixels.draw(drawLine(background.width, background.height));
 
         this.follow = point;
 
@@ -952,7 +999,7 @@ class BackRect extends FlxSpriteGroup //back button
         line.alpha = 0.75;
         add(line);
 
-        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreePlayState/playButton'));
+        button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/FreeplayState/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;
@@ -961,7 +1008,7 @@ class BackRect extends FlxSpriteGroup //back button
         add(button);
 
         text = new FlxText(70, 0, 0, texts, 18);
-		text.font = Paths.font('montserrat.ttf'); 	
+		text.font =  Paths.font('montserrat.ttf'); 	
         text.antialiasing = ClientPrefs.globalAntialiasing;	
         add(text);
 
@@ -1071,7 +1118,7 @@ class PlayRect extends FlxSpriteGroup //back button
         line.alpha = 0.75;
         add(line);
 
-        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreePlayState/playButton'));
+        button = new FlxSprite(width - height,0).loadGraphic(Paths.image('menuExtend/FreeplayState/playButton'));
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.x += background.width / 2 - button.width / 2;
@@ -1079,7 +1126,7 @@ class PlayRect extends FlxSpriteGroup //back button
         add(button);
 
         text = new FlxText(60, 0, 0, texts, 18);
-		text.font = Paths.font('montserrat.ttf'); 	
+		text.font =  Paths.font('montserrat.ttf'); 	
         text.antialiasing = ClientPrefs.globalAntialiasing;	
         add(text);
 
@@ -1133,10 +1180,10 @@ class PlayRect extends FlxSpriteGroup //back button
             if (!focused){
                 focused = true;
                 if (bgTween != null) bgTween.cancel();
-                bgTween = FlxTween.tween(bg2, {x: FlxG.width - 320}, 0.3, {ease: FlxEase.backInOut});
+                bgTween = FlxTween.tween(bg2, {x: FlxG.width - 190}, 0.3, {ease: FlxEase.backInOut});
 
                 if (textTween != null) textTween.cancel();
-                textTween = FlxTween.tween(text, {x: FlxG.width - 240}, 0.3, {ease: FlxEase.backInOut});
+                textTween = FlxTween.tween(text, {x: FlxG.width - 160}, 0.3, {ease: FlxEase.backInOut});
                 var color = 
                 background.color = saveColor2;
             }
@@ -1172,7 +1219,8 @@ class SearchButton extends FlxSpriteGroup
         search = new PsychUIInputText(5, 5, Std.int(width - 10), '', 30);
         search.bg.visible = false;
         search.behindText.alpha = 0;
-        search.textObj.font = Paths.font('montserrat.ttf');
+        search.textObj.font =  Paths.font('montserrat.ttf');
+        search.textObj.antialiasing = ClientPrefs.globalAntialiasing;
         search.textObj.color = FlxColor.WHITE;
         search.caret.color = 0x727E7E7E;
         search.onChange = function(old:String, cur:String) {
@@ -1184,14 +1232,14 @@ class SearchButton extends FlxSpriteGroup
         add(search);
         
         tapText = new FlxText(5, 5, 0, 'Tap here to search', 30);
-		tapText.font = Paths.font('montserrat.ttf'); 	
+		tapText.font =  Paths.font('montserrat.ttf'); 	
         tapText.antialiasing = ClientPrefs.globalAntialiasing;	
         tapText.alpha = 0.6;
         add(tapText);
 
         itemDis = new FlxText(5, 5 + tapText.height, 0, Std.string(FreeplayStateNOVA.instance.songs.length) + ' maps has found', 18);
         itemDis.color = 0xFF52F9;
-		itemDis.font = Paths.font('montserrat.ttf'); 	
+		itemDis.font =  Paths.font('montserrat.ttf'); 	
         itemDis.antialiasing = ClientPrefs.globalAntialiasing;	
         add(itemDis);
     }
@@ -1229,7 +1277,7 @@ class OrderRect extends FlxSpriteGroup {
         add(display);
 
         var text = new FlxText(0, 0, 0, 'Search results sorted alphabetically from a to z', 18);
-		text.font = Paths.font('montserrat.ttf'); 	
+		text.font =  Paths.font('montserrat.ttf'); 	
         text.antialiasing = ClientPrefs.globalAntialiasing;	
         add(text);
 

@@ -22,19 +22,19 @@ class Triangle extends FlxSprite
 	function drawHollowTriangle(sideLength:Float, innerSide:Float):BitmapData {
         var shape:Shape = new Shape();
     
-        // Width and height of the image to ensure that the triangle is centered in the image
-        var imageSize:Float = sideLength * Math.sqrt(3); // The height of an equilateral triangle is sqrt(3)/2 of the side lengths, multiplied by 2 to get the image size
-        // image center point
+        // 图像的宽度和高度，确保三角形在图像中居中
+        var imageSize:Float = sideLength * Math.sqrt(3); // 等边三角形的高为边长的sqrt(3)/2，乘以2得到图像大小
+        // 图像中心点
         var centerX:Float = imageSize / 2;
-        var centerY:Float = imageSize / 2 + 5; // +5 is a bug fix
+        var centerY:Float = imageSize / 2 + 5; // +5 是修复bug
     
-        // Calculate the positions of the three vertices of the equilateral triangle, making sure that the center is in the center of the image
-        var angleStep:Float = Math.PI * 2 / 3; // The angle difference between the vertices is 120 degrees, or 2π/3
+        // 计算等边三角形的三个顶点位置，确保中心位于图像中心
+        var angleStep:Float = Math.PI * 2 / 3; // 顶点之间的角度差为120度，即2π/3
         var p1:Point = new Point(centerX + sideLength * Math.cos(0), centerY + sideLength * Math.sin(0));
         var p2:Point = new Point(centerX + sideLength * Math.cos(angleStep), centerY + sideLength * Math.sin(angleStep));
         var p3:Point = new Point(centerX + sideLength * Math.cos(angleStep * 2), centerY + sideLength * Math.sin(angleStep * 2));
     
-        // Drawing external triangles
+        // 绘制外部三角形
         shape.graphics.beginFill(0xFFFFFF); 
         shape.graphics.lineStyle(3, 0xFFFFFF, 1);
         shape.graphics.moveTo(p1.x, p1.y);
@@ -43,13 +43,13 @@ class Triangle extends FlxSprite
         shape.graphics.lineTo(p1.x, p1.y);
         shape.graphics.endFill();
     
-        // Drawing internal triangles
+        // 绘制内部三角形
         var innerSideLength:Float = sideLength * (1 - innerSide);
         var innerP1:Point = new Point(centerX + innerSideLength * Math.cos(0), centerY + innerSideLength * Math.sin(0));
         var innerP2:Point = new Point(centerX + innerSideLength * Math.cos(angleStep), centerY + innerSideLength * Math.sin(angleStep));
         var innerP3:Point = new Point(centerX + innerSideLength * Math.cos(angleStep * 2), centerY + innerSideLength * Math.sin(angleStep * 2));
     
-        shape.graphics.beginFill(0x00); // Set the fill color to transparent
+        shape.graphics.beginFill(0x00); // 设置填充颜色为透明
         shape.graphics.moveTo(innerP1.x, innerP1.y);
         shape.graphics.lineTo(innerP2.x, innerP2.y);
         shape.graphics.lineTo(innerP3.x, innerP3.y);
@@ -98,7 +98,7 @@ class BackButton extends FlxSpriteGroup
     var saveColor:FlxColor = 0;
     var saveColor2:FlxColor = 0;
 
-	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, texts:String = '', color:FlxColor = FlxColor.WHITE, onClick:Void->Void = null)
+	public function new(X:Float, Y:Float, width:Float = 0, height:Float = 0, texts:String = '', color:FlxColor = FlxColor.WHITE, onClick:Void->Void = null, flipButton:Bool = false)
     {
         super(X, Y);
 
@@ -110,11 +110,11 @@ class BackButton extends FlxSpriteGroup
         button.scale.set(0.4, 0.4);
         button.antialiasing = ClientPrefs.globalAntialiasing;
         button.y += background.height / 2 - button.height / 2;
-        button.flipX = true;
+        if (flipButton) button.flipX = true;
         add(button);
 
         text = new FlxText(40, 0, 0, texts, 25);
-		text.font = Paths.font('montserrat.ttf'); 	
+		text.font =  Paths.font('montserrat.ttf');
         text.antialiasing = ClientPrefs.globalAntialiasing;	
         add(text);
 
