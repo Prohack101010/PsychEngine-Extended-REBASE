@@ -3,6 +3,9 @@ package objects;
 import flixel.sound.FlxSound;
 import funkin.vis.dsp.SpectralAnalyzer;
 
+import sys.thread.Thread;
+import sys.thread.Mutex;
+
 class AudioDisplay extends FlxSpriteGroup
 {
     var analyzer:SpectralAnalyzer;
@@ -35,6 +38,7 @@ class AudioDisplay extends FlxSpriteGroup
     }
 
     public var stopUpdate:Bool = false;
+    var updateMutex:Mutex = new Mutex();
     override function update(elapsed:Float)
     {
       if (stopUpdate) return;
@@ -48,8 +52,12 @@ class AudioDisplay extends FlxSpriteGroup
       animFrame = Math.round(animFrame * FlxG.sound.volume);
 
       members[i].scale.y = FlxMath.lerp(animFrame, members[i].scale.y, Math.exp(-elapsed * 16));
+      if (members[i].scale.y < _height / 40) members[i].scale.y = _height / 40;
       members[i].y = this.y -members[i].scale.y / 2;
       }
+      
+
+      
       super.update(elapsed);
     }
 
@@ -68,5 +76,13 @@ class AudioDisplay extends FlxSpriteGroup
       analyzer.changeSnd(snd._channel.__audioSource);
 
       stopUpdate = false;
+    }
+
+    public function clearUpdate() {
+      for (i in 0...members.length)
+      {
+        members[i].scale.y = _height / 40;
+        members[i].y = this.y -members[i].scale.y / 2;
+      }
     }
 }
