@@ -16,6 +16,8 @@ import lime.utils.Assets;
 
 class ModsMenuState extends MusicBeatState
 {
+    public static var isFreePlay:Bool = false;
+    
     var bg:FlxSprite;
 	var icon:FlxSprite;
 	var modName:AlphabetNew;
@@ -355,14 +357,18 @@ class ModsMenuState extends MusicBeatState
 				}
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
 			}
+			isFreePlay = false;
 			else
 			{
 			    if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
         			MusicBeatState.switchState(new MainMenuStateOld());
         		else if (TitleState.IndieCrossEnabled)
         			MusicBeatState.switchState(new MainMenuStateCROSS());
+        		else if (ClientPrefs.FreeplayStyle == 'NovaFlare' && isFreePlay)
+                    MusicBeatState.switchState(new FreeplayStateNOVA());
         		else
         			MusicBeatState.switchState(new MainMenuState());
+        		isFreePlay = false;
 			}
 
 			persistentUpdate = false;
