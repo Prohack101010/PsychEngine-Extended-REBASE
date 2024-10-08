@@ -14,10 +14,8 @@
     },
     {
       "name": "flixel",
-      "type": "git",
-      "dir": null,
-      "ref": "dev",
-      "url": "https://github.com/beihu235/flixel"
+      "type": "haxelib",
+      "version": "5.5.0"
     },
     {
       "name": "flixel-addons",

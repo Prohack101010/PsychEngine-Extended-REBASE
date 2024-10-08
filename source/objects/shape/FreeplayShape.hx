@@ -682,7 +682,7 @@ class SongRect extends FlxSpriteGroup //songs member for freeplay
             extraLoad = false;
         }			
 
-        background = new FlxSprite(0, 0).loadGraphic(Paths.image(filesLoad, null, true, extraLoad));
+        background = new FlxSprite(0, 0).loadGraphic(Paths.image(filesLoad, null, extraLoad));
         
         var matrix:Matrix = new Matrix();
         var data:Float = mask.width / background.width;

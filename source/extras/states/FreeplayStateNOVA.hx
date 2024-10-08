@@ -615,7 +615,7 @@ class FreeplayStateNOVA extends MusicBeatState
             filesLoad = 'menuDesat';
             extraLoad = false;
         }			
-		magenta.loadGraphic(Paths.image(filesLoad, null, true, extraLoad));
+		magenta.loadGraphic(Paths.image(filesLoad, null, extraLoad));
 		var scale = Math.max(FlxG.width * 1.05 / magenta.width, FlxG.height * 1.05 / magenta.height);
 		magenta.scale.x = magenta.scale.y = scale;
 		magenta.updateHitbox();
