@@ -44,8 +44,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	public var title:String;
 	public var rpcTitle:String;
-	public var lastselectedModpack:Bool = ClientPrefs.Modpack;
-    public var waitingToRestart:Bool = false;
 	
 	public var bg:FlxSprite;
 	final lastVirtualPadType:String = ClientPrefs.virtualpadType;
@@ -166,20 +164,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
         	else
 			    close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (lastselectedModpack != ClientPrefs.Modpack) waitingToRestart = true;
-			if(waitingToRestart)
-			{
-				TitleState.initialized = false;
-				TitleState.closedState = false;
-				FlxG.sound.music.fadeOut(0.3);
-				if(FreeplayState.vocals != null)
-				{
-					FreeplayState.vocals.fadeOut(0.3);
-					FreeplayState.vocals = null;
-				}
-				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
-				return;
-			}
 		}
 
 		if(nextAccept <= 0)
