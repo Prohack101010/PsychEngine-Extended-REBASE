@@ -190,7 +190,7 @@ class MainMenuStateOld extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			if (ClientPrefs.FreeplayStyle == 'NF Engine')
+			if (ClientPrefs.FreeplayStyle == 'NF')
 			    if(FreeplayStateNF.vocals != null) FreeplayStateNF.vocals.volume += 0.5 * elapsed;
 			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
 			    if(FreeplayStateNOVA.vocals != null) FreeplayStateNOVA.vocals.volume += 0.5 * elapsed;
@@ -270,7 +270,7 @@ class MainMenuStateOld extends MusicBeatState
 									case 'story_mode':
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
-										if (ClientPrefs.FreeplayStyle == 'NF Engine')
+										if (ClientPrefs.FreeplayStyle == 'NF')
 										    MusicBeatState.switchState(new FreeplayStateNF());
 										else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                                             MusicBeatState.switchState(new FreeplayStateNOVA());

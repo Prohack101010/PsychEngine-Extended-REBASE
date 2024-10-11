@@ -202,7 +202,7 @@ class TitleState extends MusicBeatState
 
 		#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 		#if FREEPLAY
-		if (ClientPrefs.FreeplayStyle == 'NF Engine')
+		if (ClientPrefs.FreeplayStyle == 'NF')
 		    MusicBeatState.switchState(new FreeplayStateNF());
 		else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
             MusicBeatState.switchState(new FreeplayStateNOVA());
@@ -543,7 +543,7 @@ class TitleState extends MusicBeatState
 								}
 							});
 							FlxG.sound.music.fadeOut();
-							if (ClientPrefs.FreeplayStyle == 'NF Engine')
+							if (ClientPrefs.FreeplayStyle == 'NF')
 							{
     							if(FreeplayStateNF.vocals != null)
     							{
@@ -787,7 +787,7 @@ class TitleState extends MusicBeatState
 				if(easteregg == 'SHADOW')
 				{
 					FlxG.sound.music.fadeOut();
-					if (ClientPrefs.FreeplayStyle == 'NF Engine')
+					if (ClientPrefs.FreeplayStyle == 'NF')
 					{
     					if(FreeplayStateNF.vocals != null)
     					{

@@ -4168,7 +4168,7 @@ class PlayState extends MusicBeatState
 				if(FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
-				if (ClientPrefs.FreeplayStyle == 'NF Engine')
+				if (ClientPrefs.FreeplayStyle == 'NF')
     			    MusicBeatState.switchState(new FreeplayStateNF());
     			else if (PlayState.IndieCrossStateType == 1)
     			    MusicBeatState.switchState(new FreeplayMain());

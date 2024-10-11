@@ -44,7 +44,6 @@ class ClientPrefs {
 	public static var touchmenus:Bool = #if UNUSED_TOUCHMENUS true #else false #end;
 	public static var Modpack:Bool = false;
 	public static var IndieCrossMenus:Bool = #if (INDIECROSS_FORCED || INDIECROSS_ASSETS) true #else false #end;
-	public static var breakgetvarinarray:Bool = false;
 	//Mobile
 	public static var wideScreen:Bool = false;
 	public static var mobileC:Bool = true; //better than using if mobile
@@ -139,7 +138,6 @@ class ClientPrefs {
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
 		FlxG.save.data.IndieCrossMenus = IndieCrossMenus;
-		FlxG.save.data.breakgetvarinarray = breakgetvarinarray;
 		FlxG.save.data.coloredvpad = coloredvpad;
 		FlxG.save.data.VPadSpaceExtend = VPadSpaceExtend;
 		FlxG.save.data.VPadShiftExtend = VPadShiftExtend;
@@ -234,9 +232,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.touchmenus != null) {
 			touchmenus = FlxG.save.data.touchmenus;
-		}
-		if(FlxG.save.data.breakgetvarinarray != null) {
-			breakgetvarinarray = FlxG.save.data.breakgetvarinarray;
 		}
 		if(FlxG.save.data.Modpack != null) {
 			Modpack = FlxG.save.data.Modpack;

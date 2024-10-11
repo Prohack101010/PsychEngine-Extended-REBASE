@@ -39,7 +39,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'FreeplayStyle',
 			'string',
 			'Psych',
-			['Psych', 'NovaFlare', 'NF Engine']);
+			['Psych', 'NovaFlare', 'NF']);
 		addOption(option);
 		
 		var option:Option = new Option('Main Menu Style:',
@@ -67,15 +67,6 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = disableIndieCrossMenus; // Now Functional
 		#end
-		
-	if (ClientPrefs.mobileC) {
-		var option:Option = new Option('Fix High-end Mods',
-			'If checked, will cause some objects not to load\n(If you are experiencing crashes in High-End mods, try this)',
-			'breakgetvarinarray',
-			'bool',
-			false);
-		addOption(option);
-	}
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
