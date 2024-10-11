@@ -7,6 +7,11 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
+    //NF Engine Things
+    public static var ChangeSkin:Bool = false;
+	public static var NoteSkin:String = 'original';
+	public static var NoteSkinName:String = 'original';
+	//Others
     public static var FreeplayStyle:String = 'Psych';
     public static var PauseMenuStyle:String = 'Psych';
     public static var MainMenuStyle:String = '1.0';
@@ -175,6 +180,12 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
+		//NF Engine Things
+		FlxG.save.data.NoteSkin = NoteSkin;
+		FlxG.save.data.NoteSkinName = NoteSkinName;
+	    FlxG.save.data.ChangeSkin = ChangeSkin;
+	    //Others
+	     FlxG.save.data.ChangeSkin = ChangeSkin;
         #if android
 		FlxG.save.data.storageType = storageType;
 		#end
@@ -200,6 +211,18 @@ class ClientPrefs {
 
 	public static function loadPrefs() {
 	    #if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
+	    //NF Engine Things
+	    if(FlxG.save.data.NoteSkin != null) {
+			NoteSkin = FlxG.save.data.NoteSkin;
+		}
+
+		if(FlxG.save.data.NoteSkinName != null) {
+			NoteSkinName = FlxG.save.data.NoteSkinName;
+		}
+		if(FlxG.save.data.ChangeSkin != null) {
+			ChangeSkin = FlxG.save.data.ChangeSkin;
+		}
+		//Others
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}

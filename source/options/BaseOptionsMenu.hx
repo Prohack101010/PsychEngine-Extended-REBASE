@@ -34,9 +34,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var curSelected:Int = 0;
 	private var optionsArray:Array<Option>;
 
+    private var grpNote:FlxTypedGroup<FlxSprite>;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
+	public var showNotes:Bool = false;
 
 	private var boyfriend:Character = null;
 	private var descBox:FlxSprite;
@@ -129,7 +131,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		reloadCheckboxes();
 
         addVirtualPad(FULL, A_B_C);
-
+        
+        grpNote = new FlxTypedGroup<FlxSprite>();
+		add(grpNote);
 	}
 
 	public function addOption(option:Option) {
@@ -340,6 +344,15 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		{
 			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
 		}
+		if (optionsArray[curSelected].showNote == false){
+		 remove(grpNote);
+		}
+		else{
+		remove(grpNote);		
+		grpNote = new FlxTypedGroup<FlxSprite>();
+		add(grpNote);
+		reloadNotes();
+		}
 		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
@@ -360,6 +373,33 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		boyfriend.dance();
 		insert(1, boyfriend);
 		boyfriend.visible = wasVisible;
+	}
+	
+	public function reloadNotes()
+		{
+			for (i in 0...ClientPrefs.arrowHSV.length) {
+				var notes:FlxSprite = new FlxSprite((i * 125), 100);
+				if (ClientPrefs.ChangeSkin)  {
+				notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkinName);
+				}    
+				else{
+				    notes.frames = Paths.getSparrowAtlas('NOTE_assets');
+				}
+				var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
+				notes.animation.addByPrefix('idle', animations[i]);
+				notes.animation.play('idle');
+				//notes.visible = true;
+				notes.scale.set(0.8, 0.8);
+				notes.x += 700;
+				notes.antialiasing = ClientPrefs.globalAntialiasing;
+				grpNote.add(notes);
+				
+				var newShader:ColorSwap = new ColorSwap();
+			    notes.shader = newShader.shader;
+			    newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
+			    newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
+			    newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
+		}
 	}
 
 	function reloadCheckboxes() {
