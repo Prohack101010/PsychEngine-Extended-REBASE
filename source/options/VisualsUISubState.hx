@@ -29,6 +29,7 @@ import haxe.format.JsonParser;
 
 using StringTools;
 
+/*
 typedef NoteSkinData =
 {
 	Skin1:String,
@@ -42,6 +43,7 @@ typedef NoteSkinData =
 	Skin9:String,
 	Skin10:String
 }
+*/
 
 class VisualsUISubState extends BaseOptionsMenu
 {
@@ -213,34 +215,12 @@ class VisualsUISubState extends BaseOptionsMenu
 			Main.fpsVar.visible = ClientPrefs.showFPS;
 	}
 	
-	var Skin:NoteSkinData;
-	//private var grpNote:FlxTypedGroup<FlxSprite>;
 	function onChangeNoteSkin()
 	{
-		Skin = Json.parse(Paths.getTextFromFile('images/NoteSkin/DataSet/SkinData.json'));
-		if (ClientPrefs.NoteSkin == 'original') {
-		    FlxG.save.data.ChangeSkin = false;
-		}
-		else {
-		     FlxG.save.data.ChangeSkin = true;
-		     if (ClientPrefs.NoteSkin == 'Skin1') FlxG.save.data.NoteSkinName = Skin.Skin1;
-		     if (ClientPrefs.NoteSkin == 'Skin2') FlxG.save.data.NoteSkinName = Skin.Skin2;
-		     if (ClientPrefs.NoteSkin == 'Skin3') FlxG.save.data.NoteSkinName = Skin.Skin3;
-		     if (ClientPrefs.NoteSkin == 'Skin4') FlxG.save.data.NoteSkinName = Skin.Skin4;
-		     if (ClientPrefs.NoteSkin == 'Skin5') FlxG.save.data.NoteSkinName = Skin.Skin5;
-		     if (ClientPrefs.NoteSkin == 'Skin6') FlxG.save.data.NoteSkinName = Skin.Skin6;
-		     if (ClientPrefs.NoteSkin == 'Skin7') FlxG.save.data.NoteSkinName = Skin.Skin7;
-		     if (ClientPrefs.NoteSkin == 'Skin8') FlxG.save.data.NoteSkinName = Skin.Skin8;
-		     if (ClientPrefs.NoteSkin == 'Skin9') FlxG.save.data.NoteSkinName = Skin.Skin9;
-		     if (ClientPrefs.NoteSkin == 'Skin10') FlxG.save.data.NoteSkinName = Skin.Skin10;     		     
-		}
-		    
-		if (FlxG.save.data.NoteSkinName == "") FlxG.save.data.ChangeSkin = false;
-		    
-		ClientPrefs.ChangeSkin = FlxG.save.data.ChangeSkin;
-		ClientPrefs.NoteSkinName = FlxG.save.data.NoteSkinName;	
 		
-		remove(grpNote);
+		//ClientPrefs.NoteSkin = FlxG.save.data.NoteSkin;    
+		
+        remove(grpNote);
 		
 		grpNote = new FlxTypedGroup<FlxSprite>();
 		add(grpNote);
@@ -249,8 +229,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		
 		for (i in 0...ClientPrefs.arrowHSV.length) {
 				var notes:FlxSprite = new FlxSprite((i * 125), 100);
-				if (ClientPrefs.ChangeSkin)  {
-				    notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkinName);
+				if (ClientPrefs.NoteSkin != 'original')  {
+				notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkin);
 				}    
 				else{
 				    notes.frames = Paths.getSparrowAtlas('NOTE_assets');
@@ -269,6 +249,8 @@ class VisualsUISubState extends BaseOptionsMenu
 			    newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
 			    newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
 			    newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
+			    
 		}
+		
 	}
 }
