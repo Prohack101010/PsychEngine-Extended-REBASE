@@ -245,7 +245,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		grpNote = new FlxTypedGroup<FlxSprite>();
 		add(grpNote);
 		
-		Option.showNote = false;
+		//option.showNote = false;
 		
 		for (i in 0...ClientPrefs.arrowHSV.length) {
 				var notes:FlxSprite = new FlxSprite((i * 125), 100);
