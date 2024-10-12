@@ -39,8 +39,40 @@ jobs:
           name: androidBuild
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: warn
+  Windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.6
+
+      - name: Install Libraries
+        run: |
+          haxelib install hmm --quiet
+          haxelib run hmm install --quiet
+
+      - name: Compile
+        run: haxelib run lime build windows -D officialBuild
+
+      - name: Make zip for release
+        shell: pwsh
+        run: | 
+          cd export\release\windows\bin
+          Compress-Archive -Path . -DestinationPath windows.zip
+
+      - name: Upload Artifact
+        if: ${{ success() }}
+        uses: actions/upload-artifact@main
+        with:
+          name: windowsBuild
+          path: export\release\windows\bin\*.zip
+          if-no-files-found: error      
   Releaser:
-    needs: [Android]
+    needs: [Android, Windows]
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
@@ -53,13 +85,20 @@ jobs:
       - name: Move Android File
         run: mv /home/runner/PsychEngine-release.apk /home/runner/Psych-Extended-Android.apk
 
+      - name: Download Windows Build
+        uses: actions/download-artifact@main
+        with:
+           name: windowsBuild
+           path: /home/runner
+
       - name: Publish The Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: true
+          prerelease: false
           automatic_release_tag: "1.0.0"
           title: "1.0.0 - First Stable Release"
           files: |
             /home/runner/*.apk
             /home/runner/*.zip
+            /home/runner/*.tar

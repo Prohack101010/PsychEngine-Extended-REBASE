@@ -163,7 +163,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangePauseMusic;
 		
 		var option:Option = new Option('Main Menu Song:',
-			"Choose your Transition Style",
+			"What song do you prefer for the Main Menu?",
 			'FreakyMenu',
 			'string',
 			'Extended',

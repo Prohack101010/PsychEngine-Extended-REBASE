@@ -48,17 +48,19 @@
 	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
 	<define name="HIDE_CURSOR" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO USE CURSOR -->
 	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
-	<define name="INDIECROSS_FORCED" if="desktop" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MOD -->
+	<define name="INDIECROSS_FORCED" if="desktop" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MODS -->
 	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
+	<section if="officialBuild">
 	<define name="BASE_GAME_ASSETS" />
+	<define name="TITLE_SCREEN_EASTER_EGG" />
+	</section>
 	<define name="MODS_ALLOWED" if="desktop || mobile" />
 	<define name="LUA_ALLOWED" if="desktop || mobile"/>
 	<define name="ACHIEVEMENTS_ALLOWED" />
 	<define name="VIDEOS_ALLOWED" if="web || windows || android" unless="32bits"/>
 	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
-	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 	<define name="CRASH_HANDLER" if="desktop release || mobile" />
 
     <assets path="assets/indiecross/preload" rename="assets" if="INDIECROSS_ASSETS || INDIECROSS_FORCED"/>/> <!-- Required menus for Indie Cross 0.6.3 port by KralOyuncu -->
