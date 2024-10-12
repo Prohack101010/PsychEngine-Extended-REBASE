@@ -47,6 +47,8 @@ typedef NoteSkinData =
 
 class VisualsUISubState extends BaseOptionsMenu
 {
+    var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
+    
 	public function new()
 	{
 		title = 'Visuals Settings';
@@ -76,6 +78,24 @@ class VisualsUISubState extends BaseOptionsMenu
 			['Psych', 'NovaFlare']);
 		addOption(option);
 		
+		var option:Option = new Option('Transition Style:',
+			"Choose your Pause Menu Style",
+			'TransitionStyle',
+			'string',
+			'Psych',
+			['Psych', 'NovaFlare']);
+		addOption(option);
+		
+		var option:Option = new Option('Note Skin',
+			"Choose Note Skin",
+			'NoteSkin',
+			'string',
+			'original',
+			noteSkinList);	
+		option.showNote = true;
+		addOption(option);
+		option.onChange = onChangeNoteSkin;
+		
 		#if (!INDIECROSS_FORCED && INDIECROSS_ASSETS)
 		var option:Option = new Option('Indie Cross Menus',
 			'If unchecked, Indie Cross Mod not using Custom Menus (if you have any bug disable this).',
@@ -85,16 +105,6 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = disableIndieCrossMenus; // Now Functional
 		#end
-		
-		var option:Option = new Option('Note Skin',
-			"Choose Note Skin",
-			'NoteSkin',
-			'string',
-			'original',
-			['original', 'Skin1', 'Skin2', 'Skin3', 'Skin4', 'Skin5', 'Skin6', 'Skin7', 'Skin8', 'Skin9', 'Skin10']);
-			option.showNote = true;
-		addOption(option);
-		option.onChange = onChangeNoteSkin;
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
