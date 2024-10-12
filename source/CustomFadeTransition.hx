@@ -35,10 +35,10 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	public function new(duration:Float, isTransIn:Bool) {
 		super();
 		
+		this.isTransIn = isTransIn;
+		
 		if (ClientPrefs.TransitionStyle == 'NovaFlare')
 		{
-		    this.isTransIn = isTransIn;
-		
     		loadLeft = new FlxSprite(isTransIn ? 0 : -1280, 0).loadGraphic(Paths.image('loadingL'));
     		loadLeft.scrollFactor.set();
     		loadLeft.antialiasing = ClientPrefs.globalAntialiasing;
@@ -136,7 +136,6 @@ class CustomFadeTransition extends MusicBeatSubstate {
     	}
 		else
 		{
-    		this.isTransIn = isTransIn;
     		var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
     		var width:Int = Std.int(FlxG.width / zoom);
     		var height:Int = Std.int(FlxG.height / zoom);
@@ -185,13 +184,14 @@ class CustomFadeTransition extends MusicBeatSubstate {
     	    var cam:FlxCamera = new FlxCamera();
     		cam.bgColor = 0x00;
     		FlxG.cameras.add(cam, false);
+    
+    		cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
 		}
-
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
 	}
 
 	override function update(elapsed:Float) {
 	    if (ClientPrefs.TransitionStyle != 'NovaFlare')
+	    {
     		if(isTransIn) {
     			transBlack.y = transGradient.y + transGradient.height;
     		} else {
@@ -207,16 +207,17 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	}
 
 	override function destroy() {
-		if(leTween != null) {
+	    if(leTween != null && ClientPrefs.TransitionStyle == 'NovaFlare') {
 			finishCallback();
 			leTween.cancel();
-			if (ClientPrefs.TransitionStyle == 'NovaFlare')
-			{
-    			loadLeftTween.cancel();
-    			loadRightTween.cancel();
-    			loadTextTween.cancel();
-    			EventTextTween.cancel();
-			}
+			loadLeftTween.cancel();
+			loadRightTween.cancel();
+			loadTextTween.cancel();
+			EventTextTween.cancel();
+		}
+		else if(leTween != null) {
+			finishCallback();
+			leTween.cancel();
 		}
 		super.destroy();
 	}
