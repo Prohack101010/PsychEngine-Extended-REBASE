@@ -25,6 +25,8 @@ class CustomSwitchState //Now You Can Add and Remove Custom Menus More Easier Th
         		MusicBeatState.switchState(new MainMenuStateOld());
         	else if (TitleState.IndieCrossEnabled)
         		MusicBeatState.switchState(new MainMenuStateCROSS());
+        	else if (ClientPrefs.MainMenuStyle == 'NovaFlare')
+        	    MusicBeatState.switchState(new MainMenuStateNOVA());
         	else
         		MusicBeatState.switchState(new MainMenuState());
         }

@@ -7,6 +7,7 @@ import flixel.FlxBasic;
 import flixel.FlxSprite;
 import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;
+import backend.PsychCamera;
 
 import flixel.input.actions.FlxActionInput;
 import mobile.flixel.FlxVirtualPad;
@@ -56,6 +57,14 @@ class MusicBeatSubstate extends FlxSubState
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
 		_virtualpad.cameras = [camcontrol];
+	}
+	
+	public function initPsychCamera():PsychCamera
+	{
+		var camera = new PsychCamera();
+		FlxG.cameras.reset(camera);
+		FlxG.cameras.setDefaultDrawTarget(camera, true);
+		return camera;
 	}
 	
 	override function destroy() {

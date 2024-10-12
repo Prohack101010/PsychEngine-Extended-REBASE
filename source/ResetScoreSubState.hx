@@ -71,7 +71,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(noText);
 		updateOptions();
 
-        cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+        cameras = initPsychCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -146,7 +146,5 @@ class ResetScoreSubState extends MusicBeatSubstate
 		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
 		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
 		}
-		
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 }
