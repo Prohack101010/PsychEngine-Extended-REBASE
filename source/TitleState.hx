@@ -113,8 +113,6 @@ class TitleState extends MusicBeatState
 
 		FlxG.save.bind('funkin', CoolUtil.getSavePath());
 
-		ClientPrefs.loadPrefs();			
-
 		#if LUA_ALLOWED
 		Paths.pushGlobalMods();
 		#end
