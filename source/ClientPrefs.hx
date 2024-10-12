@@ -14,6 +14,7 @@ class ClientPrefs {
 	//Others
     public static var FreeplayStyle:String = 'Psych';
     public static var PauseMenuStyle:String = 'Psych';
+    public static var FreakyMenu:String = 'Extended';
     public static var TransitionStyle:String = 'Psych';
     public static var MainMenuStyle:String = '1.0';
 	public static var downScroll:Bool = false;
@@ -141,6 +142,7 @@ class ClientPrefs {
 		FlxG.save.data.FreeplayStyle = FreeplayStyle;
 		FlxG.save.data.MainMenuStyle = MainMenuStyle;
 		FlxG.save.data.PauseMenuStyle = PauseMenuStyle;
+		FlxG.save.data.FreakyMenu = FreakyMenu;
 		FlxG.save.data.TransitionStyle = TransitionStyle;
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
@@ -254,6 +256,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.PauseMenuStyle != null) {
 			PauseMenuStyle = FlxG.save.data.PauseMenuStyle;
+		}
+		if(FlxG.save.data.FreakyMenu != null) {
+			FreakyMenu = FlxG.save.data.FreakyMenu;
 		}
 		if(FlxG.save.data.TransitionStyle != null) {
 			TransitionStyle = FlxG.save.data.TransitionStyle;

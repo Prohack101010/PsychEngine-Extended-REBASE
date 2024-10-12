@@ -253,6 +253,18 @@ class MusicBeatState extends FlxUIState
 	
 	public static function switchState(nextState:FlxState = null) {
 		if(nextState == null) nextState = FlxG.state;
+		
+		if (ClientPrefs.FreeplayStyle == 'NF' && nextState == new FreeplayState())
+            nextState = new FreeplayStateNF();
+        else if (ClientPrefs.FreeplayStyle == 'NovaFlare' && nextState == new FreeplayState())
+            nextState = new FreeplayStateNOVA();
+        else if (PlayState.IndieCrossStateType == 1 && TitleState.IndieCrossEnabled && nextState == new FreeplayState())
+            nextState = new FreeplayMain();
+        else if (PlayState.IndieCrossStateType == 2 && TitleState.IndieCrossEnabled && nextState == new FreeplayState())
+        	nextState = new FreeplayBonus();
+        else if (PlayState.IndieCrossStateType == 3 && TitleState.IndieCrossEnabled && nextState == new FreeplayState())
+        	nextState = new FreeplayNightmare();
+            
 		if(nextState == FlxG.state)
 		{
 			resetState();

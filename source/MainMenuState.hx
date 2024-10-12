@@ -374,12 +374,7 @@ class MainMenuState extends MusicBeatState
 							case 'story_mode':
 								MusicBeatState.switchState(new StoryMenuState());
 							case 'freeplay':
-								if (ClientPrefs.FreeplayStyle == 'NF')
-                    			    MusicBeatState.switchState(new FreeplayStateNF());
-                    			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
-                    			    MusicBeatState.switchState(new FreeplayStateNOVA());
-                    			else
-                    			    MusicBeatState.switchState(new FreeplayState());
+								MusicBeatState.switchState(new FreeplayState());
 
 							#if MODS_ALLOWED
 							case 'mods':

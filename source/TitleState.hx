@@ -202,12 +202,7 @@ class TitleState extends MusicBeatState
 
 		#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 		#if FREEPLAY
-		if (ClientPrefs.FreeplayStyle == 'NF')
-		    MusicBeatState.switchState(new FreeplayStateNF());
-		else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
-            MusicBeatState.switchState(new FreeplayStateNOVA());
-		else
-		    MusicBeatState.switchState(new FreeplayState());
+		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else

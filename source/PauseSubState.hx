@@ -270,18 +270,7 @@ class PauseSubState extends MusicBeatSubstate
 						else
 						    MusicBeatState.switchState(new StoryMenuState());
 					} else {
-						if (ClientPrefs.FreeplayStyle == 'NF')
-            			    MusicBeatState.switchState(new FreeplayStateNF());
-            			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
-                    		MusicBeatState.switchState(new FreeplayStateNOVA());
-                    	else if (PlayState.IndieCrossStateType == 1 && TitleState.IndieCrossEnabled)
-                			MusicBeatState.switchState(new FreeplayMain());
-                		else if (PlayState.IndieCrossStateType == 2 && TitleState.IndieCrossEnabled)
-                			MusicBeatState.switchState(new FreeplayBonus());
-                		else if (PlayState.IndieCrossStateType == 3 && TitleState.IndieCrossEnabled)
-                			MusicBeatState.switchState(new FreeplayNightmare());
-            			else
-            			    MusicBeatState.switchState(new FreeplayState());
+						MusicBeatState.switchState(new FreeplayState());
 					}
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));

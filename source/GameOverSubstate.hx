@@ -96,10 +96,6 @@ class GameOverSubstate extends MusicBeatSubstate
 			WeekData.loadTheFirstEnabledMod();
 			if (PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
-			else if (ClientPrefs.FreeplayStyle == 'NF')
-			    MusicBeatState.switchState(new FreeplayStateNF());
-			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
-                MusicBeatState.switchState(new FreeplayStateNOVA());
 			else
 			    MusicBeatState.switchState(new FreeplayState());
 

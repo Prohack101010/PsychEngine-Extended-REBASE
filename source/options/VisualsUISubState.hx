@@ -63,14 +63,14 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		
 		var option:Option = new Option('Transition Style:',
-			"Choose your Pause Menu Style",
+			"Choose your Transition Style",
 			'TransitionStyle',
 			'string',
 			'Psych',
 			['Psych', 'NovaFlare']);
 		addOption(option);
 		
-		var option:Option = new Option('Note Skin',
+		var option:Option = new Option('Note Skin:',
 			"Choose Note Skin",
 			'NoteSkin',
 			'string',
@@ -162,6 +162,15 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 		
+		var option:Option = new Option('Main Menu Song:',
+			"Choose your Transition Style",
+			'FreakyMenu',
+			'string',
+			'Extended',
+			['Extended', 'Psych']);
+		addOption(option);
+		option.onChange = onChangeMenuMusic;
+		
 		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Check for Updates',
 			'On Release builds, turn this on to check for updates when you start the game.',
@@ -190,6 +199,11 @@ class VisualsUISubState extends BaseOptionsMenu
 			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
 
 		changedMusic = true;
+	}
+	
+	function onChangeMenuMusic()
+	{
+		FlxG.sound.playMusic(Paths.music('freakyMenu'));
 	}
 
 	override function destroy()

@@ -4168,18 +4168,7 @@ class PlayState extends MusicBeatState
 				if(FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
-				if (ClientPrefs.FreeplayStyle == 'NF')
-    			    MusicBeatState.switchState(new FreeplayStateNF());
-    			else if (PlayState.IndieCrossStateType == 1)
-    			    MusicBeatState.switchState(new FreeplayMain());
-    			else if (PlayState.IndieCrossStateType == 2)
-    			    MusicBeatState.switchState(new FreeplayBonus());
-    			else if (PlayState.IndieCrossStateType == 3)
-    			    MusicBeatState.switchState(new FreeplayNightmare());
-    		    else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
-                    MusicBeatState.switchState(new FreeplayStateNOVA());
-    			else
-    			    MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
 			}
