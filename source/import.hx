@@ -12,6 +12,7 @@ import shaders.*;
 import shaders.flixel.system.FlxShader;
 
 // Extra
+import extras.*; //For CustomSwitchState
 import extras.states.*; //Extra States
 import extras.substates.*; //Extra Substates
 import indiecrossmenus.*; //Indie Cross Menus
