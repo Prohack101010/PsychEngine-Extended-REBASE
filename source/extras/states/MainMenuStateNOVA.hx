@@ -85,9 +85,9 @@ class MainMenuStateNOVA extends MusicBeatState
         bpm = TitleState.bpm;
         
 		#if MODS_ALLOWED
-		Mods.pushGlobalMods();
+		Paths.pushGlobalMods();
 		#end
-		Mods.loadTopMod();
+		WeekData.loadTheFirstEnabledMod();
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
