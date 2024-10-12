@@ -19,7 +19,7 @@ class CustomSwitchState //Now You Can Add and Remove Custom Menus More Easier Th
             else
                 MusicBeatState.switchState(new FreeplayState());
         }
-        elseif (Type == 'MainMenu') //MainMenu
+        else if (Type == 'MainMenu') //MainMenu
         {
             else if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
         		MusicBeatState.switchState(new MainMenuStateOld());
