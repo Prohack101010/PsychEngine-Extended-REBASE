@@ -81,8 +81,8 @@ class MainMenuStateNOVA extends MusicBeatState
 
 		//Lib.application.window.title = "NF Engine - MainMenuStateNOVA";
 		
-        Mainbpm = TitleState.staticTitleJSON.bpm;
-        bpm = TitleState.staticTitleJSON.bpm;
+        Mainbpm = TitleState.bpm;
+        bpm = TitleState.bpm;
         
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
