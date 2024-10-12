@@ -29,25 +29,9 @@ import haxe.format.JsonParser;
 
 using StringTools;
 
-/*
-typedef NoteSkinData =
-{
-	Skin1:String,
-	Skin2:String,
-	Skin3:String,
-	Skin4:String,
-	Skin5:String,
-	Skin6:String,
-	Skin7:String,
-	Skin8:String,
-	Skin9:String,
-	Skin10:String
-}
-*/
-
 class VisualsUISubState extends BaseOptionsMenu
 {
-    var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
+    var noteSkinList:Array<String> = CoolUtil.coolTextFile(StorageUtil.getStorageDirectory() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
     
 	public function new()
 	{
@@ -98,12 +82,12 @@ class VisualsUISubState extends BaseOptionsMenu
 		
 		#if (!INDIECROSS_FORCED && INDIECROSS_ASSETS)
 		var option:Option = new Option('Indie Cross Menus',
-			'If unchecked, Indie Cross Mod not using Custom Menus (if you have any bug disable this).',
+			'If unchecked, Indie Cross Mods not using Custom Menus (if you have any bug disable this).',
 			'IndieCrossMenus',
 			'bool',
 			true);
 		addOption(option);
-		option.onChange = disableIndieCrossMenus; // Now Functional
+		option.onChange = disableIndieCrossMenus;
 		#end
 
 		var option:Option = new Option('Note Splashes',

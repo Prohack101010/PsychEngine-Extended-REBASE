@@ -13,6 +13,7 @@ import flixel.util.FlxGradient;
 import flixel.FlxSubState;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
+import openfl.utils.Assets;
 
 class CustomFadeTransition extends MusicBeatSubstate {
 	public static var finishCallback:Void->Void;
@@ -35,16 +36,20 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	public function new(duration:Float, isTransIn:Bool) {
 		super();
 		
+		//I hate vars
 		this.isTransIn = isTransIn;
+		var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
+    	var width:Int = Std.int(FlxG.width / zoom);
+    	var height:Int = Std.int(FlxG.height / zoom);
 		
 		if (ClientPrefs.TransitionStyle == 'NovaFlare')
 		{
-    		loadLeft = new FlxSprite(isTransIn ? 0 : -1280, 0).loadGraphic(Paths.image('loadingL'));
+    		loadLeft = new FlxSprite(isTransIn ? 0 : -1280, 0).loadGraphic(Paths.image('menuExtend/Loading/loadingL'));
     		loadLeft.scrollFactor.set();
     		loadLeft.antialiasing = ClientPrefs.globalAntialiasing;
     		add(loadLeft);
     		
-    		loadRight = new FlxSprite(isTransIn ? 0 : 1280, 0).loadGraphic(Paths.image('loadingR'));
+    		loadRight = new FlxSprite(isTransIn ? 0 : 1280, 0).loadGraphic(Paths.image('menuExtend/Loading/loadingR'));
     		loadRight.scrollFactor.set();
     		loadRight.antialiasing = ClientPrefs.globalAntialiasing;
     		add(loadRight);
@@ -136,9 +141,6 @@ class CustomFadeTransition extends MusicBeatSubstate {
     	}
 		else
 		{
-    		var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
-    		var width:Int = Std.int(FlxG.width / zoom);
-    		var height:Int = Std.int(FlxG.height / zoom);
     		transGradient = FlxGradient.createGradientFlxSprite(width, height, (isTransIn ? [0x0, FlxColor.BLACK] : [FlxColor.BLACK, 0x0]));
     		transGradient.scrollFactor.set();
     		add(transGradient);
