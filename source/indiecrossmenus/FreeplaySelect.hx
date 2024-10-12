@@ -72,7 +72,7 @@ class FreeplaySelect extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MainMenuStateCROSS());
+				CustomSwitchState.switchMenus('MainMenu');
 			}
 			for (i in 0...optionShit.length)
 			{

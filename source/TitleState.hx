@@ -486,17 +486,11 @@ class TitleState extends MusicBeatState
     				if (mustUpdate) {
     					MusicBeatState.switchState(new OutdatedState());
     				} else {
-    					if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-                			MusicBeatState.switchState(new MainMenuStateOld());
                 		#if (INDIECROSS_ASSETS || INDIECROSS_FORCED)
-                	    else if (#if (INDIECROSS_ASSETS || INDIECROSS_FORCED) ClientPrefs.IndieCrossMenus && #end Paths.currentModDirectory.startsWith('Indie Cross')) //I dont have a Better Solution for now
-                	    {
+                	    if (ClientPrefs.IndieCrossMenus && Paths.currentModDirectory.startsWith('Indie Cross')) //I dont have a Better Solution for now
                 	        TitleState.IndieCrossEnabled = true;
-                	        MusicBeatState.switchState(new MainMenuStateCROSS());
-                	    }
                 	    #end
-                		else
-                			MusicBeatState.switchState(new MainMenuState());
+                	    CustomSwitchState.switchMenus('MainMenu');
     				}
     				closedState = true;
     			});

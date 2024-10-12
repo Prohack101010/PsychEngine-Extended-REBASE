@@ -1262,10 +1262,7 @@ class FreeplayStateNF extends MusicBeatState {
 					//FlxG.sound.music.volume = 0.1;
 				}
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-    				MusicBeatState.switchState(new MainMenuStateOld());
-    			else
-    				MusicBeatState.switchState(new MainMenuState());
+				CustomSwitchState.switchMenus('MainMenu');
 				buttonControl = false;
 			}
 			selectedThing = 'Nothing';

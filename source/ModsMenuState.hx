@@ -360,14 +360,10 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-			    if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
-        			MusicBeatState.switchState(new MainMenuStateOld());
-        		else if (TitleState.IndieCrossEnabled)
-        			MusicBeatState.switchState(new MainMenuStateCROSS());
-        		else if (ClientPrefs.FreeplayStyle == 'NovaFlare' && isFreePlay)
+			    if (ClientPrefs.FreeplayStyle == 'NovaFlare' && isFreePlay)
                     MusicBeatState.switchState(new FreeplayStateNOVA());
         		else
-        			MusicBeatState.switchState(new MainMenuState());
+        			CustomSwitchState.switchMenus('MainMenu');
         		isFreePlay = false;
 			}
 

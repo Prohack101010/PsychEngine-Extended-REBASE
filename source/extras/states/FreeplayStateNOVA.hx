@@ -389,7 +389,7 @@ class FreeplayStateNOVA extends MusicBeatState
 			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			FlxTween.tween(FlxG.sound.music, {volume: 1}, 1);
 
-			MusicBeatState.switchState(new MainMenuState());
+			CustomSwitchState.switchMenus('MainMenu');
 		}
 	}
 

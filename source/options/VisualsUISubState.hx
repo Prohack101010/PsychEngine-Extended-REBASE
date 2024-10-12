@@ -35,8 +35,8 @@ class VisualsUISubState extends BaseOptionsMenu
     
 	public function new()
 	{
-		title = 'Visuals Settings';
-		rpcTitle = 'Visuals Settings Menu'; //for Discord Rich Presence
+		title = 'Visuals and UI Settings';
+		rpcTitle = 'Visuals and UI Settings Menu'; //for Discord Rich Presence
 		
 		var option:Option = new Option('Freeplay Menu Style:',
 			"Choose your Freeplay Menu Style",
@@ -87,7 +87,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
-		option.onChange = disableIndieCrossMenus;
+		option.onChange = changeIndieCrossMenus;
 		#end
 
 		var option:Option = new Option('Note Splashes',
@@ -212,9 +212,12 @@ class VisualsUISubState extends BaseOptionsMenu
 		super.destroy();
 	}
 	
-	function disableIndieCrossMenus()
+	function changeIndieCrossMenus()
 	{
-	    TitleState.IndieCrossEnabled = ClientPrefs.IndieCrossMenus;
+	    if (!TitleState.IndieCrossEnabled && Paths.currentModDirectory.startsWith('Indie Cross'))
+            TitleState.IndieCrossEnabled = true;
+        else if (TitleState.IndieCrossEnabled)
+	        TitleState.IndieCrossEnabled = ClientPrefs.IndieCrossMenus;
 	}
 
 	function onChangeFPSCounter()
@@ -225,40 +228,30 @@ class VisualsUISubState extends BaseOptionsMenu
 	
 	function onChangeNoteSkin()
 	{
-		
-		//ClientPrefs.NoteSkin = FlxG.save.data.NoteSkin;    
-		
-        remove(grpNote);
-		
+		remove(grpNote);
+
 		grpNote = new FlxTypedGroup<FlxSprite>();
 		add(grpNote);
 		
-		//option.showNote = false;
-		
 		for (i in 0...ClientPrefs.arrowHSV.length) {
-				var notes:FlxSprite = new FlxSprite((i * 125), 100);
-				if (ClientPrefs.NoteSkin != 'original')  {
-				notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkin);
-				}    
-				else{
-				    notes.frames = Paths.getSparrowAtlas('NOTE_assets');
-				}
-				var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
-				notes.animation.addByPrefix('idle', animations[i]);
-				notes.animation.play('idle');
-				//showNotes = notes.visible;
-				notes.scale.set(0.8, 0.8);
-				notes.x += 700;
-				notes.antialiasing = ClientPrefs.globalAntialiasing;
-				grpNote.add(notes);
-				
-				var newShader:ColorSwap = new ColorSwap();
-			    notes.shader = newShader.shader;
-			    newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
-			    newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
-			    newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
-			    
+			var notes:FlxSprite = new FlxSprite((i * 125), 100);
+			if (ClientPrefs.NoteSkin == 'original')
+			    notes.frames = Paths.getSparrowAtlas('NOTE_assets');
+			else
+			    notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkin);
+			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
+			notes.animation.addByPrefix('idle', animations[i]);
+			notes.animation.play('idle');
+			notes.scale.set(0.8, 0.8);
+			notes.x += 700;
+			notes.antialiasing = ClientPrefs.globalAntialiasing;
+			grpNote.add(notes);
+			
+			var newShader:ColorSwap = new ColorSwap();
+			notes.shader = newShader.shader;
+			newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
+			newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
+			newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;	    
 		}
-		
 	}
 }

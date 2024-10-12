@@ -146,5 +146,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
 		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
 		}
+		
+		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 }

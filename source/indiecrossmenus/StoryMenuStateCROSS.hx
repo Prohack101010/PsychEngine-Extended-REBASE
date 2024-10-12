@@ -327,7 +327,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			lockInput = true;
 
-			MusicBeatState.switchState(new MainMenuStateCROSS());
+			CustomSwitchState.switchMenus('MainMenu');
 		}
 	}
 
