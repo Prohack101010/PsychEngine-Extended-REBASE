@@ -312,7 +312,7 @@ class Paths
 			if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(Paths.mods(fileToFind));
 
 			// And lastly, the loaded mod's folder
-			if(Paths.currentModDirectory != null && Mods.currentModDirectory.length > 0)
+			if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 			{
 				var folder:String = Paths.mods(Paths.currentModDirectory + '/' + fileToFind);
 				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
