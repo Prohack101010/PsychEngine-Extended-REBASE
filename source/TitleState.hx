@@ -83,8 +83,6 @@ class TitleState extends MusicBeatState
 	var titleJSON:TitleData;
 
 	public static var updateVersion:String = '';
-	
-	public static var bpm:Float = 0;
 
 	override public function create():Void
 	{
@@ -133,8 +131,6 @@ class TitleState extends MusicBeatState
 
 		swagShader = new ColorSwap();
 		super.create();
-		
-		bpm = titleJSON.bpm;
 
 		FlxG.save.bind('funkin' , CoolUtil.getSavePath());
 
