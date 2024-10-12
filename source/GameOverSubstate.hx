@@ -57,7 +57,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		add(boyfriend);
 
 		FlxG.sound.play(Paths.sound(deathSoundName));
-		Conductor.changeBPM(100);
+		Conductor.bpm = 100;
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
 

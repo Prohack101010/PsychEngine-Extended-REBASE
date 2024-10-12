@@ -81,7 +81,11 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import VideoHandler as MP4Handler;
+#if windows
+import vlc.MP4Handler; //Windows
+#else
+import VideoHandler as MP4Handler; //android and others
+#end
 #end
 
 using StringTools;
@@ -430,7 +434,7 @@ class PlayState extends MusicBeatState
 			SONG = Song.loadFromJson('tutorial');
 
 		Conductor.mapBPMChanges(SONG);
-		Conductor.changeBPM(SONG.bpm);
+		Conductor.bpm = SONG.bpm;
 
 		#if desktop
 		storyDifficultyText = Difficulty.getString();
@@ -2490,7 +2494,7 @@ class PlayState extends MusicBeatState
 		}
 
 		var songData = SONG;
-		Conductor.changeBPM(songData.bpm);
+		Conductor.bpm = songData.bpm;
 
 		curSong = songData.song;
 
@@ -5168,7 +5172,7 @@ class PlayState extends MusicBeatState
 
 			if (SONG.notes[curSection].changeBPM)
 			{
-				Conductor.changeBPM(SONG.notes[curSection].bpm);
+				Conductor.bpm = SONG.notes[curSection].bpm;
 				setOnLuas('curBpm', Conductor.bpm);
 				setOnLuas('crochet', Conductor.crochet);
 				setOnLuas('stepCrochet', Conductor.stepCrochet);

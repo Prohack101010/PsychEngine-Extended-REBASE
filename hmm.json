@@ -40,9 +40,11 @@
       "url": "https://github.com/mcagabe19-stuff/hxcpp"
     },
     {
-      "name": "hxCodec",
-      "type": "haxelib",
-      "version": "2.6.0"
+      "name":"hxCodec",
+      "type":"git",
+      "dir":null,
+      "ref":"main",
+      "url":"https://github.com/SPLCoding/hxCodec-but-it-works-xd.git"
     },
     {
       "name": "hxvlc",

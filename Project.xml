@@ -44,7 +44,7 @@
 	<classpath name="source" />
 	
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
-	<define name="HXVLC_ALLOWED" if="mobile" /> <!-- If you want to use hxvlc Enable This --> <!-- I love ios by default because not needed for android, definitely not needed for ios too but why not -KralOyuncu -->
+	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This --> <!-- I love ios by default because not needed for android, definitely not needed for ios too but why not -KralOyuncu -->
 	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
 	<define name="HIDE_CURSOR" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO USE CURSOR -->
 	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
