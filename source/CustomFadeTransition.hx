@@ -56,13 +56,13 @@ class CustomFadeTransition extends MusicBeatSubstate {
     		
     		WaterMark = new FlxText(isTransIn ? 50 : -1230, 720 - 50 - 50 * 2, 0, 'PSYCH EXTENDED V1.0.0', 50);
     		WaterMark.scrollFactor.set();
-    		WaterMark.setFormat(Paths.font("loadText.ttf").fontName, 50, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    		WaterMark.setFormat(Paths.font("loadText.ttf"), 50, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     		WaterMark.antialiasing = ClientPrefs.globalAntialiasing;
     		add(WaterMark);
             
             EventText= new FlxText(isTransIn ? 50 : -1230, 720 - 50 - 50, 0, 'LOADING . . . . . . ', 50);
     		EventText.scrollFactor.set();
-    		EventText.setFormat(Paths.font("loadText.ttf").fontName, 50, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    		EventText.setFormat(Paths.font("loadText.ttf"), 50, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     		EventText.antialiasing = ClientPrefs.globalAntialiasing;
     		add(EventText);
     		
