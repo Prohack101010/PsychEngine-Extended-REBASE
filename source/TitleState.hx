@@ -88,6 +88,7 @@ class TitleState extends MusicBeatState
 	public static var updateVersion:String = '';
 	
 	public static var bpm:Float = 0;
+	public static var IndieCrossEnabled:Bool = false;
 
 	override public function create():Void
 	{
@@ -376,7 +377,7 @@ class TitleState extends MusicBeatState
 	function getIntroTextShit():Array<Array<String>>
 	{
 		#if MODS_ALLOWED
-		var firstArray:Array<String> = Mods.mergeAllTextsNamed('data/introText.txt', Paths.getSharedPath());
+		var firstArray:Array<String> = Paths.mergeAllTextsNamed('data/introText.txt', Paths.getSharedPath());
 		#else
 		var fullText:String = Assets.getText(Paths.txt('introText'));
 		var firstArray:Array<String> = fullText.split('\n');
@@ -467,7 +468,11 @@ class TitleState extends MusicBeatState
 					if (mustUpdate && !OutdatedState.leftState) {					   
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
-						MusicBeatState.switchState(new MainMenuState());
+						#if (INDIECROSS_ASSETS || INDIECROSS_FORCED)
+                	    if (ClientPrefs.IndieCrossMenus && Paths.currentModDirectory.startsWith('Indie Cross')) //I dont have a Better Solution for now
+                	        TitleState.IndieCrossEnabled = true;
+                	    #end
+                	    CustomSwitchState.switchMenus('MainMenu');
 					}
 					closedState = true;
 				});
@@ -536,6 +541,7 @@ class TitleState extends MusicBeatState
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
 		}
 
+        #if HXVLC_ALLOWED
 		if (videobool)
 		{
 			if(pressedEnter)
@@ -546,6 +552,7 @@ class TitleState extends MusicBeatState
 				startCutscenesOut();
 			}
 		}
+		#end
 
 		super.update(elapsed);
 	}
