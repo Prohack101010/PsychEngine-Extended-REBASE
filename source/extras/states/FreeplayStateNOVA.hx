@@ -49,7 +49,9 @@ class FreeplayStateNOVA extends MusicBeatState
 	public var saveSongs:Array<SongMetadata> = [];
 	public var sortSongs:Array<SongMetadata> = [];
 
+	var camGame:FlxCamera;
 	var camAudio:FlxCamera;
+	var camUI:FlxCamera;
 	var camHS:FlxCamera;
 
 	var magenta:FlxSprite;
@@ -108,6 +110,8 @@ class FreeplayStateNOVA extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
+
+		camGame = initPsychCamera();
 
 		for (i in 0...WeekData.weeksList.length)
 		{
