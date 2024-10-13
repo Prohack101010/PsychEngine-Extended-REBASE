@@ -70,7 +70,7 @@ class MobileExtraControl extends MusicBeatSubstate
 	    
 	    updateTitle(titleNum + 1, true, 0);   
 	    
-	    addVirtualPad(OptionStateC, OptionStateC);
+	    addVirtualPad(OptionsC, OptionsC);
 		addVirtualPadCamera();
 		
 		super.create();
@@ -153,10 +153,10 @@ class MobileExtraControl extends MusicBeatSubstate
         }
         if (reset){
             FlxG.sound.play(Paths.sound('cancelMenu'));
-            ClientPrefs.extraKeyReturn1 = ClientPrefs.defaultData.extraKeyReturn1;
-            ClientPrefs.extraKeyReturn2 = ClientPrefs.defaultData.extraKeyReturn2;
-            ClientPrefs.extraKeyReturn3 = ClientPrefs.defaultData.extraKeyReturn3;
-            ClientPrefs.extraKeyReturn4 = ClientPrefs.defaultData.extraKeyReturn4;
+            ClientPrefs.extraKeyReturn1 = ClientPrefs.extraKeyReturn1;
+            ClientPrefs.extraKeyReturn2 = ClientPrefs.extraKeyReturn2;
+            ClientPrefs.extraKeyReturn3 = ClientPrefs.extraKeyReturn3;
+            ClientPrefs.extraKeyReturn4 = ClientPrefs.extraKeyReturn4;
             resetTitle();
         }
 	}	        
