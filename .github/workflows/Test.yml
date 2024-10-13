@@ -19,7 +19,7 @@ jobs:
         run: wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O obj.zip
         
       - name: Make Directory
-        run: mkdir export/release/android/
+        run: mkdir export/release/android
         
       - name: Move File
         run: mv obj.zip export/release/android/
