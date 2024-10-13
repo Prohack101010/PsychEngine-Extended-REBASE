@@ -16,7 +16,7 @@ jobs:
         run: sudo apt-get install -y wget
         
       - name: Download obj folder
-        wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O obj.zip
+        run: wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O obj.zip
         
       - name: Extract obj files
         uses: edgarrc/action-7z@v1
