@@ -18,13 +18,13 @@ jobs:
       - name: Download obj folder
         run: wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O obj.zip
         
+      - name: Move File
+        run: mv obj.zip export/release/android/
+        
       - name: Extract obj files
         uses: edgarrc/action-7z@v1
         with:
-          run: 7z x obj.zip
-          
-      - name: Move File
-        run: mv obj/ export/release/android/
+          run: 7z x export/release/android/obj.zip
 
       - name: Install Libraries
         run: |
