@@ -114,7 +114,7 @@ class OptionsState extends MusicBeatState
 	override function closeSubState() {
 		super.closeSubState();
 		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPad(UP_DOWN, A_B_E);
 		persistentUpdate = true;
 		ClientPrefs.saveSettings();
 	}
@@ -153,6 +153,13 @@ class OptionsState extends MusicBeatState
     			CustomSwitchState.switchMenus('MainMenu');
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+		}
+		
+		if (_virtualpad.buttonE.justPressed) {
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			removeVirtualPad();
+			MusicBeatState.switchState(new MobileExtraControl());
 		}
 
 		if (controls.ACCEPT) {

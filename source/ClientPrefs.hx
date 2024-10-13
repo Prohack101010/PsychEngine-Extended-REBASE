@@ -17,6 +17,10 @@ class ClientPrefs {
     public static var FreakyMenu:String = 'Extended';
     public static var TransitionStyle:String = 'Psych';
     public static var MainMenuStyle:String = '1.0';
+    public static var extraKeyReturn1:String = 'SPACE';
+    public static var extraKeyReturn2:String = 'SHIFT';
+    public static var extraKeyReturn3:String = 'Q';
+    public static var extraKeyReturn4:String = 'E';
 	public static var downScroll:Bool = false;
 	public static var marvelousRating:Bool = true;	
 	public static var marvelousSprite:Bool = true;	
@@ -141,6 +145,10 @@ class ClientPrefs {
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.FreeplayStyle = FreeplayStyle;
 		FlxG.save.data.MainMenuStyle = MainMenuStyle;
+		FlxG.save.data.extraKeyReturn1 = extraKeyReturn1;
+		FlxG.save.data.extraKeyReturn2 = extraKeyReturn2;
+		FlxG.save.data.extraKeyReturn3 = extraKeyReturn3;
+		FlxG.save.data.extraKeyReturn4 = extraKeyReturn4;
 		FlxG.save.data.PauseMenuStyle = PauseMenuStyle;
 		FlxG.save.data.FreakyMenu = FreakyMenu;
 		FlxG.save.data.TransitionStyle = TransitionStyle;
@@ -253,6 +261,18 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.MainMenuStyle != null) {
 			MainMenuStyle = FlxG.save.data.MainMenuStyle;
+		}
+		if(FlxG.save.data.extraKeyReturn1 != null) {
+			extraKeyReturn1 = FlxG.save.data.extraKeyReturn1;
+		}
+		if(FlxG.save.data.extraKeyReturn2 != null) {
+			extraKeyReturn2 = FlxG.save.data.extraKeyReturn2;
+		}
+		if(FlxG.save.data.extraKeyReturn3 != null) {
+			extraKeyReturn3 = FlxG.save.data.extraKeyReturn3;
+		}
+		if(FlxG.save.data.extraKeyReturn4 != null) {
+			extraKeyReturn4 = FlxG.save.data.extraKeyReturn4;
 		}
 		if(FlxG.save.data.PauseMenuStyle != null) {
 			PauseMenuStyle = FlxG.save.data.PauseMenuStyle;
