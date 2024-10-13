@@ -29,6 +29,9 @@ class ResetScoreSubState extends MusicBeatSubstate
 		this.week = week;
 
 		super();
+		
+		camFix = new FlxCamera();
+		FlxG.cameras.add(camFix, false);
 
 		var name:String = song;
 		if(week > -1) {
