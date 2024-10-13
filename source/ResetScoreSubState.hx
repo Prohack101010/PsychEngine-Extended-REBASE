@@ -31,6 +31,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		super();
 		
 		camFix = new FlxCamera();
+		camFix.bgColor = 0x00;
 		FlxG.cameras.add(camFix, false);
 
 		var name:String = song;

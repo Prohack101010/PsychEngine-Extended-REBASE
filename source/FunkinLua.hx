@@ -904,10 +904,6 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
-		    if (libName == 'MP4HandlerTest' && libPackage == 'vlc') { //VideoHandler as MP4Handler Test
-		        libName = 'VideoHandler as MP4Handler';
-		        libPackage = '';
-		    }
 			#if hscript
 			initHaxeModule();
 			try {

@@ -182,8 +182,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	override function create()
 	{
 	    var cam:FlxCamera = new FlxCamera();
-	    if (ClientPrefs.TransitionStyle != 'NovaFlare')
-    		cam.bgColor = 0x00;
+	    cam.bgColor = 0x00;
     	FlxG.cameras.add(cam, false);
     	cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
 	}
