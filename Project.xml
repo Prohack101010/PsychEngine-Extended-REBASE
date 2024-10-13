@@ -53,9 +53,9 @@
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<section if="officialBuild">
-    	<define name="BASE_GAME_ASSETS" />
     	<define name="TITLE_SCREEN_EASTER_EGG" />
 	</section>
+	<define name="BASE_GAME_ASSETS" />
 	<define name="MODS_ALLOWED" if="desktop || mobile" />
 	<define name="LUA_ALLOWED" if="desktop || mobile"/>
 	<define name="ACHIEVEMENTS_ALLOWED" />

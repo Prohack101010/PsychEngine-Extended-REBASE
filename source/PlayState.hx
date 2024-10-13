@@ -83,11 +83,8 @@ import sys.io.File;
 #if VIDEOS_ALLOWED
 
 #if HXCODEC_ALLOWED
-#if windows
-import vlc.MP4Handler; //Windows
-#else
-import VideoHandler as MP4Handler; //android and others
-#end
+import MP4Handler; //Windows and VideoSprite Scripts
+import VideoHandler; //android and others
 #end
 
 #if HXVLC_ALLOWED
@@ -1727,7 +1724,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		var video:MP4Handler = new MP4Handler();
+		var video:VideoHandler = new VideoHandler();
 		#if (hxCodec < "3.0.0")
 		video.playVideo(filepath);
 		video.finishCallback = function()
