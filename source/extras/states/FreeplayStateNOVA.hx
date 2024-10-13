@@ -49,9 +49,7 @@ class FreeplayStateNOVA extends MusicBeatState
 	public var saveSongs:Array<SongMetadata> = [];
 	public var sortSongs:Array<SongMetadata> = [];
 
-	var camGame:FlxCamera;
 	var camAudio:FlxCamera;
-	var camUI:FlxCamera;
 	var camHS:FlxCamera;
 
 	var magenta:FlxSprite;
