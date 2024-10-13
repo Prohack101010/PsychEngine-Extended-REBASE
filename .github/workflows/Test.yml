@@ -1,4 +1,4 @@
-name: Android
+name: Android Wget Test
 on: workflow_dispatch
 jobs:
   Android:
@@ -11,6 +11,9 @@ jobs:
         uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.6
+          
+      - name: Install Wget
+        run: sudo apt-get install -y wget
 
       - name: Install Libraries
         run: |
@@ -26,9 +29,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true 
           
       - name: Download obj folder
-        uses: suisei-cn/actions-download-file@818d6b7dc8fe73f2f924b6241f2b1134ca1377d9
-        with:
-          run: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3" -O export/release/android/obj.zip
+        run: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3" -O export/release/android/obj.zip
         
       - name: Extract obj files
         uses: edgarrc/action-7z@v1
