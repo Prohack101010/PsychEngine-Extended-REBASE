@@ -14,20 +14,6 @@ jobs:
           
       - name: Install Wget
         run: sudo apt-get install -y wget
-        
-      - name: Download obj files
-        run: wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O obj.zip
-        
-      - name: Make Directory
-        run: mkdir -p export/release/android
-        
-      - name: Move File
-        run: mv obj.zip export/release/android/
-        
-      - name: Extract obj files
-        uses: edgarrc/action-7z@v1
-        with:
-          run: 7z x export/release/android/obj.zip
 
       - name: Install Libraries
         run: |
@@ -41,6 +27,20 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_LATEST_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME_17_X64
           haxelib run lime config ANDROID_SETUP true 
+          
+      - name: Download obj files
+        run: wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O obj.zip
+        
+      - name: Make Directory
+        run: mkdir -p /home/runner/work/PsychEngine-Extended-REBASE/PsychEngine-Extended-REBASE/export/release/android
+        
+      - name: Move File
+        run: mv obj.zip /home/runner/work/PsychEngine-Extended-REBASE/PsychEngine-Extended-REBASE/export/release/android/
+        
+      - name: Extract obj files
+        uses: edgarrc/action-7z@v1
+        with:
+          run: 7z x /home/runner/work/PsychEngine-Extended-REBASE/PsychEngine-Extended-REBASE/export/release/android/obj.zip
 
       - name: Compile
         run: haxelib run lime build android -D -ARM64
