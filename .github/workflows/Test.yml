@@ -14,10 +14,6 @@ jobs:
 
       - name: Install Libraries
         run: |
-          apt update -y && apt upgrade -y
-          apt install sudo -y
-          apt install wget
-          sudo apt-get install p7zip-full -y
           haxelib setup ~/haxelib
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
@@ -30,10 +26,14 @@ jobs:
           haxelib run lime config ANDROID_SETUP true 
           
       - name: Download obj folder
-        run: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3" -O export/release/android/obj.zip
+        uses: suisei-cn/actions-download-file@818d6b7dc8fe73f2f924b6241f2b1134ca1377d9
+        with:
+          run: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1zXYVfKHcFmIhxlM4LjVicf26lBmm4Hs3" -O export/release/android/obj.zip
         
       - name: Extract obj files
-        run: 7z x export/release/android/obj.zip
+        uses: edgarrc/action-7z@v1
+        with:
+          run: 7z x export/release/android/obj.zip
 
       - name: Compile
         run: haxelib run lime build android -D -ARM64
