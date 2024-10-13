@@ -1646,7 +1646,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
 			var key:Bool = false;
 			if (name == ClientPrefs.extraKeyReturn1)
-			    key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT);
+			    key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT;
 		    else if (name == ClientPrefs.extraKeyReturn2)
 		        key = (PlayState.instance.getControl('SPACE') || FlxG.keys.pressed.SPACE);
 		    end
@@ -1675,7 +1675,7 @@ class FunkinLua {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_R');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_R');
 				case 'up': key = PlayState.instance.getControl('NOTE_UP_R');
-				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT_R');	
+				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT_R');		
 				case 'Q': key = (PlayState.instance.getControl('Q_R') || FlxG.keys.justReleased.Q);//an extra key for convinience
 				case 'E': key = (PlayState.instance.getControl('E_R') || FlxG.keys.justReleased.E);//an extra key for convinience
 				case 'ui_left': key = PlayState.instance.getControl('UI_LEFT_R');
