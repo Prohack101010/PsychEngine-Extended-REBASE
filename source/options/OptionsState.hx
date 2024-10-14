@@ -106,7 +106,7 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPad(UP_DOWN, A_B_E);
 
 		super.create();
 	}
@@ -156,10 +156,8 @@ class OptionsState extends MusicBeatState
 		}
 		
 		if (_virtualpad.buttonE.justPressed) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
 			removeVirtualPad();
-			MusicBeatState.switchState(new MobileExtraControl());
+			openSubState(new MobileExtraControl());
 		}
 
 		if (controls.ACCEPT) {
