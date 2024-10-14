@@ -67,7 +67,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'TransitionStyle',
 			'string',
 			'Psych',
-			['Psych', 'NovaFlare']);
+			['Psych', 'NovaFlare', 'Extended']);
 		addOption(option);
 		
 		var option:Option = new Option('Note Skin:',

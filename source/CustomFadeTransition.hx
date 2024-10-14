@@ -170,10 +170,24 @@ class CustomFadeTransition extends MusicBeatSubstate {
     				},
     			ease: FlxEase.linear});
     		}
+    		
+    		if (ClientPrefs.TransitionStyle == 'Extended')
+    		{
+        		var LoadBF:FlxSprite = new FlxSprite(-150, 250);
+        		LoadBF.frames = Paths.getSparrowAtlas('bf running');
+        		LoadBF.animation.addByPrefix('bf running', 'bf running');
+        		LoadBF.animation.play('bf running');
+        		LoadBF.scale.x = 0.3;
+        		LoadBF.scale.y = 0.3;
+        		LoadBF.scrollFactor.set();
+        		LoadBF.antialiasing = ClientPrefs.globalAntialiasing;
+        		add(LoadBF);
+    		}
     
     		if(nextCamera != null) {
     			transBlack.cameras = [nextCamera];
     			transGradient.cameras = [nextCamera];
+    			if (ClientPrefs.TransitionStyle == 'Extended') LoadBF.cameras = [nextCamera];
     		}
     		nextCamera = null;
     	}

@@ -45,7 +45,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 		    add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFF12FA05));
 		    add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), Std.int(FlxG.height * 1), 0xFFF9393F));
 		    if (ClientPrefs.hitboxhint){
-    		hitbox_hint = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
+    		hitbox_hint = new FlxSprite(0, -150).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
     		add(hitbox_hint);
     		}
         }else {
@@ -159,8 +159,6 @@ class FlxNewHitbox extends FlxSpriteGroup
     		            case 4:                                  
     		                add(buttonExtra1 = createHint(FlxG.width / 5 * 2, 0, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFF0000));
                             add(buttonExtra2 = createHint(FlxG.width / 5 * 2, FlxG.height / 2, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFFFF00));
-                            add(buttonExtra3 = createHint(FlxG.width / 5 * 2, FlxG.height / 2 * 2, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFFFF00));
-                            add(buttonExtra4 = createHint(FlxG.width / 5 * 2, FlxG.height / 2 * 3, Std.int(FlxG.width / 5), Std.int(FlxG.height * 0.5), 0xFFFF00));
                     }
                 }
             }

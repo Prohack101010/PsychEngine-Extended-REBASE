@@ -1443,6 +1443,12 @@ class FunkinLua {
 			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.justPressed){
     			    return true;
                 }
+                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.justPressed){
+    			    return true;
+                }
+                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.justPressed){
+    			    return true;
+                }
             }
             #end
 			return Reflect.getProperty(FlxG.keys.justPressed, name);
@@ -1465,6 +1471,12 @@ class FunkinLua {
                 }
            }
            if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.pressed){
+    			    return true;
+                }
+                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.pressed){
+    			    return true;
+                }
 			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.pressed){
     			    return true;
                 }                                
@@ -1497,6 +1509,12 @@ class FunkinLua {
     			    return true;
                 }
 			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.justReleased){
+    			    return true;
+                }
+                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.justReleased){
+    			    return true;
+                }
+                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.justReleased){
     			    return true;
                 }
            }
@@ -1566,13 +1584,13 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyJustPressed", function(name:String) {
 			var key:Bool = false;
 			if (name == extra1)
-			    key = PlayState.instance.getControl('SHIFT_P');
+			    key = PlayState.instance.getControl('EXTRA1_P');
 		    if (name == extra2)
-		        key = PlayState.instance.getControl('SPACE_P');
+		        key = PlayState.instance.getControl('EXTRA2_P');
 		    if (name == extra3)
-		        key = PlayState.instance.getControl('Q_P');
+		        key = PlayState.instance.getControl('EXTRA3_P');
 		    if (name == extra4)
-		        key = PlayState.instance.getControl('E_P');
+		        key = PlayState.instance.getControl('EXTRA4_P');
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_P');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_P');
@@ -1593,13 +1611,13 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
 			var key:Bool = false;
 			if (name == extra1)
-			    key = PlayState.instance.getControl('SHIFT');
+			    key = PlayState.instance.getControl('EXTRA1');
 		    if (name == extra2)
-		        key = PlayState.instance.getControl('SPACE');
+		        key = PlayState.instance.getControl('EXTRA2');
 		    if (name == extra3)
-		        key = PlayState.instance.getControl('Q');
+		        key = PlayState.instance.getControl('EXTRA3');
 		    if (name == extra4)
-		        key = PlayState.instance.getControl('E');
+		        key = PlayState.instance.getControl('EXTRA4');
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN');
@@ -1616,13 +1634,13 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyReleased", function(name:String) {
 			var key:Bool = false;
 			if (name == extra1)
-			    key = PlayState.instance.getControl('SHIFT_R');
+			    key = PlayState.instance.getControl('EXTRA1_R');
 		    if (name == extra2)
-		        key = PlayState.instance.getControl('SPACE_R');
+		        key = PlayState.instance.getControl('EXTRA2_R');
 		    if (name == extra3)
-		        key = PlayState.instance.getControl('Q_R');
+		        key = PlayState.instance.getControl('EXTRA3_R');
 		    if (name == extra4)
-		        key = PlayState.instance.getControl('E_R');
+		        key = PlayState.instance.getControl('EXTRA4_R');
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_R');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_R');
