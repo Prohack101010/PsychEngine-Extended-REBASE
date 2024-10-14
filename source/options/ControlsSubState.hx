@@ -142,11 +142,10 @@ class ControlsSubState extends MusicBeatSubstate {
                         SelectSubstate.downPozition.visible = true;
                         SelectSubstate.leftPozition.visible = true;
                         SelectSubstate.rightPozition.visible = true;
-                    }
-                    else if (SelectSubstate.daChoice != "Hitbox" && SelectSubstate.daChoice != "Keyboard")
-                    {
-                        SelectSubstate.spacePozition.visible = true;
-                        SelectSubstate.shiftPozition.visible = true;
+                        SelectSubstate.extra4Pozition.visible = true;
+                        SelectSubstate.extra3Pozition.visible = true;
+                        SelectSubstate.extra2Pozition.visible = true;
+                        SelectSubstate.extra1Pozition.visible = true;
                     }
                     SelectSubstate.titleText.text = 'Mobile Controls';
 				    MobileControlSelectSubState.inControlsSubstate = false; // Not Needed But IDK
