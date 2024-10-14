@@ -1621,10 +1621,9 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyJustPressed", function(name:String) {
 			var key:Bool = false;
 			if (name == ClientPrefs.extraKeyReturn1)
-			    key = PlayState.instance.getControl('SHIFT_P');
+			    key = (PlayState.instance.getControl('SHIFT_P') || FlxG.keys.justPressed.SHIFT);
 		    else if (name == ClientPrefs.extraKeyReturn2)
-		        key = PlayState.instance.getControl('SPACE_P');
-		    end
+		        key = (PlayState.instance.getControl('SPACE_P') || FlxG.keys.justPressed.SPACE);
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_P');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_P');
@@ -1646,10 +1645,9 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
 			var key:Bool = false;
 			if (name == ClientPrefs.extraKeyReturn1)
-			    key = PlayState.instance.getControl('SHIFT');
+			    key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT);
 		    else if (name == ClientPrefs.extraKeyReturn2)
-		        key = PlayState.instance.getControl('SPACE');
-		    end
+		        key = (PlayState.instance.getControl('SPACE') || FlxG.keys.pressed.SPACE);
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN');
@@ -1667,10 +1665,9 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyReleased", function(name:String) {
 			var key:Bool = false;
 			if (name == ClientPrefs.extraKeyReturn1)
-			    key = PlayState.instance.getControl('SHIFT_R');
+			    key = (PlayState.instance.getControl('SHIFT_R') || FlxG.keys.justReleased.SHIFT);
 		    else if (name == ClientPrefs.extraKeyReturn2)
-		        key = PlayState.instance.getControl('SPACE_R');
-		    end
+		        key = (PlayState.instance.getControl('SPACE_R') || FlxG.keys.justReleased.SPACE);
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_R');
 				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_R');
