@@ -29,7 +29,11 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	public var buttonZ:FlxButton;
 	public var buttonF:FlxButton;
 	public var buttonG:FlxButton;
-
+	
+	//Extra
+    public var buttonExtra1:FlxButton;
+	public var buttonExtra2:FlxButton;
+    
 	//DPad
 	public var buttonLeft:FlxButton;
 	public var buttonUp:FlxButton;
@@ -252,8 +256,8 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				dPad.add(add(buttonCEG = createButton(FlxG.width - (44 + 42 * 1) * 3, 25, 44 * 3, 127, "g", 0x00FF00)));
 				
 			case controlExtend:
-			    if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.VPadShiftExtend) actions.add(add(buttonF = createButton(FlxG.width * 0.5 - 44 * 3, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "f", 0xFF0000)));
-				if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.VPadSpaceExtend) actions.add(add(buttonG = createButton(FlxG.width * 0.5, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "g", 0xFFFF00)));	
+			    if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.extraKeys >= 1) actions.add(add(buttonExtra1 = createButton(FlxG.width * 0.5 - 44 * 3, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "f", 0xFF0000)));
+				if (Type.getClass(FlxG.state) != PlayState || Type.getClass(FlxG.state) == PlayState && ClientPrefs.extraKeys >= 2) actions.add(add(buttonExtra2 = createButton(FlxG.width * 0.5, FlxG.height * 0.5 - 127 * 0.5, 44 * 3, 127, "g", 0xFFFF00)));	
 				
 			case CHART_EDITOR:
 				actions.add(add(buttonV = createButton(FlxG.width - 170 * 3, FlxG.height - 85 * 3, 44 * 3, 127, "v", 0x49A9B2)));            

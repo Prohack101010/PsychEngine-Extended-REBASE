@@ -62,8 +62,6 @@ class ClientPrefs {
 	public static var VirtualPadSkin:String = 'original';
 	public static var VirtualPadAlpha:Float = #if mobile 0.75 #else 0 #end;
 	public static var coloredvpad:Bool = true;
-	public static var VPadSpaceExtend:Bool = true;
-	public static var VPadShiftExtend:Bool = true;
 	//Hitbox
 	public static var extraKeyReturn1:String = 'SPACE';
     public static var extraKeyReturn2:String = 'SHIFT';
@@ -72,7 +70,7 @@ class ClientPrefs {
 	public static var hitboxhint = false;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
 	public static var hitboxtype:String = 'Gradient';
-	public static var hitboxExtend:Int = 2;
+	public static var extraKeys:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = #if mobile 0.7 #else 0 #end; //someone request this lol
 	public static var gameplaySettings:Map<String, Dynamic> = [
@@ -156,8 +154,6 @@ class ClientPrefs {
 		FlxG.save.data.Modpack = Modpack;
 		FlxG.save.data.IndieCrossMenus = IndieCrossMenus;
 		FlxG.save.data.coloredvpad = coloredvpad;
-		FlxG.save.data.VPadSpaceExtend = VPadSpaceExtend;
-		FlxG.save.data.VPadShiftExtend = VPadShiftExtend;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
 		FlxG.save.data.showFPS = showFPS;
@@ -294,12 +290,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.coloredvpad != null) {
 			coloredvpad = FlxG.save.data.coloredvpad;
-		}
-		if(FlxG.save.data.VPadSpaceExtend != null) {
-			VPadSpaceExtend = FlxG.save.data.VPadSpaceExtend;
-		}
-		if(FlxG.save.data.VPadShiftExtend != null) {
-			VPadShiftExtend = FlxG.save.data.VPadShiftExtend;
 		}
 		if(FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;

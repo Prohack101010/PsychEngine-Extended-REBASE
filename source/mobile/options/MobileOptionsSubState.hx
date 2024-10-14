@@ -73,20 +73,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 
 		addOption(option);
 		option.onChange = resetVirtualPad;
-		
-		var option:Option = new Option('VirtualPad Shift',
-			'Allow Extend VirtualPad Shift Control',
-			'VPadShiftExtend',
-			'bool',
-			true);
-		addOption(option);
-		
-		var option:Option = new Option('VirtualPad Space',
-			'Allow Extend VirtualPad Space Control',
-			'VPadSpaceExtend',
-			'bool',
-			true);
-		addOption(option);
 	}
 		
 		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
@@ -119,12 +105,10 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			null,
 			virtualpadTypes);
 		addOption(option);
-	}
 		
-	#if mobile //only Mobile Because You Can't Change Mobile Controls Type, Technically You Cant use Hitbox Tyoe into the PC Build
 		var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",
-			'hitboxExtend',
+			'extraKeys',
 			'float',
 			2);
 		option.scrollSpeed = 1.6;
@@ -133,7 +117,9 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		option.changeValue = 1;
 		option.decimals = 1;
 		addOption(option);
+	}
 		
+	#if mobile //only Mobile Because You Can't Change Mobile Controls Type, Technically You Cant use Hitbox Tyoe into the PC Build	
 		var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
 			'hitboxLocation',
