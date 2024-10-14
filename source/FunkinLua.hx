@@ -1646,7 +1646,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
 			var key:Bool = false;
 			if (name == ClientPrefs.extraKeyReturn1)
-			    key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT;
+			    key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT);
 		    else if (name == ClientPrefs.extraKeyReturn2)
 		        key = (PlayState.instance.getControl('SPACE') || FlxG.keys.pressed.SPACE);
 		    end
