@@ -1436,11 +1436,11 @@ class FunkinLua {
                 }
             }
             
-            if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
-                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonF.justPressed){
+            if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.justPressed){
     			    return true;
                 }
-			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonG.justPressed){
+			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.justPressed){
     			    return true;
                 }
             }
@@ -1464,11 +1464,11 @@ class FunkinLua {
     			    return true;
                 }
            }
-           if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
-			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonG.pressed){
+           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.pressed){
     			    return true;
                 }                                
-                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonF.pressed){
+                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.pressed){
     			    return true;
                 }
            }
@@ -1492,11 +1492,11 @@ class FunkinLua {
     			    return true;
                 }
            }
-           if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
-                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonF.justReleased){
+           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.justReleased){
     			    return true;
                 }
-			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonG.justReleased){
+			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.justReleased){
     			    return true;
                 }
            }

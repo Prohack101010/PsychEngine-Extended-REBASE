@@ -147,13 +147,13 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         rightPozition.cameras = [ui];
         add(rightPozition);
 
-        spacePozition = new FlxText(10, FlxG.height - 84, 0,"Button Space X:" + vpad.buttonExtra2.x +" Y:" + vpad.buttonExtra2.y, 16);
+        spacePozition = new FlxText(10, FlxG.height - 84, 0,"Button Extra 2 X:" + vpad.buttonExtra2.x +" Y:" + vpad.buttonExtra2.y, 16);
         spacePozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         spacePozition.borderSize = 2;
         spacePozition.cameras = [ui];
         add(spacePozition);
 
-        shiftPozition = new FlxText(10, FlxG.height - 64, 0,"Button Shift X:" + vpad.buttonExtra1.x +" Y:" + vpad.buttonExtra1.y, 16);
+        shiftPozition = new FlxText(10, FlxG.height - 64, 0,"Button Extra 1 X:" + vpad.buttonExtra1.x +" Y:" + vpad.buttonExtra1.y, 16);
         shiftPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         shiftPozition.borderSize = 2;
         shiftPozition.cameras = [ui];

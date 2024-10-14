@@ -39,8 +39,8 @@ class Config {
     			}
 			}
 			else{
-			    save.data.buttons[0] = FlxPoint.get(_pad.buttonG.x, _pad.buttonG.y);
-			    save.data.buttons[1] = FlxPoint.get(_pad.buttonF.x, _pad.buttonF.y);
+			    save.data.buttons[0] = FlxPoint.get(_pad.buttonExtra2.x, _pad.buttonExtra2.y);
+			    save.data.buttons[1] = FlxPoint.get(_pad.buttonExtra1.x, _pad.buttonExtra1.y);
 			}
 		}else{
 			if (!isExtend){
@@ -51,8 +51,8 @@ class Config {
 				}
 			}
 			else{
-			    save.data.buttons[0] = FlxPoint.get(_pad.buttonG.x, _pad.buttonG.y);
-			    save.data.buttons[1] = FlxPoint.get(_pad.buttonF.x, _pad.buttonF.y);
+			    save.data.buttons[0] = FlxPoint.get(_pad.buttonExtra2.x, _pad.buttonExtra2.y);
+			    save.data.buttons[1] = FlxPoint.get(_pad.buttonExtra1.x, _pad.buttonExtra1.y);
 			}
 		}
 		save.flush();
@@ -70,13 +70,13 @@ class Config {
     		}
 		}
 		else{
-		    if (_pad.buttonG != null){
-		        _pad.buttonG.x = save.data.buttons[0].x;
-			    _pad.buttonG.y = save.data.buttons[0].y;
+		    if (_pad.buttonExtra2 != null){
+		        _pad.buttonExtra2.x = save.data.buttons[0].x;
+			    _pad.buttonExtra2.y = save.data.buttons[0].y;
 			}
-			if (_pad.buttonF != null){
-			    _pad.buttonF.x = save.data.buttons[1].x;
-			    _pad.buttonF.y = save.data.buttons[1].y;
+			if (_pad.buttonExtra1 != null){
+			    _pad.buttonExtra1.x = save.data.buttons[1].x;
+			    _pad.buttonExtra1.y = save.data.buttons[1].y;
 			}
 		}
 	    return _pad;
