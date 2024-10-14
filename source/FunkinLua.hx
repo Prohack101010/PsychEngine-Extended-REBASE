@@ -3553,6 +3553,32 @@ class FunkinLua {
 		lua = null;
 		#end
 	}
+	
+	public static function varCheck(className:Dynamic, variable:String):String{
+	    return variable;
+	}
+	
+	public static function classCheck(className:String):Dynamic
+	{
+	    return Type.resolveClass(className);
+	}
+	
+	public static function specialKeyCheck(keyName:String):Dynamic
+	{
+	    var textfix:Array<String> = keyName.trim().split('.');
+	    var type:String = textfix[1].trim();
+	    var key:String = textfix[2].trim();    			
+	    var extraControl:Dynamic = null;
+	    
+	    for (num in 1...5){
+	        if (ClientPrefs.hitboxExtend >= num && key == Reflect.field(ClientPrefs, 'extraKeyReturn' + num)){
+	            extraControl = Reflect.getProperty(MusicBeatState.mobilec.newhbox, 'buttonExtra' + num);	            
+	            if (Reflect.getProperty(extraControl, type))
+	                return true;
+	        }
+	    }	    	    
+	    return null;
+	}
 
 	public static inline function getInstance()
 	{
@@ -3697,32 +3723,6 @@ class HScript
 			}
 			return false;
 		});
-	}
-	
-	public static function varCheck(className:Dynamic, variable:String):String{
-	    return variable;
-	}
-	
-	public static function classCheck(className:String):Dynamic
-	{
-	    return Type.resolveClass(className);
-	}
-	
-	public static function specialKeyCheck(keyName:String):Dynamic
-	{
-	    var textfix:Array<String> = keyName.trim().split('.');
-	    var type:String = textfix[1].trim();
-	    var key:String = textfix[2].trim();    			
-	    var extraControl:Dynamic = null;
-	    
-	    for (num in 1...5){
-	        if (ClientPrefs.hitboxExtend >= num && key == Reflect.field(ClientPrefs, 'extraKeyReturn' + num)){
-	            extraControl = Reflect.getProperty(MusicBeatState.mobilec.newhbox, 'buttonExtra' + num);	            
-	            if (Reflect.getProperty(extraControl, type))
-	                return true;
-	        }
-	    }	    	    
-	    return null;
 	}
 
 	public function execute(codeToRun:String):Dynamic
