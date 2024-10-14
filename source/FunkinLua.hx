@@ -1053,11 +1053,11 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
 			var myClass:Dynamic = classCheck(classVar);
-			variable = varCheck(myClass, variable);
+			var variableplus:String = varCheck(myClass, variable);
 			var killMe:Array<String> = variable.split('.');
-			if (MusicBeatState.mobilec != null && myClass == 'flixel.FlxG' && variable.indexOf('key') != -1){
+			if (MusicBeatState.mobilec != null && myClass == 'flixel.FlxG' && variableplus.indexOf('key') != -1){
     		    var check:Dynamic;
-    		    check = specialKeyCheck(variable); //fuck you old lua 🙃
+    		    check = specialKeyCheck(variableplus); //fuck you old lua 🙃
     		    if (check != null) return check;
     		}
            
@@ -1436,7 +1436,7 @@ class FunkinLua {
                 }
             }
             
-            if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+            if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
                 if (name == extra1 && MusicBeatState.mobilec.vpad.buttonF.justPressed){
     			    return true;
                 }
@@ -1464,7 +1464,7 @@ class FunkinLua {
     			    return true;
                 }
            }
-           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+           if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
 			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonG.pressed){
     			    return true;
                 }                                
@@ -1492,7 +1492,7 @@ class FunkinLua {
     			    return true;
                 }
            }
-           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+           if (MusicBeatState.mobilec.vpad != null){ //check for android control and dont check for keyboard
                 if (name == extra1 && MusicBeatState.mobilec.vpad.buttonF.justReleased){
     			    return true;
                 }

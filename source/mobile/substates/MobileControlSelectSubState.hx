@@ -147,13 +147,13 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         rightPozition.cameras = [ui];
         add(rightPozition);
 
-        spacePozition = new FlxText(10, FlxG.height - 84, 0,"Button Space X:" + vpad.buttonG.x +" Y:" + vpad.buttonG.y, 16);
+        spacePozition = new FlxText(10, FlxG.height - 84, 0,"Button Space X:" + vpad.buttonExtra2.x +" Y:" + vpad.buttonExtra2.y, 16);
         spacePozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         spacePozition.borderSize = 2;
         spacePozition.cameras = [ui];
         add(spacePozition);
 
-        shiftPozition = new FlxText(10, FlxG.height - 64, 0,"Button Shift X:" + vpad.buttonF.x +" Y:" + vpad.buttonF.y, 16);
+        shiftPozition = new FlxText(10, FlxG.height - 64, 0,"Button Shift X:" + vpad.buttonExtra1.x +" Y:" + vpad.buttonExtra1.y, 16);
         shiftPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         shiftPozition.borderSize = 2;
         shiftPozition.cameras = [ui];
@@ -398,12 +398,12 @@ class MobileControlSelectSubState extends MusicBeatSubstate
             }
             else 
             {
-                if (vpad.buttonG.justPressed) {
-                    movebutton(touch, vpad.buttonG);
+                if (vpad.buttonExtra2.justPressed) {
+                    movebutton(touch, vpad.buttonExtra2);
                 }
 
-                if (vpad.buttonF.justPressed) {
-                    movebutton(touch, vpad.buttonF);
+                if (vpad.buttonExtra1.justPressed) {
+                    movebutton(touch, vpad.buttonExtra1);
                 }
             }
         }
@@ -422,9 +422,9 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         upPozition.text = "Button Up X:" + vpad.buttonUp.x +" Y:" + vpad.buttonUp.y;
         downPozition.text = "Button Down X:" + vpad.buttonDown.x +" Y:" + vpad.buttonDown.y;
         leftPozition.text = "Button Left X:" + vpad.buttonLeft.x +" Y:" + vpad.buttonLeft.y;
-        rightPozition.text = "Button RIght x:" + vpad.buttonRight.x +" Y:" + vpad.buttonRight.y;
-        spacePozition.text = "Button Space X:" + vpad.buttonG.x +" Y:" + vpad.buttonG.y;
-        shiftPozition.text = "Button Shift X:" + vpad.buttonF.x +" Y:" + vpad.buttonF.y;
+        rightPozition.text = "Button Right x:" + vpad.buttonRight.x +" Y:" + vpad.buttonRight.y;
+        spacePozition.text = "Button Extra 2 X:" + vpad.buttonExtra2.x +" Y:" + vpad.buttonExtra2.y;
+        shiftPozition.text = "Button Extra 1 X:" + vpad.buttonExtra1.x +" Y:" + vpad.buttonExtra1.y;
     }
 
     function save()
