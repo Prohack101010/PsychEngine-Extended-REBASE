@@ -553,10 +553,10 @@ class Controls extends FlxActionSet
 		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addButtonNOTES2(action, Hitbox.buttonDown, state));
 		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addButtonNOTES2(action, Hitbox.buttonLeft, state));
 		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addButtonNOTES2(action, Hitbox.buttonRight, state));
-		inline forEachBound(Control.SHIFT, (action, state) -> addButtonNOTES2(action, Hitbox.buttonShift, state));
-		inline forEachBound(Control.SPACE, (action, state) -> addButtonNOTES2(action, Hitbox.buttonSpace, state));
-		inline forEachBound(Control.Q, (action, state) -> addButtonNOTES2(action, Hitbox.buttonQ, state));
-		inline forEachBound(Control.E, (action, state) -> addButtonNOTES2(action, Hitbox.buttonE, state));
+		inline forEachBound(Control.SHIFT, (action, state) -> addButtonNOTES2(action, Hitbox.buttonExtra1, state));
+		inline forEachBound(Control.SPACE, (action, state) -> addButtonNOTES2(action, Hitbox.buttonExtra2, state));
+		inline forEachBound(Control.Q, (action, state) -> addButtonNOTES2(action, Hitbox.buttonExtra3, state));
+		inline forEachBound(Control.E, (action, state) -> addButtonNOTES2(action, Hitbox.buttonExtra4, state));
 	}
 
 	public function setVirtualPadUI(VirtualPad:FlxVirtualPad, DPad:FlxDPadMode, Action:FlxActionMode):Void

@@ -17,10 +17,6 @@ class ClientPrefs {
     public static var FreakyMenu:String = 'Extended';
     public static var TransitionStyle:String = 'Psych';
     public static var MainMenuStyle:String = '1.0';
-    public static var extraKeyReturn1:String = 'SPACE';
-    public static var extraKeyReturn2:String = 'SHIFT';
-    public static var extraKeyReturn3:String = 'Q';
-    public static var extraKeyReturn4:String = 'E';
 	public static var downScroll:Bool = false;
 	public static var marvelousRating:Bool = true;	
 	public static var marvelousSprite:Bool = true;	
@@ -69,6 +65,10 @@ class ClientPrefs {
 	public static var VPadSpaceExtend:Bool = true;
 	public static var VPadShiftExtend:Bool = true;
 	//Hitbox
+	public static var extraKeyReturn1:String = 'SPACE';
+    public static var extraKeyReturn2:String = 'SHIFT';
+    public static var extraKeyReturn3:String = 'Q';
+    public static var extraKeyReturn4:String = 'E';
 	public static var hitboxhint = false;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
 	public static var hitboxtype:String = 'Gradient';
