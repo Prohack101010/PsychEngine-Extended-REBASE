@@ -1621,9 +1621,9 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyJustPressed", function(name:String) {
 			var key:Bool = false;
 			if (name == ClientPrefs.extraKeyReturn1)
-			    key = (PlayState.instance.getControl('SHIFT_P') || FlxG.keys.justPressed.SHIFT);
+			    key = PlayState.instance.getControl('SHIFT_P');
 		    else if (name == ClientPrefs.extraKeyReturn2)
-		        key = (PlayState.instance.getControl('SPACE_P') || FlxG.keys.justPressed.SPACE);
+		        key = PlayState.instance.getControl('SPACE_P');
 		    end
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_P');
@@ -1646,9 +1646,9 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
 			var key:Bool = false;
 			if (name == ClientPrefs.extraKeyReturn1)
-			    key = (PlayState.instance.getControl('SHIFT') || FlxG.keys.pressed.SHIFT);
+			    key = PlayState.instance.getControl('SHIFT');
 		    else if (name == ClientPrefs.extraKeyReturn2)
-		        key = (PlayState.instance.getControl('SPACE') || FlxG.keys.pressed.SPACE);
+		        key = PlayState.instance.getControl('SPACE');
 		    end
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT');
@@ -1667,9 +1667,9 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyReleased", function(name:String) {
 			var key:Bool = false;
 			if (name == ClientPrefs.extraKeyReturn1)
-			    key = (PlayState.instance.getControl('SHIFT_R') || FlxG.keys.justReleased.SHIFT);
+			    key = PlayState.instance.getControl('SHIFT_R');
 		    else if (name == ClientPrefs.extraKeyReturn2)
-		        key = (PlayState.instance.getControl('SPACE_R') || FlxG.keys.justReleased.SPACE);
+		        key = PlayState.instance.getControl('SPACE_R');
 		    end
 			switch(name) {
 				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_R');
