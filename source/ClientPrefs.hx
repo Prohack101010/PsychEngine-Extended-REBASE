@@ -198,7 +198,7 @@ class ClientPrefs {
 		FlxG.save.data.storageType = storageType;
 		#end
 		FlxG.save.data.virtualpadType = virtualpadType;
-		FlxG.save.data.hitboxExtend = hitboxExtend;
+		FlxG.save.data.extraKeys = extraKeys;
 	    FlxG.save.data.hitboxLocation = hitboxLocation;
 		FlxG.save.data.hitboxmode = hitboxmode;
 		FlxG.save.data.hitboxtype = hitboxtype;
@@ -409,8 +409,8 @@ class ClientPrefs {
 		if(FlxG.save.data.hitboxLocation != null) {
 			hitboxLocation = FlxG.save.data.hitboxLocation;
 		}
-		if(FlxG.save.data.hitboxExtend != null) {
-			hitboxExtend = FlxG.save.data.hitboxExtend;
+		if(FlxG.save.data.extraKeys != null) {
+			extraKeys = FlxG.save.data.extraKeys;
 		}
 		if(FlxG.save.data.hitboxalpha != null) {
 			hitboxalpha = FlxG.save.data.hitboxalpha;
