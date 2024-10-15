@@ -79,7 +79,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.follow(camFollow, LOCKON, 0.01);
 		add(camFollow);
 		
-		PlayState.instance.setOnScripts('inGameOver', true);
+		PlayState.instance.setOnLuas('inGameOver', true);
 		PlayState.instance.callOnLuas('onGameOverStart', []);
 		FlxG.sound.music.loadEmbedded(Paths.music(loopSoundName));
 
