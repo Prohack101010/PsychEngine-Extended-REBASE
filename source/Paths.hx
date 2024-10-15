@@ -253,7 +253,7 @@ class Paths
 		var songdiffKey:String = '${formatToSongPath(song)}/Voices-$diffvoice';
 		
 		if(postfix != null) songKey += '-' + postfix;
-		if(postfix != null) songdiffKey += '-' + postfix + '-$diffvoice';
+		if(postfix != null) songdiffKey = '${formatToSongPath(song)}/Voices-' + postfix + '-$diffvoice';
         
 		var voices = returnSound('songs', songKey);
 		try
@@ -610,13 +610,16 @@ class Paths
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
+		#if MODS_ALLOWED
+			currentTrackedSounds.set(gottenPath, Sound.fromFile(gottenPath));
+		#else
 		{
 			var folder:String = '';
 			if(path == 'songs') folder = 'songs:';
 
-			if(OpenFlAssets.exists('$path/$key', SOUND))
-				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound('$path/$key'));
+			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library)));
 		}
+		#end
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
 	}
