@@ -187,7 +187,8 @@ class CustomFadeTransition extends MusicBeatSubstate {
     		if(nextCamera != null) {
     			transBlack.cameras = [nextCamera];
     			transGradient.cameras = [nextCamera];
-    			if (ClientPrefs.TransitionStyle == 'Extended') LoadBF.cameras = [nextCamera];
+    			if (ClientPrefs.TransitionStyle == 'Extended')
+    			    LoadBF.cameras = [nextCamera];
     		}
     		nextCamera = null;
     	}

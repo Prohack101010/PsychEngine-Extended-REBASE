@@ -84,11 +84,10 @@ class OptionsState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		
-		tipText = new FlxText(150, FlxG.height - 24, 0, 'Press E to Go In Extra Key Return Menu', 16);
-		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
+		var tipText:FlxText = new FlxText(10, 12, 0, 'Press E to Go In Extra Key Return Menu', 16);
+		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
-		tipText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(tipText);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
