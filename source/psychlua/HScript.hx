@@ -24,10 +24,10 @@ class HScript extends SScript
 	public static function initHaxeModuleCode(parent:FunkinLua, code:String)
 	{
 		#if (SScript >= "3.0.0")
-		if(parent.hscript == null)
+		if(FunkinLua.hscript == null)
 		{
 			trace('initializing haxe interp for: ${parent.scriptName}');
-			parent.hscript = new HScript(parent, code);
+			FunkinLua.hscript = new HScript(parent, code);
 		}
 		#end
 	}

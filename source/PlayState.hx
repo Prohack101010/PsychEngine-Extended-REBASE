@@ -5416,7 +5416,7 @@ class PlayState extends MusicBeatState
 		#if MODS_ALLOWED
 		if(exclusions == null) exclusions = new Array();
 		if(excludeValues == null) excludeValues = new Array();
-		excludeValues.push(psychlua.FunkinLua.Function_Continue);
+		excludeValues.push(FunkinLua.Function_Continue);
 		
 		var len:Int = hscriptArray.length;
 		if (len < 1)
