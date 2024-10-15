@@ -90,6 +90,8 @@ class FunkinLua {
 	public static var hscript:HScript = null;
 	#end
 	
+	public static var customFunctions:Map<String, Dynamic> = new Map<String, Dynamic>();
+	
 	public function new(script:String) {
 		#if LUA_ALLOWED
 		lua = LuaL.newstate();
@@ -3007,6 +3009,12 @@ class FunkinLua {
 		#if android AndroidFunctions.implement(this); #end
 		MobileFunctions.implement(this);
 		CustomSubState.implement(this);
+		
+		for (name => func in customFunctions)
+		{
+			if(func != null)
+				Lua_helper.add_callback(lua, name, func);
+		}
 
 		call('onCreate', []);
 		#end
@@ -3739,6 +3747,12 @@ class HScript
 		HScript.parser.line = 1;
 		HScript.parser.allowTypes = true;
 		return interp.execute(HScript.parser.parseString(codeToRun));
+	}
+	
+	public function addLocalCallback(name:String, myFunction:Dynamic)
+	{
+		callbacks.set(name, myFunction);
+		Lua_helper.add_callback(lua, name, null); //just so that it gets called
 	}
 }
 #end

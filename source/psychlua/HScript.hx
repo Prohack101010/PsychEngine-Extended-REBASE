@@ -13,10 +13,10 @@ class HScript extends SScript
 	public static function initHaxeModule(parent:FunkinLua)
 	{
 		#if (SScript >= "3.0.0")
-		if(parent.hscript == null)
+		if(FunkinLua.hscript == null)
 		{
 			trace('initializing haxe interp for: ${parent.scriptName}');
-			parent.hscript = new HScript(parent, parent.scriptName);
+			FunkinLua.hscript = new HScript(parent, parent.scriptName);
 		}
 		#end
 	}
@@ -50,7 +50,6 @@ class HScript extends SScript
 		set('Alphabet', Alphabet);
 		set('Note', objects.Note);
 		set('CustomSubState', CustomSubState);
-		set('Countdown', backend.BaseStage.Countdown);
 		#if (!flash && sys)
 		set('FlxRuntimeShader', flixel.addons.display.FlxRuntimeShader);
 		#end
@@ -100,7 +99,7 @@ class HScript extends SScript
 		{
 			if(funk == null) funk = parentLua;
 			
-			if(parentLua != null) Lua_helper.add_callback(lua, name, func);
+			if(parentLua != null) funk.addLocalCallback(name, func);
 			else FunkinLua.luaTrace('createCallback ($name): 3rd argument is null', false, false, FlxColor.RED);
 		});
 
@@ -173,7 +172,7 @@ class HScript extends SScript
 	public static function implement(funk:FunkinLua)
 	{
 		#if LUA_ALLOWED
-		Lua_helper.add_callback(lua, "runHaxeCode", function(codeToRun:String, ?varsToBring:Any = null, ?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null) {
+		funk.addLocalCallback("runHaxeCode", function(codeToRun:String, ?varsToBring:Any = null, ?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null) {
 			var retVal:SCall = null;
 			#if (SScript >= "3.0.0")
 			initHaxeModule(funk);
@@ -201,7 +200,7 @@ class HScript extends SScript
 			return retVal;
 		});
 		
-		Lua_helper.add_callback(lua, "runHaxeFunction", function(funcToRun:String, ?funcArgs:Array<Dynamic> = null) {
+		funk.addLocalCallback("runHaxeFunction", function(funcToRun:String, ?funcArgs:Array<Dynamic> = null) {
 			#if (SScript >= "3.0.0")
 			var callValue = FunkinLua.hscript.executeFunction(funcToRun, funcArgs);
 			if (!callValue.succeeded)
@@ -218,7 +217,7 @@ class HScript extends SScript
 			#end
 		});
 		// This function is unnecessary because import already exists in SScript as a native feature
-		Lua_helper.add_callback(lua, "addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
+		funk.addLocalCallback("addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
 			#if (SScript >= "3.0.0")
 			initHaxeModule(funk);
 			try {

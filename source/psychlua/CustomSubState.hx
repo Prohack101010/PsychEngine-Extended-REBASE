@@ -74,7 +74,7 @@ class CustomSubState extends MusicBeatSubstate
 	
 	public function new(name:String)
 	{
-		CustomSubstate.name = name;
+		CustomSubState.name = name;
 		super();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
