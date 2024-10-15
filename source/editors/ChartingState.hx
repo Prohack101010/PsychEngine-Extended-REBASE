@@ -2576,12 +2576,12 @@ class ChartingState extends MusicBeatState
 	{
 		for (i in 1...3)
 		{
-			var data:CharacterFile = loadCharacterFile(Reflect.field(_song, 'player$i'));
+			var data:Character.CharacterFile = loadCharacterFile(Reflect.field(_song, 'player$i'));
 			Reflect.setField(characterData, 'iconP$i', !characterFailed ? data.healthicon : 'face');
 			Reflect.setField(characterData, 'vocalsP$i', data.vocals_file ?? '');
 		}
-		var p1:CharacterFile = loadCharacterFile(_song.player1);
-		var p2:CharacterFile = loadCharacterFile(_song.player2);
+		var p1:Character.CharacterFile = loadCharacterFile(_song.player1);
+		var p2:Character.CharacterFile = loadCharacterFile(_song.player2);
 	}
 	
 	function updateHeads():Void
@@ -2840,6 +2840,7 @@ class ChartingState extends MusicBeatState
 			mustHitSection: true,
 			gfSection: false,
 			sectionNotes: [],
+			typeOfSection: 0,
 			altAnim: false
 		};
 

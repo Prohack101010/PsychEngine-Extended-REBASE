@@ -614,7 +614,6 @@ class Paths
 			var folder:String = '';
 			if(path == 'songs') folder = 'songs:';
 
-			retKey = ((path == 'songs') ? 'songs:' : '') + getPath('$path/$key.$SOUND_EXT', SOUND, library);
 			if(OpenFlAssets.exists('$path/$key', SOUND))
 				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound('$path/$key'));
 		}
