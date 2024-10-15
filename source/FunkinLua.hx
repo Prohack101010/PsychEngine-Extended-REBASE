@@ -3640,6 +3640,12 @@ class FunkinLua {
 	{
 		return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
 	}
+	
+	public function addLocalCallback(name:String, myFunction:Dynamic)
+	{
+		callbacks.set(name, myFunction);
+		Lua_helper.add_callback(lua, name, null); //just so that it gets called
+	}
 }
 
 class ModchartSprite extends FlxSprite
@@ -3685,11 +3691,5 @@ class DebugLuaText extends FlxText
 		disableTime -= elapsed;
 		if(disableTime < 0) disableTime = 0;
 		if(disableTime < 1) alpha = disableTime;
-	}
-	
-	public function addLocalCallback(name:String, myFunction:Dynamic)
-	{
-		callbacks.set(name, myFunction);
-		Lua_helper.add_callback(lua, name, null); //just so that it gets called
 	}
 }
