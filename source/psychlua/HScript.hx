@@ -3,7 +3,7 @@ package psychlua;
 import tea.SScript;
 import Character;
 import FunkinLua;
-import psychlua.CustomSubstate;
+import psychlua.CustomSubState;
 
 #if (SScript >= "3.0.0")
 class HScript extends SScript
@@ -49,7 +49,7 @@ class HScript extends SScript
 		set('Character', Character);
 		set('Alphabet', Alphabet);
 		set('Note', objects.Note);
-		set('CustomSubstate', CustomSubstate);
+		set('CustomSubState', CustomSubState);
 		set('Countdown', backend.BaseStage.Countdown);
 		#if (!flash && sys)
 		set('FlxRuntimeShader', flixel.addons.display.FlxRuntimeShader);
@@ -126,8 +126,8 @@ class HScript extends SScript
 		set('parentLua', parentLua);
 		set('game', PlayState.instance);
 		set('buildTarget', FunkinLua.getBuildTarget());
-		set('customSubstate', CustomSubstate.instance);
-		set('customSubstateName', CustomSubstate.name);
+		set('customSubstate', CustomSubState.instance);
+		set('customSubstateName', CustomSubState.name);
 
 		set('Function_Stop', FunkinLua.Function_Stop);
 		set('Function_Continue', FunkinLua.Function_Continue);

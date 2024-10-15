@@ -3006,7 +3006,7 @@ class FunkinLua {
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
 		#if android AndroidFunctions.implement(this); #end
 		MobileFunctions.implement(this);
-		CustomSubstate.implement(this);
+		CustomSubState.implement(this);
 
 		call('onCreate', []);
 		#end

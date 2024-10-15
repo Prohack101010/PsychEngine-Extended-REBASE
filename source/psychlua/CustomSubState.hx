@@ -2,10 +2,10 @@ package psychlua;
 
 import flixel.FlxObject;
 
-class CustomSubstate extends MusicBeatSubstate
+class CustomSubState extends MusicBeatSubstate
 {
 	public static var name:String = 'unnamed';
-	public static var instance:CustomSubstate;
+	public static var instance:CustomSubState;
 
 	public static function implement(funk:FunkinLua)
 	{
@@ -30,7 +30,7 @@ class CustomSubstate extends MusicBeatSubstate
 				PlayState.instance.vocals.pause();
 			}
 		}
-		PlayState.instance.openSubState(new CustomSubstate(name));
+		PlayState.instance.openSubState(new CustomSubState(name));
 		PlayState.instance.setOnHScript('customSubstate', instance);
 		PlayState.instance.setOnHScript('customSubstateName', name);
 	}
