@@ -1552,7 +1552,7 @@ class ChartingState extends MusicBeatState
 			else if (wname == 'voices_volume')
 			{
 				vocals.volume = nums.value;
-			    if(check_mute_vocals.checked) vocals.volume = 0;
+			    //if(check_mute_vocals.checked) vocals.volume = 0; Doesn't Work
 			}
 			else if (wname == 'voices_opp_volume')
 			{
