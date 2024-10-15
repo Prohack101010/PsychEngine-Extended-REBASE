@@ -3592,6 +3592,7 @@ class FunkinLua {
 
 		Lua.close(lua);
 		lua = null;
+		#end
 		#if (SScript >= "3.0.0")
 		hscript.active = false;
 		#end
