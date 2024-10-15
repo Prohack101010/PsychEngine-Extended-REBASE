@@ -71,7 +71,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 	var stayinMenu:String = 'isChanging'; // base, difficulty, debug, isChanging or options
 	// isChanging = in transition animation
 
-	var options:Array<String> = ['Continue', 'Restart', 'Difficulty', 'Debug', 'GPlay Changer', 'Editor', 'Options', 'Exit']; //GPlay Changer = Change Gameplay Settings
+	var options:Array<String> = ['Continue', 'Restart', 'Difficulty', 'Debug', 'Changers', 'Editor', 'Options', 'Exit']; //Changers = Change Gameplay Settings
 	var optionsAlphabet:Array<FlxText> = [];
 	var optionsBars:Array<FlxSprite> = [];
 	var curSelected:Int = 0;
@@ -661,11 +661,11 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 					);
 				case 'Restart':
 					restartSong();
-				case 'GPlay Changer':
+				case 'Changers':
 					persistentUpdate = false;
 					removeVirtualPad();
-					openSubState(new GameplayChangersSubstate());
 					GameplayChangersSubstate.inThePauseMenu = true;
+					openSubState(new GameplayChangersSubstate());
 				case 'Exit':
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;

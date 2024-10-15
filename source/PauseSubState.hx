@@ -257,8 +257,8 @@ class PauseSubState extends MusicBeatSubstate
 				case "Change Gameplay Settings":
 				    persistentUpdate = false;
 					removeVirtualPad();
-					openSubState(new GameplayChangersSubstate());
 					GameplayChangersSubstate.inThePauseMenu = true;
+					openSubState(new GameplayChangersSubstate());
 				case "Exit to menu":
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;

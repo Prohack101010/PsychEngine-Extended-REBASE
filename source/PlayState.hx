@@ -3290,7 +3290,7 @@ class PlayState extends MusicBeatState
 		{
 			if(!inCutscene)
 			{
-				if(opponentChart ? !cpuControlled_opponent : !cpuControlled)
+				if(opponentChart ? cpuControlled_opponent : !cpuControlled)
 					keyShit();
 				else
 					opponentChart ? opponentDance() : playerDance();

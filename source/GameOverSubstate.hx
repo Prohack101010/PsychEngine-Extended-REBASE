@@ -81,7 +81,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		
 		PlayState.instance.setOnLuas('inGameOver', true);
 		PlayState.instance.callOnLuas('onGameOverStart', []);
-		FlxG.sound.music.loadEmbedded(Paths.music(loopSoundName));
+		FlxG.sound.music.loadEmbedded(Paths.music(loopSoundName), true);
 		
 		addVirtualPad(NONE, A_B);
     	addVirtualPadCamera();
