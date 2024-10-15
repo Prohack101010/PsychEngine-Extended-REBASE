@@ -138,8 +138,9 @@
     <haxelib name="extension-androidtools" if="android"/>
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="discord_rpc" if="desktop"/>
-	<haxelib name="hscript" />
-	<define name="hscriptPos" />
+	<haxelib name="SScript" />
+	<haxedef name="openflPos" />
+	<haxedef name="hscriptPos" />
 	
 	<!-- Extra packages-->
 	<haxelib name="hxvlc" if="HXVLC_ALLOWED"/>
