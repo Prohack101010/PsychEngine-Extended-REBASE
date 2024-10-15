@@ -86,6 +86,7 @@ class CharacterEditorState extends MusicBeatState
 	{
 		//FlxG.sound.playMusic(Paths.music('breakfast'), 0.5);
 
+        FlxG.sound.music.stop();
 		camEditor = new FlxCamera();
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
@@ -187,7 +188,7 @@ class CharacterEditorState extends MusicBeatState
 		UI_characterbox = new FlxUITabMenu(null, tabs, true);
 		UI_characterbox.cameras = [camMenu];
 
-		UI_characterbox.resize(350, 250);
+		UI_characterbox.resize(350, 280);
 		UI_characterbox.x = UI_box.x - 100;
 		UI_characterbox.y = UI_box.y + UI_box.height;
 		UI_characterbox.scrollFactor.set();
@@ -415,7 +416,8 @@ class CharacterEditorState extends MusicBeatState
 				0
 			],
 			"sing_duration": 6.1,
-			"scale": 1
+			"scale": 1,
+			"vocals_file": null
 		}';
 
 	var charDropDown:FlxUIDropDownMenuCustom;
@@ -501,6 +503,7 @@ class CharacterEditorState extends MusicBeatState
 
 	var imageInputText:FlxUIInputText;
 	var healthIconInputText:FlxUIInputText;
+	var vocalsInputText:FlxUIInputText;
 
 	var singDurationStepper:FlxUINumericStepper;
 	var scaleStepper:FlxUINumericStepper;
@@ -546,7 +549,8 @@ class CharacterEditorState extends MusicBeatState
 		healthIconInputText = new FlxUIInputText(15, imageInputText.y + 35, 75, leHealthIcon.getCharacter(), 8);
 		healthIconInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 
-		singDurationStepper = new FlxUINumericStepper(15, healthIconInputText.y + 45, 0.1, 4, 0, 999, 1);
+		vocalsInputText = new FlxUIInputText(15, healthIconInputText.y + 35, 75, char.vocalsFile ?? '', 8);
+		singDurationStepper = new FlxUINumericStepper(15, vocalsInputText.y + 45, 0.1, 4, 0, 999, 1);
 
 		scaleStepper = new FlxUINumericStepper(15, singDurationStepper.y + 40, 0.1, 1, 0.05, 10, 1);
 
@@ -588,6 +592,7 @@ class CharacterEditorState extends MusicBeatState
 
 		tab_group.add(new FlxText(15, imageInputText.y - 18, 0, 'Image file name:'));
 		tab_group.add(new FlxText(15, healthIconInputText.y - 18, 0, 'Health icon name:'));
+		tab_group.add(new FlxText(15, vocalsInputText.y - 18, 0, 'Vocals File Postfix:'));
 		tab_group.add(new FlxText(15, singDurationStepper.y - 18, 0, 'Sing Animation length:'));
 		tab_group.add(new FlxText(15, scaleStepper.y - 18, 0, 'Scale:'));
 		tab_group.add(new FlxText(positionXStepper.x, positionXStepper.y - 18, 0, 'Character X/Y:'));
@@ -597,6 +602,7 @@ class CharacterEditorState extends MusicBeatState
 		tab_group.add(reloadImage);
 		tab_group.add(decideIconColor);
 		tab_group.add(healthIconInputText);
+		tab_group.add(vocalsInputText);
 		tab_group.add(singDurationStepper);
 		tab_group.add(scaleStepper);
 		tab_group.add(flipXCheckBox);
@@ -655,7 +661,7 @@ class CharacterEditorState extends MusicBeatState
 			}
 		});
 
-		var addUpdateButton:FlxButton = new FlxButton(70, animationIndicesInputText.y + 30, "Add/Update", function() {
+		var addUpdateButton:FlxButton = new FlxButton(70, animationIndicesInputText.y + 60, "Add/Update", function() {
 			var indices:Array<Int> = [];
 			var indicesStr:Array<String> = animationIndicesInputText.text.trim().split(',');
 			if(indicesStr.length > 1) {
@@ -703,7 +709,7 @@ class CharacterEditorState extends MusicBeatState
 			trace('Added/Updated animation: ' + animationInputText.text);
 		});
 
-		var removeButton:FlxButton = new FlxButton(180, animationIndicesInputText.y + 30, "Remove", function() {
+		var removeButton:FlxButton = new FlxButton(180, animationIndicesInputText.y + 60, "Remove", function() {
 			for (anim in char.animationsArray) {
 				if(animationInputText.text == anim.anim) {
 					var resetAnim:Bool = false;
@@ -755,9 +761,10 @@ class CharacterEditorState extends MusicBeatState
 				char.healthIcon = healthIconInputText.text;
 				updatePresence();
 			}
-			else if(sender == imageInputText) {
+			else if(sender == vocalsInputText)
+				char.vocalsFile = vocalsInputText.text;
+			else if(sender == imageInputText)
 				char.imageFile = imageInputText.text;
-			}
 		} else if(id == FlxUINumericStepper.CHANGE_EVENT && (sender is FlxUINumericStepper)) {
 			if (sender == scaleStepper)
 			{
@@ -820,6 +827,8 @@ class CharacterEditorState extends MusicBeatState
 		var anims:Array<AnimArray> = char.animationsArray.copy();
 		char.destroyAtlas();
 		char.isAnimateAtlas = false;
+		char.color = FlxColor.WHITE;
+		char.alpha = 1;
 
 		if(Paths.fileExists('images/' + char.imageFile + '/Animation.json', TEXT))
 		{
@@ -970,6 +979,7 @@ class CharacterEditorState extends MusicBeatState
 		if(UI_characterbox != null) {
 			imageInputText.text = char.imageFile;
 			healthIconInputText.text = char.healthIcon;
+			vocalsInputText.text = char.vocalsFile ?? '';
 			singDurationStepper.value = char.singDuration;
 			scaleStepper.value = char.jsonScale;
 			flipXCheckBox.checked = char.originalFlipX;
@@ -1284,7 +1294,7 @@ class CharacterEditorState extends MusicBeatState
 	}
 
 	function saveCharacter() {
-		var json = {
+		var json:Dynamic = {
 			"animations": char.animationsArray,
 			"image": char.imageFile,
 			"scale": char.jsonScale,
@@ -1296,7 +1306,8 @@ class CharacterEditorState extends MusicBeatState
 
 			"flip_x": char.originalFlipX,
 			"no_antialiasing": char.noAntialiasing,
-			"healthbar_colors": char.healthColorArray
+			"healthbar_colors": char.healthColorArray,
+			"vocals_file": char.vocalsFile
 		};
 
 		var data:String = Json.stringify(json, "\t");

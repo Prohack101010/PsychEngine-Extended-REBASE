@@ -245,12 +245,15 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String):Any
+	inline static public function voices(song:String, postfix:String = null):Any
 	{	 
 	    var diffvoice = Difficulty.getString().toUpperCase();
 	    
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		var songdiffKey:String = '${formatToSongPath(song)}/Voices-$diffvoice';
+		
+		if(postfix != null) songKey += '-' + postfix;
+		if(postfix != null) songdiffKey += '-' + postfix + '-$diffvoice';
         
 		var voices = returnSound('songs', songKey);
 		try
@@ -607,16 +610,14 @@ class Paths
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
-		#if MODS_ALLOWED
-			currentTrackedSounds.set(gottenPath, Sound.fromFile(gottenPath));
-		#else
 		{
 			var folder:String = '';
 			if(path == 'songs') folder = 'songs:';
 
-			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library)));
+			retKey = ((path == 'songs') ? 'songs:' : '') + getPath('$path/$key.$SOUND_EXT', SOUND, library);
+			if(OpenFlAssets.exists('$path/$key', SOUND))
+				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound('$path/$key'));
 		}
-		#end
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
 	}
