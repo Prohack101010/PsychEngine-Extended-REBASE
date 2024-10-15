@@ -128,7 +128,7 @@ class Character extends FlxSprite
 				//trace('Loaded file to character ' + curCharacter);
 		}
 
-		if(animOffsets.exists('singLEFTmiss') || animOffsets.exists('singDOWNmiss') || animOffsets.exists('singUPmiss') || animOffsets.exists('singRIGHTmiss')) hasMissAnimations = true;
+		if(hasAnimation('singLEFTmiss') || hasAnimation('singDOWNmiss') || hasAnimation('singUPmiss') || hasAnimation('singRIGHTmiss')) hasMissAnimations = true;
 		recalculateDanceIdle();
 		dance();
 
@@ -290,7 +290,7 @@ class Character extends FlxSprite
 		}
 
 		var name:String = getAnimationName();
-		if(isAnimationFinished() && animOffsets.exists('$name-loop'))
+		if(isAnimationFinished() && hasAnimation('$name-loop'))
 			playAnim('$name-loop');
 		super.update(elapsed);
 	}
@@ -318,6 +318,11 @@ class Character extends FlxSprite
 
 		if(!isAnimateAtlas) animation.curAnim.finish();
 		else atlas.anim.curFrame = atlas.anim.length - 1;
+	}
+	
+	public function hasAnimation(anim:String):Bool
+	{
+		return animOffsets.exists(anim);
 	}
 
 	public var animPaused(get, set):Bool;
@@ -357,19 +362,25 @@ class Character extends FlxSprite
 				else
 					playAnim('danceLeft' + idleSuffix);
 			}
-			else if(animOffsets.exists('idle' + idleSuffix)) {
-					playAnim('idle' + idleSuffix);
-			}
+			else if(hasAnimation('idle' + idleSuffix))
+				playAnim('idle' + idleSuffix);
 		}
 	}
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
 		specialAnim = false;
-		if(!isAnimateAtlas) animation.play(AnimName, Force, Reversed, Frame);
-		else atlas.anim.play(AnimName, Force, Reversed, Frame);
+		if(!isAnimateAtlas)
+		{
+			animation.play(AnimName, Force, Reversed, Frame);
+		}
+		else
+		{
+			atlas.anim.play(AnimName, Force, Reversed, Frame);
+			atlas.update(0);
+		}
 
-		if (animOffsets.exists(AnimName))
+		if (hasAnimation(AnimName))
 		{
 		    var daOffset = animOffsets.get(AnimName);
 			offset.set(daOffset[0], daOffset[1]);
@@ -412,7 +423,7 @@ class Character extends FlxSprite
 	private var settingCharacterUp:Bool = true;
 	public function recalculateDanceIdle() {
 		var lastDanceIdle:Bool = danceIdle;
-		danceIdle = (animOffsets.exists('danceLeft' + idleSuffix) && animOffsets.exists('danceRight' + idleSuffix));
+		danceIdle = (hasAnimation('danceLeft' + idleSuffix) && hasAnimation('danceRight' + idleSuffix));
 
 		if(settingCharacterUp)
 		{

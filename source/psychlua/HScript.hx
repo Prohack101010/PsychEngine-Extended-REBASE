@@ -1,6 +1,5 @@
 package psychlua;
 
-import tea.SScript;
 import Character;
 import FunkinLua;
 import psychlua.CustomSubstate;
@@ -100,7 +99,7 @@ class HScript extends SScript
 		{
 			if(funk == null) funk = parentLua;
 			
-			if(parentLua != null) funk.addLocalCallback(name, func);
+			if(parentLua != null) Lua_helper.add_callback(lua, name, func);
 			else FunkinLua.luaTrace('createCallback ($name): 3rd argument is null', false, false, FlxColor.RED);
 		});
 
@@ -173,7 +172,7 @@ class HScript extends SScript
 	public static function implement(funk:FunkinLua)
 	{
 		#if LUA_ALLOWED
-		funk.addLocalCallback("runHaxeCode", function(codeToRun:String, ?varsToBring:Any = null, ?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null) {
+		Lua_helper.add_callback(lua, "runHaxeCode", function(codeToRun:String, ?varsToBring:Any = null, ?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null) {
 			var retVal:SCall = null;
 			#if (SScript >= "3.0.0")
 			initHaxeModule(funk);
@@ -182,10 +181,10 @@ class HScript extends SScript
 				for (key in Reflect.fields(varsToBring))
 				{
 					//trace('Key $key: ' + Reflect.field(varsToBring, key));
-					funk.hscript.set(key, Reflect.field(varsToBring, key));
+					FunkinLua.hscript.set(key, Reflect.field(varsToBring, key));
 				}
 			}
-			retVal = funk.hscript.executeCode(codeToRun, funcToRun, funcArgs);
+			retVal = FunkinLua.hscript.executeCode(codeToRun, funcToRun, funcArgs);
 			if (funcToRun != null && funcArgs != null && retVal != null && !retVal.succeeded)
 			{
 				var e = retVal.exceptions[0];
@@ -201,9 +200,9 @@ class HScript extends SScript
 			return retVal;
 		});
 		
-		funk.addLocalCallback("runHaxeFunction", function(funcToRun:String, ?funcArgs:Array<Dynamic> = null) {
+		Lua_helper.add_callback(lua, "runHaxeFunction", function(funcToRun:String, ?funcArgs:Array<Dynamic> = null) {
 			#if (SScript >= "3.0.0")
-			var callValue = funk.hscript.executeFunction(funcToRun, funcArgs);
+			var callValue = FunkinLua.hscript.executeFunction(funcToRun, funcArgs);
 			if (!callValue.succeeded)
 			{
 				var e = callValue.exceptions[0];
@@ -218,7 +217,7 @@ class HScript extends SScript
 			#end
 		});
 		// This function is unnecessary because import already exists in SScript as a native feature
-		funk.addLocalCallback("addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
+		Lua_helper.add_callback(lua, "addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
 			#if (SScript >= "3.0.0")
 			initHaxeModule(funk);
 			try {
@@ -228,7 +227,7 @@ class HScript extends SScript
 
 				var c = Type.resolveClass(str + libName);
 				if (c != null)
-					funk.hscript.set(libName, c);
+					FunkinLua.hscript.set(libName, c);
 			}
 			catch (e:Dynamic) {
 				FunkinLua.luaTrace(funk.scriptName + ":" + funk.lastCalledFunction + " - " + e, false, false, FlxColor.RED);

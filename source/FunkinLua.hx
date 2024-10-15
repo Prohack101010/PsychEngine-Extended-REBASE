@@ -3432,7 +3432,7 @@ class FunkinLua {
 		return null;
 	}
 
-	var lastCalledFunction:String = '';
+	public var lastCalledFunction:String = '';
 	public static var lastCalledScript:FunkinLua = null;
 	public function call(func:String, args:Array<Dynamic>):Dynamic {
 		#if LUA_ALLOWED
@@ -3593,9 +3593,6 @@ class FunkinLua {
 		Lua.close(lua);
 		lua = null;
 		#end
-		#if (SScript >= "3.0.0")
-		hscript.active = false;
-		#end
 	}
 	
 	public static function varCheck(className:Dynamic, variable:String):String{
@@ -3708,7 +3705,6 @@ class HScript
 		interp.variables.set('ClientPrefs', ClientPrefs);
 		interp.variables.set('Character', Character);
 		interp.variables.set('Alphabet', Alphabet);
-		interp.variables.set('CustomSubstate', CustomSubstate);
 		#if (!flash && sys)
 		interp.variables.set('FlxRuntimeShader', FlxRuntimeShader);
 		#end
