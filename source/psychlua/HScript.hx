@@ -203,7 +203,7 @@ class HScript extends SScript
 			{
 				var e = retVal.exceptions[0];
 				if (e != null)
-					FunkinLua.luaTrace(funk.hscript.origin + ":" + funk.lastCalledFunction + " - " + e, false, false, FlxColor.RED);
+					FunkinLua.luaTrace(FunkinLua.hscript.origin + ":" + funk.lastCalledFunction + " - " + e, false, false, FlxColor.RED);
 				return null;
 			}
 			#else
@@ -221,7 +221,7 @@ class HScript extends SScript
 			{
 				var e = callValue.exceptions[0];
 				if (e != null)
-					FunkinLua.luaTrace('ERROR (${funk.hscript.origin}: ${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), false, false, FlxColor.RED);
+					FunkinLua.luaTrace('ERROR (${FunkinLua.hscript.origin}: ${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), false, false, FlxColor.RED);
 				return null;
 			}
 			else
@@ -244,14 +244,14 @@ class HScript extends SScript
 				SScript.globalVariables[libName] = c;
 			#end
 			#if (SScript >= "3.0.0")
-			if (funk.hscript != null)
+			if (FunkinLua.hscript != null)
 			{
 				try {
 					if (c != null)
-						funk.hscript.set(libName, c);
+						FunkinLua.hscript.set(libName, c);
 				}
 				catch (e:Dynamic) {
-					FunkinLua.luaTrace(funk.hscript.origin + ":" + funk.lastCalledFunction + " - " + e, false, false, FlxColor.RED);
+					FunkinLua.luaTrace(FunkinLua.hscript.origin + ":" + funk.lastCalledFunction + " - " + e, false, false, FlxColor.RED);
 				}
 			}
 			#else

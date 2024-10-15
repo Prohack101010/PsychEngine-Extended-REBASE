@@ -54,12 +54,6 @@ import Type.ValueType;
 import Controls;
 import DialogueBoxPsych;
 
-#if (SScript >= "3.0.0")
-import hscript.Parser;
-import hscript.Interp;
-import hscript.Expr;
-#end
-
 #if desktop
 import Discord;
 #end
