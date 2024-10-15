@@ -493,7 +493,7 @@ class FunkinLua {
 			PlayState.instance.callOnLuas(funcName, args, ignoreStops, exclusions);
 		});
 		
-		Lua_helper.add_callback(lua, ("callOnScripts", function(funcName:String, ?args:Array<Dynamic> = null, ?ignoreStops=false, ?ignoreSelf:Bool = true, ?excludeScripts:Array<String> = null, ?excludeValues:Array<Dynamic> = null) {
+		Lua_helper.add_callback(lua, "callOnScripts", function(funcName:String, ?args:Array<Dynamic> = null, ?ignoreStops=false, ?ignoreSelf:Bool = true, ?excludeScripts:Array<String> = null, ?excludeValues:Array<Dynamic> = null) {
 			if(excludeScripts == null) excludeScripts = [];
 			if(ignoreSelf && !excludeScripts.contains(scriptName)) excludeScripts.push(scriptName);
 			PlayState.instance.callOnScripts(funcName, args, ignoreStops, excludeScripts, excludeValues);
