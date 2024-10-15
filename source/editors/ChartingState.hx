@@ -2601,7 +2601,7 @@ class ChartingState extends MusicBeatState
 	}
 
 	var characterFailed:Bool = false;
-	function loadCharacterFile(char:String):CharacterFile {
+	function loadCharacterFile(char:String):Character.CharacterFile {
 		characterFailed = false;
 		var characterPath:String = 'characters/' + char + '.json';
 		#if MODS_ALLOWED
