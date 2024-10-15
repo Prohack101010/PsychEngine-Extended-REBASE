@@ -6,9 +6,9 @@ class CustomSwitchState //Now You Can Add and Remove Custom Menus More Easier Th
 	{
 	    if (Type == 'Freeplay') //Freeplay
 	    {
-    		if (ClientPrefs.FreeplayStyle == 'NF')
+    		if (ClientPrefs.FreeplayStyle == 'NF' && !TitleState.IndieCrossEnabled)
                 MusicBeatState.switchState(new FreeplayStateNF());
-            else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+            else if (ClientPrefs.FreeplayStyle == 'NovaFlare' && !TitleState.IndieCrossEnabled)
                 MusicBeatState.switchState(new FreeplayStateNOVA());
             else if (PlayState.IndieCrossStateType == 1 && TitleState.IndieCrossEnabled)
         		MusicBeatState.switchState(new FreeplayMain());
@@ -23,11 +23,11 @@ class CustomSwitchState //Now You Can Add and Remove Custom Menus More Easier Th
         }
         else if (Type == 'MainMenu') //MainMenu
         {
-            if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
+            if ((ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended') && !TitleState.IndieCrossEnabled)
         		MusicBeatState.switchState(new MainMenuStateOld());
         	else if (TitleState.IndieCrossEnabled)
         		MusicBeatState.switchState(new MainMenuStateCROSS());
-        	else if (ClientPrefs.MainMenuStyle == 'NovaFlare')
+        	else if (ClientPrefs.MainMenuStyle == 'NovaFlare' && !TitleState.IndieCrossEnabled)
         	    MusicBeatState.switchState(new MainMenuStateNOVA());
         	else
         		MusicBeatState.switchState(new MainMenuState());

@@ -3290,10 +3290,10 @@ class PlayState extends MusicBeatState
 		{
 			if(!inCutscene)
 			{
-				if(!cpuControlled) {
+				if(opponentChart ? !cpuControlled_opponent : !cpuControlled)
 					keyShit();
-				} else
-					playerDance();
+				else
+					opponentChart ? opponentDance() : playerDance();
 				
 				if(cpuControlled && opponentChart && dad.holdTimer > Conductor.stepCrochet * 0.001 * dad.singDuration && dad.animation.curAnim.name.startsWith('sing') && !dad.animation.curAnim.name.endsWith('miss')) {
 					dad.dance();
