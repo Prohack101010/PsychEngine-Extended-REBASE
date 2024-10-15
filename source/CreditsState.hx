@@ -101,7 +101,7 @@ class CreditsState extends MusicBeatState
 			[''],
 			['Needed Credits'],
 			['mcagabe19',			 'lily',               'Head Porter of Psych Engine 0.6.3 Mobile',                           'https://youtube.com/@mcagabe19',		'FFE7C0'],
-			['beihu',		         'beihu',		    Owner of NovaFlare Engine\n(I used some codes from NovaFlare)',	'https://youtube.com/@hoyou235',	        'FFC0CB'],
+			['beihu',		         'beihu',		    'Owner of NovaFlare Engine\n(I used some codes from NovaFlare)',	'https://youtube.com/@hoyou235',	        'FFC0CB'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
