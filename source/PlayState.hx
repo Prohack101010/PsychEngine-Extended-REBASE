@@ -4649,8 +4649,8 @@ class PlayState extends MusicBeatState
 				}
 			});
 			
-			if (!parsedHoldArray.contains(true) && !opponentChart || endingSong && !opponentChart)
-				playerDance();
+			if (!parsedHoldArray.contains(true) || endingSong)
+				opponentChart ? opponentDance() : playerDance();
 
 			#if ACHIEVEMENTS_ALLOWED
 			else checkForAchievement(['oversinging']);
@@ -5216,6 +5216,11 @@ class PlayState extends MusicBeatState
 		var anim:String = boyfriend.getAnimationName();
 		if(boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 #if FLX_PITCH / FlxG.sound.music.pitch #end) * boyfriend.singDuration && anim.startsWith('sing') && !anim.endsWith('miss'))
 			boyfriend.dance();
+	}
+	
+	public function opponentDance(force:Bool = false):Void {
+		if(force || dad.animation.curAnim != null && dad.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * dad.singDuration && dad.animation.curAnim.name.startsWith('sing') && !dad.animation.curAnim.name.endsWith('miss'))
+			dad.dance();
 	}
 
 	override function sectionHit()
