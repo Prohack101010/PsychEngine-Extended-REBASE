@@ -404,7 +404,7 @@ class PlayState extends MusicBeatState
 			keysPressed.push(false);
 		}
 
-		FlxG.sound.music?.stop();
+		FlxG.sound.music.stop();
 
 		// Gameplay settings
 		healthGain = ClientPrefs.getGameplaySetting('healthgain', 1);
@@ -3497,7 +3497,7 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		persistentDraw = true;
 		paused = true;
-		FlxG.sound.music?.stop();
+		FlxG.sound.music.stop();
 
 		// 1 / 1000 chance for Gitaroo Man easter egg
 		/*if (FlxG.random.bool(0.1))
@@ -3576,7 +3576,7 @@ class PlayState extends MusicBeatState
 	function openOptionsMenu()
 	{
 		persistentUpdate = false;
-		FlxG.sound.music?.stop();
+		FlxG.sound.music.stop();
 		options.OptionsState.onPlayState = true;
 		PlayState.deathCounter = 0;
 	    PlayState.seenCutscene = false;
@@ -3592,7 +3592,7 @@ class PlayState extends MusicBeatState
 	{
 		persistentUpdate = false;
 		paused = true;
-		FlxG.sound.music?.stop();
+		FlxG.sound.music.stop();
 		cancelMusicFadeTween();
 		MusicBeatState.switchState(new ChartingState());
 		chartingMode = true;
