@@ -1,5 +1,6 @@
 package psychlua;
 
+import tea.SScript;
 import Character;
 import FunkinLua;
 import psychlua.CustomSubstate;
