@@ -124,7 +124,7 @@ class FunkinLua {
 			return;
 		}
 		scriptName = script.trim();
-		initHaxeModule();
+		HScript.initHaxeModule();
 
 		trace('lua file loaded succesfully:' + script);
 		
