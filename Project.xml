@@ -142,8 +142,6 @@
 	<haxelib name="SScript" />
 	<haxedef name="openflPos" />
 	<haxedef name="hscriptPos" />
-	<haxelib name="hscript" />
-	<define name="hscriptPos" />
 	
 	<!-- Extra packages-->
 	<haxelib name="hxvlc" if="HXVLC_ALLOWED"/>
