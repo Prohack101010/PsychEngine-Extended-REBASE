@@ -885,41 +885,6 @@ class FunkinLua {
 			luaTrace("removeLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
 		});
 
-		Lua_helper.add_callback(lua, "runHaxeCode", function(codeToRun:String) {
-			var retVal:Dynamic = null;
-
-			#if (SScript >= "3.0.0")
-			initHaxeModule();
-			try {
-				retVal = hscript.execute(codeToRun);
-			}
-			catch (e:Dynamic) {
-				luaTrace(scriptName + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
-			}
-			#else
-			luaTrace("runHaxeCode: HScript isn't supported on this platform!", false, false, FlxColor.RED);
-			#end
-
-			if(retVal != null && !isOfTypes(retVal, [Bool, Int, Float, String, Array])) retVal = null;
-			return retVal;
-		});
-
-		Lua_helper.add_callback(lua, "addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
-			#if (SScript >= "3.0.0")
-			initHaxeModule();
-			try {
-				var str:String = '';
-				if(libPackage.length > 0)
-					str = libPackage + '.';
-
-				hscript.variables.set(libName, Type.resolveClass(str + libName));
-			}
-			catch (e:Dynamic) {
-				luaTrace(scriptName + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
-			}
-			#end
-		});
-
 		Lua_helper.add_callback(lua, "loadSong", function(?name:String = null, ?difficultyNum:Int = -1) {
 			if(name == null || name.length < 1)
 				name = PlayState.SONG.song;
@@ -3053,17 +3018,6 @@ class FunkinLua {
 		return false;
 	}
 
-	#if (SScript >= "3.0.0")
-	public function initHaxeModule()
-	{
-		if(hscript == null)
-		{
-			trace('initializing haxe interp for: $scriptName');
-			hscript = new HScript(); //TO DO: Fix issue with 2 scripts not being able to use the same variable names
-		}
-	}
-	#end
-
 	public static function setVarInArray(instance:Dynamic, variable:String, value:Dynamic):Any
 	{
 		var shit:Array<String> = variable.split('[');
@@ -3604,6 +3558,13 @@ class FunkinLua {
 
 		Lua.close(lua);
 		lua = null;
+		#if (SScript >= "3.0.0")
+		if(hscript != null)
+		{
+			hscript.active = false;
+			hscript = null;
+		}
+		#end
 		#end
 	}
 	
