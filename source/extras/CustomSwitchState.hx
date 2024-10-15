@@ -16,6 +16,8 @@ class CustomSwitchState //Now You Can Add and Remove Custom Menus More Easier Th
         		MusicBeatState.switchState(new FreeplayBonus());
             else if (PlayState.IndieCrossStateType == 3 && TitleState.IndieCrossEnabled)
         		MusicBeatState.switchState(new FreeplayNightmare());
+        	else if (TitleState.IndieCrossEnabled)
+        	    MusicBeatState.switchState(new FreeplaySelect());
             else
                 MusicBeatState.switchState(new FreeplayState());
         }
@@ -29,6 +31,21 @@ class CustomSwitchState //Now You Can Add and Remove Custom Menus More Easier Th
         	    MusicBeatState.switchState(new MainMenuStateNOVA());
         	else
         		MusicBeatState.switchState(new MainMenuState());
+        }
+        else if (Type == 'StoryMenu') //StoryMenu
+        {
+            if (TitleState.IndieCrossEnabled)
+        		MusicBeatState.switchState(new StoryMenuStateCROSS());
+        	else
+			    MusicBeatState.switchState(new StoryMenuState());
+        }
+        else if (Type == 'Options') //Options
+        {
+            LoadingState.loadAndSwitchState(new options.OptionsState());
+        }
+        else if (Type == 'Credits') //Credits
+        {
+            MusicBeatState.switchState(new CreditsState());
         }
 	}
 }

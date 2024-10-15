@@ -448,7 +448,7 @@ class FreeplayStateNOVA extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 
 					OptionsState.stateType = 1;
-					LoadingState.loadAndSwitchState(new OptionsState());
+					CustomSwitchState.switchMenus('Options');
 				}
 			case 1:
 				if (Math.abs(lerpPosition - position) > 1) return;

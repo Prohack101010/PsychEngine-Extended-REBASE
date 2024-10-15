@@ -231,7 +231,7 @@ class MainMenuStateOld extends MusicBeatState
 			if (_virtualpad.buttonC.justPressed)
 			{
 				selectedSomethin = true;
-				MusicBeatState.switchState(new CreditsState());
+				CustomSwitchState.switchMenus('Credits');
 			}
 
 			if (controls.ACCEPT)
@@ -268,7 +268,7 @@ class MainMenuStateOld extends MusicBeatState
 								switch (daChoice)
 								{
 									case 'story_mode':
-										MusicBeatState.switchState(new StoryMenuState());
+										CustomSwitchState.switchMenus('StoryMenu');
 									case 'freeplay':
 										CustomSwitchState.switchMenus('Freeplay');
 									#if MODS_ALLOWED
@@ -278,9 +278,9 @@ class MainMenuStateOld extends MusicBeatState
 									case 'awards':
 										LoadingState.loadAndSwitchState(new AchievementsMenuState());
 									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
+										CustomSwitchState.switchMenus('Credits');
 									case 'options':
-										LoadingState.loadAndSwitchState(new options.OptionsState());
+										CustomSwitchState.switchMenus('Options');
 								}
 							});
 						}

@@ -4174,10 +4174,7 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					if (TitleState.IndieCrossEnabled)
-					    MusicBeatState.switchState(new StoryMenuStateCROSS());
-					else
-					    MusicBeatState.switchState(new StoryMenuState());
+					CustomSwitchState.switchMenus('StoryMenu');
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {

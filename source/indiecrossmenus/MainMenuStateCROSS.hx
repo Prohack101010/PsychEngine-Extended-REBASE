@@ -325,11 +325,11 @@ class MainMenuStateCROSS extends MusicBeatState
 			switch (str)
 			{
 				case "storymode":
-					MusicBeatState.switchState(new StoryMenuStateCROSS());
+					CustomSwitchState.switchMenus('StoryMenu');
 				case "freeplay":
-					MusicBeatState.switchState(new FreeplaySelect());
+					CustomSwitchState.switchMenus('Freeplay');
 				case "options":
-					LoadingState.loadAndSwitchState(new options.OptionsState());
+					CustomSwitchState.switchMenus('Options');
 					options.OptionsState.onPlayState = false;
 					if (PlayState.SONG != null)
 					{
@@ -339,7 +339,7 @@ class MainMenuStateCROSS extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('settin'), 1, true);
 					FlxG.sound.music.fadeIn(2, 0, 1);
 				case "credits":
-					MusicBeatState.switchState(new CreditsState());
+					CustomSwitchState.switchMenus('Credits');
 				case "achievements":
 					LoadingState.loadAndSwitchState(new AchievementsMenuState());
 			}

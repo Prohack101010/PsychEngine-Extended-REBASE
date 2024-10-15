@@ -667,10 +667,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 	
 					WeekData.loadTheFirstEnabledMod();
 					if(PlayState.isStoryMode) {
-					    if (TitleState.IndieCrossEnabled)
-        		            MusicBeatState.switchState(new StoryMenuStateCROSS());
-        		        else
-						    MusicBeatState.switchState(new StoryMenuState());
+					    CustomSwitchState.switchMenus('StoryMenu');
 					} else {
 						CustomSwitchState.switchMenus('Freeplay');
 					}

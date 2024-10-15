@@ -86,14 +86,22 @@ class CreditsState extends MusicBeatState
 			['Nuno Filipe Studios',	'nuno',				'Android Porter',							'https://www.youtube.com/channel/UCq7G3p4msVN5SX2CpJ86tTw',	'989c99'],
 			['M.A. Jigsaw', 		'saw',				'AndroidTools Creator/Vpad Designer',		'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ', '444444'],
 			['MarioMaster',		    'mariomaster',		    'hi its a me',	 'https://www.youtube.com/c/MarioMaster1997',	'D10616'],
+			
+			['Mobile Porting Team'],
+			['mcagabe19',			        'lily',                    'Head Porter of Psych Engine 0.6.3 Mobile',   'https://youtube.com/@mcagabe19',		'FFE7C0'],
+			[''],
+			['NF Engine Team'],
+			['beihu',		                'beihu',		            'Main Programmer',							'https://b23.tv/LVj0JVk',	                'FFC0CB'],
+			[''],
 		*/
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['Psych Extended'],
-			['KralOyuncu 2010X',		    'KralOyuncuV3',		'Im Just Made This Build',					'https://youtube.com/@kraloyuncurbx',	'378FC7'],
+			['KralOyuncu 2010X',	 'KralOyuncuV3',	'Im Just Made This Build',					                        'https://youtube.com/@kraloyuncurbx',	    '378FC7'],
 			[''],
-			['Mobile Porting Team'],
-			['mcagabe19',			'lily',             'Head Porter of Psych Engine 0.6.3 Mobile',                       'https://youtube.com/@mcagabe19',		'FFE7C0'],
+			['Needed Credits'],
+			['mcagabe19',			 'lily',               'Head Porter of Psych Engine 0.6.3 Mobile',                           'https://youtube.com/@mcagabe19',		'FFE7C0'],
+			['beihu',		         'beihu',		    Owner of NovaFlare Engine\n(I used some codes from NovaFlare)',	'https://youtube.com/@hoyou235',	        'FFC0CB'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],

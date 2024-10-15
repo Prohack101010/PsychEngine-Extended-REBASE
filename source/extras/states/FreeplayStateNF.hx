@@ -609,7 +609,7 @@ class FreeplayStateNF extends MusicBeatState {
 					//FlxG.sound.music.volume = 0.1;
 				}	
 				OptionsState.stateType = 2;
-				LoadingState.loadAndSwitchState(new OptionsState());
+				CustomSwitchState.switchMenus('Options');
 			}
 			
 			camSearch.x = FlxMath.lerp(searching ? 0 : -1280, camSearch.x, FlxMath.bound(1 - (elapsed * 6), 0, 1));
@@ -1372,7 +1372,7 @@ class FreeplayStateNF extends MusicBeatState {
     					//FlxG.sound.music.volume = 0.1;
     				}  
     				OptionsState.stateType = 2;		
-					LoadingState.loadAndSwitchState(new OptionsState());
+					CustomSwitchState.switchMenus('Options');
 				case 1: // Gameplay Changer					
 					openSubState(new GameplayChangersSubstate());
 				case 2: // Reset Score

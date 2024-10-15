@@ -82,6 +82,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		PlayState.instance.setOnLuas('inGameOver', true);
 		PlayState.instance.callOnLuas('onGameOverStart', []);
 		FlxG.sound.music.loadEmbedded(Paths.music(loopSoundName));
+		
+		addVirtualPad(NONE, A_B);
+    	addVirtualPadCamera();
 
 		super.create();
 	}
@@ -121,7 +124,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	
 				WeekData.loadTheFirstEnabledMod();
 				if (PlayState.isStoryMode)
-					MusicBeatState.switchState(new StoryMenuState());
+					CustomSwitchState.switchMenus('StoryMenu');
 				else
 					CustomSwitchState.switchMenus('Freeplay');
 	

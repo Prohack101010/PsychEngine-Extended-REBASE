@@ -372,7 +372,7 @@ class MainMenuState extends MusicBeatState
 						switch (option)
 						{
 							case 'story_mode':
-								MusicBeatState.switchState(new StoryMenuState());
+								CustomSwitchState.switchMenus('StoryMenu');
 							case 'freeplay':
 								CustomSwitchState.switchMenus('Freeplay');
 
@@ -387,9 +387,9 @@ class MainMenuState extends MusicBeatState
 							#end
 
 							case 'credits':
-								MusicBeatState.switchState(new CreditsState());
+								CustomSwitchState.switchMenus('Credits');
 							case 'options':
-								LoadingState.loadAndSwitchState(new options.OptionsState());
+								CustomSwitchState.switchMenus('Options');
 						}
 					});
 					
