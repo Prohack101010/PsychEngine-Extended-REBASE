@@ -115,21 +115,21 @@ class EditorPlayState extends MusicBeatState
 		try
         {
             if (PlayState.SONG.song)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals));
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals));
 		}
 		catch(e:Dynamic) {}
 	    
 	    try
 	    {
 	        if (PlayState.SONG.song)
-	            vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song));
+	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 	    }
 	    catch(e:Dynamic) {}
 	    
 		try
 		{
 		    if (PlayState.SONG.song)
-		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (dadVocals == null || dadVocals.length < 1) ? 'Opponent' : dadVocals));
+		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (dadVocals == null || dadVocals.length < 1) ? 'Opponent' : dadVocals));
 	    }
 	    catch(e:Dynamic) {}
 
@@ -1099,7 +1099,7 @@ class EditorPlayState extends MusicBeatState
 		super.destroy();
 	}
 	
-	function loadCharacterFile(char:String):CharacterFile {
+	function loadCharacterFile(char:String):Character.CharacterFile {
 		var characterPath:String = 'characters/' + char + '.json';
 		#if MODS_ALLOWED
 		var path:String = Paths.modFolders(characterPath);
