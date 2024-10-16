@@ -46,7 +46,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	#end
 	
 	var virtualpadTypes:Array<String> = ["New", "Old"];
-	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
+	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(BASE_GAME_ASSETS('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	var virtualpadSkinListModsFolder:Array<String> = CoolUtil.coolTextFile(Paths.modsImages('virtualpad/virtualpadSkinList.txt'));
 	
 	public function new()
@@ -59,8 +59,9 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		    
 		#if MODS_ALLOWED
 		final modsPath:String = Paths.mods('virtualpad/virtualpadSkinList');
-		if(sys.FileSystem.exists(modsPath) && ClientPrefs.virtualpadType == 'New')
-		    CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList.txt'));
+		final modsPathExtra:String = Paths.mods('virtualpad/virtualpadSkinList.txt');
+		if((sys.FileSystem.exists(modsPath) || sys.FileSystem.exists(modsPathExtra)) && ClientPrefs.virtualpadType == 'New')
+		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList.txt'));
 		#end
 		
 	if (ClientPrefs.VirtualPadAlpha != 0) {
@@ -119,7 +120,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 	}
 		
-	#if mobile //only Mobile Because You Can't Change Mobile Controls Type, Technically You Cant use Hitbox Tyoe into the PC Build	
+	#if mobile //only Mobile Because You Can't Change Mobile Controls, Technically You Cant use Hitbox into the PC Build	
 		var option:Option = new Option('Extra Control Location:',
 			"Choose Extra Control Location",
 			'hitboxLocation',

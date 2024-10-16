@@ -4841,7 +4841,7 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 			
-		    if (opponentChart)
+		    if (opponentChart && !note.gfNote)
 		    {
 		        char = boyfriend;
 		    }
@@ -4926,7 +4926,7 @@ class PlayState extends MusicBeatState
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
 				
 				var char:Character = boyfriend;
-				if(opponentChart) char = dad;
+				if(opponentChart && !note.gfNote) char = dad;
 				if(note.gfNote)
 				{
 					if(gf != null)

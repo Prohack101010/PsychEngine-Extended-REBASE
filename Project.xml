@@ -44,7 +44,7 @@
 	<classpath name="source" />
 	
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
-	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This --> <!-- I love ios by default because not needed for android, definitely not needed for ios too but why not -KralOyuncu -->
+	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This -->
 	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
 	<define name="HIDE_CURSOR" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO USE CURSOR -->
 	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
@@ -63,7 +63,7 @@
 	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
 	<define name="CRASH_HANDLER" if="desktop release || mobile" />
 
-    <assets path="assets/indiecross/preload" rename="assets" if="INDIECROSS_ASSETS || INDIECROSS_FORCED"/> <!-- Required menus for Indie Cross 0.6.3 port by KralOyuncu -->
+    <assets path="assets/indiecross/preload" rename="assets" if="INDIECROSS_ASSETS || INDIECROSS_FORCED"/> <!-- Required for Source Coded Indie Cross Menus -->
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
@@ -97,10 +97,10 @@
 	<assets path="assets/shared"        library="shared"        exclude="*.ogg" if="web"/>
 	<assets path="assets/shared"        library="shared"        exclude="*.mp3" unless="web"/>
 	<section if="WEEKEND1">
-	<assets path="assets/weekend_1/shared"        library="shared"        exclude="*.ogg" if="web"/>
-	<assets path="assets/weekend_1/shared"        library="shared"        exclude="*.mp3" unless="web"/>
 	<assets path="assets/weekend_1/preload"        rename="assets"                exclude="*.ogg"        if="web"/>
 	<assets path="assets/weekend_1/preload"        rename="assets"                exclude="*.mp3"       unless="web"/>
+	<assets path="assets/weekend_1/shared"        rename="assets/shared"         library="shared"        exclude="*.ogg" if="web"/>
+	<assets path="assets/weekend_1/shared"        rename="assets/shared"         library="shared"        exclude="*.mp3" unless="web"/>
 	<assets path="assets/weekend_1/videos"         rename="assets/videos"         library="videos"        if="VIDEOS_ALLOWED"/>
 	<assets path="assets/weekend_1/songs"          rename="assets/songs"         library="songs"         exclude="*.ogg" if="web"/>
 	<assets path="assets/weekend_1/songs"          rename="assets/songs"         library="songs"         exclude="*.mp3" unless="web"/>

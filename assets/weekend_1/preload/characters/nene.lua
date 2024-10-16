@@ -18,17 +18,17 @@ local knifeUp = false
 
 function onCreate()
 
-	makeLuaSprite('abotEyeBack', 'empty', getProperty('gf.x') -80, getProperty('gf.y') +550);
+	makeLuaAssetSprite('abotEyeBack', 'empty', getProperty('gf.x') -80, getProperty('gf.y') +550);
 	makeGraphic('abotEyeBack', 110, 70, 'FFFFFF');
 
-	makeAnimatedLuaSprite('abotEyes', 'characters/abot/systemEyes', getProperty('gf.x') -76, getProperty('gf.y') +549)
+	makeAnimatedLuaAssetSprite('abotEyes', 'characters/abot/systemEyes', getProperty('gf.x') -76, getProperty('gf.y') +549)
 	addAnimationByPrefix('abotEyes', 'l', 'Left', 24, false)
 	addAnimationByPrefix('abotEyes', 'r', 'Right', 24, false)
 
-	makeLuaSprite('abotBG', 'characters/abot/stereoBG', getProperty('gf.x') +18, getProperty('gf.y') +318);
+	makeLuaAssetSprite('abotBG', 'characters/abot/stereoBG', getProperty('gf.x') +18, getProperty('gf.y') +318);
 	scaleObject('abotBG', 1.05, 1.05);
 
-	makeAnimatedLuaSprite('abotViz1', 'aBotViz', getProperty('gf.x') +66, getProperty('gf.y') +390);
+	makeAnimatedLuaAssetSprite('abotViz1', 'aBotViz', getProperty('gf.x') +66, getProperty('gf.y') +390);
 	addAnimationByPrefix('abotViz1', 'viz1', 'viz11', 24, false);
 	addAnimationByPrefix('abotViz1', 'viz2', 'viz12', 24, false);
 	addAnimationByPrefix('abotViz1', 'viz3', 'viz13', 24, false);
@@ -38,7 +38,7 @@ function onCreate()
 	setProperty('abotViz1.flipX', false);
 	scaleObject('abotViz1', 1, 1);
 
-	makeAnimatedLuaSprite('abotViz2', 'aBotViz', getProperty('gf.x') +128, getProperty('gf.y') +383);
+	makeAnimatedLuaAssetSprite('abotViz2', 'aBotViz', getProperty('gf.x') +128, getProperty('gf.y') +383);
 	addAnimationByPrefix('abotViz2', 'viz1', 'viz21', 24, false);
 	addAnimationByPrefix('abotViz2', 'viz2', 'viz22', 24, false);
 	addAnimationByPrefix('abotViz2', 'viz3', 'viz23', 24, false);
@@ -48,7 +48,7 @@ function onCreate()
 	setProperty('abotViz2.flipX', false);
 	scaleObject('abotViz2', 1, 1);
 
-	makeAnimatedLuaSprite('abotViz3', 'aBotViz', getProperty('gf.x') +185, getProperty('gf.y') +380);
+	makeAnimatedLuaAssetSprite('abotViz3', 'aBotViz', getProperty('gf.x') +185, getProperty('gf.y') +380);
 	addAnimationByPrefix('abotViz3', 'viz1', 'viz31', 24, false);
 	addAnimationByPrefix('abotViz3', 'viz2', 'viz32', 24, false);
 	addAnimationByPrefix('abotViz3', 'viz3', 'viz33', 24, false);
@@ -58,7 +58,7 @@ function onCreate()
 	setProperty('abotViz3.flipX', false);
 	scaleObject('abotViz3', 1, 1);
 
-	makeAnimatedLuaSprite('abotViz4', 'aBotViz', getProperty('gf.x') +251, getProperty('gf.y') +380);
+	makeAnimatedLuaAssetSprite('abotViz4', 'aBotViz', getProperty('gf.x') +251, getProperty('gf.y') +380);
 	addAnimationByPrefix('abotViz4', 'viz1', 'viz41', 24, false);
 	addAnimationByPrefix('abotViz4', 'viz2', 'viz42', 24, false);
 	addAnimationByPrefix('abotViz4', 'viz3', 'viz43', 24, false);
@@ -68,7 +68,7 @@ function onCreate()
 	setProperty('abotViz4.flipX', false);
 	scaleObject('abotViz4', 1, 1);
 
-	makeAnimatedLuaSprite('abotViz5', 'aBotViz', getProperty('gf.x') +308, getProperty('gf.y') +380);
+	makeAnimatedLuaAssetSprite('abotViz5', 'aBotViz', getProperty('gf.x') +308, getProperty('gf.y') +380);
 	addAnimationByPrefix('abotViz5', 'viz1', 'viz51', 24, false);
 	addAnimationByPrefix('abotViz5', 'viz2', 'viz52', 24, false);
 	addAnimationByPrefix('abotViz5', 'viz3', 'viz53', 24, false);
@@ -78,7 +78,7 @@ function onCreate()
 	setProperty('abotViz5.flipX', false);
 	scaleObject('abotViz5', 1, 1);
 
-	makeAnimatedLuaSprite('abotViz6', 'aBotViz', getProperty('gf.x') +364, getProperty('gf.y') +385);
+	makeAnimatedLuaAssetSprite('abotViz6', 'aBotViz', getProperty('gf.x') +364, getProperty('gf.y') +385);
 	addAnimationByPrefix('abotViz6', 'viz1', 'viz61', 24, false);
 	addAnimationByPrefix('abotViz6', 'viz2', 'viz62', 24, false);
 	addAnimationByPrefix('abotViz6', 'viz3', 'viz63', 24, false);
@@ -88,7 +88,7 @@ function onCreate()
 	setProperty('abotViz6.flipX', false);
 	scaleObject('abotViz6', 1, 1);
 
-	makeAnimatedLuaSprite('abotViz7', 'aBotViz', getProperty('gf.x') +416, getProperty('gf.y') +393);
+	makeAnimatedLuaAssetSprite('abotViz7', 'aBotViz', getProperty('gf.x') +416, getProperty('gf.y') +393);
 	addAnimationByPrefix('abotViz7', 'viz1', 'viz71', 24, false);
 	addAnimationByPrefix('abotViz7', 'viz2', 'viz72', 24, false);
 	addAnimationByPrefix('abotViz7', 'viz3', 'viz73', 24, false);
@@ -98,7 +98,7 @@ function onCreate()
 	setProperty('abotViz7.flipX', false);
 	scaleObject('abotViz7', 1, 1);
 
-	makeAnimatedLuaSprite('abot', 'characters/abot/abotSystem', getProperty('gf.x') -135, getProperty('gf.y') +310)
+	makeAnimatedLuaAssetSprite('abot', 'characters/abot/abotSystem', getProperty('gf.x') -135, getProperty('gf.y') +310)
 	addAnimationByPrefix('abot', 'i', 'Abot System', 24, false)
 	setProperty('abot.alpha', 1);
 
