@@ -26,7 +26,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true 
 
       - name: Compile
-        run: haxelib run lime build android -D BASE_GAME_ASSETS WEEKEND1 -ARM64
+        run: haxelib run lime build android -D BASE_GAME_ASSETS -D WEEKEND1 -ARM64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
