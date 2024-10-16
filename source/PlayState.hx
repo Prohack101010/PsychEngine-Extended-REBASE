@@ -1525,8 +1525,8 @@ class PlayState extends MusicBeatState
 	    #if FLX_PITCH
 		if(generatedMusic)
 		{
-			vocals.pitch = value;
-			opponentVocals.pitch = value;
+			if (SONG.needsVoices) vocals.pitch = value;
+			if (SONG.needsVoices) opponentVocals.pitch = value;
 			FlxG.sound.music.pitch = value;
 		}
 		playbackRate = value;
@@ -2482,8 +2482,8 @@ class PlayState extends MusicBeatState
 			vocals.time = time;
 			opponentVocals.time = time;
 			#if FLX_PITCH
-			vocals.pitch = playbackRate;
-			opponentVocals.pitch = playbackRate;
+			if (SONG.needsVoices) vocals.pitch = playbackRate;
+			if (SONG.needsVoices) opponentVocals.pitch = playbackRate;
 			#end
 		}
 		vocals.play();
@@ -2601,8 +2601,8 @@ class PlayState extends MusicBeatState
 	    }
 
 		#if FLX_PITCH
-		vocals.pitch = playbackRate;
-		opponentVocals.pitch = playbackRate;
+		if (SONG.needsVoices) vocals.pitch = playbackRate;
+		if (SONG.needsVoices) opponentVocals.pitch = playbackRate;
 		#end
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(opponentVocals);
@@ -3031,13 +3031,13 @@ class PlayState extends MusicBeatState
 		if (Conductor.songPosition <= vocals.length)
 		{
 			vocals.time = Conductor.songPosition;
-			vocals.pitch = playbackRate;
+			if (SONG.needsVoices) vocals.pitch = playbackRate;
 		}
 		
 		if (Conductor.songPosition <= opponentVocals.length)
 		{
 			opponentVocals.time = Conductor.songPosition;
-			#if FLX_PITCH opponentVocals.pitch = playbackRate; #end
+			#if FLX_PITCH if (SONG.needsVoices) opponentVocals.pitch = playbackRate; #end
 		}
 		vocals.play();
 		opponentVocals.play();
