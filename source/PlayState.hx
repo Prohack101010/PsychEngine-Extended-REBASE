@@ -2575,7 +2575,15 @@ class PlayState extends MusicBeatState
 
 		curSong = songData.song;
 
-		vocals = new FlxSound();
+        try
+        {
+            if (songData.needsVoices)
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile) ?? Paths.voices(songData.song));
+		}
+		catch(e:Dynamic) {
+	        vocals = new FlxSound();
+	    }
+	    
 		try
 		{
 		    if (songData.needsVoices)
@@ -2584,12 +2592,6 @@ class PlayState extends MusicBeatState
 	    catch(e:Dynamic) {
 	        opponentVocals = new FlxSound();
 	    }
-		try
-		{
-		    if (songData.needsVoices)
-		        vocals.loadEmbedded(Paths.voices(PlayState.SONG.song));
-		}
-		catch(e:Dynamic) {}
 
 		#if FLX_PITCH
 		vocals.pitch = playbackRate;
