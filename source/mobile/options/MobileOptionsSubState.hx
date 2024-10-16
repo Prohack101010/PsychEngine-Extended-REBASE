@@ -46,7 +46,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	#end
 	
 	var virtualpadTypes:Array<String> = ["New", "Old"];
-	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(BASE_GAME_ASSETS('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
+	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	var virtualpadSkinListModsFolder:Array<String> = CoolUtil.coolTextFile(Paths.modsImages('virtualpad/virtualpadSkinList.txt'));
 	
 	public function new()
