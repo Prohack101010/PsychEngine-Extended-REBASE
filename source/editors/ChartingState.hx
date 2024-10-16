@@ -1419,10 +1419,10 @@ class ChartingState extends MusicBeatState
 	function loadSong():Void
 	{
 		FlxG.sound.music?.stop();
-		vocals?.stop();
-		vocals?.destroy();
-		opponentVocals?.stop();
-		opponentVocals?.destroy();
+		vocals.stop();
+		vocals.destroy();
+		opponentvocals.stop();
+		opponentvocals.destroy();
 		
 		var boyfriendVocals:String = loadCharacterFile(PlayState.SONG.player1).vocals_file;
 		var dadVocals:String = loadCharacterFile(PlayState.SONG.player2).vocals_file;
@@ -1434,14 +1434,15 @@ class ChartingState extends MusicBeatState
             if (PlayState.SONG.needsVoices)
 		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals));
 		}
-		catch(e:Dynamic) {}
-	    
-	    try
-	    {
-	        if (PlayState.SONG.needsVoices)
-	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-	    }
-	    catch(e:Dynamic) {}
+		catch(e:Dynamic)
+		{
+		    try
+    	    {
+    	        if (PlayState.SONG.needsVoices)
+    	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+    	    }
+    	    catch(e:Dynamic) { vocals = new FlxSound(); }
+		}
 	    
 		try
 		{
@@ -1484,8 +1485,8 @@ class ChartingState extends MusicBeatState
 			curSec = 0;
 			updateGrid();
 			updateSectionUI();
-			vocals?.play();
-			opponentVocals?.play();
+			vocals.play();
+			opponentvocals.play();
 		};
 	}
 
@@ -1834,8 +1835,8 @@ class ChartingState extends MusicBeatState
 				#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
-				vocals?.stop();
-				opponentVocals?.stop();
+				vocals.stop();
+				opponentvocals.stop();
 
 				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 				StageData.loadDirectory(_song);
@@ -1897,14 +1898,14 @@ class ChartingState extends MusicBeatState
 
 			if (FlxG.keys.justPressed.SPACE || _virtualpad.buttonY.justPressed)
 			{
-				vocals?.play();
-				opponentVocals?.play();
+				vocals.play();
+				opponentvocals.play();
 				pauseAndSetVocalsTime();
 				if (!FlxG.sound.music.playing)
 				{
 					FlxG.sound.music?.play();
-					vocals?.play();
-					opponentVocals?.play();
+					vocals.play();
+					opponentvocals.play();
 				}
 				else FlxG.sound.music?.pause();
 			}

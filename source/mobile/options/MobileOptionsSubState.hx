@@ -58,17 +58,10 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getSharedPath('images/virtualpad/virtualpadSkinList.txt'));
 		    
 		#if MODS_ALLOWED
-		final modsPath:String = Paths.mods('virtualpad/virtualpadSkinList-New');
-		final modsPathExtra:String = Paths.mods('virtualpad/virtualpadSkinList-New.txt');
-		
-		final modsPathOld:String = Paths.mods('virtualpad/virtualpadSkinList-Old');
-		final modsPathExtraOld:String = Paths.mods('virtualpad/virtualpadSkinList-Old.txt');
-		
+		final modsPath:String = Paths.mods('virtualpad/virtualpadSkinList');
+		final modsPathExtra:String = Paths.mods('virtualpad/virtualpadSkinList.txt');
 		if((sys.FileSystem.exists(modsPath) || sys.FileSystem.exists(modsPathExtra)) && ClientPrefs.virtualpadType == 'New')
-		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList-New.txt'));
-		    
-		else if((sys.FileSystem.exists(modsPathOld) || sys.FileSystem.exists(modsPathExtraOld)) && ClientPrefs.virtualpadType == 'Old')
-		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList-Old.txt'));
+		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList.txt'));
 		#end
 		
 	if (ClientPrefs.VirtualPadAlpha != 0) {
