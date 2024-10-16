@@ -1881,12 +1881,33 @@ class FunkinLua {
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
 		});
+		Lua_helper.add_callback(lua, "makeLuaAssetSprite", function(tag:String, image:String, x:Float, y:Float) {
+			tag = tag.replace('.', '');
+			resetSpriteTag(tag);
+			var leSprite:ModchartSprite = new ModchartSprite(x, y);
+			if(image != null && image.length > 0)
+			{
+				leSprite.loadGraphic(Paths.assetsimage(image));
+			}
+			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+			PlayState.instance.modchartSprites.set(tag, leSprite);
+			leSprite.active = true;
+		});
 		Lua_helper.add_callback(lua, "makeAnimatedLuaSprite", function(tag:String, image:String, x:Float, y:Float, ?spriteType:String = "sparrow") {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 
 			loadFrames(leSprite, image, spriteType);
+			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+			PlayState.instance.modchartSprites.set(tag, leSprite);
+		});
+		Lua_helper.add_callback(lua, "makeAnimatedLuaAssetSprite", function(tag:String, image:String, x:Float, y:Float, ?spriteType:String = "sparrow") {
+			tag = tag.replace('.', '');
+			resetSpriteTag(tag);
+			var leSprite:ModchartSprite = new ModchartSprite(x, y);
+
+			loadAssetFrames(leSprite, image, spriteType);
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});
@@ -3231,7 +3252,7 @@ class FunkinLua {
 		}
 	}
 	
-	function loadAssetsFrames(spr:FlxSprite, image:String, spriteType:String)
+	function loadAssetFrames(spr:FlxSprite, image:String, spriteType:String)
 	{
 		switch(spriteType.toLowerCase().trim())
 		{
@@ -3242,10 +3263,10 @@ class FunkinLua {
 				// spr.frames = AtlasFrameMaker.construct(image, null, true);
 
 			case "packer" | "packeratlas" | "pac":
-				spr.frames = Paths.getPackerAtlas(image);
+				spr.frames = Paths.getAssetPackerAtlas(image);
 
 			default:
-				spr.frames = Paths.getSparrowAtlas(image);
+				spr.frames = Paths.getAssetSparrowAtlas(image);
 		}
 	}
 
