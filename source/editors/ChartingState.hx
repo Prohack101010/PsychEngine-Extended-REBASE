@@ -1428,7 +1428,7 @@ class ChartingState extends MusicBeatState
         try
         {
             if (PlayState.SONG.song)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile));
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1));
 		}
 		catch(e:Dynamic) {}
 	    
@@ -1442,7 +1442,7 @@ class ChartingState extends MusicBeatState
 		try
 		{
 		    if (PlayState.SONG.song)
-		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile));
+		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2));
 	    }
 	    catch(e:Dynamic) {
 	        opponentVocals = new FlxSound();
