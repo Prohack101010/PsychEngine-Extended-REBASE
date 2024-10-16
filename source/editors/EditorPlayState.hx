@@ -114,21 +114,21 @@ class EditorPlayState extends MusicBeatState
 		opponentVocals = new FlxSound();
 		try
         {
-            if (PlayState.SONG.song)
+            if (PlayState.SONG.needsVoices)
 		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals));
 		}
 		catch(e:Dynamic) {}
 	    
 	    try
 	    {
-	        if (PlayState.SONG.song)
+	        if (PlayState.SONG.needsVoices)
 	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 	    }
 	    catch(e:Dynamic) {}
 	    
 		try
 		{
-		    if (PlayState.SONG.song)
+		    if (PlayState.SONG.needsVoices)
 		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (dadVocals == null || dadVocals.length < 1) ? 'Opponent' : dadVocals));
 	    }
 	    catch(e:Dynamic) {}
