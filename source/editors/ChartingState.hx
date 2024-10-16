@@ -1421,8 +1421,8 @@ class ChartingState extends MusicBeatState
 		FlxG.sound.music?.stop();
 		vocals.stop();
 		vocals.destroy();
-		opponentvocals.stop();
-		opponentvocals.destroy();
+		opponentVocals.stop();
+		opponentVocals.destroy();
 		
 		var boyfriendVocals:String = loadCharacterFile(PlayState.SONG.player1).vocals_file;
 		var dadVocals:String = loadCharacterFile(PlayState.SONG.player2).vocals_file;
@@ -1486,7 +1486,7 @@ class ChartingState extends MusicBeatState
 			updateGrid();
 			updateSectionUI();
 			vocals.play();
-			opponentvocals.play();
+			opponentVocals.play();
 		};
 	}
 
@@ -1836,7 +1836,7 @@ class ChartingState extends MusicBeatState
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
 				vocals.stop();
-				opponentvocals.stop();
+				opponentVocals.stop();
 
 				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 				StageData.loadDirectory(_song);
@@ -1899,13 +1899,13 @@ class ChartingState extends MusicBeatState
 			if (FlxG.keys.justPressed.SPACE || _virtualpad.buttonY.justPressed)
 			{
 				vocals.play();
-				opponentvocals.play();
+				opponentVocals.play();
 				pauseAndSetVocalsTime();
 				if (!FlxG.sound.music.playing)
 				{
 					FlxG.sound.music?.play();
 					vocals.play();
-					opponentvocals.play();
+					opponentVocals.play();
 				}
 				else FlxG.sound.music?.pause();
 			}
