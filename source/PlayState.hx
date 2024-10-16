@@ -2578,11 +2578,18 @@ class PlayState extends MusicBeatState
         try
         {
             if (songData.needsVoices)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile) ?? Paths.voices(songData.song));
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile));
 		}
 		catch(e:Dynamic) {
 	        vocals = new FlxSound();
 	    }
+	    
+	    try
+	    {
+	        if (songData.needsVoices)
+	            vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song));
+	    }
+	    catch(e:Dynamic) {}
 	    
 		try
 		{
