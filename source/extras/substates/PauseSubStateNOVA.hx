@@ -71,7 +71,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 	var stayinMenu:String = 'isChanging'; // base, difficulty, debug, isChanging or options
 	// isChanging = in transition animation
 
-	var options:Array<String> = ['Continue', 'Restart', 'Difficulty', 'Debug', 'Editor', 'Options', 'Exit'];
+	var options:Array<String> = ['Continue', 'Restart', 'Difficulty', 'Debug', 'Changers', 'Editor', 'Options', 'Exit']; //Changers = Change Gameplay Settings
 	var optionsAlphabet:Array<FlxText> = [];
 	var optionsBars:Array<FlxSprite> = [];
 	var curSelected:Int = 0;
@@ -661,6 +661,11 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 					);
 				case 'Restart':
 					restartSong();
+				case 'Changers':
+					persistentUpdate = false;
+					removeVirtualPad();
+					GameplayChangersSubstate.inThePauseMenu = true;
+					openSubState(new GameplayChangersSubstate());
 				case 'Exit':
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
@@ -953,6 +958,14 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 	function updateSkipTimeText()
 	{
 		skipTimeText.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + ' / ' + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
+	}
+	
+	override function closeSubState() {
+		persistentUpdate = true;
+		super.closeSubState();
+		removeVirtualPad();
+		addVirtualPad(PAUSE, A);
+		addVirtualPadCamera();
 	}
 	
 }

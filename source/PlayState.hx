@@ -3500,7 +3500,6 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		persistentDraw = true;
 		paused = true;
-		FlxG.sound.music.stop();
 
 		// 1 / 1000 chance for Gitaroo Man easter egg
 		/*if (FlxG.random.bool(0.1))
@@ -3579,7 +3578,6 @@ class PlayState extends MusicBeatState
 	function openOptionsMenu()
 	{
 		persistentUpdate = false;
-		FlxG.sound.music.stop();
 		options.OptionsState.onPlayState = true;
 		PlayState.deathCounter = 0;
 	    PlayState.seenCutscene = false;
@@ -3595,7 +3593,6 @@ class PlayState extends MusicBeatState
 	{
 		persistentUpdate = false;
 		paused = true;
-		FlxG.sound.music.stop();
 		cancelMusicFadeTween();
 		MusicBeatState.switchState(new ChartingState());
 		chartingMode = true;
@@ -4128,7 +4125,6 @@ class PlayState extends MusicBeatState
 		vocals.volume = 0;
 		vocals.pause();
 		opponentVocals.volume = 0;
-		opponentVocals.pause();
 		opponentVocals.pause();
 		if(ClientPrefs.noteOffset <= 0 || ignoreNoteOffset) {
 			finishCallback();
@@ -5135,10 +5131,10 @@ class PlayState extends MusicBeatState
 		super.destroy();
 	}
 
-	public static function cancelMusicFadeTween()
-	{
-		FlxG.sound.music.fadeTween?.cancel();
-		FlxG.sound.music.fadeTween = null;
+	public static function cancelMusicFadeTween() {
+		if(FlxG.sound.music.fadeTween != null) {
+			FlxG.sound.music.fadeTween.cancel();
+		}
 	}
 
 	var lastStepHit:Int = -1;
@@ -5146,16 +5142,11 @@ class PlayState extends MusicBeatState
 	{
 		super.stepHit();
 		
-		if(SONG.needsVoices)
+		if (Math.abs(FlxG.sound.music.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)
+			|| (SONG.needsVoices && Math.abs(vocals.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate))
+			|| (SONG.needsVoices && Math.abs(opponentVocals.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)))
 		{
-    		var timeSub:Float = Conductor.songPosition - Conductor.offset;
-			var syncTime:Float = 20 * playbackRate;
-			if (Math.abs(FlxG.sound.music.time - timeSub) > syncTime ||
-			(vocals.length > 0 && Math.abs(vocals.time - timeSub) > syncTime) ||
-			(opponentVocals.length > 0 && Math.abs(opponentVocals.time - timeSub) > syncTime))
-    		{
-    			resyncVocals();
-    		}
+    		resyncVocals();
 		}
 
 		if(curStep == lastStepHit) {
