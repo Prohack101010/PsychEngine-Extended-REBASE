@@ -1424,22 +1424,33 @@ class ChartingState extends MusicBeatState
 		opponentVocals?.stop();
 		opponentVocals?.destroy();
 		vocals = new FlxSound();
-		opponentVocals = new FlxSound();
+        opponentVocals = new FlxSound();
+        try
+        {
+            if (PlayState.SONG.song)
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile));
+		}
+		catch(e:Dynamic) {}
+	    
+	    try
+	    {
+	        if (PlayState.SONG.song)
+	            vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song));
+	    }
+	    catch(e:Dynamic) {}
+	    
 		try
 		{
-			var playerVocals = Paths.voices(currentSongName, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1);
-			vocals.loadEmbedded(playerVocals ?? Paths.voices(currentSongName));
-		}
+		    if (PlayState.SONG.song)
+		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile));
+	    }
+	    catch(e:Dynamic) {
+	        opponentVocals = new FlxSound();
+	    }
 		vocals.autoDestroy = false;
 		FlxG.sound.list.add(vocals);
 
 		var file:Dynamic = Paths.voices(currentSongName);
-		opponentVocals = new FlxSound();
-		try
-		{
-		    var oppVocals = Paths.voices(currentSongName, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2);
-			if(oppVocals != null) opponentVocals.loadEmbedded(oppVocals);
-		}
 		opponentVocals.autoDestroy = false;
 		FlxG.sound.list.add(opponentVocals);
 		generateSong();

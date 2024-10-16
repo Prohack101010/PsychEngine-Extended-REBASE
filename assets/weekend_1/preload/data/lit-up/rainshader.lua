@@ -22,140 +22,140 @@ local rainDensity = 0
 
 function onCreate()
 
-	makeLuaSprite('rain1', 'empty', 0, -100);
+	makeLuaAssetSprite('rain1', 'empty', 0, -100);
 	makeGraphic('rain1', 1, 1, '90eeff');
 	setObjectCamera('rain1', 'hud');
 	setProperty('rain1.alpha', 0.2);
 	addLuaSprite('rain1', false);
 	setProperty('rain1.angle', 8);
 
-	makeLuaSprite('rain2', 'empty', 0, -100);
+	makeLuaAssetSprite('rain2', 'empty', 0, -100);
 	makeGraphic('rain2', 1, 1, '90eeff');
 	setObjectCamera('rain2', 'hud');
 	setProperty('rain2.alpha', 0.2);
 	addLuaSprite('rain2', false);
 	setProperty('rain2.angle', 8);
 
-	makeLuaSprite('rain3', 'empty', 0, -100);
+	makeLuaAssetSprite('rain3', 'empty', 0, -100);
 	makeGraphic('rain3', 1, 1, '90eeff');
 	setObjectCamera('rain3', 'hud');
 	setProperty('rain3.alpha', 0.2);
 	addLuaSprite('rain3', false);
 	setProperty('rain3.angle', 8);
 
-	makeLuaSprite('rain4', 'empty', 0, -100);
+	makeLuaAssetSprite('rain4', 'empty', 0, -100);
 	makeGraphic('rain4', 1, 1, '90eeff');
 	setObjectCamera('rain4', 'hud');
 	setProperty('rain4.alpha', 0.2);
 	addLuaSprite('rain4', false);
 	setProperty('rain4.angle', 8);
 
-	makeLuaSprite('rain5', 'empty', 0, -100);
+	makeLuaAssetSprite('rain5', 'empty', 0, -100);
 	makeGraphic('rain5', 1, 1, '90eeff');
 	setObjectCamera('rain5', 'hud');
 	setProperty('rain5.alpha', 0.2);
 	addLuaSprite('rain5', false);
 	setProperty('rain5.angle', 8);
 
-	makeLuaSprite('rain6', 'empty', 0, -100);
+	makeLuaAssetSprite('rain6', 'empty', 0, -100);
 	makeGraphic('rain6', 1, 1, '90eeff');
 	setObjectCamera('rain6', 'hud');
 	setProperty('rain6.alpha', 0.2);
 	addLuaSprite('rain6', false);
 	setProperty('rain6.angle', 8);
 
-	makeLuaSprite('rain7', 'empty', 0, -100);
+	makeLuaAssetSprite('rain7', 'empty', 0, -100);
 	makeGraphic('rain7', 1, 1, '90eeff');
 	setObjectCamera('rain7', 'hud');
 	setProperty('rain7.alpha', 0.2);
 	addLuaSprite('rain7', false);
 	setProperty('rain7.angle', 8);
 
-	makeLuaSprite('rain8', 'empty', 0, -100);
+	makeLuaAssetSprite('rain8', 'empty', 0, -100);
 	makeGraphic('rain8', 1, 1, '90eeff');
 	setObjectCamera('rain8', 'hud');
 	setProperty('rain8.alpha', 0.2);
 	addLuaSprite('rain8', false);
 	setProperty('rain8.angle', 8);
 
-	makeLuaSprite('rain9', 'empty', 0, -100);
+	makeLuaAssetSprite('rain9', 'empty', 0, -100);
 	makeGraphic('rain9', 1, 1, '90eeff');
 	setObjectCamera('rain9', 'hud');
 	setProperty('rain9.alpha', 0.2);
 	addLuaSprite('rain9', false);
 	setProperty('rain9.angle', 8);
 
-	makeLuaSprite('rain10', 'empty', 0, -100);
+	makeLuaAssetSprite('rain10', 'empty', 0, -100);
 	makeGraphic('rain10', 1, 1, '90eeff');
 	setObjectCamera('rain10', 'hud');
 	setProperty('rain10.alpha', 0.2);
 	addLuaSprite('rain10', false);
 	setProperty('rain10.angle', 8);
 
-	makeLuaSprite('rain11', 'empty', 0, -100);
+	makeLuaAssetSprite('rain11', 'empty', 0, -100);
 	makeGraphic('rain11', 1, 1, '90eeff');
 	setObjectCamera('rain11', 'hud');
 	setProperty('rain11.alpha', 0.2);
 	addLuaSprite('rain11', false);
 	setProperty('rain11.angle', 8);
 
-	makeLuaSprite('rain12', 'empty', 0, -100);
+	makeLuaAssetSprite('rain12', 'empty', 0, -100);
 	makeGraphic('rain12', 1, 1, '90eeff');
 	setObjectCamera('rain12', 'hud');
 	setProperty('rain12.alpha', 0.2);
 	addLuaSprite('rain12', false);
 	setProperty('rain12.angle', 8);
 
-	makeLuaSprite('rain13', 'empty', 0, -100);
+	makeLuaAssetSprite('rain13', 'empty', 0, -100);
 	makeGraphic('rain13', 1, 1, '90eeff');
 	setObjectCamera('rain13', 'hud');
 	setProperty('rain13.alpha', 0.2);
 	addLuaSprite('rain13', false);
 	setProperty('rain13.angle', 8);
 
-	makeLuaSprite('rain14', 'empty', 0, -100);
+	makeLuaAssetSprite('rain14', 'empty', 0, -100);
 	makeGraphic('rain14', 1, 1, '90eeff');
 	setObjectCamera('rain14', 'hud');
 	setProperty('rain14.alpha', 0.2);
 	addLuaSprite('rain14', false);
 	setProperty('rain14.angle', 8);
 
-	makeLuaSprite('rain15', 'empty', 0, -100);
+	makeLuaAssetSprite('rain15', 'empty', 0, -100);
 	makeGraphic('rain15', 1, 1, '90eeff');
 	setObjectCamera('rain15', 'hud');
 	setProperty('rain15.alpha', 0.2);
 	addLuaSprite('rain15', false);
 	setProperty('rain15.angle', 8);
 
-	makeLuaSprite('rain16', 'empty', 0, -100);
+	makeLuaAssetSprite('rain16', 'empty', 0, -100);
 	makeGraphic('rain16', 1, 1, '90eeff');
 	setObjectCamera('rain16', 'hud');
 	setProperty('rain16.alpha', 0.2);
 	addLuaSprite('rain16', false);
 	setProperty('rain16.angle', 8);
 
-	makeLuaSprite('rain17', 'empty', 0, -100);
+	makeLuaAssetSprite('rain17', 'empty', 0, -100);
 	makeGraphic('rain17', 1, 1, '90eeff');
 	setObjectCamera('rain17', 'hud');
 	setProperty('rain17.alpha', 0.2);
 	addLuaSprite('rain17', false);
 	setProperty('rain17.angle', 8);
 
-	makeLuaSprite('rain18', 'empty', 0, -100);
+	makeLuaAssetSprite('rain18', 'empty', 0, -100);
 	makeGraphic('rain18', 1, 1, '90eeff');
 	setObjectCamera('rain18', 'hud');
 	setProperty('rain18.alpha', 0.2);
 	addLuaSprite('rain18', false);
 	setProperty('rain18.angle', 8);
 
-	makeLuaSprite('rain19', 'empty', 0, -100);
+	makeLuaAssetSprite('rain19', 'empty', 0, -100);
 	makeGraphic('rain19', 1, 1, '90eeff');
 	setObjectCamera('rain19', 'hud');
 	setProperty('rain19.alpha', 0.2);
 	addLuaSprite('rain19', false);
 	setProperty('rain19.angle', 8);
 
-	makeLuaSprite('rain20', 'empty', 0, -100);
+	makeLuaAssetSprite('rain20', 'empty', 0, -100);
 	makeGraphic('rain20', 1, 1, '90eeff');
 	setObjectCamera('rain20', 'hud');
 	setProperty('rain20.alpha', 0.2);

@@ -5,9 +5,22 @@ function onCreate()
 	setPropertyFromClass('GameOverSubstate', 'endSoundName', 'gameplay/gameover/gameOverEnd-pico')
 	setPropertyFromClass('PauseSubState', 'songName', 'breakfast-pico/breakfast-pico')
 	
-	makeLuaSprite('cutsceneCrutchBlack', 'empty', 0, 0);
+	makeLuaAssetSprite('cutsceneCrutchBlack', 'empty', 0, 0);
 	makeGraphic('cutsceneCrutchBlack', 3000, 2000, '000000');
 	setObjectCamera('cutsceneCrutchBlack', 'other');
+end
+
+local video2 = true
+
+function onStartCountdown()
+	if isStoryMode and not seenCutscene then
+		triggerEvent('Camera Follow Pos', 2050, 900)
+		if video2 then
+			startVideo('2hotCutscene');
+			video2 = false
+		end
+		return Function_Stop;
+	end
 end
 
 local video = true

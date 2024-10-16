@@ -2595,9 +2595,7 @@ class PlayState extends MusicBeatState
 		    if (songData.needsVoices)
 		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile));
 	    }
-	    catch(e:Dynamic) {
-	        opponentVocals = new FlxSound();
-	    }
+	    catch(e:Dynamic) {}
 
 		#if FLX_PITCH
 		vocals.pitch = playbackRate;

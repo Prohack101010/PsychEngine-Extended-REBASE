@@ -9,7 +9,7 @@ function onCreate()
 	setPropertyFromClass('GameOverSubstate', 'endSoundName', 'gameplay/gameover/gameOverEnd-pico')
 	setPropertyFromClass('PauseSubState', 'songName', 'breakfast-pico/breakfast-pico')
 	
-	makeAnimatedLuaSprite('PicoBullet', 'PicoBullet', 2100, 850);
+	makeAnimatedLuaAssetSprite('PicoBullet', 'PicoBullet', 2100, 850);
 	addAnimationByPrefix('PicoBullet', 'Pop', 'Pop', 24, false);
 	setProperty('PicoBullet.flipX', false);
 	scaleObject('PicoBullet', 1, 1);
@@ -17,12 +17,12 @@ function onCreate()
 	setProperty('PicoBullet.alpha', 1);
 
 
-	makeLuaSprite('cutsceneShootBlack', 'empty', 0, 0);
+	makeLuaAssetSprite('cutsceneShootBlack', 'empty', 0, 0);
 	makeGraphic('cutsceneShootBlack', 3000, 2000, '000000');
 	setProperty('cutsceneShootBlack.alpha', 0);
 	addLuaSprite('cutsceneShootBlack', false);
 
-	makeLuaSprite('cutsceneOpenBlack', 'empty', 0, 0);
+	makeLuaAssetSprite('cutsceneOpenBlack', 'empty', 0, 0);
 	makeGraphic('cutsceneOpenBlack', 1280, 720, '000000');
 	setObjectCamera('cutsceneOpenBlack', 'other');
 	setProperty('cutsceneOpenBlack.alpha', 1);
@@ -152,12 +152,4 @@ function onTimerCompleted(tag, loops, loopsLeft)
 	if tag == 'picoReturn' then
 		triggerEvent("Change Character", 'bf', 'pico-playable')
 	end
-end
-
---TROLL THING
-
-function onEndSong()
-	makeLuaSprite('Error', 'TROLLING', 565, 300);
-	setObjectCamera('Error', 'other');
-	addLuaSprite('Error', true);
 end

@@ -5,22 +5,22 @@ function onCreate()
 	setPropertyFromClass('GameOverSubstate', 'endSoundName', 'gameplay/gameover/gameOverEnd-pico')
 	setPropertyFromClass('PauseSubState', 'songName', 'breakfast-pico/breakfast-pico')
 	
-	makeLuaSprite('cutsceneCrutchBlack', 'empty', 0, 0);
+	makeLuaAssetSprite('cutsceneCrutchBlack', 'empty', 0, 0);
 	makeGraphic('cutsceneCrutchBlack', 3000, 2000, '000000');
 	setObjectCamera('cutsceneCrutchBlack', 'other');
 
-	makeLuaSprite('shootBlack', 'empty', 0, 0);
+	makeLuaAssetSprite('shootBlack', 'empty', 0, 0);
 	makeGraphic('shootBlack', 3000, 2000, '000000');
 	setProperty('shootBlack.alpha', 0);
 
-	makeAnimatedLuaSprite('reloadEffect', 'characters/Pico_Playable', 1980, 755);
+	makeAnimatedLuaAssetSprite('reloadEffect', 'characters/Pico_Playable', 1980, 755);
 	addAnimationByPrefix('reloadEffect', 'cock', 'Pico Reload', 24, false);
 	setProperty('reloadEffect.alpha', 0);
 
-	makeLuaSprite('reloadEffectScale', 'empty', 1, 1);
+	makeLuaAssetSprite('reloadEffectScale', 'empty', 1, 1);
 	setProperty('reloadEffectScale.alpha', 0);
 	
-	makeAnimatedLuaSprite('spraypaintExplosionEZ', 'spraypaintExplosionEZ', 1600, 400);
+	makeAnimatedLuaAssetSprite('spraypaintExplosionEZ', 'spraypaintExplosionEZ', 1600, 400);
 	addAnimationByPrefix('spraypaintExplosionEZ', 'explosion', 'explosion round 1 short', 24, false);
 	setProperty('spraypaintExplosionEZ.flipX', false);
 	scaleObject('spraypaintExplosionEZ', 1, 1);
@@ -91,7 +91,7 @@ function goodNoteHit(id, direction, noteType, isSustainNote)
 		setProperty('reloadEffect.alpha', 0.5);
 		doTweenAlpha('reloadEffect', 'reloadEffect', 0, 0.3, 'linear')
 		playSound('Gun_Prep', 1);
-		makeAnimatedLuaSprite('PicoBullet'..bullet, 'PicoBullet', 2150, 850);
+		makeAnimatedLuaAssetSprite('PicoBullet'..bullet, 'PicoBullet', 2150, 850);
 		addAnimationByPrefix('PicoBullet'..bullet, 'Bullet', 'Bullet', 24, false);
 		addAnimationByPrefix('PicoBullet'..bullet, 'Pop', 'Pop', 24, false);
 		playAnim('PicoBullet'..bullet, 'Pop', false);

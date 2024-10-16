@@ -330,14 +330,23 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 
 	public static function getFrames():FlxAtlasFrames {
-	    try
-	    {
-		    return Paths.getPackerAtlas('mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
-		}
-		catch(e:Dynamic)
-		{
-		    return Paths.getPackerAtlas('mobilecontrols/virtualpad/original');
-		}
+	    #if MODS_ALLOWED
+		final modsPath:String = Paths.mods('virtualpad/virtualpadSkinList-Old');
+		final modsPathExtra:String = Paths.mods('virtualpad/virtualpadSkinList-Old.txt');
+		#end
+    	try
+    	{
+    	    #if MODS_ALLOWED
+    	    if(sys.FileSystem.exists(modsPath) || sys.FileSystem.exists(modsPathExtra)) //Double Check
+    	        return Paths.getPackerAtlas('virtualpad/old/' + ClientPrefs.VirtualPadSkin);
+    	    else
+    	    #end
+        	    return Paths.getPackerAtlas('mobilecontrols/virtualpad/' + ClientPrefs.VirtualPadSkin);
+    	}
+    	catch(e:Dynamic)
+    	{
+    	    return Paths.getPackerAtlas('mobilecontrols/virtualpad/original');
+    	}
 	}
 	
 	override public function destroy():Void
