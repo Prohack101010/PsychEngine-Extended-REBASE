@@ -27,7 +27,7 @@ function onCreate()
 	setObjectCamera('cutsceneOpenBlack', 'other');
 	setProperty('cutsceneOpenBlack.alpha', 1);
 	
-	makeAnimatedLuaAssetSprite('spraypaintExplosionEZ', 'spraypaintExplosionEZ', 1600, 400);
+	makeAnimatedLuaAssetSprite('spraypaintExplosionEZ', 'spraypaintExplosionEZ', 1000, 150);
 	addAnimationByPrefix('spraypaintExplosionEZ', 'explosion', 'explosion round 1 short', 24, false);
 	setProperty('spraypaintExplosionEZ.flipX', false);
 	scaleObject('spraypaintExplosionEZ', 1, 1);
@@ -43,7 +43,6 @@ function onCreate()
 end
 
 function onSongStart()
-	setProperty('spraypaintExplosionEZ.alpha', 1);
 	setProperty('Spraycan2.alpha', 1);
 end
 
