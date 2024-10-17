@@ -245,7 +245,7 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String, postfix:String = null, ?try:Bool = false):Any
+	inline static public function voices(song:String, postfix:String = null, ?allowtry:Bool = false):Any
 	{	 
 	    var diffvoice = Difficulty.getString().toUpperCase();
 	    
@@ -254,7 +254,7 @@ class Paths
 		
 		if(postfix != null) songKey += '-' + postfix;
 		
-		if (try)
+		if (allowtry)
 		{
     		var voices = null;
             try
