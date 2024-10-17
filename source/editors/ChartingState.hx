@@ -1427,18 +1427,18 @@ class ChartingState extends MusicBeatState
 		vocals = new FlxSound();
         opponentVocals = new FlxSound();
         try
-        {
-            if (PlayState.SONG.needsVoices)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1));
-		}
-		catch(e:Dynamic) {}
-	    
-	    try
 	    {
 	        if (PlayState.SONG.needsVoices)
 	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 	    }
 	    catch(e:Dynamic) {}
+	    
+        try
+        {
+            if (PlayState.SONG.needsVoices)
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1));
+		}
+		catch(e:Dynamic) {}
 	    
 		try
 		{

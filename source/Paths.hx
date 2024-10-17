@@ -254,7 +254,12 @@ class Paths
 		
 		if(postfix != null) songKey += '-' + postfix;
         
-		var voices = returnSound('songs', songKey);
+        var voices = null;
+        try
+		{
+		    voices = returnSound('songs', songKey);
+		}
+		catch(e:Dynamic) {}
 		try
 		{
 		    voices = returnSound('songs', songdiffKey);
