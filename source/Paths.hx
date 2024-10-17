@@ -254,9 +254,9 @@ class Paths
 		
 		if(postfix != null) songKey += '-' + postfix;
 		
+		var voices = null;
 		if (allowtry)
 		{
-    		var voices = null;
             try
     		{
     		    voices = returnSound('songs', songKey);
@@ -264,7 +264,7 @@ class Paths
     		catch(e:Dynamic) {}
 		}
         else
-		    var voices = returnSound('songs', songKey);
+		    voices = returnSound('songs', songKey);
 		try
 		{
 		    voices = returnSound('songs', songdiffKey);
