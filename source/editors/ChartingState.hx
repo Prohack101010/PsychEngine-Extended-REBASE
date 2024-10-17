@@ -1452,14 +1452,6 @@ class ChartingState extends MusicBeatState
 		FlxG.sound.list.add(vocals);
 
 		var file:Dynamic = Paths.voices(currentSongName);
-		try
-		{
-		    if (PlayState.SONG.needsVoices)
-		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (dadVocals == null || dadVocals.length < 1) ? 'Opponent' : dadVocals));
-	    }
-	    catch(e:Dynamic) {
-	        opponentVocals = new FlxSound();
-	    }
 		opponentVocals.autoDestroy = false;
 		FlxG.sound.list.add(opponentVocals);
 		generateSong();
