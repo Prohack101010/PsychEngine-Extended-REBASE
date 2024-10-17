@@ -34,6 +34,10 @@ function onCreate()
 	end
 end
 
+function onSongStart()
+	setProperty('Spraycan2.alpha', 1);
+end
+
 function onStartCountdown()
 	if cutscene and isStoryMode and not seenCutscene then
 		setProperty('healthBar.visible', false)
@@ -120,17 +124,25 @@ function onTimerCompleted(tag, loops, loopsLeft)
 	if tag == 'darnellAnim2' and cutscene then
 		playAnim('dad', 'kickCan', false);
 		playSound('Kick_Can_UP', 1)
+		playAnim('Spraycan1', 'start', false);
+		setProperty('Spraycan1.alpha', 1);
 		playAnim('cutsceneSpraycan', 'i', false);
 		setProperty('cutsceneSpraycan.alpha', 1);
 		runTimer('darnellAnim3', 0.3);
 	end
 	if tag == 'darnellAnim3' and cutscene then
 		playAnim('dad', 'kneeCan', false);
+		playAnim('Spraycan1', 'start1', false);
 		playSound('Kick_Can_FORWARD', 1)
 		runTimer('picoAnim2', 0.3);
 	end
 	if tag == 'picoAnim2' and cutscene then
 		triggerEvent('Camera Follow Pos', 1500, 900)
+		setProperty('spraypaintExplosionEZ.alpha', 1);
+		playAnim('spraypaintExplosionEZ', 'explosion', true);
+		playAnim('Spraycan1', 'shooted', false);
+		playAnim('Spraycan2', 'i', false);
+		setProperty('Spraycan1.alpha', 0);
 		setProperty('cutsceneShootBlack.alpha', 1);
 		doTweenAlpha('cutsceneShootBlack', 'cutsceneShootBlack', 0, 1, 'linear')
 		playAnim('boyfriend', 'return', false);

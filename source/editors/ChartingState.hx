@@ -1430,19 +1430,17 @@ class ChartingState extends MusicBeatState
 		vocals = new FlxSound();
         opponentVocals = new FlxSound();
         try
-        {
-            if (PlayState.SONG.needsVoices)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals));
-		}
-		catch(e:Dynamic)
-		{
-		    try
     	    {
     	        if (PlayState.SONG.needsVoices)
     	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
     	    }
-    	    catch(e:Dynamic) { vocals = new FlxSound(); }
+    	    catch(e:Dynamic) {}
+        try
+        {
+            if (PlayState.SONG.needsVoices)
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals));
 		}
+		catch(e:Dynamic) { vocals = new FlxSound(); }
 		vocals.autoDestroy = false;
 		FlxG.sound.list.add(vocals);
 
