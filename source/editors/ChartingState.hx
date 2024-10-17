@@ -1423,24 +1423,31 @@ class ChartingState extends MusicBeatState
 		vocals?.destroy();
 		opponentVocals?.stop();
 		opponentVocals?.destroy();
-		
-		var boyfriendVocals:String = loadCharacterFile(PlayState.SONG.player1).vocals_file;
-		var dadVocals:String = loadCharacterFile(PlayState.SONG.player2).vocals_file;
-		
+
 		vocals = new FlxSound();
         opponentVocals = new FlxSound();
         try
-    	    {
-    	        if (PlayState.SONG.needsVoices)
-    	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-    	    }
-    	    catch(e:Dynamic) {}
-        try
         {
-            if (PlayState.SONG.needsVoices)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (boyfriendVocals == null || boyfriendVocals.length < 1) ? 'Player' : boyfriendVocals));
+            if (PlayState.SONG.song)
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1));
 		}
-		catch(e:Dynamic) { vocals = new FlxSound(); }
+		catch(e:Dynamic) {}
+	    
+	    try
+	    {
+	        if (PlayState.SONG.song)
+	            vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song));
+	    }
+	    catch(e:Dynamic) {}
+	    
+		try
+		{
+		    if (PlayState.SONG.song)
+		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2));
+	    }
+	    catch(e:Dynamic) {
+	        opponentVocals = new FlxSound();
+	    }
 		vocals.autoDestroy = false;
 		FlxG.sound.list.add(vocals);
 
@@ -3204,28 +3211,5 @@ class AttachedFlxText extends FlxText
 			angle = sprTracker.angle;
 			alpha = sprTracker.alpha;
 		}
-	}
-	
-	function loadCharacterFile(char:String):Character.CharacterFile {
-		var characterPath:String = 'characters/' + char + '.json';
-		#if MODS_ALLOWED
-		var path:String = Paths.modFolders(characterPath);
-		if (!FileSystem.exists(path)) {
-			path = Paths.getSharedPath(characterPath);
-		}
-		if (!FileSystem.exists(path))
-		#else
-		var path:String = Paths.getSharedPath(characterPath);
-		if (!OpenFlAssets.exists(path))
-		#end
-		{
-			path = Paths.getSharedPath('characters/' + Character.DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
-		}
-		#if MODS_ALLOWED
-		var rawJson = File.getContent(path);
-		#else
-		var rawJson = OpenFlAssets.getText(path);
-		#end
-		return cast Json.parse(rawJson);
 	}
 }
