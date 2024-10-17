@@ -27,6 +27,14 @@ function onCreate()
 	setObjectCamera('cutsceneOpenBlack', 'other');
 	setProperty('cutsceneOpenBlack.alpha', 1);
 	
+	makeAnimatedLuaAssetSprite('spraypaintExplosionEZ', 'spraypaintExplosionEZ', 1600, 400);
+	addAnimationByPrefix('spraypaintExplosionEZ', 'explosion', 'explosion round 1 short', 24, false);
+	setProperty('spraypaintExplosionEZ.flipX', false);
+	scaleObject('spraypaintExplosionEZ', 1, 1);
+	setScrollFactor('spraypaintExplosionEZ', 1, 1);
+	setProperty('spraypaintExplosionEZ.alpha', 0);
+	addLuaSprite('spraypaintExplosionEZ', true);
+	
 	if cutscene and isStoryMode and not seenCutscene then
 		addLuaSprite('cutsceneOpenBlack', true);
 	else
@@ -35,6 +43,7 @@ function onCreate()
 end
 
 function onSongStart()
+	setProperty('spraypaintExplosionEZ.alpha', 1);
 	setProperty('Spraycan2.alpha', 1);
 end
 
@@ -126,8 +135,6 @@ function onTimerCompleted(tag, loops, loopsLeft)
 		playSound('Kick_Can_UP', 1)
 		playAnim('Spraycan1', 'start', false);
 		setProperty('Spraycan1.alpha', 1);
-		playAnim('cutsceneSpraycan', 'i', false);
-		setProperty('cutsceneSpraycan.alpha', 1);
 		runTimer('darnellAnim3', 0.3);
 	end
 	if tag == 'darnellAnim3' and cutscene then
@@ -138,8 +145,6 @@ function onTimerCompleted(tag, loops, loopsLeft)
 	end
 	if tag == 'picoAnim2' and cutscene then
 		triggerEvent('Camera Follow Pos', 1500, 900)
-		setProperty('spraypaintExplosionEZ.alpha', 1);
-		playAnim('spraypaintExplosionEZ', 'explosion', true);
 		playAnim('Spraycan1', 'shooted', false);
 		playAnim('Spraycan2', 'i', false);
 		setProperty('Spraycan1.alpha', 0);
