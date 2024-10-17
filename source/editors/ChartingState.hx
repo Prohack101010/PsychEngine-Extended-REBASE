@@ -1429,21 +1429,21 @@ class ChartingState extends MusicBeatState
         try
 	    {
 	        if (PlayState.SONG.needsVoices)
-	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, null, true));
+	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 	    }
 	    catch(e:Dynamic) {}
 	    
         try
         {
             if (PlayState.SONG.needsVoices)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1, true));
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1));
 		}
 		catch(e:Dynamic) {}
 	    
 		try
 		{
 		    if (PlayState.SONG.needsVoices)
-		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2, true));
+		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2));
 	    }
 	    catch(e:Dynamic) {
 	        opponentVocals = new FlxSound();
@@ -1451,7 +1451,7 @@ class ChartingState extends MusicBeatState
 		vocals.autoDestroy = false;
 		FlxG.sound.list.add(vocals);
 
-		var file:Dynamic = Paths.voices(currentSongName);
+		var file:Dynamic = Paths.voices(currentSongName, null, true);
 		opponentVocals.autoDestroy = false;
 		FlxG.sound.list.add(opponentVocals);
 		generateSong();
