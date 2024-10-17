@@ -1428,22 +1428,22 @@ class ChartingState extends MusicBeatState
         opponentVocals = new FlxSound();
         try
         {
-            if (PlayState.SONG.song)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1));
+            if (PlayState.SONG.needsVoices)
+		        vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (characterData.vocalsP1 == null || characterData.vocalsP1.length < 1) ? 'Player' : characterData.vocalsP1));
 		}
 		catch(e:Dynamic) {}
 	    
 	    try
 	    {
-	        if (PlayState.SONG.song)
-	            vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song));
+	        if (PlayState.SONG.needsVoices)
+	            vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 	    }
 	    catch(e:Dynamic) {}
 	    
 		try
 		{
-		    if (PlayState.SONG.song)
-		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2));
+		    if (PlayState.SONG.needsVoices)
+		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, (characterData.vocalsP2 == null || characterData.vocalsP2.length < 1) ? 'Opponent' : characterData.vocalsP2));
 	    }
 	    catch(e:Dynamic) {
 	        opponentVocals = new FlxSound();
