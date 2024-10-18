@@ -31,6 +31,7 @@ class SaveVariables {
 }
 
 class ClientPrefs {
+    public static var data:SaveVariables = null;
 	//NF Engine Things
     public static var ChangeSkin:Bool = false;
 	public static var NoteSkin:String = 'original';
