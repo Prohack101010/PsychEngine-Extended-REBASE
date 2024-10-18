@@ -156,10 +156,6 @@ class Main extends Sprite
 		#if desktop FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, toggleFullScreen); #end
 
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
-		
-		#if CRASH_HANDLER
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
-		#end
 
 		#if mobile
 		FlxG.scaleMode = new MobileScaleMode();
