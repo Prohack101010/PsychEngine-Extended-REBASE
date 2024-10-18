@@ -52,12 +52,6 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 		option.showBoyfriend = true;
 		option.onChange = onChangeAntiAliasing; //Changing onChange is only needed if you want to make a special interaction after it changes the value
 		addOption(option);
-		
-		var option:Option = new Option('Loading Screens', //Name
-			"EXPERIMENTAL: Allows Loading Screen, broken with GPU Caching", //Description
-			'loadingScreen',
-			'bool');
-		addOption(option);
 
 		var option:Option = new Option('Shaders', //Name
 			'If unchecked, disables shaders.\nIt\'s used for some visual effects, and also CPU intensive for weaker PCs.', //Description

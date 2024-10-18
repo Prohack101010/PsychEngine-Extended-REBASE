@@ -412,7 +412,6 @@ class FreeplayStateNOVA extends MusicBeatState
 			return;
 		}
 		destroyFreeplayVocals();
-		LoadingState.prepareToSong();
 		LoadingState.loadAndSwitchState(new PlayState());
 		FlxG.mouse.visible = false;
 	}

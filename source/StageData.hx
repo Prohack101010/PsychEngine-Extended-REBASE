@@ -26,8 +26,6 @@ typedef StageFile = {
 	var camera_opponent:Array<Float>;
 	var camera_girlfriend:Array<Float>;
 	var camera_speed:Null<Float>;
-	
-	@:optional var preload:Dynamic;
 }
 
 class StageData {

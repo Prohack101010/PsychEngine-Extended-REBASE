@@ -47,8 +47,8 @@
 	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This -->
 	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
 	<define name="HIDE_CURSOR" /> <!-- DELETE THIS IF YOU WANT TO SEE CURSOR (PC BUILD) -->
-	<define name="INDIECROSS_ASSETS" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
-	<define name="INDIECROSS_FORCED" if="desktop" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MODS -->
+	<define name="INDIECROSS_ASSETS" if="cross_enabled" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
+	<define name="INDIECROSS_FORCED" if="cross_forced" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MODS -->
 	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
@@ -60,7 +60,7 @@
 	<define name="LUA_ALLOWED" if="desktop || mobile"/>
 	<define name="ACHIEVEMENTS_ALLOWED" />
 	<define name="VIDEOS_ALLOWED" if="web || windows || android" unless="32bits"/>
-	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE THE PSYCH LOGO FROM LOADING SCREEN -->
+	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
 	<define name="CRASH_HANDLER" if="desktop release || mobile" />
 
     <assets path="assets/indiecross/preload" rename="assets" if="INDIECROSS_ASSETS || INDIECROSS_FORCED"/> <!-- Required for Source Coded Indie Cross Menus -->
@@ -118,8 +118,8 @@
 	</section>
 	
 	<section if="MODS_ALLOWED">
-		<assets path='example_mods' rename='mods' embed='false' type='template'/>
-		<assets path='example_modpack' rename='modpack' embed='false' type='template'/>
+		<assets path='example_mods' rename='mods' embed='false'/>
+		<assets path='example_modpack' rename='modpack' embed='false'/>
 	</section>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<!-- <template path='mods' /> -->

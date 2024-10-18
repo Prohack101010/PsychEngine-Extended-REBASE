@@ -18,7 +18,6 @@ class ClientPrefs {
     public static var TransitionStyle:String = 'Psych';
     public static var MainMenuStyle:String = '1.0';
 	public static var downScroll:Bool = false;
-	public static var loadingScreen:Bool = false;
 	public static var marvelousRating:Bool = true;	
 	public static var marvelousSprite:Bool = true;	
     public static var marvelousWindow:Int = 15;
@@ -136,7 +135,6 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
-		FlxG.save.data.loadingScreen = loadingScreen;
 		FlxG.save.data.wideScreen = wideScreen;
 		FlxG.save.data.mobileC = mobileC;
 		FlxG.save.data.marvelousRating = marvelousRating;
@@ -235,9 +233,6 @@ class ClientPrefs {
 		//Others
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
-		}
-		if(FlxG.save.data.loadingScreen != null) {
-			loadingScreen = FlxG.save.data.loadingScreen;
 		}
 		if(FlxG.save.data.wideScreen != null) {
 			wideScreen = FlxG.save.data.wideScreen;

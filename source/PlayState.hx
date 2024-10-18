@@ -2660,7 +2660,7 @@ class PlayState extends MusicBeatState
 				}
 				else if (songNotes[1] <= 3 && opponentChart)
 				{
-					gottaHitNote = !section.mustHitSection;
+					gottaHitNote = section.mustHitSection;
 				}
 
 				var oldNote:Note;
@@ -3347,7 +3347,8 @@ class PlayState extends MusicBeatState
 					notes.forEachAlive(function(daNote:Note)
 					{
 						var strumGroup:FlxTypedGroup<StrumNote> = playerStrums;
-						if(!daNote.mustPress) strumGroup = opponentStrums;
+						if(!daNote.mustPress && !opponentChart) strumGroup = opponentStrums;
+						else if(!daNote.mustPress && opponentChart) strumGroup = playerStrums;
 
 						var strumX:Float = strumGroup.members[daNote.noteData].x;
 						var strumY:Float = strumGroup.members[daNote.noteData].y;
@@ -3908,17 +3909,21 @@ class PlayState extends MusicBeatState
 
 			case 'Alt Idle Animation':
 				var char:Character = dad;
+				if (opponentChart) char = boyfriend;
 				switch(value1.toLowerCase().trim()) {
 					case 'gf' | 'girlfriend':
 						char = gf;
 					case 'boyfriend' | 'bf':
-						char = boyfriend;
+					    char = boyfriend;
+						if (opponentChart) char = dad;
 					default:
 						var val:Int = Std.parseInt(value1);
 						if(Math.isNaN(val)) val = 0;
 
 						switch(val) {
-							case 1: char = boyfriend;
+							case 1: 
+							    char = boyfriend;
+							    if (opponentChart) char = dad;
 							case 2: char = gf;
 						}
 				}
