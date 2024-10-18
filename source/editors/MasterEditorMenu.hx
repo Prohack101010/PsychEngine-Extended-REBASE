@@ -132,9 +132,9 @@ class MasterEditorMenu extends MusicBeatState
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL
-			if (ClientPrefs.data.FreeplayStyle == 'NF')
+			if (ClientPrefs.FreeplayStyle == 'NF')
 			    FreeplayStateNF.destroyFreeplayVocals();
-			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
+			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
 			    FreeplayStateNOVA.destroyFreeplayVocals();
 			else
 			    FreeplayState.destroyFreeplayVocals();

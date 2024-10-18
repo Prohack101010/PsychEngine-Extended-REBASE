@@ -48,7 +48,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	public var rpcTitle:String;
 	
 	public var bg:FlxSprite;
-	final lastVirtualPadType:String = ClientPrefs.data.virtualpadType;
+	final lastVirtualPadType:String = ClientPrefs.virtualpadType;
 
 	public function new()
 	{
@@ -64,7 +64,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.data.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
 		// avoids lagspikes while scrolling through menus!
@@ -157,11 +157,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
-		    if (ClientPrefs.data.virtualpadType != lastVirtualPadType) //Null Object Fix
+		    if (ClientPrefs.virtualpadType != lastVirtualPadType) //Null Object Fix
 		    {
-        		ClientPrefs.data.VirtualPadSkin = 'original';
+        		ClientPrefs.VirtualPadSkin = 'original';
         		ClientPrefs.saveSettings();
-        		ClientPrefs.data.VirtualPadSkin = 'original';
+        		ClientPrefs.VirtualPadSkin = 'original';
         		CoolUtil.showPopUp('VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
         		lime.system.System.exit(0);
         	}
@@ -377,26 +377,26 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	
 	public function reloadNotes()
 		{
-			for (i in 0...ClientPrefs.data.arrowHSV.length) {
+			for (i in 0...ClientPrefs.arrowHSV.length) {
 				var notes:FlxSprite = new FlxSprite((i * 125), 100);
-				if (ClientPrefs.data.NoteSkin == 'original')
+				if (ClientPrefs.NoteSkin == 'original')
     			    notes.frames = Paths.getSparrowAtlas('NOTE_assets');
     			else
-    			    notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.data.NoteSkin);
+    			    notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkin);
 				var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
 				notes.animation.addByPrefix('idle', animations[i]);
 				notes.animation.play('idle');
 				//notes.visible = true;
 				notes.scale.set(0.8, 0.8);
 				notes.x += 700;
-				notes.antialiasing = ClientPrefs.data.globalAntialiasing;
+				notes.antialiasing = ClientPrefs.globalAntialiasing;
 				grpNote.add(notes);
 				
 				var newShader:ColorSwap = new ColorSwap();
 			    notes.shader = newShader.shader;
-			    newShader.hue = ClientPrefs.data.arrowHSV[i][0] / 360;
-			    newShader.saturation = ClientPrefs.data.arrowHSV[i][1] / 100;
-			    newShader.brightness = ClientPrefs.data.arrowHSV[i][2] / 100;
+			    newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
+			    newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
+			    newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
 		}
 	}
 

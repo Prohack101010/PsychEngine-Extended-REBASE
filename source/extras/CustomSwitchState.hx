@@ -19,9 +19,9 @@ class CustomSwitchState //Now You Can Add and Remove Custom Menus More Easier Th
 	        }
 	        else
 	        {
-        		if (ClientPrefs.data.FreeplayStyle == 'NF')
+        		if (ClientPrefs.FreeplayStyle == 'NF')
                     MusicBeatState.switchState(new FreeplayStateNF());
-                else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
+                else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
                     MusicBeatState.switchState(new FreeplayStateNOVA());
                 else
                     MusicBeatState.switchState(new FreeplayState());
@@ -33,9 +33,9 @@ class CustomSwitchState //Now You Can Add and Remove Custom Menus More Easier Th
         		MusicBeatState.switchState(new MainMenuStateCROSS());
             else
             {
-                if (ClientPrefs.data.MainMenuStyle == '0.6.3' || ClientPrefs.data.MainMenuStyle == 'Extended')
+                if (ClientPrefs.MainMenuStyle == '0.6.3' || ClientPrefs.MainMenuStyle == 'Extended')
             		MusicBeatState.switchState(new MainMenuStateOld());
-            	else if (ClientPrefs.data.MainMenuStyle == 'NovaFlare')
+            	else if (ClientPrefs.MainMenuStyle == 'NovaFlare')
             	    MusicBeatState.switchState(new MainMenuStateNOVA());
             	else
             		MusicBeatState.switchState(new MainMenuState());

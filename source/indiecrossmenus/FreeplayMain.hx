@@ -114,7 +114,7 @@ class FreeplayMain extends MusicBeatState
 		addSong('nightmare-run', 2, 'bendy', FlxColor.fromRGB(146, 113, 253));		
 
 		bg = new FlxSprite().loadGraphic(Paths.image('BG'));
-		bg.antialiasing = ClientPrefs.data.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 

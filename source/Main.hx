@@ -119,7 +119,7 @@ class Main extends Sprite
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		if(fpsVar != null) {
-			fpsVar.visible = ClientPrefs.data.showFPS;
+			fpsVar.visible = ClientPrefs.showFPS;
 		}
 
 		#if html5
@@ -229,7 +229,7 @@ class FPSCounter extends TextField
 		else
 			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end + ' - ${LimeSystem.platformVersion}';
         
-        if (!ClientPrefs.data.wideScreen)
+        if (!ClientPrefs.wideScreen)
 		    positionFPS(x, y);
 
 		currentFPS = 0;

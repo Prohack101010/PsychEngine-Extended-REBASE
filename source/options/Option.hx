@@ -37,7 +37,7 @@ class Option
 	public var showNote:Bool = false;
 	public var scrollSpeed:Float = 50; //Only works on int/float, defines how fast it scrolls per second while holding left/right
 
-	private var variable:String = null; //Variable from ClientPrefs.data.hx
+	private var variable:String = null; //Variable from ClientPrefs.hx
 	public var defaultValue:Dynamic = null;
 
 	public var curOption:Int = 0; //Don't change this
@@ -115,9 +115,9 @@ class Option
 	}
 
 	dynamic public function getValue():Dynamic
-		return Reflect.getProperty(ClientPrefs.data, variable);
+		return Reflect.getProperty(ClientPrefs, variable);
 	dynamic public function setValue(value:Dynamic)
-		return Reflect.setProperty(ClientPrefs.data, variable, value);
+		return Reflect.setProperty(ClientPrefs, variable, value);
 
 	public function setChild(child:Alphabet)
 	{
