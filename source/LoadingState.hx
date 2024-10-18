@@ -86,7 +86,7 @@ class LoadingState extends MusicBeatState
 		logo = new FlxSprite(0, 0).loadGraphic(Paths.image('loading_screen/icon'));
 		logo.scale.set(0.75, 0.75);
 		logo.updateHitbox();
-		logo.antialiasing = ClientPrefs.data.antialiasing;
+		logo.antialiasing = ClientPrefs.globalAntialiasing;
 		logo.screenCenter();
 		logo.x -= 50;
 		logo.y -= 40;
@@ -100,7 +100,7 @@ class LoadingState extends MusicBeatState
 		add(bg);
 
 		funkay = new FlxSprite(0, 0).loadGraphic(Paths.image('funkay'));
-		funkay.antialiasing = ClientPrefs.data.antialiasing;
+		funkay.antialiasing = ClientPrefs.globalAntialiasing;
 		funkay.setGraphicSize(0, FlxG.height);
 		funkay.updateHitbox();
 		add(funkay);
@@ -182,7 +182,7 @@ class LoadingState extends MusicBeatState
 				pessy = new FlxSprite(700, 140);
 				new FlxTimer().start(0.01, function(tmr:FlxTimer) {
 					pessy.frames = Paths.getSparrowAtlas('loading_screen/pessy');
-					pessy.antialiasing = ClientPrefs.data.antialiasing;
+					pessy.antialiasing = ClientPrefs.globalAntialiasing;
 					pessy.flipX = (logo.offset.x > 0);
 					pessy.x = FlxG.width + 200;
 					pessy.velocity.x = -1100;
@@ -250,7 +250,7 @@ class LoadingState extends MusicBeatState
 		Paths.setCurrentLevel(directory);
 		trace('Setting asset folder to ' + directory);
 
-		if (ClientPrefs.data.loadingScreen)
+		if (ClientPrefs.loadingScreen)
 		{
 			clearInvalids();
 			if (imagesToPrepare.length > 0 || soundsToPrepare.length > 0 || musicToPrepare.length > 0 || songsToPrepare.length > 0)
@@ -276,7 +276,7 @@ class LoadingState extends MusicBeatState
 
 	public static function prepareToSong()
 	{
-		if (!ClientPrefs.data.loadingScreen) return;
+		if (!ClientPrefs.loadingScreen) return;
 
 		var song:SwagSong = PlayState.SONG;
 		var folder:String = Paths.formatToSongPath(song.song);
@@ -294,16 +294,16 @@ class LoadingState extends MusicBeatState
 			#end
 
 			if (json != null)
-				prepare((!ClientPrefs.data.lowQuality || json.images_low) ? json.images : json.images_low, json.sounds, json.music);
+				prepare((!ClientPrefs.lowQuality || json.images_low) ? json.images : json.images_low, json.sounds, json.music);
 		}
 		catch(e:Dynamic) {}
 
 		if (song.stage == null || song.stage.length < 1)
-			song.stage = StageData.vanillaSongStage(folder);
+			song.stage = PlayState.SONG.stage;
 
 		var stageData:StageFile = StageData.getStageFile(song.stage);
 		if (stageData != null && stageData.preload != null)
-			prepare((!ClientPrefs.data.lowQuality || stageData.preload.images_low) ? stageData.preload.images : stageData.preload.images_low, stageData.preload.sounds, stageData.preload.music);
+			prepare((!ClientPrefs.lowQuality || stageData.preload.images_low) ? stageData.preload.images : stageData.preload.images_low, stageData.preload.sounds, stageData.preload.music);
 
 		songsToPrepare.push(folder + '/Inst');
 
