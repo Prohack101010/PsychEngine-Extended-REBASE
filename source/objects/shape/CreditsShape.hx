@@ -48,13 +48,13 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
         text = new FlxText(0, 0, 0, texts, 22);
         text.color = FlxColor.WHITE;
         text.font = Paths.font('montserrat.ttf');
-        text.antialiasing = ClientPrefs.globalAntialiasing;
+        text.antialiasing = ClientPrefs.data.globalAntialiasing;
         if (text.width > width - box.width - 20) text.scale.x = width - box.width - 20 / text.width;
 
         background = new Rect(0, 0, width, height, roundWidth, roundHeight, color);
         background.color = color;
         background.alpha = 0.6;
-        background.antialiasing = ClientPrefs.globalAntialiasing;
+        background.antialiasing = ClientPrefs.data.globalAntialiasing;
         add(background);
         add(text);
         add(box);
@@ -80,7 +80,7 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
     {
         super.update(elapsed);
 
-        if(!ignoreCheck && !ClientPrefs.controllerMode)
+        if(!ignoreCheck && !ClientPrefs.data.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)

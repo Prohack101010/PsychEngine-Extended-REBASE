@@ -31,7 +31,7 @@ class Option
 		this.description = description;
 		this.variable = variable;
 		this.type = type;
-		this.defaultValue = Reflect.getProperty(ClientPrefs, variable); //it fixes the options
+		this.defaultValue = Reflect.getProperty(ClientPrefs.data, variable); //it fixes the options
 		this.options = options;
 
 		if(defaultValue == 'null variable value')
@@ -89,10 +89,10 @@ class Option
 	}
 
 	dynamic public function getValue():Dynamic
-		return Reflect.getProperty(ClientPrefs, variable);
+		return Reflect.getProperty(ClientPrefs.data, variable);
 
 	dynamic public function setValue(value:Dynamic)
-		return Reflect.setProperty(ClientPrefs, variable, value);
+		return Reflect.setProperty(ClientPrefs.data, variable, value);
 
 	private function get_text()
 	{

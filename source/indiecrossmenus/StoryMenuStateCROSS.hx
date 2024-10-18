@@ -84,7 +84,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		actualBG.setGraphicSize(Std.int(actualBG.width * daScaling));
 		actualBG.updateHitbox();
 		actualBG.screenCenter();
-		actualBG.antialiasing = ClientPrefs.globalAntialiasing;
+		actualBG.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(actualBG);
 
 		gamingSands = new FlxSprite();
@@ -96,7 +96,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		gamingSands.updateHitbox();
 		gamingSands.x = -13;
 		gamingSands.y = -41;
-		gamingSands.antialiasing = ClientPrefs.globalAntialiasing;
+		gamingSands.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(gamingSands);
 
 		bendoBG = new FlxSprite();
@@ -107,7 +107,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		bendoBG.setGraphicSize(Std.int(bendoBG.width * daScaling));
 		bendoBG.updateHitbox();
 		bendoBG.screenCenter();
-		bendoBG.antialiasing = ClientPrefs.globalAntialiasing;
+		bendoBG.antialiasing = ClientPrefs.data.globalAntialiasing;
 		bendoBG.alpha = 0.00001;
 		add(bendoBG);
 
@@ -115,7 +115,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		leftpanel.scrollFactor.set();
 		leftpanel.updateHitbox();
 		leftpanel.screenCenter();
-		leftpanel.antialiasing = ClientPrefs.globalAntialiasing;
+		leftpanel.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(leftpanel);
 
 		gamingCup = new FlxSprite();
@@ -127,7 +127,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		gamingCup.updateHitbox();
 		gamingCup.x = 760;
 		gamingCup.y = 233;
-		gamingCup.antialiasing = ClientPrefs.globalAntialiasing;
+		gamingCup.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(gamingCup);
 
 		var bottompannel:FlxSprite = new FlxSprite().loadGraphic(Paths.image('story mode/Score_bottom panel'));
@@ -135,7 +135,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		bottompannel.setGraphicSize(Std.int(bottompannel.width * daScaling));
 		bottompannel.updateHitbox();
 		bottompannel.screenCenter();
-		bottompannel.antialiasing = ClientPrefs.globalAntialiasing;
+		bottompannel.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(bottompannel);
 
 		diffifSpr = new FlxSprite();
@@ -149,7 +149,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		diffifSpr.updateHitbox();
 		diffOrigX = -2;
 		diffifSpr.y = 128;
-		diffifSpr.antialiasing = ClientPrefs.globalAntialiasing;
+		diffifSpr.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(diffifSpr);
 		diffifSpr.animation.play('HARD');
 
@@ -163,7 +163,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		diffmechSpr.animation.play('NORMAL');
 		diffmechSpr.scrollFactor.set();
 		diffmechSpr.updateHitbox();
-		diffmechSpr.antialiasing = ClientPrefs.globalAntialiasing;
+		diffmechSpr.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(diffmechSpr);
 		
 		diffmechTween = FlxTween.tween(this, {}, 0);
@@ -173,7 +173,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		storyPanel.setGraphicSize(Std.int(storyPanel.width * daScaling));
 		storyPanel.updateHitbox();
 		storyPanel.screenCenter();
-		storyPanel.antialiasing = ClientPrefs.globalAntialiasing;
+		storyPanel.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(storyPanel);
 
 		options = [];
@@ -187,7 +187,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 			options.push(menuItem);
 			menuItem.alpha = 0.5;
 			menuItem.scrollFactor.set();
-			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
+			menuItem.antialiasing = ClientPrefs.data.globalAntialiasing;
 			menuItem.updateHitbox();
 			menuItem.screenCenter();
 			actualLeft = menuItem.x;
@@ -198,7 +198,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 			optFlashes.push(flash);
 			flash.alpha = 0.00001;
 			flash.scrollFactor.set();
-			flash.antialiasing = ClientPrefs.globalAntialiasing;
+			flash.antialiasing = ClientPrefs.data.globalAntialiasing;
 			flash.updateHitbox();
 		}
 
@@ -223,7 +223,7 @@ class StoryMenuStateCROSS extends MusicBeatState
 		cupTea.setGraphicSize(Std.int((FlxG.width / FlxG.camera.zoom) * 1.1), Std.int((FlxG.height / FlxG.camera.zoom) * 1.1));
 		cupTea.updateHitbox();
 		cupTea.screenCenter();
-		cupTea.antialiasing = ClientPrefs.globalAntialiasing;
+		cupTea.antialiasing = ClientPrefs.data.globalAntialiasing;
 		cupTea.scrollFactor.set();
 		if (fromWeek == 0)
 		{

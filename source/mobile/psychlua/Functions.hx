@@ -16,8 +16,8 @@ class MobileFunctions
 	    
 	    Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void
 		{
-			if (ClientPrefs.mobileC) MusicBeatState.mobilec.visible = enabled;
-			if (MusicBeatState.checkHitbox != true && ClientPrefs.mobileC) MusicBeatState.mobilec.alpha = ClientPrefs.VirtualPadAlpha;
+			if (ClientPrefs.data.mobileC) MusicBeatState.mobilec.visible = enabled;
+			if (MusicBeatState.checkHitbox != true && ClientPrefs.data.mobileC) MusicBeatState.mobilec.alpha = ClientPrefs.data.VirtualPadAlpha;
 		});
 		
 		Lua_helper.add_callback(lua, "changeHitboxControls", function(mode:String):Void

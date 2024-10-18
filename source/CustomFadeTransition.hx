@@ -43,28 +43,28 @@ class CustomFadeTransition extends MusicBeatSubstate {
     	var width:Int = Std.int(FlxG.width / zoom);
     	var height:Int = Std.int(FlxG.height / zoom);
 		
-		if (ClientPrefs.TransitionStyle == 'NovaFlare')
+		if (ClientPrefs.data.TransitionStyle == 'NovaFlare')
 		{
     		loadLeft = new FlxSprite(isTransIn ? 0 : -1280, 0).loadGraphic(Paths.image('menuExtend/Loading/loadingL'));
     		loadLeft.scrollFactor.set();
-    		loadLeft.antialiasing = ClientPrefs.globalAntialiasing;
+    		loadLeft.antialiasing = ClientPrefs.data.globalAntialiasing;
     		add(loadLeft);
     		
     		loadRight = new FlxSprite(isTransIn ? 0 : 1280, 0).loadGraphic(Paths.image('menuExtend/Loading/loadingR'));
     		loadRight.scrollFactor.set();
-    		loadRight.antialiasing = ClientPrefs.globalAntialiasing;
+    		loadRight.antialiasing = ClientPrefs.data.globalAntialiasing;
     		add(loadRight);
     		
     		WaterMark = new FlxText(isTransIn ? 50 : -1230, 720 - 50 - 50 * 2, 0, 'PSYCH EXTENDED V1.0.0', 50);
     		WaterMark.scrollFactor.set();
     		WaterMark.setFormat(Paths.font("loadText.ttf"), 50, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-    		WaterMark.antialiasing = ClientPrefs.globalAntialiasing;
+    		WaterMark.antialiasing = ClientPrefs.data.globalAntialiasing;
     		add(WaterMark);
             
             EventText= new FlxText(isTransIn ? 50 : -1230, 720 - 50 - 50, 0, 'LOADING . . . . . . ', 50);
     		EventText.scrollFactor.set();
     		EventText.setFormat(Paths.font("loadText.ttf"), 50, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-    		EventText.antialiasing = ClientPrefs.globalAntialiasing;
+    		EventText.antialiasing = ClientPrefs.data.globalAntialiasing;
     		add(EventText);
     		
     		if(!isTransIn) {
@@ -172,7 +172,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
     			ease: FlxEase.linear});
     		}
     		
-    		if (ClientPrefs.TransitionStyle == 'Extended')
+    		if (ClientPrefs.data.TransitionStyle == 'Extended')
     		{
         		LoadBF = new FlxSprite(-150, 250);
         		LoadBF.frames = Paths.getSparrowAtlas('bf running');
@@ -181,14 +181,14 @@ class CustomFadeTransition extends MusicBeatSubstate {
         		LoadBF.scale.x = 0.3;
         		LoadBF.scale.y = 0.3;
         		LoadBF.scrollFactor.set();
-        		LoadBF.antialiasing = ClientPrefs.globalAntialiasing;
+        		LoadBF.antialiasing = ClientPrefs.data.globalAntialiasing;
         		add(LoadBF);
     		}
     
     		if(nextCamera != null) {
     			transBlack.cameras = [nextCamera];
     			transGradient.cameras = [nextCamera];
-    			if (ClientPrefs.TransitionStyle == 'Extended')
+    			if (ClientPrefs.data.TransitionStyle == 'Extended')
     			    LoadBF.cameras = [nextCamera];
     		}
     		nextCamera = null;
@@ -204,7 +204,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	}
 
 	override function update(elapsed:Float) {
-	    if (ClientPrefs.TransitionStyle != 'NovaFlare')
+	    if (ClientPrefs.data.TransitionStyle != 'NovaFlare')
 	    {
     		if(isTransIn) {
     			transBlack.y = transGradient.y + transGradient.height;
@@ -221,7 +221,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	}
 
 	override function destroy() {
-	    if(leTween != null && ClientPrefs.TransitionStyle == 'NovaFlare') {
+	    if(leTween != null && ClientPrefs.data.TransitionStyle == 'NovaFlare') {
 			finishCallback();
 			leTween.cancel();
 			loadLeftTween.cancel();
