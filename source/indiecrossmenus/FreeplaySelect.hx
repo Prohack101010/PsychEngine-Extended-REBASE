@@ -34,7 +34,7 @@ class FreeplaySelect extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(bg);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();

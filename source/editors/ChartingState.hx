@@ -364,7 +364,7 @@ class ChartingState extends MusicBeatState
 		\nQ/E - Decrease/Increase Note Sustain Length
 		\nSpace - Stop/Resume song";
 		
-		if (ClientPrefs.mobileC)
+		if (ClientPrefs.data.mobileC)
 		{
     		text =
     		"G - Change chart UI

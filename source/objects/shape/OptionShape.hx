@@ -29,7 +29,7 @@ class BoolRect extends FlxSpriteGroup {
 
         bg = new FlxSprite();
         bg.pixels = drawRect(50, 20);
-        bg.antialiasing = ClientPrefs.globalAntialiasing;
+        bg.antialiasing = ClientPrefs.data.globalAntialiasing;
         bg.x += width - bg.width - 60;
         bg.y += height / 2 - bg.height / 2;
         add(bg);
@@ -122,13 +122,13 @@ class FloatRect extends FlxSpriteGroup {
 
         bg = new FlxSprite(50);
         bg.pixels = drawRect(850, 10);
-        bg.antialiasing = ClientPrefs.globalAntialiasing;
+        bg.antialiasing = ClientPrefs.data.globalAntialiasing;
         bg.color = 0x24232C;
         add(bg);
 
         display = new FlxSprite(50);
         display.pixels = drawRect(850, 10);
-        display.antialiasing = ClientPrefs.globalAntialiasing;
+        display.antialiasing = ClientPrefs.data.globalAntialiasing;
         display.color = 0x0095ff;
         add(display);
 
@@ -139,13 +139,13 @@ class FloatRect extends FlxSpriteGroup {
 
         addButton = new FlxSprite(920);
         addButton.pixels = drawButton(30, true);
-        addButton.antialiasing = ClientPrefs.globalAntialiasing;
+        addButton.antialiasing = ClientPrefs.data.globalAntialiasing;
         addButton.y += bg.height / 2 - addButton.height / 2;
         add(addButton);
 
         deleteButton = new FlxSprite();
         deleteButton.pixels = drawButton(30, false);
-        deleteButton.antialiasing = ClientPrefs.globalAntialiasing;
+        deleteButton.antialiasing = ClientPrefs.data.globalAntialiasing;
         deleteButton.y += bg.height / 2 - deleteButton.height / 2;
         add(deleteButton);
 
@@ -295,27 +295,27 @@ class StringRect extends FlxSpriteGroup {
         strArray = point.options;
 
         bg = new Rect(0, 0, 950, 50, 15, 15);
-        bg.antialiasing = ClientPrefs.globalAntialiasing;
+        bg.antialiasing = ClientPrefs.data.globalAntialiasing;
         bg.color = 0x24232C;
         add(bg);
 
         downRect = new FlxSprite();
         downRect.pixels = drawRect(false, 35);
-        downRect.antialiasing = ClientPrefs.globalAntialiasing;
+        downRect.antialiasing = ClientPrefs.data.globalAntialiasing;
         add(downRect);
         downRect.x += bg.width - downRect.width - 20;
         downRect.y += bg.height / 2 - downRect.height / 2;
 
         upRect = new FlxSprite();
         upRect.pixels = drawRect(true, 35);
-        upRect.antialiasing = ClientPrefs.globalAntialiasing;
+        upRect.antialiasing = ClientPrefs.data.globalAntialiasing;
         add(upRect);
         upRect.x +=  bg.width - downRect.width - 20 - upRect.width - 20;
         upRect.y += bg.height / 2 - upRect.height / 2;
         
         disText = new FlxText(20, 0, 0, point.options[point.curOption], 20);
 		disText.font = Paths.font('montserrat.ttf');	  
-        disText.antialiasing = ClientPrefs.globalAntialiasing;  		
+        disText.antialiasing = ClientPrefs.data.globalAntialiasing;  		
         add(disText);
         disText.y += bg.height / 2 - disText.height / 2;
     }
@@ -420,7 +420,7 @@ class StateRect extends FlxSpriteGroup {
 
         var text = new FlxText(0, 0, 0, follow.description, 20);
 		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.globalAntialiasing;	
+        text.antialiasing = ClientPrefs.data.globalAntialiasing;	
         text.y += rect.height / 2 - text.height / 2;
         text.x += rect.width / 2 - text.width / 2;
         add(text);
@@ -477,7 +477,7 @@ class ResetRect extends FlxSpriteGroup {
 
         var text = new FlxText(0, 0, 0, 'Reset', 25);
 		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.globalAntialiasing;	
+        text.antialiasing = ClientPrefs.data.globalAntialiasing;	
         text.y += rect.height / 2 - text.height / 2;
         text.x += rect.width / 2 - text.width / 2;
         add(text);
@@ -524,14 +524,14 @@ class OptionCata extends FlxSpriteGroup
 
 		text = new FlxText(40, 0, 0, _title, 18);
 		text.font = Paths.font('montserrat.ttf'); 	
-        text.antialiasing = ClientPrefs.globalAntialiasing;	
+        text.antialiasing = ClientPrefs.data.globalAntialiasing;	
         text.y += bg.height / 2 - text.height / 2;
         add(text);
 
         specRect = new Rect(20, 20, 5, 40, 5, 5, 0x53b7ff);
         specRect.alpha = 0;
         specRect.scale.y = 0;
-        specRect.antialiasing = ClientPrefs.globalAntialiasing;	
+        specRect.antialiasing = ClientPrefs.data.globalAntialiasing;	
         add(specRect);
 	}
 
