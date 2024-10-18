@@ -1,16 +1,10 @@
 package;
 
-import flixel.util.FlxSave;
-import flixel.input.keyboard.FlxKey;
-import flixel.input.gamepad.FlxGamepadInputID;
-
 import flixel.FlxG;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
-
-import TitleState;
 
 // Add a variable here and it will get automatically saved
 class SaveVariables {
@@ -92,6 +86,7 @@ class SaveVariables {
 		// oh yeah and you'd have to actually convert the difference to seconds which I already do, because this is based on beats and stuff. but it should work
 		// just fine. but I wont implement it because I don't know how you handle sustains and other stuff like that.
 		// oh yeah when you calculate the bps divide it by the songSpeed or rate because it wont scroll correctly when speeds exist.
+		// -kade
 		'songspeed' => 1.0,
 		'healthgain' => 1.0,
 		'healthloss' => 1.0,
@@ -116,19 +111,18 @@ class SaveVariables {
 
 class ClientPrefs {
 	public static var data:SaveVariables = null;
-	public static var defaultData:SaveVariables = null;
 
 	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
 		//Key Bind, Name for ControlsSubState
-		'note_up'		=> [W, UP],
 		'note_left'		=> [A, LEFT],
 		'note_down'		=> [S, DOWN],
+		'note_up'		=> [W, UP],
 		'note_right'	=> [D, RIGHT],
 		
-		'ui_up'			=> [W, UP],
 		'ui_left'		=> [A, LEFT],
 		'ui_down'		=> [S, DOWN],
+		'ui_up'			=> [W, UP],
 		'ui_right'		=> [D, RIGHT],
 		
 		'accept'		=> [SPACE, ENTER],
@@ -144,15 +138,10 @@ class ClientPrefs {
 		'debug_2'		=> [EIGHT, NONE]
 	];
 	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
-	public static var defaultButtons:Map<String, Array<FlxGamepadInputID>> = null;
-
-	public static function clearInvalidKeys(key:String) {
-		var keyBind:Array<FlxKey> = keyBinds.get(key);
-		while(keyBind != null && keyBind.contains(NONE)) keyBind.remove(NONE);
-	}
 
 	public static function loadDefaultKeys() {
 		defaultKeys = keyBinds.copy();
+		//trace(defaultKeys);
 	}
 
 	public static function saveSettings() {
@@ -163,10 +152,9 @@ class ClientPrefs {
 		#if ACHIEVEMENTS_ALLOWED Achievements.save(); #end
 		FlxG.save.flush();
 
-		//Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v3', 'ninjamuffin99');
-		save.data.customControls = keyBinds;
+		save.bind('controls_v2', CoolUtil.getSavePathPrefs()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
+		save.data.keyboard = keyBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
 	}
@@ -174,7 +162,6 @@ class ClientPrefs {
 	public static function loadPrefs() {
 	    #if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		if(data == null) data = new SaveVariables();
-		if(defaultData == null) defaultData = new SaveVariables();
 
 		for (key in Reflect.fields(data)) {
 			if (key != 'gameplaySettings' && Reflect.hasField(FlxG.save.data, key)) {
@@ -207,13 +194,9 @@ class ClientPrefs {
 		if (FlxG.save.data.mute != null)
 			FlxG.sound.muted = FlxG.save.data.mute;
 
-		#if desktop
-		DiscordClient.check();
-		#end
-
 		// controls on a separate save file
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v3', 'ninjamuffin99');
+		save.bind('controls_v2', CoolUtil.getSavePathPrefs());
 		if(save != null && save.data.customControls != null) {
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
 			for (control => keys in loadedControls) {
@@ -223,35 +206,13 @@ class ClientPrefs {
 		}
 	}
 
-	inline public static function getGameplaySetting(name:String, defaultValue:Dynamic = null, ?customDefaultValue:Bool = false):Dynamic {
-		if(!customDefaultValue) defaultValue = defaultData.gameplaySettings.get(name);
+	inline public static function getGameplaySetting(name:String, defaultValue:Dynamic):Dynamic {
 		return /*PlayState.isStoryMode ? defaultValue : */ (data.gameplaySettings.exists(name) ? data.gameplaySettings.get(name) : defaultValue);
 	}
 
-	public static function reloadVolumeKeys() {
-		TitleState.muteKeys = keyBinds.get('volume_mute').copy();
-		TitleState.volumeDownKeys = keyBinds.get('volume_down').copy();
-		TitleState.volumeUpKeys = keyBinds.get('volume_up').copy();
-		toggleVolumeKeys(true);
-	}
-	public static function toggleVolumeKeys(turnOn:Bool) {
-		if(turnOn)
-		{
-			FlxG.sound.muteKeys = TitleState.muteKeys;
-			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
-			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-		}
-		else
-		{
-			FlxG.sound.muteKeys = [];
-			FlxG.sound.volumeDownKeys = [];
-			FlxG.sound.volumeUpKeys = [];
-		}
-	}
-	
 	public static function reloadControls() {
 		PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
-
+		
 		TitleState.muteKeys = copyKey(keyBinds.get('volume_mute'));
 		TitleState.volumeDownKeys = copyKey(keyBinds.get('volume_down'));
 		TitleState.volumeUpKeys = copyKey(keyBinds.get('volume_up'));
@@ -264,7 +225,6 @@ class ClientPrefs {
 		var copiedArray:Array<FlxKey> = arrayToCopy.copy();
 		var i:Int = 0;
 		var len:Int = copiedArray.length;
-
 		while (i < len) {
 			if(copiedArray[i] == NONE) {
 				copiedArray.remove(NONE);
