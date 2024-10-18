@@ -72,7 +72,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		
 		var option:Option = new Option('Note Skin:',
 			"Choose Note Skin",
-			'NoteSkin',
+			'data.NoteSkin',
 			'string',
 			'original',
 			noteSkinList);	
@@ -235,10 +235,10 @@ class VisualsUISubState extends BaseOptionsMenu
 		
 		for (i in 0...ClientPrefs.arrowHSV.length) {
 			var notes:FlxSprite = new FlxSprite((i * 125), 100);
-			if (ClientPrefs.NoteSkin == 'original')
+			if (ClientPrefs.data.NoteSkin == 'original')
 			    notes.frames = Paths.getSparrowAtlas('NOTE_assets');
 			else
-			    notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkin);
+			    notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.data.NoteSkin);
 			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
 			notes.animation.addByPrefix('idle', animations[i]);
 			notes.animation.play('idle');
