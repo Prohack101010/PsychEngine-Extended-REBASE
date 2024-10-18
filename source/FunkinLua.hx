@@ -82,6 +82,8 @@ class FunkinLua {
 	public var extra2:String = ClientPrefs.data.extraKeyReturn2.toUpperCase();
 	public var extra3:String = ClientPrefs.data.extraKeyReturn3.toUpperCase();
 	public var extra4:String = ClientPrefs.data.extraKeyReturn4.toUpperCase();
+	
+	public static var instance:FunkinLua;
 
 	#if hscript
 	public static var hscript:HScript = null;
