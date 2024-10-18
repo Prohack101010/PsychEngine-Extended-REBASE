@@ -6,6 +6,30 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
 
+// Add a variable here and it will get automatically saved
+class SaveVariables {
+    public var gameplaySettings:Map<String, Dynamic> = [
+		'scrollspeed' => 1.0,
+		'scrolltype' => 'multiplicative', 
+		// anyone reading this, amod is multiplicative speed mod, cmod is constant speed mod, and xmod is bpm based speed mod.
+		// an amod example would be chartSpeed * multiplier
+		// cmod would just be constantSpeed = chartSpeed
+		// and xmod basically works by basing the speed on the bpm.
+		// iirc (beatsPerSecond * (conductorToNoteDifference / 1000)) * noteSize (110 or something like that depending on it, prolly just use note.height)
+		// bps is calculated by bpm / 60
+		// oh yeah and you'd have to actually convert the difference to seconds which I already do, because this is based on beats and stuff. but it should work
+		// just fine. but I wont implement it because I don't know how you handle sustains and other stuff like that.
+		// oh yeah when you calculate the bps divide it by the songSpeed or rate because it wont scroll correctly when speeds exist.
+		'songspeed' => 1.0,
+		'healthgain' => 1.0,
+		'healthloss' => 1.0,
+		'instakill' => false,
+		'practice' => false,
+		'botplay' => false,
+		'opponentplay' => false
+	];
+}
+
 class ClientPrefs {
 	//NF Engine Things
     public static var ChangeSkin:Bool = false;
@@ -73,26 +97,6 @@ class ClientPrefs {
 	public static var extraKeys:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = #if mobile 0.7 #else 0 #end; //someone request this lol
-	public static var gameplaySettings:Map<String, Dynamic> = [
-		'scrollspeed' => 1.0,
-		'scrolltype' => 'multiplicative', 
-		// anyone reading this, amod is multiplicative speed mod, cmod is constant speed mod, and xmod is bpm based speed mod.
-		// an amod example would be chartSpeed * multiplier
-		// cmod would just be constantSpeed = chartSpeed
-		// and xmod basically works by basing the speed on the bpm.
-		// iirc (beatsPerSecond * (conductorToNoteDifference / 1000)) * noteSize (110 or something like that depending on it, prolly just use note.height)
-		// bps is calculated by bpm / 60
-		// oh yeah and you'd have to actually convert the difference to seconds which I already do, because this is based on beats and stuff. but it should work
-		// just fine. but I wont implement it because I don't know how you handle sustains and other stuff like that.
-		// oh yeah when you calculate the bps divide it by the songSpeed or rate because it wont scroll correctly when speeds exist.
-		'songspeed' => 1.0,
-		'healthgain' => 1.0,
-		'healthloss' => 1.0,
-		'instakill' => false,
-		'practice' => false,
-		'botplay' => false,
-		'opponentplay' => false
-	];
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
 	public static var ratingOffset:Int = 0;
@@ -134,6 +138,11 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+	    for (key in Reflect.fields(data)) {
+			//trace('saved variable: $key');
+			Reflect.setField(FlxG.save.data, key, Reflect.field(data, key));
+		}
+		
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.wideScreen = wideScreen;
 		FlxG.save.data.mobileC = mobileC;
@@ -182,7 +191,6 @@ class ClientPrefs {
 		FlxG.save.data.goodWindow = goodWindow;
 		FlxG.save.data.badWindow = badWindow;
 		FlxG.save.data.safeFrames = safeFrames;
-		FlxG.save.data.gameplaySettings = gameplaySettings;
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.pauseMusic = pauseMusic;
@@ -217,6 +225,7 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+	    if(data == null) data = new SaveVariables();
 	    #if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		//NF Engine Things
 	    if(FlxG.save.data.NoteSkin != null) {
@@ -420,12 +429,10 @@ class ClientPrefs {
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
 		}
-		if(FlxG.save.data.gameplaySettings != null)
-		{
-			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
-			for (name => value in savedMap)
-			{
-				gameplaySettings.set(name, value);
+		for (key in Reflect.fields(data)) {
+			if (key != 'gameplaySettings' && Reflect.hasField(FlxG.save.data, key)) {
+				//trace('loaded variable: $key');
+				Reflect.setField(data, key, Reflect.field(FlxG.save.data, key));
 			}
 		}
 		
@@ -458,7 +465,7 @@ class ClientPrefs {
 	}
 
 	inline public static function getGameplaySetting(name:String, defaultValue:Dynamic):Dynamic {
-		return /*PlayState.isStoryMode ? defaultValue : */ (gameplaySettings.exists(name) ? gameplaySettings.get(name) : defaultValue);
+		return /*PlayState.isStoryMode ? defaultValue : */ (data.gameplaySettings.exists(name) ? data.gameplaySettings.get(name) : defaultValue);
 	}
 
 	public static function reloadControls() {
