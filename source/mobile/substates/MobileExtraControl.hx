@@ -50,7 +50,7 @@ class MobileExtraControl extends MusicBeatSubstate
 		add(titleTeam);				
 		
 		for (i in 1...5){    
-			var data:String = Reflect.field(ClientPrefs, "extraKeyReturn" + i);    	
+			var data:String = Reflect.field(ClientPrefs.data, "extraKeyReturn" + i);    	
 			var _x = FlxG.width / 2 + 25 + (titleWidth + 50) * ((i-1) - 4 / 2);
 	        var titleObject = new ChooseButton(_x, 150, titleWidth, titleHeight, data, "Key " + Std.string(i));    		    			 			
     		titleTeam.add(titleObject);	    		
@@ -197,7 +197,7 @@ class MobileExtraControl extends MusicBeatSubstate
 			var title:ChooseButton = titleTeam.members[i];
 			
 			if (i == titleNum){
-			    title.changeExtraText(Reflect.field(ClientPrefs, "extraKeyReturn" + number));
+			    title.changeExtraText(Reflect.field(ClientPrefs.data, "extraKeyReturn" + number));
 			    if (needFlicker) FlxFlicker.flicker(title, 0.6, 0.075, true, true);
 			    if (changeBG) title.changeColor(FlxColor.WHITE);
 			} else {
@@ -211,7 +211,7 @@ class MobileExtraControl extends MusicBeatSubstate
 		{
 			var title:ChooseButton = titleTeam.members[i];
 			var number = i + 1;
-			title.changeExtraText(Reflect.field(ClientPrefs, "extraKeyReturn" + number));
+			title.changeExtraText(Reflect.field(ClientPrefs.data, "extraKeyReturn" + number));
 	    }
 	}
 }
