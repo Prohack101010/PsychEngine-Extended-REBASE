@@ -1,5 +1,6 @@
 package;
 
+import mobile.backend.CrashHandler;
 import openfl.events.UncaughtErrorEvent;
 import debug.FPSCounter;
 import Highscore;
@@ -63,7 +64,7 @@ class Main extends Sprite
 		#end
 		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#end
-		mobile.backend.CrashHandler.init();
+		CrashHandler.init();
 
 		#if windows
 		@:functionCode("
