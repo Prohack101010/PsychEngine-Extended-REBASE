@@ -63,7 +63,7 @@ class Main extends Sprite
 		#end
 		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#end
-		CrashHandler.init();
+		mobile.backend.CrashHandler.init();
 
 		#if windows
 		@:functionCode("
@@ -122,7 +122,6 @@ class Main extends Sprite
 
 		Highscore.load();
 
-        #if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(FunkinLua.instance.call)); #end
 		ClientPrefs.loadDefaultKeys();
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? game.initialState : CopyState #else game.initialState #end, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
@@ -186,10 +185,5 @@ class Main extends Sprite
 		        sprite.__cacheBitmap = null;
 			sprite.__cacheBitmapData = null;
 		}
-	}
-
-	function toggleFullScreen(event:KeyboardEvent) {
-		if(Controls.instance.justReleased('fullscreen'))
-			FlxG.fullscreen = !FlxG.fullscreen;
 	}
 }
