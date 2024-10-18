@@ -28,6 +28,11 @@ class SaveVariables {
 		'botplay' => false,
 		'opponentplay' => false
 	];
+	
+	public function new()
+	{
+		//Why does haxe needs this again?
+	}
 }
 
 class ClientPrefs {
