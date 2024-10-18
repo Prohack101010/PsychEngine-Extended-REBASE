@@ -149,7 +149,7 @@ class FreeplayStateNOVA extends MusicBeatState
 		magenta.scale.y = FlxG.height * 1.05 / magenta.height;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+		magenta.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(magenta);
 
 		var specBG:SpecRectBG = new SpecRectBG(0, 0);
@@ -229,19 +229,19 @@ class FreeplayStateNOVA extends MusicBeatState
 
 		timeSave = new FlxText(10, 0, 0, '', 15);
 		timeSave.font = Paths.font('montserrat.ttf');
-        timeSave.antialiasing = ClientPrefs.globalAntialiasing;	
+        timeSave.antialiasing = ClientPrefs.data.globalAntialiasing;	
 		timeSave.camera = camHS;
 		add(timeSave);
 
 		accSave = new FlxText(10, 20, 0, '', 15);
 		accSave.font = Paths.font('montserrat.ttf');
-        accSave.antialiasing = ClientPrefs.globalAntialiasing;	
+        accSave.antialiasing = ClientPrefs.data.globalAntialiasing;	
 		accSave.camera = camHS;
 		add(accSave);
 
 		scoreSave = new FlxText(10 + camHS.width * 0.4, 20, 0, '', 15);
 		scoreSave.font = Paths.font('montserrat.ttf');
-        scoreSave.antialiasing = ClientPrefs.globalAntialiasing;	
+        scoreSave.antialiasing = ClientPrefs.data.globalAntialiasing;	
 		scoreSave.camera = camHS;
 		add(scoreSave);
 		
@@ -620,7 +620,7 @@ class FreeplayStateNOVA extends MusicBeatState
 		magenta.scale.x = magenta.scale.y = scale;
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+		magenta.antialiasing = ClientPrefs.data.globalAntialiasing;
 		
 		smallMag.updateRect(magenta.pixels);			
 	}

@@ -56,13 +56,13 @@ class MainMenuStateCROSS extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(bg);
 
 		var indieLogo:FlxSprite = new FlxSprite(-310, -170).loadGraphic(Paths.image('mainmenucross/LOGO'));
 		indieLogo.updateHitbox();
 		indieLogo.setGraphicSize(Std.int(indieLogo.width * 0.7));
-		indieLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		indieLogo.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(indieLogo);
 
 		var sketch:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mainmenucross/sketch/sketch'));
@@ -70,7 +70,7 @@ class MainMenuStateCROSS extends MusicBeatState
 		sketch.animation.addByPrefix('bump', 'menu bru', 3);
 		sketch.animation.play('bump');
 		sketch.setGraphicSize(Std.int(sketch.width * 0.7));
-		sketch.antialiasing = ClientPrefs.globalAntialiasing;
+		sketch.antialiasing = ClientPrefs.data.globalAntialiasing;
 		sketch.x -= 300;
 		sketch.y -= 200;
 		add(sketch);
@@ -260,7 +260,7 @@ class MainMenuStateCROSS extends MusicBeatState
 			menuItem.scale.set(fuckersScale, fuckersScale);
 			menuItem.updateHitbox();
 			menuItem.alpha = 0.5;
-			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
+			menuItem.antialiasing = ClientPrefs.data.globalAntialiasing;
 
 			menuItem.shader = new WhiteOverlayShader();
 

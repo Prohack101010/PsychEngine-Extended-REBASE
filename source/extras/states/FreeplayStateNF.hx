@@ -204,7 +204,7 @@ class FreeplayStateNF extends MusicBeatState {
 		
 		Paths.currentModDirectory = songs[curSelected].folder;
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.globalAntialiasing;
 		bg.camera = camGame;
 		add(bg);
 		bg.screenCenter();
@@ -223,7 +223,7 @@ class FreeplayStateNF extends MusicBeatState {
 		camSong.scroll.x = -curSelected * 20 * 0.75;
 		
 		songBarSelected = new FlxSprite().loadGraphic(Paths.image(filePath + 'songBarSelected'));
-		songBarSelected.antialiasing = ClientPrefs.globalAntialiasing;
+		songBarSelected.antialiasing = ClientPrefs.data.globalAntialiasing;
 		songBarSelected.camera = camUI;
 		add(songBarSelected);
 		songBarSelected.screenCenter();
@@ -239,13 +239,13 @@ class FreeplayStateNF extends MusicBeatState {
 		songNameText = new FlxText(0, 0, 0, "", 32);
 		songNameText.setFormat(font, 40, FlxColor.BLACK, LEFT/*FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT*/);
 		songNameText.camera = camUI;
-		songNameText.antialiasing = ClientPrefs.globalAntialiasing;
+		songNameText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		songNameText.x = 660;
 		songNameText.y = 348;
 		add(songNameText);
 		
 		rate = new FlxSprite().loadGraphic(Paths.image(filePath + 'rateBG'));
-		rate.antialiasing = ClientPrefs.globalAntialiasing;
+		rate.antialiasing = ClientPrefs.data.globalAntialiasing;
 		rate.camera = camInfo;
 		rate.updateHitbox();
 		rate.x = 61;
@@ -253,13 +253,13 @@ class FreeplayStateNF extends MusicBeatState {
 		//add(rate);
 		
 		difficultyRight = new FlxSprite().loadGraphic(Paths.image(filePath + 'difficultyRight'));
-		difficultyRight.antialiasing = ClientPrefs.globalAntialiasing;
+		difficultyRight.antialiasing = ClientPrefs.data.globalAntialiasing;
 		difficultyRight.camera = camInfo;
 		difficultyRight.updateHitbox();
 		add(difficultyRight);
 		
 		difficultyLeft = new FlxSprite().loadGraphic(Paths.image(filePath + 'difficultyLeft'));
-		difficultyLeft.antialiasing = ClientPrefs.globalAntialiasing;
+		difficultyLeft.antialiasing = ClientPrefs.data.globalAntialiasing;
 		difficultyLeft.camera = camInfo;
 		difficultyLeft.updateHitbox();
 		add(difficultyLeft);
@@ -267,7 +267,7 @@ class FreeplayStateNF extends MusicBeatState {
 		for (i in 1...9)
 		{
 			var back:FlxSprite = new FlxSprite().loadGraphic(Paths.image(filePath + 'infoBar' + i));
-			back.antialiasing = ClientPrefs.globalAntialiasing;
+			back.antialiasing = ClientPrefs.data.globalAntialiasing;
 			back.camera = camInfo;
 			back.updateHitbox();
 			add(back);
@@ -281,7 +281,7 @@ class FreeplayStateNF extends MusicBeatState {
 		var RateBarText = new FlxText(0, 0, 0, "RATE:", 32);
 		RateBarText.setFormat(font, 21, FlxColor.BLACK, LEFT/*FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT*/);
 		RateBarText.camera = camInfo;
-		RateBarText.antialiasing = ClientPrefs.globalAntialiasing;
+		RateBarText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		RateBarText.x = 0;
 		RateBarText.y = 305;
 		add(RateBarText);
@@ -289,83 +289,83 @@ class FreeplayStateNF extends MusicBeatState {
 		var diffText:FlxText = new FlxText(360, 355, 0, "DIFFICULTY", 15);
 		diffText.setFormat(font, 15, FlxColor.WHITE, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		diffText.camera = camInfo;
-		diffText.antialiasing = ClientPrefs.globalAntialiasing;
+		diffText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(diffText);
 		
 		difficultyText = new FlxText(300, 360, 0, "difficulty", 55);
 		difficultyText.setFormat(font, 55, FlxColor.WHITE, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		difficultyText.camera = camInfo;
-		difficultyText.antialiasing = ClientPrefs.globalAntialiasing;
+		difficultyText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(difficultyText);
 		
 		var ateText = new FlxText(60, 273, 0, "Rate: ", 30);
 		ateText.setFormat(font, 25, FlxColor.WHITE, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		ateText.camera = camInfo;
-		ateText.antialiasing = ClientPrefs.globalAntialiasing;
+		ateText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(ateText);
 		
 		rateText = new FlxText(130, 273, 0, "rate", 30);
 		rateText.setFormat(font, 25, FlxColor.WHITE, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		rateText.camera = camInfo;
-		rateText.antialiasing = ClientPrefs.globalAntialiasing;
+		rateText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(rateText);
 		
 		var ccText = new FlxText(75+115, 273, 0, "Acc: ", 30);
 		ccText.setFormat(font, 25, FlxColor.WHITE, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		ccText.camera = camInfo;
-		ccText.antialiasing = ClientPrefs.globalAntialiasing;
+		ccText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(ccText);
 		
 		accText = new FlxText(75+175, 273, 0, "acc", 30);
 		accText.setFormat(font, 25, FlxColor.WHITE, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		accText.camera = camInfo;
-		accText.antialiasing = ClientPrefs.globalAntialiasing;
+		accText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(accText);
 		
 		var coreText = new FlxText(75+270, 273, 0, "Score: ", 30);
 		coreText.setFormat(font, 25, FlxColor.WHITE, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		coreText.camera = camInfo;
-		coreText.antialiasing = ClientPrefs.globalAntialiasing;
+		coreText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(coreText);
 		
 		scoreText = new FlxText(75+355, 273, 0, "score", 30);
 		scoreText.setFormat(font, 25, FlxColor.WHITE, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		scoreText.camera = camInfo;
-		scoreText.antialiasing = ClientPrefs.globalAntialiasing;
+		scoreText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(scoreText);
 		
 		timeText = new FlxText(50, 240, 0, "time", 28);
 		timeText.setFormat(font, 28, FlxColor.WHITE, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		timeText.camera = camInfo;
-		timeText.antialiasing = ClientPrefs.globalAntialiasing;
+		timeText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(timeText);
 	
 		var alpha = 0;
 		bars1Option = new FlxSprite().loadGraphic(Paths.image(filePath + 'optionbar'));
 		bars1Option.camera = camInfo;
 		bars1Option.scale.set(0.66, 0.65);
-		bars1Option.antialiasing = ClientPrefs.globalAntialiasing;
+		bars1Option.antialiasing = ClientPrefs.data.globalAntialiasing;
 		bars1Option.alpha = alpha;
 		add(bars1Option);
 		
 		bars2Option = new FlxSprite().loadGraphic(Paths.image(filePath + 'optionbar'));
 		bars2Option.camera = camInfo;
 		bars2Option.scale.set(0.62, 0.65);
-		bars2Option.antialiasing = ClientPrefs.globalAntialiasing;
+		bars2Option.antialiasing = ClientPrefs.data.globalAntialiasing;
 		bars2Option.alpha = alpha;
 		add(bars2Option);
 		
 		bars3Option = new FlxSprite().loadGraphic(Paths.image(filePath + 'optionbar'));
 		bars3Option.camera = camInfo;
 		bars3Option.scale.set(0.65, 0.65);
-		bars3Option.antialiasing = ClientPrefs.globalAntialiasing;
+		bars3Option.antialiasing = ClientPrefs.data.globalAntialiasing;
 		bars3Option.alpha = alpha;
 		add(bars3Option);
 		
 		bars4Option = new FlxSprite().loadGraphic(Paths.image(filePath + 'optionbar'));
 		bars4Option.camera = camInfo;
 		bars4Option.scale.set(0.62, 0.65);
-		bars4Option.antialiasing = ClientPrefs.globalAntialiasing;
+		bars4Option.antialiasing = ClientPrefs.data.globalAntialiasing;
 		bars4Option.alpha = alpha;
 		add(bars4Option);
 		
@@ -377,43 +377,43 @@ class FreeplayStateNF extends MusicBeatState {
 		var options = new FlxText(140, 457, 0, "Options", 28);
 		options.setFormat(font, 28, FlxColor.WHITE, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		options.camera = camInfo;
-		options.antialiasing = ClientPrefs.globalAntialiasing;
+		options.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(options);
 		
 		var options = new FlxText(380, 445, 0, "Gameplay\nChanger", 28);
 		options.setFormat(font, 25, FlxColor.WHITE, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		options.camera = camInfo;
-		options.antialiasing = ClientPrefs.globalAntialiasing;
+		options.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(options);
 		
 		var options = new FlxText(80, 520, 0, "Reset Score", 28);
 		options.setFormat(font, 28, FlxColor.WHITE, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		options.camera = camInfo;
-		options.antialiasing = ClientPrefs.globalAntialiasing;
+		options.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(options);
 		
 		var options = new FlxText(330, 520, 0, "Chart Editor", 28);
 		options.setFormat(font, 28, FlxColor.WHITE, LEFT);
 		options.camera = camInfo;
-		options.antialiasing = ClientPrefs.globalAntialiasing;
+		options.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(options);
 		
 		for (i in [0, 3]) {
 			var back:FlxSprite = new FlxSprite().loadGraphic(Paths.image(filePath + 'overlaps' + i));
-			back.antialiasing = ClientPrefs.globalAntialiasing;
+			back.antialiasing = ClientPrefs.data.globalAntialiasing;
 			back.camera = camUI;
 			back.updateHitbox();
 			add(back);
 		}
 		
 		startButton = new FlxSprite().loadGraphic(Paths.image(filePath + 'overlaps2'));
-		startButton.antialiasing = ClientPrefs.globalAntialiasing;
+		startButton.antialiasing = ClientPrefs.data.globalAntialiasing;
 		startButton.camera = camUI;
 		startButton.updateHitbox();
 		add(startButton);
 		
 		backButton = new FlxSprite().loadGraphic(Paths.image(filePath + 'overlaps1'));
-		backButton.antialiasing = ClientPrefs.globalAntialiasing;
+		backButton.antialiasing = ClientPrefs.data.globalAntialiasing;
 		backButton.camera = camUI;
 		backButton.updateHitbox();
 		add(backButton);
@@ -421,13 +421,13 @@ class FreeplayStateNF extends MusicBeatState {
 		startText = new FlxText(1140, 640, 0, "PLAY", 28);
 		startText.setFormat(font, 35, FlxColor.WHITE, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		startText.camera = camUI;
-		startText.antialiasing = ClientPrefs.globalAntialiasing;
+		startText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(startText);
 		
 		backText = new FlxText(30, 30, 0, "EXIT", 28);
 		backText.setFormat(font, 35, FlxColor.WHITE, FlxTextBorderStyle.OUTLINE, FlxColor.TRANSPARENT);
 		backText.camera = camUI;
-		backText.antialiasing = ClientPrefs.globalAntialiasing;
+		backText.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(backText);
 		
 		searchbg = new FlxSprite(-150, -200).makeGraphic(750, 1000, FlxColor.BLACK);
@@ -498,7 +498,7 @@ class FreeplayStateNF extends MusicBeatState {
 		makeListenMenu();
 		
 		var blackBG = new FlxSprite(0, 0).makeGraphic(1280, 720, FlxColor.BLACK);
-		blackBG.antialiasing = ClientPrefs.globalAntialiasing;
+		blackBG.antialiasing = ClientPrefs.data.globalAntialiasing;
 		blackBG.camera = camBG;
 		add(blackBG);
 								
@@ -1052,7 +1052,7 @@ class FreeplayStateNF extends MusicBeatState {
 		searchInput.backgroundColor = FlxColor.TRANSPARENT;
 		searchInput.fieldBorderColor = FlxColor.TRANSPARENT;
 		searchInput.font = font;
-		searchInput.antialiasing = ClientPrefs.globalAntialiasing;
+		searchInput.antialiasing = ClientPrefs.data.globalAntialiasing;
 		searchInput.camera = camSearch;
 		add(searchInput);
 		

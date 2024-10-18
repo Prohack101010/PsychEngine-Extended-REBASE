@@ -44,7 +44,7 @@ class AchievementsMenuState extends MusicBeatState
 		add(camFollow);
 
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
-		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
+		menuBG.antialiasing = ClientPrefs.data.globalAntialiasing;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
@@ -57,7 +57,7 @@ class AchievementsMenuState extends MusicBeatState
 		options.sort(sortByID);
 		for (option in options)
 		{
-			var hasAntialias:Bool = ClientPrefs.globalAntialiasing;
+			var hasAntialias:Bool = ClientPrefs.data.globalAntialiasing;
 			var graphic = null;
 			if(option.unlocked)
 			{
@@ -320,7 +320,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
-		if(controls.BACK || FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.mobileC)
+		if(controls.BACK || FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.data.mobileC)
 		{
 			close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -337,7 +337,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		if(controls.ACCEPT)
 			onYesFunction();
 		
-		if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.mobileC) { onYes = true; onYesFunction(); }
+		if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.data.mobileC) { onYes = true; onYesFunction(); }
 	}
 
 	function updateOptions() {
@@ -366,7 +366,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 			option.name = state.nameText.text = '???';
 			if(option.maxProgress > 0) state.progressTxt.text = '0 / ' + option.maxProgress;
 			state.grpOptions.members[state.curSelected].loadGraphic(Paths.image('achievements/lockedachievement'));
-			state.grpOptions.members[state.curSelected].antialiasing = ClientPrefs.globalAntialiasing;
+			state.grpOptions.members[state.curSelected].antialiasing = ClientPrefs.data.globalAntialiasing;
 
 			if(state.progressBar.visible)
 			{

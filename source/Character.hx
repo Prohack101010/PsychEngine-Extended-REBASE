@@ -94,7 +94,7 @@ class Character extends FlxSprite
 		animOffsets = new Map<String, Array<Dynamic>>();
 		curCharacter = character;
 		this.isPlayer = isPlayer;
-		antialiasing = ClientPrefs.globalAntialiasing;
+		antialiasing = ClientPrefs.data.globalAntialiasing;
 		var library:String = null;
 		switch (curCharacter)
 		{
@@ -195,7 +195,7 @@ class Character extends FlxSprite
 
 		// antialiasing
 		noAntialiasing = (json.no_antialiasing == true);
-		antialiasing = ClientPrefs.globalAntialiasing ? !noAntialiasing : false;
+		antialiasing = ClientPrefs.data.globalAntialiasing ? !noAntialiasing : false;
 
 		// animations
 		animationsArray = json.animations;
@@ -284,10 +284,10 @@ class Character extends FlxSprite
 		}
 
 		if (getAnimationName().startsWith('sing')) holdTimer += elapsed;
-		else if ((isPlayer && !ClientPrefs.getGameplaySetting('opponentplay', false)) || (!isPlayer && ClientPrefs.getGameplaySetting('opponentplay', false)))
+		else if ((isPlayer && !ClientPrefs.data.getGameplaySetting('opponentplay', false)) || (!isPlayer && ClientPrefs.data.getGameplaySetting('opponentplay', false)))
 			holdTimer = 0;
 
-		if (((!isPlayer && !ClientPrefs.getGameplaySetting('opponentplay', false)) || (isPlayer && ClientPrefs.getGameplaySetting('opponentplay', false))) && holdTimer >= Conductor.stepCrochet * (0.0011 #if FLX_PITCH / (FlxG.sound.music != null ? FlxG.sound.music.pitch : 1) #end) * singDuration)
+		if (((!isPlayer && !ClientPrefs.data.getGameplaySetting('opponentplay', false)) || (isPlayer && ClientPrefs.data.getGameplaySetting('opponentplay', false))) && holdTimer >= Conductor.stepCrochet * (0.0011 #if FLX_PITCH / (FlxG.sound.music != null ? FlxG.sound.music.pitch : 1) #end) * singDuration)
 		{
 			dance();
 			holdTimer = 0;

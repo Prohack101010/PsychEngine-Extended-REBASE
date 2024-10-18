@@ -126,22 +126,22 @@ class MobileExtraControl extends MusicBeatSubstate
 		    } else {
 		        switch(titleNum + 1){
 		            case 1:
-		                ClientPrefs.extraKeyReturn1 = returnArray[typeNum][chooseNum];
+		                ClientPrefs.data.extraKeyReturn1 = returnArray[typeNum][chooseNum];
 		            case 2:
-		                ClientPrefs.extraKeyReturn2 = returnArray[typeNum][chooseNum];
+		                ClientPrefs.data.extraKeyReturn2 = returnArray[typeNum][chooseNum];
 		            case 3:
-		                ClientPrefs.extraKeyReturn3 = returnArray[typeNum][chooseNum];
+		                ClientPrefs.data.extraKeyReturn3 = returnArray[typeNum][chooseNum];
 		            case 4:
-		                ClientPrefs.extraKeyReturn4 = returnArray[typeNum][chooseNum];
+		                ClientPrefs.data.extraKeyReturn4 = returnArray[typeNum][chooseNum];
 		        }
-		        ClientPrefs.saveSettings();
+		        ClientPrefs.data.saveSettings();
 		        updateTitle(titleNum + 1, false, 2, true);
 		    }					
 		}
 		
 		if (back){
 		    if (isMain){
-		        ClientPrefs.saveSettings();
+		        ClientPrefs.data.saveSettings();
                 FlxTransitionableState.skipNextTransIn = true;
     			FlxTransitionableState.skipNextTransOut = true;
     			MusicBeatState.switchState(new options.OptionsState());		    
@@ -153,10 +153,10 @@ class MobileExtraControl extends MusicBeatSubstate
         }
         if (reset){
             FlxG.sound.play(Paths.sound('cancelMenu'));
-            ClientPrefs.extraKeyReturn1 = ClientPrefs.extraKeyReturn1;
-            ClientPrefs.extraKeyReturn2 = ClientPrefs.extraKeyReturn2;
-            ClientPrefs.extraKeyReturn3 = ClientPrefs.extraKeyReturn3;
-            ClientPrefs.extraKeyReturn4 = ClientPrefs.extraKeyReturn4;
+            ClientPrefs.data.extraKeyReturn1 = ClientPrefs.data.extraKeyReturn1;
+            ClientPrefs.data.extraKeyReturn2 = ClientPrefs.data.extraKeyReturn2;
+            ClientPrefs.data.extraKeyReturn3 = ClientPrefs.data.extraKeyReturn3;
+            ClientPrefs.data.extraKeyReturn4 = ClientPrefs.data.extraKeyReturn4;
             resetTitle();
         }
 	}	        
@@ -234,7 +234,7 @@ class ChooseButton extends FlxSpriteGroup
 	
 	    titleObject = new FlxText(0, 0, width, title);
 		titleObject.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		titleObject.antialiasing = ClientPrefs.globalAntialiasing;
+		titleObject.antialiasing = ClientPrefs.data.globalAntialiasing;
 		titleObject.borderSize = 2;
 		titleObject.x = bg.width / 2 - titleObject.width / 2;
 		titleObject.y = bg.height / 2 - titleObject.height / 2;
@@ -243,7 +243,7 @@ class ChooseButton extends FlxSpriteGroup
 		if (extendTitle != null){ 
     		extendTitleObject = new FlxText(0, 0, width, extendTitle);
     		extendTitleObject.setFormat("VCR OSD Mono", 30, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-    		extendTitleObject.antialiasing = ClientPrefs.globalAntialiasing;
+    		extendTitleObject.antialiasing = ClientPrefs.data.globalAntialiasing;
     		extendTitleObject.borderSize = 2;
     		extendTitleObject.x = bg.width / 2 - extendTitleObject.width / 2;
 		    extendTitleObject.y = 30;
