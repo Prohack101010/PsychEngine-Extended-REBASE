@@ -354,19 +354,19 @@ class PlayState extends MusicBeatState
 		// for lua
 		instance = this;
 
-		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
-		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
+		debugKeysChart = ClientPrefs.data.copyKey(ClientPrefs.keyBinds.get('debug_1'));
+		debugKeysCharacter = ClientPrefs.data.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		if (ClientPrefs.data.PauseMenuStyle == 'NovaFlare')
 		    PauseSubStateNOVA.songName = null; //Reset to default
 		else
 		    PauseSubState.songName = null; //Reset to default
-		playbackRate = ClientPrefs.getGameplaySetting('songspeed');
+		playbackRate = ClientPrefs.data.getGameplaySetting('songspeed', 1);
 
 		keysArray = [
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
+			ClientPrefs.data.copyKey(ClientPrefs.keyBinds.get('note_left')),
+			ClientPrefs.data.copyKey(ClientPrefs.keyBinds.get('note_down')),
+			ClientPrefs.data.copyKey(ClientPrefs.keyBinds.get('note_up')),
+			ClientPrefs.data.copyKey(ClientPrefs.keyBinds.get('note_right'))
 		];
 
 		controlArray = [
@@ -406,13 +406,13 @@ class PlayState extends MusicBeatState
 		FlxG.sound.music.stop();
 
 		// Gameplay settings
-		healthGain = ClientPrefs.getGameplaySetting('healthgain');
-		healthLoss = ClientPrefs.getGameplaySetting('healthloss');
-		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill');
-		practiceMode = ClientPrefs.getGameplaySetting('practice');
-		cpuControlled = ClientPrefs.getGameplaySetting('botplay');
-		opponentChart = ClientPrefs.getGameplaySetting('opponentplay');
-		cpuControlled_opponent = ClientPrefs.getGameplaySetting('opponentplay');
+		healthGain = ClientPrefs.data.getGameplaySetting('healthgain', 1);
+		healthLoss = ClientPrefs.data.getGameplaySetting('healthloss', 1);
+		instakillOnMiss = ClientPrefs.data.getGameplaySetting('instakill', false);
+		practiceMode = ClientPrefs.data.getGameplaySetting('practice', false);
+		cpuControlled = ClientPrefs.data.getGameplaySetting('botplay', false);
+		opponentChart = ClientPrefs.data.getGameplaySetting('opponentplay', false);
+		cpuControlled_opponent = ClientPrefs.data.getGameplaySetting('opponentplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
@@ -1798,21 +1798,21 @@ class PlayState extends MusicBeatState
 	}
 	
 	public function changeTheSettingsBitch() {
-		healthGain = ClientPrefs.getGameplaySetting('healthgain');
-		healthLoss = ClientPrefs.getGameplaySetting('healthloss');
-		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill');
-		practiceMode = ClientPrefs.getGameplaySetting('practice');
-		cpuControlled = ClientPrefs.getGameplaySetting('botplay');
-		opponentChart = ClientPrefs.getGameplaySetting('opponentplay');
-		playbackRate = ClientPrefs.getGameplaySetting('songspeed');
-		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype');
+		healthGain = ClientPrefs.data.getGameplaySetting('healthgain', 1);
+		healthLoss = ClientPrefs.data.getGameplaySetting('healthloss', 1);
+		instakillOnMiss = ClientPrefs.data.getGameplaySetting('instakill', false);
+		practiceMode = ClientPrefs.data.getGameplaySetting('practice', false);
+		cpuControlled = ClientPrefs.data.getGameplaySetting('botplay', false);
+		opponentChart = ClientPrefs.data.getGameplaySetting('opponentplay', false);
+		playbackRate = ClientPrefs.data.getGameplaySetting('songspeed', 1);
+		songSpeedType = ClientPrefs.data.getGameplaySetting('scrolltype','multiplicative');
 
 		switch(songSpeedType)
 		{
 			case "multiplicative":
-				songSpeed = SONG.speed * ClientPrefs.getGameplaySetting('scrollspeed');
+				songSpeed = SONG.speed * ClientPrefs.data.getGameplaySetting('scrollspeed', 1);
 			case "constant":
-				songSpeed = ClientPrefs.getGameplaySetting('scrollspeed');
+				songSpeed = ClientPrefs.data.getGameplaySetting('scrollspeed', 1);
 		}
 	}
 
@@ -2559,14 +2559,14 @@ class PlayState extends MusicBeatState
 	private function generateSong(dataPath:String):Void
 	{
 		// FlxG.log.add(ChartParser.parse());
-		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype');
+		songSpeedType = ClientPrefs.data.getGameplaySetting('scrolltype','multiplicative');
 
 		switch(songSpeedType)
 		{
 			case "multiplicative":
-				songSpeed = SONG.speed * ClientPrefs.getGameplaySetting('scrollspeed');
+				songSpeed = SONG.speed * ClientPrefs.data.getGameplaySetting('scrollspeed', 1);
 			case "constant":
-				songSpeed = ClientPrefs.getGameplaySetting('scrollspeed');
+				songSpeed = ClientPrefs.data.getGameplaySetting('scrollspeed', 1);
 		}
 
 		var songData = SONG;
@@ -4031,7 +4031,7 @@ class PlayState extends MusicBeatState
 				if(Math.isNaN(val1)) val1 = 1;
 				if(Math.isNaN(val2)) val2 = 0;
 
-				var newValue:Float = SONG.speed * ClientPrefs.getGameplaySetting('scrollspeed') * val1;
+				var newValue:Float = SONG.speed * ClientPrefs.data.getGameplaySetting('scrollspeed', 1) * val1;
 
 				if(val2 <= 0)
 				{
@@ -4222,7 +4222,7 @@ class PlayState extends MusicBeatState
 					CustomSwitchState.switchMenus('StoryMenu');
 
 					// if ()
-					if(!ClientPrefs.getGameplaySetting('practice') && !ClientPrefs.getGameplaySetting('botplay')) {
+					if(!ClientPrefs.data.getGameplaySetting('practice', false) && !ClientPrefs.data.getGameplaySetting('botplay', false)) {
     					StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
                         if (TitleState.IndieCrossEnabled)
@@ -5442,7 +5442,7 @@ class PlayState extends MusicBeatState
 	{
 		if(chartingMode) return;
 
-		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice') || ClientPrefs.getGameplaySetting('botplay'));
+		var usedPractice:Bool = (ClientPrefs.data.getGameplaySetting('practice', false) || ClientPrefs.data.getGameplaySetting('botplay', false));
 		if(cpuControlled) return;
 
 		for (name in achievesToCheck) {
