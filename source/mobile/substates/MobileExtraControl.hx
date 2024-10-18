@@ -156,7 +156,7 @@ class MobileExtraControl extends MusicBeatSubstate
             ClientPrefs.data.extraKeyReturn1 = ClientPrefs.data.extraKeyReturn1;
             ClientPrefs.data.extraKeyReturn2 = ClientPrefs.data.extraKeyReturn2;
             ClientPrefs.data.extraKeyReturn3 = ClientPrefs.data.extraKeyReturn3;
-            ClientPrefs.data.extraKeyReturn4 = ClientPrefs.extraKeyReturn4;
+            ClientPrefs.data.extraKeyReturn4 = ClientPrefs.data.extraKeyReturn4;
             resetTitle();
         }
 	}	        

@@ -5442,7 +5442,7 @@ class PlayState extends MusicBeatState
 	{
 		if(chartingMode) return;
 
-		var usedPractice:Bool = (ClientPrefs.data.getGameplaySetting('practice', false) || ClientPrefs.data.getGameplaySetting('botplay', false));
+		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('botplay', false));
 		if(cpuControlled) return;
 
 		for (name in achievesToCheck) {
