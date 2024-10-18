@@ -40,7 +40,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		
 		var option:Option = new Option('Freeplay Menu Style:',
 			"Choose your Freeplay Menu Style",
-			'FreeplayStyle',
+			'data.FreeplayStyle',
 			'string',
 			'Psych',
 			['Psych', 'NovaFlare', 'NF']);
@@ -48,7 +48,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		
 		var option:Option = new Option('Main Menu Style:',
 			"Choose your Main Menu Style",
-			'MainMenuStyle',
+			'data.MainMenuStyle',
 			'string',
 			'1.0',
 			['1.0', 'NovaFlare', '0.6.3', 'Extended']);
@@ -56,7 +56,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		
 		var option:Option = new Option('Pause Menu Style:',
 			"Choose your Pause Menu Style",
-			'PauseMenuStyle',
+			'data.PauseMenuStyle',
 			'string',
 			'Psych',
 			['Psych', 'NovaFlare']);
@@ -64,7 +64,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		
 		var option:Option = new Option('Transition Style:',
 			"Choose your Transition Style",
-			'TransitionStyle',
+			'data.TransitionStyle',
 			'string',
 			'Psych',
 			['Psych', 'NovaFlare', 'Extended']);

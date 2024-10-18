@@ -356,7 +356,7 @@ class PlayState extends MusicBeatState
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
-		if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+		if (ClientPrefs.data.PauseMenuStyle == 'NovaFlare')
 		    PauseSubStateNOVA.songName = null; //Reset to default
 		else
 		    PauseSubState.songName = null; //Reset to default
@@ -1381,7 +1381,7 @@ class PlayState extends MusicBeatState
 		precacheList.set('missnote2', 'sound');
 		precacheList.set('missnote3', 'sound');
 
-        if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+        if (ClientPrefs.data.PauseMenuStyle == 'NovaFlare')
         {
     		if (PauseSubStateNOVA.songName != null)
     			precacheList.set(PauseSubStateNOVA.songName, 'music');
@@ -2926,7 +2926,7 @@ class PlayState extends MusicBeatState
 	{
 		if (paused)
 		{
-		    if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+		    if (ClientPrefs.data.PauseMenuStyle == 'NovaFlare')
 		    {
     		    if (PauseSubStateNOVA.moveType == 1){
     		        PauseSubStateNOVA.moveType = 2; //really back to pause
@@ -3520,7 +3520,7 @@ class PlayState extends MusicBeatState
 			vocals.pause();
 			opponentVocals.pause();
 		}
-		if (ClientPrefs.PauseMenuStyle == 'NovaFlare')
+		if (ClientPrefs.data.PauseMenuStyle == 'NovaFlare')
 		    openSubState(new PauseSubStateNOVA());
 		else
 		    openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));

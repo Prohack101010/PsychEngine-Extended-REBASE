@@ -341,9 +341,9 @@ class StoryMenuState extends MusicBeatState
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
 				LoadingState.loadAndSwitchState(new PlayState(), true);
-				if (ClientPrefs.FreeplayStyle == 'NF')
+				if (ClientPrefs.data.FreeplayStyle == 'NF')
     				FreeplayStateNF.destroyFreeplayVocals();
-    		    else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+    		    else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
     				FreeplayStateNOVA.destroyFreeplayVocals();
     			else
 				    FreeplayState.destroyFreeplayVocals();

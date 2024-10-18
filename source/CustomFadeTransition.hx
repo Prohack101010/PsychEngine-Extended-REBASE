@@ -43,7 +43,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
     	var width:Int = Std.int(FlxG.width / zoom);
     	var height:Int = Std.int(FlxG.height / zoom);
 		
-		if (ClientPrefs.TransitionStyle == 'NovaFlare')
+		if (ClientPrefs.data.TransitionStyle == 'NovaFlare')
 		{
     		loadLeft = new FlxSprite(isTransIn ? 0 : -1280, 0).loadGraphic(Paths.image('menuExtend/Loading/loadingL'));
     		loadLeft.scrollFactor.set();
@@ -172,7 +172,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
     			ease: FlxEase.linear});
     		}
     		
-    		if (ClientPrefs.TransitionStyle == 'Extended')
+    		if (ClientPrefs.data.TransitionStyle == 'Extended')
     		{
         		LoadBF = new FlxSprite(-150, 250);
         		LoadBF.frames = Paths.getSparrowAtlas('bf running');
@@ -188,7 +188,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
     		if(nextCamera != null) {
     			transBlack.cameras = [nextCamera];
     			transGradient.cameras = [nextCamera];
-    			if (ClientPrefs.TransitionStyle == 'Extended')
+    			if (ClientPrefs.data.TransitionStyle == 'Extended')
     			    LoadBF.cameras = [nextCamera];
     		}
     		nextCamera = null;
@@ -204,7 +204,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	}
 
 	override function update(elapsed:Float) {
-	    if (ClientPrefs.TransitionStyle != 'NovaFlare')
+	    if (ClientPrefs.data.TransitionStyle != 'NovaFlare')
 	    {
     		if(isTransIn) {
     			transBlack.y = transGradient.y + transGradient.height;
@@ -221,7 +221,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	}
 
 	override function destroy() {
-	    if(leTween != null && ClientPrefs.TransitionStyle == 'NovaFlare') {
+	    if(leTween != null && ClientPrefs.data.TransitionStyle == 'NovaFlare') {
 			finishCallback();
 			leTween.cancel();
 			loadLeftTween.cancel();

@@ -8,6 +8,18 @@ import Controls;
 
 // Add a variable here and it will get automatically saved
 class SaveVariables {
+    //NF Engine Things
+    public var ChangeSkin:Bool = false;
+	public var NoteSkin:String = 'original';
+	public var NoteSkinName:String = 'original';
+	//Others
+    public var FreeplayStyle:String = 'Psych';
+    public var PauseMenuStyle:String = 'Psych';
+    public var FreakyMenu:String = 'Extended';
+    public var TransitionStyle:String = 'Psych';
+    public var MainMenuStyle:String = '1.0';
+    public var cursing:Bool = true;
+	public var violence:Bool = true;
     public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -37,16 +49,6 @@ class SaveVariables {
 
 class ClientPrefs {
     public static var data:SaveVariables = null;
-	//NF Engine Things
-    public static var ChangeSkin:Bool = false;
-	public static var NoteSkin:String = 'original';
-	public static var NoteSkinName:String = 'original';
-	//Others
-    public static var FreeplayStyle:String = 'Psych';
-    public static var PauseMenuStyle:String = 'Psych';
-    public static var FreakyMenu:String = 'Extended';
-    public static var TransitionStyle:String = 'Psych';
-    public static var MainMenuStyle:String = '1.0';
 	public static var downScroll:Bool = false;
 	public static var marvelousRating:Bool = true;	
 	public static var marvelousSprite:Bool = true;	
@@ -60,8 +62,6 @@ class ClientPrefs {
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
 	public static var framerate:Int = 60;
-	public static var cursing:Bool = true;
-	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var noteOffset:Int = 0;
@@ -156,15 +156,10 @@ class ClientPrefs {
 		FlxG.save.data.marvelousSprite = marvelousSprite;
 		FlxG.save.data.marvelousWindow = marvelousWindow;
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
-		FlxG.save.data.FreeplayStyle = FreeplayStyle;
-		FlxG.save.data.MainMenuStyle = MainMenuStyle;
 		FlxG.save.data.extraKeyReturn1 = extraKeyReturn1;
 		FlxG.save.data.extraKeyReturn2 = extraKeyReturn2;
 		FlxG.save.data.extraKeyReturn3 = extraKeyReturn3;
 		FlxG.save.data.extraKeyReturn4 = extraKeyReturn4;
-		FlxG.save.data.PauseMenuStyle = PauseMenuStyle;
-		FlxG.save.data.FreakyMenu = FreakyMenu;
-		FlxG.save.data.TransitionStyle = TransitionStyle;
 		FlxG.save.data.touchmenus = touchmenus;
 		FlxG.save.data.Modpack = Modpack;
 		FlxG.save.data.IndieCrossMenus = IndieCrossMenus;
@@ -178,8 +173,6 @@ class ClientPrefs {
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.framerate = framerate;
-		//FlxG.save.data.cursing = cursing;
-		//FlxG.save.data.violence = violence;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
@@ -202,12 +195,6 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
-		//NF Engine Things
-		FlxG.save.data.NoteSkin = NoteSkin;
-		FlxG.save.data.NoteSkinName = NoteSkinName;
-	    FlxG.save.data.ChangeSkin = ChangeSkin;
-	    //Others
-	     FlxG.save.data.ChangeSkin = ChangeSkin;
         #if android
 		FlxG.save.data.storageType = storageType;
 		#end
@@ -233,17 +220,6 @@ class ClientPrefs {
 	public static function loadPrefs() {
 	    if(data == null) data = new SaveVariables();
 	    #if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
-		//NF Engine Things
-	    if(FlxG.save.data.NoteSkin != null) {
-			NoteSkin = FlxG.save.data.NoteSkin;
-		}
-
-		if(FlxG.save.data.NoteSkinName != null) {
-			NoteSkinName = FlxG.save.data.NoteSkinName;
-		}
-		if(FlxG.save.data.ChangeSkin != null) {
-			ChangeSkin = FlxG.save.data.ChangeSkin;
-		}
 		//Others
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
@@ -266,12 +242,6 @@ class ClientPrefs {
 		if(FlxG.save.data.VirtualPadSkin != null) {
 			VirtualPadSkin = FlxG.save.data.VirtualPadSkin;
 		}
-		if(FlxG.save.data.FreeplayStyle != null) {
-			FreeplayStyle = FlxG.save.data.FreeplayStyle;
-		}
-		if(FlxG.save.data.MainMenuStyle != null) {
-			MainMenuStyle = FlxG.save.data.MainMenuStyle;
-		}
 		if(FlxG.save.data.extraKeyReturn1 != null) {
 			extraKeyReturn1 = FlxG.save.data.extraKeyReturn1;
 		}
@@ -283,15 +253,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.extraKeyReturn4 != null) {
 			extraKeyReturn4 = FlxG.save.data.extraKeyReturn4;
-		}
-		if(FlxG.save.data.PauseMenuStyle != null) {
-			PauseMenuStyle = FlxG.save.data.PauseMenuStyle;
-		}
-		if(FlxG.save.data.FreakyMenu != null) {
-			FreakyMenu = FlxG.save.data.FreakyMenu;
-		}
-		if(FlxG.save.data.TransitionStyle != null) {
-			TransitionStyle = FlxG.save.data.TransitionStyle;
 		}
 		if(FlxG.save.data.touchmenus != null) {
 			touchmenus = FlxG.save.data.touchmenus;
@@ -342,12 +303,6 @@ class ClientPrefs {
 				FlxG.updateFramerate = framerate;
 			}
 		}
-		/*if(FlxG.save.data.cursing != null) {
-			cursing = FlxG.save.data.cursing;
-		}
-		if(FlxG.save.data.violence != null) {
-			violence = FlxG.save.data.violence;
-		}*/
 		if(FlxG.save.data.camZooms != null) {
 			camZooms = FlxG.save.data.camZooms;
 		}

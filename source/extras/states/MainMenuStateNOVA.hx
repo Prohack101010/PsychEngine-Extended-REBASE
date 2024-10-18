@@ -262,9 +262,9 @@ class MainMenuStateNOVA extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			if (ClientPrefs.FreeplayStyle == 'NF')
+			if (ClientPrefs.data.FreeplayStyle == 'NF')
 			    if(FreeplayStateNF.vocals != null) FreeplayStateNF.vocals.volume += 0.5 * elapsed;
-			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
 			    if(FreeplayStateNOVA.vocals != null) FreeplayStateNOVA.vocals.volume += 0.5 * elapsed;
 			else
 			    if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;

@@ -1853,7 +1853,7 @@ class ChartingState extends MusicBeatState
 
 			if (FlxG.keys.justPressed.BACKSPACE #if android || FlxG.android.justReleased.BACK #end #if ios || _virtualpad.buttonB.pressed #end) {
 				PlayState.chartingMode = false;
-				if (ClientPrefs.FreeplayStyle == 'NovaFlare' && isFreePlay)
+				if (ClientPrefs.data.FreeplayStyle == 'NovaFlare' && isFreePlay)
                     MusicBeatState.switchState(new FreeplayStateNOVA());
         		else
         			MusicBeatState.switchState(new editors.MasterEditorMenu());

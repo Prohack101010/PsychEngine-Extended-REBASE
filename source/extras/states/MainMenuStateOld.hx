@@ -53,7 +53,7 @@ class MainMenuStateOld extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
-		if (ClientPrefs.MainMenuStyle == '0.6.3')
+		if (ClientPrefs.data.MainMenuStyle == '0.6.3')
 		{
 		optionShit = [
     		'story_mode',
@@ -175,7 +175,7 @@ class MainMenuStateOld extends MusicBeatState
     		#end
     	#end
 
-    	if (ClientPrefs.MainMenuStyle == '0.6.3')
+    	if (ClientPrefs.data.MainMenuStyle == '0.6.3')
     	    addVirtualPad(UP_DOWN, A_B_E);
     	else
     	    addVirtualPad(UP_DOWN, A_B_E_C_M);
@@ -190,9 +190,9 @@ class MainMenuStateOld extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			if (ClientPrefs.FreeplayStyle == 'NF')
+			if (ClientPrefs.data.FreeplayStyle == 'NF')
 			    if(FreeplayStateNF.vocals != null) FreeplayStateNF.vocals.volume += 0.5 * elapsed;
-			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
 			    if(FreeplayStateNOVA.vocals != null) FreeplayStateNOVA.vocals.volume += 0.5 * elapsed;
 			else
 			    if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;

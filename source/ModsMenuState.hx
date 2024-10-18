@@ -360,7 +360,7 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-			    if (ClientPrefs.FreeplayStyle == 'NovaFlare' && isFreePlay)
+			    if (ClientPrefs.data.FreeplayStyle == 'NovaFlare' && isFreePlay)
                     MusicBeatState.switchState(new FreeplayStateNOVA());
         		else
         			CustomSwitchState.switchMenus('MainMenu');
