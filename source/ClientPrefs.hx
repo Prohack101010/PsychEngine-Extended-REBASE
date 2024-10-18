@@ -193,8 +193,6 @@ class ClientPrefs {
 			//trace('saved variable: $key');
 			Reflect.setField(FlxG.save.data, key, Reflect.field(data, key));
 		}
-		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
-		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
 		FlxG.save.flush();
 
 		//Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
@@ -220,10 +218,6 @@ class ClientPrefs {
 		if(Main.fpsVar != null) {
 			Main.fpsVar.visible = data.showFPS;
 		}
-
-		#if (!html5 && !switch)
-		FlxG.autoPause = ClientPrefs.data.autoPause;
-		#end
 
 		if(data.framerate > FlxG.drawFramerate) {
 			FlxG.updateFramerate = data.framerate;
@@ -294,5 +288,32 @@ class ClientPrefs {
 			FlxG.sound.volumeDownKeys = [];
 			FlxG.sound.volumeUpKeys = [];
 		}
+	}
+	
+	public static function reloadControls() {
+		PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
+
+		TitleState.muteKeys = copyKey(keyBinds.get('volume_mute'));
+		TitleState.volumeDownKeys = copyKey(keyBinds.get('volume_down'));
+		TitleState.volumeUpKeys = copyKey(keyBinds.get('volume_up'));
+		FlxG.sound.muteKeys = TitleState.muteKeys;
+		FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
+		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
+	}
+	
+	public static function copyKey(arrayToCopy:Array<FlxKey>):Array<FlxKey> {
+		var copiedArray:Array<FlxKey> = arrayToCopy.copy();
+		var i:Int = 0;
+		var len:Int = copiedArray.length;
+
+		while (i < len) {
+			if(copiedArray[i] == NONE) {
+				copiedArray.remove(NONE);
+				--i;
+			}
+			i++;
+			len = copiedArray.length;
+		}
+		return copiedArray;
 	}
 }

@@ -91,7 +91,7 @@ class MainMenuState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
-		debugKeys = ClientPrefs.data.copyKey(ClientPrefs.data.keyBinds.get('debug_1'));
+		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;

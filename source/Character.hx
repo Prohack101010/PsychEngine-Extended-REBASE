@@ -284,10 +284,10 @@ class Character extends FlxSprite
 		}
 
 		if (getAnimationName().startsWith('sing')) holdTimer += elapsed;
-		else if ((isPlayer && !ClientPrefs.data.getGameplaySetting('opponentplay', false)) || (!isPlayer && ClientPrefs.data.getGameplaySetting('opponentplay', false)))
+		else if ((isPlayer && !ClientPrefs.getGameplaySetting('opponentplay')) || (!isPlayer && ClientPrefs.getGameplaySetting('opponentplay')))
 			holdTimer = 0;
 
-		if (((!isPlayer && !ClientPrefs.data.getGameplaySetting('opponentplay', false)) || (isPlayer && ClientPrefs.data.getGameplaySetting('opponentplay', false))) && holdTimer >= Conductor.stepCrochet * (0.0011 #if FLX_PITCH / (FlxG.sound.music != null ? FlxG.sound.music.pitch : 1) #end) * singDuration)
+		if (((!isPlayer && !ClientPrefs.getGameplaySetting('opponentplay')) || (isPlayer && ClientPrefs.getGameplaySetting('opponentplay'))) && holdTimer >= Conductor.stepCrochet * (0.0011 #if FLX_PITCH / (FlxG.sound.music != null ? FlxG.sound.music.pitch : 1) #end) * singDuration)
 		{
 			dance();
 			holdTimer = 0;

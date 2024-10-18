@@ -160,7 +160,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		    if (ClientPrefs.data.virtualpadType != lastVirtualPadType) //Null Object Fix
 		    {
         		ClientPrefs.data.VirtualPadSkin = 'original';
-        		ClientPrefs.data.saveSettings();
+        		ClientPrefs.saveSettings();
         		ClientPrefs.data.VirtualPadSkin = 'original';
         		CoolUtil.showPopUp('VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
         		lime.system.System.exit(0);

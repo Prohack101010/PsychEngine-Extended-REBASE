@@ -134,7 +134,7 @@ class TitleState extends MusicBeatState
 
 		FlxG.save.bind('funkin' , CoolUtil.getSavePath());
 
-		ClientPrefs.data.loadPrefs();
+		ClientPrefs.loadPrefs();
 
 		#if CHECK_FOR_UPDATES
 		if(ClientPrefs.data.checkForUpdates && !closedState) {

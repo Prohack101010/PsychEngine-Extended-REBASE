@@ -107,10 +107,10 @@ class OptionsState extends MusicBeatState
 		add(selectorRight);
 
 		changeSelection();
-		ClientPrefs.data.saveSettings();
+		ClientPrefs.saveSettings();
 
 		changeSelection();
-		ClientPrefs.data.saveSettings();
+		ClientPrefs.saveSettings();
 
 		addVirtualPad(UP_DOWN, A_B_E);
 
@@ -122,7 +122,7 @@ class OptionsState extends MusicBeatState
 		removeVirtualPad();
 		addVirtualPad(UP_DOWN, A_B_E);
 		persistentUpdate = true;
-		ClientPrefs.data.saveSettings();
+		ClientPrefs.saveSettings();
 	}
 
 	override function update(elapsed:Float) {

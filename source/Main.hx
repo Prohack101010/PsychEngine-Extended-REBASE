@@ -109,7 +109,7 @@ class Main extends Sprite
 			game.zoom = 1.0;
 		#end
 	
-		ClientPrefs.data.loadDefaultKeys();
+		ClientPrefs.loadDefaultKeys();
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		
 		addChild(new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
