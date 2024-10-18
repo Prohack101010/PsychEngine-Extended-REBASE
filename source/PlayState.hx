@@ -5089,7 +5089,7 @@ class PlayState extends MusicBeatState
 
 	function killHenchmen():Void
 	{
-		if(!ClientPrefs.lowQuality && ClientPrefs.violence && curStage == 'limo') {
+		if(!ClientPrefs.lowQuality && ClientPrefs.data.violence && curStage == 'limo') {
 			if(limoKillingState < 1) {
 				limoMetalPole.x = -400;
 				limoMetalPole.visible = true;

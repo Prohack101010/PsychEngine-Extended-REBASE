@@ -70,7 +70,7 @@ class NotesSubState extends MusicBeatSubstate
 
 			var note:FlxSprite = new FlxSprite(posX, yPos);
 			note.frames = Paths.getSparrowAtlas('NOTE_assets');
-			if (ClientPrefs.NoteSkin != 'original') note.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkin);
+			if (ClientPrefs.data.NoteSkin != 'original') note.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.data.NoteSkin);
 			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
 			note.animation.addByPrefix('idle', animations[i]);
 			note.animation.play('idle');

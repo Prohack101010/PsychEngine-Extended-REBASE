@@ -9,9 +9,7 @@ import Controls;
 // Add a variable here and it will get automatically saved
 class SaveVariables {
     //NF Engine Things
-    public var ChangeSkin:Bool = false;
 	public var NoteSkin:String = 'original';
-	public var NoteSkinName:String = 'original';
 	//Others
     public var FreeplayStyle:String = 'Psych';
     public var PauseMenuStyle:String = 'Psych';

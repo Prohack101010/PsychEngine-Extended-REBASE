@@ -259,8 +259,8 @@ class Note extends FlxSprite
 		if(texture.length < 1) {
 			skin = PlayState.SONG.arrowSkin;
 			if(skin == null || skin.length < 1) {
-			    if (ClientPrefs.NoteSkin != 'original'){
-				skin = 'NoteSkin/' + ClientPrefs.NoteSkin;
+			    if (ClientPrefs.data.NoteSkin != 'original'){
+				skin = 'NoteSkin/' + ClientPrefs.data.NoteSkin;
 				}
 				else{
 				skin = 'NOTE_assets';
