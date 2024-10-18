@@ -1,4 +1,4 @@
-package states;
+package;
 
 import haxe.Json;
 import lime.utils.Assets;
@@ -9,9 +9,9 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.FlxGraphic;
 import flixel.FlxState;
 
-import backend.Song;
-import backend.StageData;
-import objects.Character;
+import Song;
+import StageData;
+import Character;
 
 #if (target.threaded)
 import sys.thread.Thread;
