@@ -54,17 +54,17 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 		
-		if (ClientPrefs.data.virtualpadType == 'New')
+		if (ClientPrefs.virtualpadType == 'New')
 		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.getSharedPath('images/virtualpad/virtualpadSkinList.txt'));
 		    
 		#if MODS_ALLOWED
 		final modsPath:String = Paths.mods('virtualpad/virtualpadSkinList');
 		final modsPathExtra:String = Paths.mods('virtualpad/virtualpadSkinList.txt');
-		if((sys.FileSystem.exists(modsPath) || sys.FileSystem.exists(modsPathExtra)) && ClientPrefs.data.virtualpadType == 'New')
+		if((sys.FileSystem.exists(modsPath) || sys.FileSystem.exists(modsPathExtra)) && ClientPrefs.virtualpadType == 'New')
 		    virtualpadSkinList = CoolUtil.coolTextFile(Paths.mods('virtualpad/virtualpadSkinList.txt'));
 		#end
 		
-	if (ClientPrefs.data.VirtualPadAlpha != 0) {
+	if (ClientPrefs.VirtualPadAlpha != 0) {
 		var option:Option = new Option('VirtualPad Skin',
 			"Choose VirtualPad Skin",
 			'VirtualPadSkin',
@@ -90,7 +90,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
         option.onChange = onChangePadAlpha;
 		super();
 		
-	if (ClientPrefs.data.VirtualPadAlpha != 0) {
+	if (ClientPrefs.VirtualPadAlpha != 0) {
 		var option:Option = new Option('Colored VirtualPad',
 			'If unchecked, disables VirtualPad colors\n(can be used to make custom colored VirtualPad)',
 			'coloredvpad',
@@ -212,7 +212,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	function onChangePadAlpha()
 	{
     	ClientPrefs.saveSettings();
-    	_virtualpad.alpha = ClientPrefs.data.VirtualPadAlpha;
+    	_virtualpad.alpha = ClientPrefs.VirtualPadAlpha;
 	}
 	
 	function resetVirtualPad()

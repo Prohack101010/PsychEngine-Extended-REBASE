@@ -74,7 +74,7 @@ class ModsMenuState extends MusicBeatState
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFF665AFF;
-		bg.antialiasing = ClientPrefs.data.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 
@@ -360,7 +360,7 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-			    if (ClientPrefs.data.FreeplayStyle == 'NovaFlare' && isFreePlay)
+			    if (ClientPrefs.FreeplayStyle == 'NovaFlare' && isFreePlay)
                     MusicBeatState.switchState(new FreeplayStateNOVA());
         		else
         			CustomSwitchState.switchMenus('MainMenu');
@@ -892,7 +892,7 @@ class ModItem extends FlxSpriteGroup
 		add(selectBg);
 
 		icon = new FlxSprite(5, 5);
-		icon.antialiasing = ClientPrefs.data.globalAntialiasing;
+		icon.antialiasing = ClientPrefs.globalAntialiasing;
 		add(icon);
 
 		text = new FlxText(95, 38, 230, "", 16);

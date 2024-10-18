@@ -115,9 +115,9 @@ class Option
 	}
 
 	dynamic public function getValue():Dynamic
-		return Reflect.getProperty(ClientPrefs.data, variable);
+		return Reflect.getProperty(ClientPrefs, variable);
 	dynamic public function setValue(value:Dynamic)
-		return Reflect.setProperty(ClientPrefs.data, variable, value);
+		return Reflect.setProperty(ClientPrefs, variable, value);
 
 	public function setChild(child:Alphabet)
 	{

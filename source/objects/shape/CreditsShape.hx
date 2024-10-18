@@ -48,13 +48,13 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
         text = new FlxText(0, 0, 0, texts, 22);
         text.color = FlxColor.WHITE;
         text.font = Paths.font('montserrat.ttf');
-        text.antialiasing = ClientPrefs.data.globalAntialiasing;
+        text.antialiasing = ClientPrefs.globalAntialiasing;
         if (text.width > width - box.width - 20) text.scale.x = width - box.width - 20 / text.width;
 
         background = new Rect(0, 0, width, height, roundWidth, roundHeight, color);
         background.color = color;
         background.alpha = 0.6;
-        background.antialiasing = ClientPrefs.data.globalAntialiasing;
+        background.antialiasing = ClientPrefs.globalAntialiasing;
         add(background);
         add(text);
         add(box);

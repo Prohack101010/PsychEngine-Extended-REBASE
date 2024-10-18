@@ -92,7 +92,7 @@ class FreeplayState extends MusicBeatState
 		WeekData.loadTheFirstEnabledMod();
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 
@@ -164,7 +164,7 @@ class FreeplayState extends MusicBeatState
 		add(bottomBG);
 
         var leText:String;
-        if (ClientPrefs.data.mobileC)
+        if (ClientPrefs.mobileC)
 		    leText = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
         else
 		    leText = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";

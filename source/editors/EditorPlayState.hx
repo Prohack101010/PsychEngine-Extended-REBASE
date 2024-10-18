@@ -80,8 +80,8 @@ class EditorPlayState extends MusicBeatState
 			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
 		];
 		
-		strumLine = new FlxSprite(ClientPrefs.data.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
-		if(ClientPrefs.data.downScroll) strumLine.y = FlxG.height - 150;
+		strumLine = new FlxSprite(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
+		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 		
 		comboGroup = new FlxTypedGroup<FlxSprite>();
@@ -94,7 +94,7 @@ class EditorPlayState extends MusicBeatState
 
 		generateStaticArrows(0);
 		generateStaticArrows(1);
-		/*if(ClientPrefs.data.middleScroll) {
+		/*if(ClientPrefs.middleScroll) {
 			opponentStrums.forEachAlive(function (note:StrumNote) {
 				note.visible = false;
 			});
@@ -156,7 +156,7 @@ class EditorPlayState extends MusicBeatState
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
-		scoreTxt.visible = !ClientPrefs.data.hideHud;
+		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 		
 		sectionTxt = new FlxText(10, 580, FlxG.width - 20, "Section: 0", 20);
@@ -205,7 +205,7 @@ class EditorPlayState extends MusicBeatState
 		go.updateHitbox();
 
 		go.screenCenter();
-		go.antialiasing = ClientPrefs.data.globalAntialiasing;
+		go.antialiasing = ClientPrefs.globalAntialiasing;
 		add(go);
 		FlxTween.tween(go, {y: go.y += 100, alpha: 0}, Conductor.crochet / 1000, {
 			ease: FlxEase.cubeInOut,
@@ -296,7 +296,7 @@ class EditorPlayState extends MusicBeatState
 								{
 									sustainNote.x += FlxG.width / 2; // general offset
 								}
-								else if(ClientPrefs.data.middleScroll)
+								else if(ClientPrefs.middleScroll)
 								{
 									sustainNote.x += 310;
 									if(daNoteData > 1)
@@ -311,7 +311,7 @@ class EditorPlayState extends MusicBeatState
 						{
 							swagNote.x += FlxG.width / 2; // general offset
 						}
-						else if(ClientPrefs.data.middleScroll)
+						else if(ClientPrefs.middleScroll)
 						{
 							swagNote.x += 310;
 							if(daNoteData > 1) //Up and Right
@@ -436,7 +436,7 @@ class EditorPlayState extends MusicBeatState
 					daNote.x = strumX;
 				}
 				if(daNote.copyY) {
-					if (ClientPrefs.data.downScroll) {
+					if (ClientPrefs.downScroll) {
 						daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * PlayState.SONG.speed);
 						if (daNote.isSustainNote) {
 							//Jesus fuck this took me so much mother fucking time AAAAAAAAAA
@@ -570,7 +570,7 @@ class EditorPlayState extends MusicBeatState
 
 		if (generatedMusic)
 		{
-			notes.sort(FlxSort.byY, ClientPrefs.data.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
+			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 	}
 
@@ -609,7 +609,7 @@ class EditorPlayState extends MusicBeatState
 				var lastTime:Float = Conductor.songPosition;
 				Conductor.songPosition = FlxG.sound.music.time;
 
-				var canMiss:Bool = !ClientPrefs.data.ghostTapping;
+				var canMiss:Bool = !ClientPrefs.ghostTapping;
 
 				// heavily based on my own code LOL if it aint broke dont fix it
 				var pressNotes:Array<Note> = [];
@@ -652,7 +652,7 @@ class EditorPlayState extends MusicBeatState
 
 					}
 				}
-				else if (canMiss && ClientPrefs.data.ghostTapping) {
+				else if (canMiss && ClientPrefs.ghostTapping) {
 					noteMiss();
 				}
 
@@ -838,7 +838,7 @@ class EditorPlayState extends MusicBeatState
 	var COMBO_Y:Float = 340;
 	private function popUpScore(note:Note = null):Void
 	{
-		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.data.ratingOffset);
+		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
 
 		vocals.volume = 1;
 		opponentVocals.volume = 1;
@@ -901,18 +901,18 @@ class EditorPlayState extends MusicBeatState
 		rating.acceleration.y = 550;
 		rating.velocity.y -= FlxG.random.int(140, 175);
 		rating.velocity.x -= FlxG.random.int(0, 10);
-		rating.visible = !ClientPrefs.data.hideHud;
-		rating.x += ClientPrefs.data.comboOffset[0];
-		rating.y -= ClientPrefs.data.comboOffset[1];
+		rating.visible = !ClientPrefs.hideHud;
+		rating.x += ClientPrefs.comboOffset[0];
+		rating.y -= ClientPrefs.comboOffset[1];
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
 		comboSpr.screenCenter();
 		comboSpr.x = coolText.x;
 		comboSpr.acceleration.y = 600;
 		comboSpr.velocity.y -= 150;
-		comboSpr.visible = !ClientPrefs.data.hideHud;
-		comboSpr.x += ClientPrefs.data.comboOffset[0];
-		comboSpr.y -= ClientPrefs.data.comboOffset[1];
+		comboSpr.visible = !ClientPrefs.hideHud;
+		comboSpr.x += ClientPrefs.comboOffset[0];
+		comboSpr.y -= ClientPrefs.comboOffset[1];
 
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
 		comboGroup.add(rating);
@@ -920,9 +920,9 @@ class EditorPlayState extends MusicBeatState
 		if (!PlayState.isPixelStage)
 		{
 			rating.setGraphicSize(Std.int(rating.width * 0.7));
-			rating.antialiasing = ClientPrefs.data.globalAntialiasing;
+			rating.antialiasing = ClientPrefs.globalAntialiasing;
 			comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.7));
-			comboSpr.antialiasing = ClientPrefs.data.globalAntialiasing;
+			comboSpr.antialiasing = ClientPrefs.globalAntialiasing;
 		}
 		else
 		{
@@ -950,12 +950,12 @@ class EditorPlayState extends MusicBeatState
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;
 
-			numScore.x += ClientPrefs.data.comboOffset[2];
-			numScore.y -= ClientPrefs.data.comboOffset[3];
+			numScore.x += ClientPrefs.comboOffset[2];
+			numScore.y -= ClientPrefs.comboOffset[3];
 
 			if (!PlayState.isPixelStage)
 			{
-				numScore.antialiasing = ClientPrefs.data.globalAntialiasing;
+				numScore.antialiasing = ClientPrefs.globalAntialiasing;
 				numScore.setGraphicSize(Std.int(numScore.width * 0.5));
 			}
 			else
@@ -967,7 +967,7 @@ class EditorPlayState extends MusicBeatState
 			numScore.acceleration.y = FlxG.random.int(200, 300);
 			numScore.velocity.y -= FlxG.random.int(140, 160);
 			numScore.velocity.x = FlxG.random.float(-5, 5);
-			numScore.visible = !ClientPrefs.data.hideHud;
+			numScore.visible = !ClientPrefs.hideHud;
 
 			insert(members.indexOf(strumLineNotes), numScore);
 
@@ -1013,11 +1013,11 @@ class EditorPlayState extends MusicBeatState
 			var targetAlpha:Float = 1;
 			if (player < 1)
 			{
-				if(!ClientPrefs.data.opponentStrums) targetAlpha = 0;
-				else if(ClientPrefs.data.middleScroll) targetAlpha = 0.35;
+				if(!ClientPrefs.opponentStrums) targetAlpha = 0;
+				else if(ClientPrefs.middleScroll) targetAlpha = 0.35;
 			}
 
-			var babyArrow:StrumNote = new StrumNote(ClientPrefs.data.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
+			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
 			babyArrow.alpha = targetAlpha;
 
 			if (player == 1)
@@ -1026,7 +1026,7 @@ class EditorPlayState extends MusicBeatState
 			}
 			else
 			{
-				if(ClientPrefs.data.middleScroll)
+				if(ClientPrefs.middleScroll)
 				{
 					babyArrow.x += 310;
 					if(i > 1) { //Up and Right
@@ -1060,7 +1060,7 @@ class EditorPlayState extends MusicBeatState
 
 	// Note splash shit, duh
 	function spawnNoteSplashOnNote(note:Note) {
-		if(ClientPrefs.data.noteSplashes && note != null) {
+		if(ClientPrefs.noteSplashes && note != null) {
 			var strum:StrumNote = playerStrums.members[note.noteData];
 			if(strum != null) {
 				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
@@ -1072,9 +1072,9 @@ class EditorPlayState extends MusicBeatState
 		var skin:String = 'noteSplashes';
 		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
 		
-		var hue:Float = ClientPrefs.data.arrowHSV[data % 4][0] / 360;
-		var sat:Float = ClientPrefs.data.arrowHSV[data % 4][1] / 100;
-		var brt:Float = ClientPrefs.data.arrowHSV[data % 4][2] / 100;
+		var hue:Float = ClientPrefs.arrowHSV[data % 4][0] / 360;
+		var sat:Float = ClientPrefs.arrowHSV[data % 4][1] / 100;
+		var brt:Float = ClientPrefs.arrowHSV[data % 4][2] / 100;
 		if(note != null) {
 			skin = note.noteSplashTexture;
 			hue = note.noteSplashHue;

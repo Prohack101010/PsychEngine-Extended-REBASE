@@ -94,7 +94,7 @@ class Character extends FlxSprite
 		animOffsets = new Map<String, Array<Dynamic>>();
 		curCharacter = character;
 		this.isPlayer = isPlayer;
-		antialiasing = ClientPrefs.data.globalAntialiasing;
+		antialiasing = ClientPrefs.globalAntialiasing;
 		var library:String = null;
 		switch (curCharacter)
 		{
@@ -195,7 +195,7 @@ class Character extends FlxSprite
 
 		// antialiasing
 		noAntialiasing = (json.no_antialiasing == true);
-		antialiasing = ClientPrefs.data.globalAntialiasing ? !noAntialiasing : false;
+		antialiasing = ClientPrefs.globalAntialiasing ? !noAntialiasing : false;
 
 		// animations
 		animationsArray = json.animations;
