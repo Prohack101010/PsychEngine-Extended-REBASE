@@ -1259,7 +1259,8 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "mouseClicked", function(button:String) {
 			var boobs = FlxG.mouse.justPressed;
-			switch(button){
+			switch(button.trim().toLowerCase())
+			{
 				case 'middle':
 					boobs = FlxG.mouse.justPressedMiddle;
 				case 'right':
@@ -1271,7 +1272,8 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "mousePressed", function(button:String) {
 			var boobs = FlxG.mouse.pressed;
-			switch(button){
+			switch(button.trim().toLowerCase())
+			{
 				case 'middle':
 					boobs = FlxG.mouse.pressedMiddle;
 				case 'right':
@@ -1281,7 +1283,8 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "mouseReleased", function(button:String) {
 			var boobs = FlxG.mouse.justReleased;
-			switch(button){
+			switch(button.trim().toLowerCase())
+			{
 				case 'middle':
 					boobs = FlxG.mouse.justReleasedMiddle;
 				case 'right':
