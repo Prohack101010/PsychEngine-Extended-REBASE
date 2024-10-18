@@ -24,7 +24,6 @@ class SaveVariables {
     public var marvelousWindow:Int = 15;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
-	public var showFPS:Bool = true;
 	public var flashing:Bool = true;
 	public var globalAntialiasing:Bool = true;
 	public var noteSplashes:Bool = true;
@@ -43,7 +42,6 @@ class SaveVariables {
 	public var scoreZoom:Bool = true;
 	public var noReset:Bool = false;
 	public var healthBarAlpha:Float = 1;
-	public var controllerMode:Bool = #if mobile true #else false #end;
 	public var hitsoundVolume:Float = 0;
 	public var pauseMusic:String = 'Tea Time';
 	public var checkForUpdates:Bool = true;
@@ -53,11 +51,7 @@ class SaveVariables {
 	public var Modpack:Bool = false;
 	public var IndieCrossMenus:Bool = #if (INDIECROSS_FORCED || INDIECROSS_ASSETS) true #else false #end;
 	//Mobile
-	public var wideScreen:Bool = false;
 	public var mobileC:Bool = true; //better than using if mobile
-	#if android
-	public var storageType:String = "EXTERNAL_DATA";
-	#end
 	//VirtualPad
 	public var virtualpadType:String = "New";
 	public var VirtualPadSkin:String = 'original';
@@ -111,6 +105,13 @@ class SaveVariables {
 
 class ClientPrefs {
 	public static var data:SaveVariables = null;
+	
+	public static var controllerMode:Bool = #if mobile true #else false #end;
+	public static var showFPS:Bool = true;
+	public static var wideScreen:Bool = false;
+	#if android
+	public static var storageType:String = "EXTERNAL_DATA";
+	#end
 
 	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
@@ -150,6 +151,12 @@ class ClientPrefs {
 			Reflect.setField(FlxG.save.data, key, Reflect.field(data, key));
 		}
 		#if ACHIEVEMENTS_ALLOWED Achievements.save(); #end
+		FlxG.save.data.controllerMode = controllerMode;
+		FlxG.save.data.showFPS = showFPS;
+		FlxG.save.data.wideScreen = wideScreen;
+		#if android
+		FlxG.save.data.storageType = storageType;
+		#end
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
@@ -162,6 +169,17 @@ class ClientPrefs {
 	public static function loadPrefs() {
 	    #if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		if(data == null) data = new SaveVariables();
+		if(FlxG.save.data.controllerMode != null) {
+			controllerMode = FlxG.save.data.controllerMode;
+		}
+	    if(FlxG.save.data.wideScreen != null) {
+			wideScreen = FlxG.save.data.wideScreen;
+		}
+	    #if android
+		if(FlxG.save.data.storageType != null) {
+			storageType = FlxG.save.data.storageType;
+		}
+		#end
 
 		for (key in Reflect.fields(data)) {
 			if (key != 'gameplaySettings' && Reflect.hasField(FlxG.save.data, key)) {
@@ -170,8 +188,11 @@ class ClientPrefs {
 			}
 		}
 		
-		if(Main.fpsVar != null) {
-			Main.fpsVar.visible = data.showFPS;
+		if(FlxG.save.data.showFPS != null) {
+			showFPS = FlxG.save.data.showFPS;
+			if(Main.fpsVar != null) {
+				Main.fpsVar.visible = showFPS;
+			}
 		}
 
 		if(data.framerate > FlxG.drawFramerate) {

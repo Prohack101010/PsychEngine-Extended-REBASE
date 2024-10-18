@@ -47,7 +47,7 @@ class ModsMenuState extends MusicBeatState
 	var noModsSine:Float = 0;
 	var noModsTxt:FlxText;
 
-    final LastControllerMode:Bool = ClientPrefs.data.controllerMode; //Mobile Fix (0.6x)
+    final LastControllerMode:Bool = ClientPrefs.controllerMode; //Mobile Fix (0.6x)
 	var _lastControllerMode:Bool = false;
 	var startMod:String = null;
 	public function new(startMod:String = null)
@@ -306,7 +306,7 @@ class ModsMenuState extends MusicBeatState
 		
 		add(bgList);
 		add(modsGroup);
-		_lastControllerMode = ClientPrefs.data.controllerMode;
+		_lastControllerMode = ClientPrefs.controllerMode;
 
 		changeSelectedMod();
 
@@ -342,7 +342,7 @@ class ModsMenuState extends MusicBeatState
 			exiting = true;
 			saveTxt();
 
-            ClientPrefs.data.controllerMode = LastControllerMode;
+            ClientPrefs.controllerMode = LastControllerMode;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if(waitingToRestart)
 			{
@@ -375,21 +375,21 @@ class ModsMenuState extends MusicBeatState
 
 		if(Math.abs(FlxG.mouse.deltaX) > 10 || Math.abs(FlxG.mouse.deltaY) > 10)
 		{
-			ClientPrefs.data.controllerMode = false;
+			ClientPrefs.controllerMode = false;
 			if(!FlxG.mouse.visible) FlxG.mouse.visible = true;
 		}
 		
-		if(ClientPrefs.data.controllerMode != _lastControllerMode)
+		if(ClientPrefs.controllerMode != _lastControllerMode)
 		{
-			#if HIDE_CURSOR if(ClientPrefs.data.controllerMode) FlxG.mouse.visible = false; #end
-			_lastControllerMode = ClientPrefs.data.controllerMode;
+			#if HIDE_CURSOR if(ClientPrefs.controllerMode) FlxG.mouse.visible = false; #end
+			_lastControllerMode = ClientPrefs.controllerMode;
 		}
 
 		if(controls.UI_DOWN_R || controls.UI_UP_R) holdTime = 0;
 
 		if(modsList.all.length > 0)
 		{
-			if(ClientPrefs.data.controllerMode && holdingMod)
+			if(ClientPrefs.controllerMode && holdingMod)
 			{
 				holdingMod = false;
 				holdingElapsed = 0;
@@ -1026,7 +1026,7 @@ class MenuButton extends FlxSpriteGroup
 				setButtonVisibility(TouchFunctions.touchOverlapObject(this));
 			}
 		#else
-			if(!ignoreCheck && !ClientPrefs.data.controllerMode && FlxG.mouse.justMoved && FlxG.mouse.visible)
+			if(!ignoreCheck && !ClientPrefs.controllerMode && FlxG.mouse.justMoved && FlxG.mouse.visible)
 				onFocus = FlxG.mouse.overlaps(this);
 
 			if(onFocus && onClick != null && FlxG.mouse.justPressed)
@@ -1034,7 +1034,7 @@ class MenuButton extends FlxSpriteGroup
 
 			if(_needACheck) {
 				_needACheck = false;
-				if(!ClientPrefs.data.controllerMode)
+				if(!ClientPrefs.controllerMode)
 					setButtonVisibility(FlxG.mouse.overlaps(this));
 			}
 		#end

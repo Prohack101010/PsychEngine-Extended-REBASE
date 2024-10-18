@@ -223,7 +223,7 @@ class VisualsUISubState extends BaseOptionsMenu
 	function onChangeFPSCounter()
 	{
 		if(Main.fpsVar != null)
-			Main.fpsVar.visible = ClientPrefs.data.showFPS;
+			Main.fpsVar.visible = ClientPrefs.showFPS;
 	}
 	
 	function onChangeNoteSkin()
