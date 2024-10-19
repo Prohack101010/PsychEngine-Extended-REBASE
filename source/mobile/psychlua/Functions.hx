@@ -14,10 +14,11 @@ class MobileFunctions
 	{
 	    var lua:State = funk.lua;
 	    
-	    Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void
+	    Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false, ?VirtualAlpha:Float = -1):Void
 		{
 			if (ClientPrefs.mobileC) MusicBeatState.mobilec.visible = enabled;
-			if (MusicBeatState.checkHitbox != true && ClientPrefs.mobileC) MusicBeatState.mobilec.alpha = ClientPrefs.VirtualPadAlpha;
+			if (MusicBeatState.checkHitbox != true && ClientPrefs.mobileC && VirtualAlpha <= -1) MusicBeatState.mobilec.alpha = ClientPrefs.VirtualPadAlpha;
+			if (MusicBeatState.checkHitbox != true && ClientPrefs.mobileC && VirtualAlpha >= 0) MusicBeatState.mobilec.alpha = VirtualAlpha;
 		});
 		
 		Lua_helper.add_callback(lua, "changeHitboxControls", function(mode:String):Void

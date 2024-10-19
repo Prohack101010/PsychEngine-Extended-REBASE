@@ -3035,6 +3035,21 @@ class FunkinLua {
 			PlayState.instance.saveWeekScore();
 		});
 		
+		Lua_helper.add_callback(lua, "showPopUp", function(message:String, title:String):Void
+		{
+			CoolUtil.showPopUp(message, title);
+		});
+		
+		Lua_helper.add_callback(lua, "showPopUp", function(message:String, title:String):Void
+		{
+			CoolUtil.showPopUp(message, title);
+		});
+		
+		Lua_helper.add_callback(lua, "CloseGame", function():Void
+		{
+			lime.system.System.exit(1);
+		});
+		
 		#if ACHIEVEMENTS_ALLOWED Achievements.addLuaCallbacks(lua); #end
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
 		#if android AndroidFunctions.implement(this); #end
@@ -3760,7 +3775,6 @@ class HScript
 		interp.variables.set('StringTools', StringTools);
 		interp.variables.set('CoolUtil', CoolUtil);
 		interp.variables.set('Sys', lime.system.System);
-		interp.variables.set('addStaticPad', MusicBeatState.addStaticVirtualPad);
 		interp.variables.set('StorageUtil', mobile.backend.StorageUtil);
 
 		interp.variables.set('setVar', function(name:String, value:Dynamic)

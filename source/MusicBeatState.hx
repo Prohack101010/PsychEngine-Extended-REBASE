@@ -27,7 +27,6 @@ import flixel.util.FlxDestroyUtil;
 class MusicBeatState extends FlxUIState
 {
     public static var instance:MusicBeatState;
-    var instance2 = new MusicBeatState(); 
     
 	private var curSection:Int = 0;
 	private var stepsToDo:Int = 0;
@@ -38,39 +37,18 @@ class MusicBeatState extends FlxUIState
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
-	public static var staticcontrols(get, never):Controls;
 	public static var checkHitbox:Bool = false;
 
 	public static var camBeat:FlxCamera;
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
-	
-	inline static function get_staticcontrols():Controls
-		return PlayerSettings.player1.controls;
 
 	var _virtualpad:FlxVirtualPad;
-	public static var _staticvirtualpad:FlxVirtualPad;
 	public static var mobilec:MobileControls;
 	
-	public var dpadMode:Map<String, FlxDPadMode>;
-	public var actionMode:Map<String, FlxActionMode>;
-	var MobileControls:MobileControls;
-	public static var statictrackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
-	
-	public static function addStaticVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
-		if (_staticvirtualpad != null)
-			removeStaticVirtualPad();
-
-		_staticvirtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
-		instance.add(_staticvirtualpad);
-
-		staticcontrols.setVirtualPadUI(_staticvirtualpad, DPad, Action);
-		statictrackedinputsUI = staticcontrols.statictrackedInputsUI;
-		staticcontrols.statictrackedInputsUI = [];
-	}
 
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
 		if (_virtualpad != null)
@@ -82,14 +60,6 @@ class MusicBeatState extends FlxUIState
 		controls.setVirtualPadUI(_virtualpad, DPad, Action);
 		trackedinputsUI = controls.trackedInputsUI;
 		controls.trackedInputsUI = [];
-	}
-	
-	public static function removeStaticVirtualPad() {
-		if (statictrackedinputsUI.length > 0)
-			staticcontrols.removeVirtualControlsInput(statictrackedinputsUI);
-
-		if (_staticvirtualpad != null)
-			instance.remove(_staticvirtualpad);
 	}
 	
 	public function removeVirtualPad() {
@@ -159,13 +129,6 @@ class MusicBeatState extends FlxUIState
 		add(mobilec);
 	}
 	
-	public function addStaticVirtualPadCamera() {
-		var camcontrol = new flixel.FlxCamera();
-		camcontrol.bgColor.alpha = 0;
-		FlxG.cameras.add(camcontrol, false);
-		_staticvirtualpad.cameras = [camcontrol];
-	}
-	
     public function addVirtualPadCamera() {
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
@@ -179,20 +142,14 @@ class MusicBeatState extends FlxUIState
 
 		if (trackedinputsUI.length > 0)
 			controls.removeVirtualControlsInput(trackedinputsUI);
-			
-		if (statictrackedinputsUI.length > 0)
-			staticcontrols.removeVirtualControlsInput(statictrackedinputsUI);
 
 		super.destroy();
 
 		if (_virtualpad != null)
 			_virtualpad = FlxDestroyUtil.destroy(_virtualpad);
-			
-		if (_staticvirtualpad != null)
-			_staticvirtualpad = FlxDestroyUtil.destroy(_staticvirtualpad);
 
-		if (MobileControls != null)
-			MobileControls = FlxDestroyUtil.destroy(MobileControls);
+		if (mobilec != null)
+			mobilec = FlxDestroyUtil.destroy(mobilec);
 	}
 
 	override function create() {
