@@ -261,7 +261,7 @@ class ClientPrefs {
 		if(FlxG.save.data.VirtualPadAlpha != null)
 			VirtualPadAlpha = FlxG.save.data.VirtualPadAlpha;
 		if(FlxG.save.data.globalAntialiasing != null)
-			antialiasing = FlxG.save.data.globalAntialiasing;
+			an{}tialiasing = FlxG.save.data.globalAntialiasing;
 		#if android
 		if(FlxG.save.data.storageType != null)
 			storageType = FlxG.save.data.storageType;
@@ -361,13 +361,10 @@ class ClientPrefs {
 		
 		// flixel automatically saves your volume!
 		if(FlxG.save.data.volume != null)
-		{
 			FlxG.sound.volume = FlxG.save.data.volume;
 		if (FlxG.save.data.mute != null)
-		{
 			FlxG.sound.muted = FlxG.save.data.mute;
 		if (FlxG.save.data.checkForUpdates != null)
-		{
 			checkForUpdates = FlxG.save.data.checkForUpdates;
 		if (FlxG.save.data.comboStacking != null)
 			comboStacking = FlxG.save.data.comboStacking;
