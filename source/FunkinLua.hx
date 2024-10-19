@@ -991,9 +991,6 @@ class FunkinLua {
 			return true;
 		});
 		Lua_helper.add_callback(lua, "getPropertyFromGroup", function(obj:String, index:Int, variable:Dynamic) {
-		    if (obj == 'notes' && variable == 'mustPress' && PlayState.opponentChart)
-			    obj == '!notes';
-			    
 			var shitMyPants:Array<String> = obj.split('.');
 			var realObject:Dynamic = Reflect.getProperty(getInstance(), obj);
 			if(shitMyPants.length>1)
@@ -3761,7 +3758,10 @@ class HScript
 		#end
 		interp.variables.set('ShaderFilter', openfl.filters.ShaderFilter);
 		interp.variables.set('StringTools', StringTools);
-		interp.variables.set('StorageUtil', StorageUtil);
+		interp.variables.set('CoolUtil', CoolUtil);
+		interp.variables.set('Sys', lime.system.System);
+		interp.variables.set('addStaticPad', MusicBeatState.addStaticVirtualPad);
+		interp.variables.set('StorageUtil', mobile.backend.StorageUtil);
 
 		interp.variables.set('setVar', function(name:String, value:Dynamic)
 		{

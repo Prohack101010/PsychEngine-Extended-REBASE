@@ -10,19 +10,6 @@ function onCreate()
 	setObjectCamera('cutsceneCrutchBlack', 'other');
 end
 
-local video2 = true
-
-function onStartCountdown()
-	if isStoryMode and not seenCutscene then
-		triggerEvent('Camera Follow Pos', 2050, 900)
-		if video2 then
-			startVideo('2hotCutscene');
-			video2 = false
-		end
-		return Function_Stop;
-	end
-end
-
 local video = true
 
 function onEndSong()

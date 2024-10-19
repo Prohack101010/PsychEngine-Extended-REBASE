@@ -79,6 +79,19 @@ function opponentNoteHit(id, direction, noteType, isSustainNote)
 	end
 end
 
+local video = true
+
+function onEndSong()
+	if video and isStoryMode then
+		startVideo('blazinCutscene');
+		addLuaSprite('cutsceneCrutchBlack', true);
+		video = false
+		return Function_Stop;
+	end
+	return Function_Continue;
+end
+
+
 function goodNoteHit(id, direction, noteType, isSustainNote)
 	if direction == 1 and picoAnim then
 		reload = true
