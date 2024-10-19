@@ -83,7 +83,7 @@ local video = true
 
 function onEndSong()
 	if video and isStoryMode then
-		startVideo('blazinCutscene');
+		startVideo('2hotCutscene');
 		addLuaSprite('cutsceneCrutchBlack', true);
 		video = false
 		return Function_Stop;

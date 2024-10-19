@@ -504,6 +504,7 @@ class Controls extends FlxActionSet
 	#end
 
 	public var trackedInputsUI:Array<FlxActionInput> = [];
+	public var statictrackedInputsUI:Array<FlxActionInput> = [];
 	public var trackedInputsNOTES:Array<FlxActionInput> = [];
 
 	public function addButtonNOTES(action:FlxActionDigital, button:FlxButton, state:FlxInputState):Void
@@ -520,6 +521,16 @@ class Controls extends FlxActionSet
 
 		var input:FlxActionInputDigitalIFlxInput = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedInputsUI.push(input);
+		action.add(input);
+	}
+	
+	public function addStaticButtonUI(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState):Void
+	{
+		if (button == null)
+			return;
+
+		var input:FlxActionInputDigitalIFlxInput = new FlxActionInputDigitalIFlxInput(button, state);
+		statictrackedInputsUI.push(input);
 		action.add(input);
 	}
 	
@@ -609,6 +620,60 @@ class Controls extends FlxActionSet
 				inline forEachBound(Control.UI_RIGHT, (action, state) -> addButtonUI(action, VirtualPad.buttonRight, state));
 				inline forEachBound(Control.ACCEPT, (action, state) -> addButtonUI(action, VirtualPad.buttonA, state));
 				inline forEachBound(Control.BACK, (action, state) -> addButtonUI(action, VirtualPad.buttonB, state));
+			case NONE | E | controlExtend | D | X_Y: // do nothing
+		}
+	}
+	
+    public function setStaticVirtualPadUI(VirtualPad:FlxVirtualPad, DPad:FlxDPadMode, Action:FlxActionMode):Void
+	{
+		if (VirtualPad == null)
+			return;
+
+		switch (DPad)
+		{
+			case UP_DOWN | OptionsC:
+				inline forEachBound(Control.UI_UP, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonUp, state));
+				inline forEachBound(Control.UI_DOWN, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonDown, state));
+			case LEFT_RIGHT:
+				inline forEachBound(Control.UI_LEFT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonLeft, state));
+				inline forEachBound(Control.UI_RIGHT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonRight, state));
+			case UP_LEFT_RIGHT:
+				inline forEachBound(Control.UI_UP, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonUp, state));
+				inline forEachBound(Control.UI_LEFT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonLeft, state));
+				inline forEachBound(Control.UI_RIGHT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonRight, state));
+			case FULL | RIGHT_FULL | PAUSE | CHART_EDITOR | ALL:
+				inline forEachBound(Control.UI_UP, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonUp, state));
+				inline forEachBound(Control.UI_DOWN, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonDown, state));
+				inline forEachBound(Control.UI_LEFT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonLeft, state));
+				inline forEachBound(Control.UI_RIGHT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonRight, state));
+			case DUO:
+				inline forEachBound(Control.UI_UP, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonUp, state));
+				inline forEachBound(Control.UI_DOWN, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonDown, state));
+				inline forEachBound(Control.UI_LEFT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonLeft, state));
+				inline forEachBound(Control.UI_RIGHT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonRight, state));
+				inline forEachBound(Control.UI_UP, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonUp2, state));
+				inline forEachBound(Control.UI_DOWN, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonDown2, state));
+				inline forEachBound(Control.UI_LEFT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonLeft2, state));
+				inline forEachBound(Control.UI_RIGHT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonRight2, state));
+			case NONE: // do nothing
+		}
+
+		switch (Action)
+		{
+			case A | A_C | A_X_Y | ALL:
+				inline forEachBound(Control.ACCEPT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonA, state));
+			case B | B_X_Y | B_E:
+				inline forEachBound(Control.BACK, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonB, state));
+			case P:
+				inline forEachBound(Control.PAUSE, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonP, state));
+			case A_B | A_B_C | A_B_E | A_B_E_C_M | A_B_X_Y | A_B_C_X_Y | A_B_C_X_Y_Z | FULL | CHART_EDITOR:
+				inline forEachBound(Control.ACCEPT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonA, state));
+				inline forEachBound(Control.BACK, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonB, state));
+			case OptionsC:
+				inline forEachBound(Control.UI_LEFT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonLeft, state));
+				inline forEachBound(Control.UI_RIGHT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonRight, state));
+				inline forEachBound(Control.ACCEPT, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonA, state));
+				inline forEachBound(Control.BACK, (action, state) -> addStaticButtonUI(action, VirtualPad.buttonB, state));
 			case NONE | E | controlExtend | D | X_Y: // do nothing
 		}
 	}
