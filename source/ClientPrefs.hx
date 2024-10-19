@@ -261,7 +261,7 @@ class ClientPrefs {
 		if(FlxG.save.data.VirtualPadAlpha != null)
 			VirtualPadAlpha = FlxG.save.data.VirtualPadAlpha;
 		if(FlxG.save.data.globalAntialiasing != null)
-			an{}tialiasing = FlxG.save.data.globalAntialiasing;
+			antialiasing = FlxG.save.data.globalAntialiasing;
 		#if android
 		if(FlxG.save.data.storageType != null)
 			storageType = FlxG.save.data.storageType;
