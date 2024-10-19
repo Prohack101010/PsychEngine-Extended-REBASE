@@ -35,7 +35,7 @@ class ClientPrefs {
 	public static var extraKeys:Int = 2;
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = #if mobile 0.7 #else 0 #end;
-	public static var data.antialiasing:Bool = true;
+	public static var antialiasing:Bool = true;
 	#if android
 	public static var storageType:String = "EXTERNAL_DATA";
 	#end
@@ -261,7 +261,7 @@ class ClientPrefs {
 		if(FlxG.save.data.VirtualPadAlpha != null)
 			VirtualPadAlpha = FlxG.save.data.VirtualPadAlpha;
 		if(FlxG.save.data.globalAntialiasing != null)
-			data.antialiasing = FlxG.save.data.globalAntialiasing;
+			antialiasing = FlxG.save.data.globalAntialiasing;
 		#if android
 		if(FlxG.save.data.storageType != null)
 			storageType = FlxG.save.data.storageType;
