@@ -64,12 +64,15 @@ class MusicBeatState extends FlxUIState
 			removeStaticVirtualPad();
 
 		_staticvirtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
-		add(_staticvirtualpad);
+		addStatic();
 
 		staticcontrols.setVirtualPadUI(_staticvirtualpad, DPad, Action);
 		statictrackedinputsUI = staticcontrols.statictrackedInputsUI;
 		staticcontrols.statictrackedInputsUI = [];
 	}
+	
+	public function removeStatic() { remove(_staticvirtualpad); }
+	public function addStatic() { add(_staticvirtualpad); }
 
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
 		if (_virtualpad != null)
@@ -88,7 +91,7 @@ class MusicBeatState extends FlxUIState
 			staticcontrols.removeVirtualControlsInput(statictrackedinputsUI);
 
 		if (_staticvirtualpad != null)
-			remove(_staticvirtualpad);
+			removeStatic();
 	}
 	
 	public function removeVirtualPad() {
