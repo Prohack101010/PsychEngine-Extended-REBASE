@@ -16,7 +16,7 @@ class Triangle extends FlxSprite
         super(X, Y);
 		
         loadGraphic(drawHollowTriangle(Size, Inner));
-        antialiasing = ClientPrefs.data.globalAntialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	function drawHollowTriangle(sideLength:Float, innerSide:Float):BitmapData {
@@ -69,7 +69,7 @@ class Rect extends FlxSprite
         super(X, Y);
 
         loadGraphic(drawRect(width, height, roundWidth, roundHeight));
-        antialiasing = ClientPrefs.data.globalAntialiasing;
+        antialiasing = ClientPrefs.globalAntialiasing;
         color = Color;
         alpha = Alpha;
     }
@@ -108,14 +108,14 @@ class BackButton extends FlxSpriteGroup
 
         button = new FlxSprite(0,0).loadGraphic(Paths.image('menuExtend/Others/playButton'));
         button.scale.set(0.4, 0.4);
-        button.antialiasing = ClientPrefs.data.globalAntialiasing;
+        button.antialiasing = ClientPrefs.globalAntialiasing;
         button.y += background.height / 2 - button.height / 2;
         if (flipButton) button.flipX = true;
         add(button);
 
         text = new FlxText(40, 0, 0, texts, 25);
 		text.font =  Paths.font('montserrat.ttf');
-        text.antialiasing = ClientPrefs.data.globalAntialiasing;	
+        text.antialiasing = ClientPrefs.globalAntialiasing;	
         add(text);
 
         text.x += background.width / 2 - text.width / 2;

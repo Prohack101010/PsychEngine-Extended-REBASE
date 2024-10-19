@@ -247,7 +247,7 @@ class MusicPlayer extends FlxGroup
 
 		if (playingMusic)
 		{
-			if (ClientPrefs.data.mobileC)
+			if (ClientPrefs.mobileC)
 			    instance.bottomText.text = "Press X to Pause / Press B to Exit / Press C to Reset the Song";
 			else
 			    instance.bottomText.text = "Press SPACE to Pause / Press ESCAPE to Exit / Press R to Reset the Song";

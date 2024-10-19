@@ -46,7 +46,7 @@ class DialogueCharacter extends FlxSprite
 		frames = Paths.getSparrowAtlas('dialogue/' + jsonFile.image);
 		reloadAnimations();
 
-		antialiasing = ClientPrefs.data.data.antialiasing;
+		antialiasing = ClientPrefs.globalAntialiasing;
 		if(jsonFile.no_antialiasing == true) antialiasing = false;
 	}
 
