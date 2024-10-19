@@ -99,8 +99,6 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 48.5;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	public static var IndieCrossStateType:Int = 0; // 0 = Default, 1 = Main, 2 = Bonus, 3 = Nightmare
-
-	public var luaVirtualPad:FlxVirtualPad;
 	
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -5489,36 +5487,4 @@ class PlayState extends MusicBeatState
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
-	
-	public function makeLuaVirtualPad(DPadMode:String, ActionMode:String) {
-		if(!variables.exists("luaVirtualPad"))
-			variables.set("luaVirtualPad", luaVirtualPad);
-			
-		luaVirtualPad = new FlxVirtualPad(dpadMode.get(DPadMode), actionMode.get(ActionMode));
-		luaVirtualPad.alpha = ClientPrefs.VirtualPadAlpha;
-	}
-
-	public function addLuaVirtualPad() {
-		if(luaVirtualPad == null)
-			return;
-		var target = LuaUtils.getTargetInstance();
-		target.insert(target.members.length + 1, luaVirtualPad);
-	}
-
-	public function addLuaVirtualPadCamera(?DefaultDrawTarget:Bool = false) {
-		if(luaVirtualPad != null) {
-			luaVpadCam = new FlxCamera();
-			luaVpadCam.bgColor.alpha = 0;
-			FlxG.cameras.add(luaVpadCam, DefaultDrawTarget);
-			luaVirtualPad.cameras = [luaVpadCam];
-		}
-	}
-
-	public function removeLuaVirtualPad() {
-		if (luaVirtualPad != null) {
-			luaVirtualPad.kill();
-			luaVirtualPad.destroy();
-			remove(luaVirtualPad);
-		}
-	}
 }

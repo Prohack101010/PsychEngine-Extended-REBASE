@@ -51,27 +51,6 @@ class MobileFunctions
 			return Haptic.vibrate(period, duration);
 		});
 		
-		Lua_helper.add_callback(lua, "addVirtualPad", function(DPadMode:String, ActionMode:String):Void
-		{
-			PlayState.instance.makeLuaVirtualPad(DPadMode, ActionMode);
-			PlayState.instance.addLuaVirtualPad();
-		});
-		
-		Lua_helper.add_callback(lua, "removeVirtualPad", function():Void
-		{
-			PlayState.instance.removeLuaVirtualPad();
-		});
-		
-		Lua_helper.add_callback(lua, "addVirtualPadCamera", function():Void
-		{
-			if (PlayState.instance.luaVirtualPad == null)
-			{
-				FunkinLua.luaTrace('addVirtualPadCamera: VPAD does not exist.');
-				return;
-			}
-			PlayState.instance.addLuaVirtualPadCamera();
-		});
-
 		Lua_helper.add_callback(lua, "touchJustPressed", TouchFunctions.touchJustPressed);
 		Lua_helper.add_callback(lua, "touchPressed", TouchFunctions.touchPressed);
 		Lua_helper.add_callback(lua, "touchJustReleased", TouchFunctions.touchJustReleased);
