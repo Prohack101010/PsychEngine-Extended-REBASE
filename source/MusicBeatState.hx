@@ -45,7 +45,7 @@ class MusicBeatState extends FlxUIState
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 	
-	inline function get_staticcontrols():Controls
+	inline static function get_staticcontrols():Controls
 		return PlayerSettings.player1.controls;
 
 	var _virtualpad:FlxVirtualPad;
@@ -67,8 +67,8 @@ class MusicBeatState extends FlxUIState
 		add(_staticvirtualpad);
 
 		staticcontrols.setVirtualPadUI(_staticvirtualpad, DPad, Action);
-		statictrackedinputsUI = staticcontrols.statictrackedinputsUI;
-		staticcontrols.statictrackedinputsUI = [];
+		statictrackedinputsUI = staticcontrols.statictrackedInputsUI;
+		staticcontrols.statictrackedInputsUI = [];
 	}
 
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
