@@ -37,6 +37,7 @@ class MusicBeatState extends FlxUIState
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
+	public static var staticcontrols(get, never):Controls;
 	public static var checkHitbox:Bool = false;
 
 	public static var camBeat:FlxCamera;
@@ -51,19 +52,20 @@ class MusicBeatState extends FlxUIState
 	public var dpadMode:Map<String, FlxDPadMode>;
 	public var actionMode:Map<String, FlxActionMode>;
 	var MobileControls:MobileControls;
+	var statictrackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
 	
 	public static function addStaticVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
 		if (_staticvirtualpad != null)
-			removeVirtualPad();
+			removeStaticVirtualPad();
 
 		_staticvirtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
 		add(_staticvirtualpad);
 
-		controls.setVirtualPadUI(_staticvirtualpad, DPad, Action);
-		trackedinputsUI = controls.trackedInputsUI;
-		controls.trackedInputsUI = [];
+		staticcontrols.setVirtualPadUI(_staticvirtualpad, DPad, Action);
+		statictrackedinputsUI = staticcontrols.statictrackedinputsUI;
+		staticcontrols.statictrackedinputsUI = [];
 	}
 
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
@@ -79,8 +81,8 @@ class MusicBeatState extends FlxUIState
 	}
 	
 	public static function removeStaticVirtualPad() {
-		if (trackedinputsUI.length > 0)
-			controls.removeVirtualControlsInput(trackedinputsUI);
+		if (statictrackedinputsUI.length > 0)
+			staticcontrols.removeVirtualControlsInput(statictrackedinputsUI);
 
 		if (_staticvirtualpad != null)
 			remove(_staticvirtualpad);
@@ -173,6 +175,9 @@ class MusicBeatState extends FlxUIState
 
 		if (trackedinputsUI.length > 0)
 			controls.removeVirtualControlsInput(trackedinputsUI);
+			
+		if (statictrackedinputsUI.length > 0)
+			staticcontrols.removeVirtualControlsInput(statictrackedinputsUI);
 
 		super.destroy();
 
