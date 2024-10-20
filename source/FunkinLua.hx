@@ -3045,7 +3045,7 @@ class FunkinLua {
 			CoolUtil.showPopUp(message, title);
 		});
 		
-		Lua_helper.add_callback(lua, "parseJson", function(directory:String, ?ignoreMods:Bool = false):Void //For Vs Steve Bedrock Edition Psych Port
+		Lua_helper.add_callback(lua, "parseJson", function(directory:String, ?ignoreMods:Bool = false):Dynamic //For Vs Steve Bedrock Edition Psych Port
 		{
             final funnyPath:String = directory + '.json';
             final jsonContents:String = Paths.getTextFromFile(funnyPath, ignoreMods);
