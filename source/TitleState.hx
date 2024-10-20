@@ -35,6 +35,14 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 
+#if HXVLC_ALLOWED
+import hxvlc.flixel.FlxVideoSprite;
+#end
+
+#if HXCODEC_ALLOWED
+import backend.VideoHandler_Title;
+#end
+
 using StringTools;
 typedef TitleData =
 {
@@ -56,6 +64,8 @@ class TitleState extends MusicBeatState
 
     public static var IndieCrossEnabled:Bool = false;
 	public static var initialized:Bool = false;
+	public static var inGame:Bool = false;
+	var checkOpenFirst:Bool = false;
 
 	var blackScreen:FlxSprite;
 	var credGroup:FlxGroup;
@@ -86,7 +96,11 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-
+        if(!checkOpenFirst){		
+    		FlxTransitionableState.skipNextTransOut = true;										
+    		checkOpenFirst = true;		
+		}
+    
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
@@ -212,12 +226,12 @@ class TitleState extends MusicBeatState
 			MusicBeatState.switchState(new FlashingState());
 		} else {
 			if (initialized)
-				startIntro();
+				startCutscenesIn();
 			else
 			{
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
-					startIntro();
+					startCutscenesIn();
 				});
 			}
 		}
@@ -229,6 +243,25 @@ class TitleState extends MusicBeatState
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
+	
+	function startCutscenesIn()
+	{
+		if (inGame) {
+			startIntro();
+			return;
+		}
+		#if VIDEOS_ALLOWED 
+		    startVideo('title');
+		#else
+		    startCutscenesOut();
+		#end
+	}
+	
+	function startCutscenesOut()
+	{	    
+		inGame = true;
+		startIntro();
+	}
 
 	function startIntro()
 	{
@@ -433,6 +466,13 @@ class TitleState extends MusicBeatState
 			}
 		}
 		#end
+		
+		#if android
+		if (videoBool){
+			pressedEnter = false;
+			if (FlxG.android.justReleased.BACK) pressedEnter = true;
+		}
+		#end
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -574,6 +614,17 @@ class TitleState extends MusicBeatState
 		{
 			if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
+		}
+		
+		if (videoBool)
+		{
+			if(pressedEnter)
+			{
+				video.stop();
+				videoBool = false;
+				skipVideo.visible = false;
+				startCutscenesOut();
+			}
 		}
 
 		super.update(elapsed);
@@ -803,4 +854,89 @@ class TitleState extends MusicBeatState
 			skippedIntro = true;
 		}
 	}
+	
+	#if VIDEOS_ALLOWED
+	#if HXCODEC_ALLOWED
+	var video:VideoSprite;
+	#else
+	var video:FlxVideoSprite;
+	#end
+	var videoBool:Bool = false;
+	function startVideo(name:String)
+	{
+	    skipVideo = new FlxText(0, FlxG.height - 26, 0, "Press " + #if android "Back on your Phone " #else "Enter " #end + "to skip", 18);
+		skipVideo.setFormat(Assets.getFont("assets/fonts/montserrat.ttf").fontName, 18);
+		skipVideo.alpha = 0;
+		skipVideo.alignment = CENTER;
+        skipVideo.screenCenter(X);
+        skipVideo.scrollFactor.set();
+		skipVideo.antialiasing = ClientPrefs.data.antialiasing;
+		
+		
+		#if VIDEOS_ALLOWED
+
+		var filepath:String = Paths.video(name);
+		#if sys
+		if(!FileSystem.exists(filepath))
+		#else
+		if(!OpenFlAssets.exists(filepath))
+		#end
+		{
+			FlxG.log.warn('Couldnt find video file: ' + name);
+			videoEnd();
+			return;
+		}
+        
+        #if HXCODEC_ALLOWED
+		video = new VideoSprite(0, 0);
+		#else
+		video = new FlxVideoSprite(0, 0);
+		#end
+		video.antialiasing = true;
+		video.bitmap.onFormatSetup.add(function():Void
+		{
+			if (video.bitmap != null && video.bitmap.bitmapData != null)
+			{
+				final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
+		
+				video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
+				video.updateHitbox();
+				video.screenCenter();
+			}
+		});
+		video.bitmap.onEndReached.add(video.destroy);
+		add(video);
+		video.load(filepath);
+		video.play();
+		videoBool = true;
+
+		video.bitmap.onEndReached.add(function() {
+			videoEnd();
+		});
+
+		showText();
+		#else
+		FlxG.log.warn('Platform not supported!');
+		videoEnd();
+		return;
+		#end
+	}
+
+	function videoEnd()
+	{
+	    skipVideo.visible = false;
+		if (video != null) video.stop();
+		//video.visible = false;
+		startCutscenesOut();
+		videoBool = false;
+		trace("end");
+	}
+	
+	function showText(){
+	    add(skipVideo);
+		FlxTween.tween(skipVideo, {alpha: 1}, 1, {ease: FlxEase.quadIn});
+		FlxTween.tween(skipVideo, {alpha: 0}, 1, {ease: FlxEase.quadIn, startDelay: 4});
+	
+	}
+	#end
 }
