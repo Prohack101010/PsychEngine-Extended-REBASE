@@ -78,10 +78,10 @@ class FunkinLua {
 	public var scriptName:String = '';
 	public var modFolder:String = null;
 	public var closed:Bool = false;
-	public var extra1:String = ClientPrefs.extraKeyReturn1.toUpperCase();
-	public var extra2:String = ClientPrefs.extraKeyReturn2.toUpperCase();
-	public var extra3:String = ClientPrefs.extraKeyReturn3.toUpperCase();
-	public var extra4:String = ClientPrefs.extraKeyReturn4.toUpperCase();
+	public var extra1:String = ClientPrefs.data.extraKeyReturn1.toUpperCase();
+	public var extra2:String = ClientPrefs.data.extraKeyReturn2.toUpperCase();
+	public var extra3:String = ClientPrefs.data.extraKeyReturn3.toUpperCase();
+	public var extra4:String = ClientPrefs.data.extraKeyReturn4.toUpperCase();
 
 	#if hscript
 	public static var hscript:HScript = null;
@@ -217,20 +217,20 @@ class FunkinLua {
 		set('gfName', PlayState.SONG.gfVersion);
 
 		// Some settings, no jokes
-		set('downscroll', ClientPrefs.downScroll);
-		set('middlescroll', ClientPrefs.middleScroll);
-		set('framerate', ClientPrefs.framerate);
-		set('ghostTapping', ClientPrefs.ghostTapping);
-		set('hideHud', ClientPrefs.hideHud);
-		set('timeBarType', ClientPrefs.timeBarType);
-		set('scoreZoom', ClientPrefs.scoreZoom);
-		set('cameraZoomOnBeat', ClientPrefs.camZooms);
-		set('flashingLights', ClientPrefs.flashing);
-		set('noteOffset', ClientPrefs.noteOffset);
-		set('healthBarAlpha', ClientPrefs.healthBarAlpha);
-		set('noResetButton', ClientPrefs.noReset);
-		set('lowQuality', ClientPrefs.lowQuality);
-		set('shadersEnabled', ClientPrefs.shaders);
+		set('downscroll', ClientPrefs.data.downScroll);
+		set('middlescroll', ClientPrefs.data.middleScroll);
+		set('framerate', ClientPrefs.data.framerate);
+		set('ghostTapping', ClientPrefs.data.ghostTapping);
+		set('hideHud', ClientPrefs.data.hideHud);
+		set('timeBarType', ClientPrefs.data.timeBarType);
+		set('scoreZoom', ClientPrefs.data.scoreZoom);
+		set('cameraZoomOnBeat', ClientPrefs.data.camZooms);
+		set('flashingLights', ClientPrefs.data.flashing);
+		set('noteOffset', ClientPrefs.data.noteOffset);
+		set('healthBarAlpha', ClientPrefs.data.healthBarAlpha);
+		set('noResetButton', ClientPrefs.data.noReset);
+		set('lowQuality', ClientPrefs.data.lowQuality);
+		set('shadersEnabled', ClientPrefs.data.shaders);
 		set('IndieCrossEnabled', TitleState.IndieCrossEnabled);
 		set('scriptName', scriptName);
 		set('currentModDirectory', Paths.currentModDirectory);
@@ -278,7 +278,7 @@ class FunkinLua {
 
 		// shader shit
 		Lua_helper.add_callback(lua, "initLuaShader", function(name:String) {
-			if(!ClientPrefs.shaders) return false;
+			if(!ClientPrefs.data.shaders) return false;
 
 			#if (!flash && MODS_ALLOWED && sys)
 			return initLuaShader(name);
@@ -289,7 +289,7 @@ class FunkinLua {
 		});
 		
 		Lua_helper.add_callback(lua, "setSpriteShader", function(obj:String, shader:String) {
-			if(!ClientPrefs.shaders) return false;
+			if(!ClientPrefs.data.shaders) return false;
 
 			#if (!flash && MODS_ALLOWED && sys)
 			if(!PlayState.instance.runtimeShaders.exists(shader) && !initLuaShader(shader))
@@ -1424,7 +1424,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyboardJustPressed", function(name:String)
 		{
 		    #if mobile // Extend for check control for android
-            if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+            if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
                 if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.justPressed){
     			    return true;
                 }
@@ -1439,7 +1439,7 @@ class FunkinLua {
                 }
             }
             
-            if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+            if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
                 if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.justPressed){
     			    return true;
                 }
@@ -1459,7 +1459,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyboardPressed", function(name:String)
 		{
 		     #if mobile // Extend for check control for android
-           if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+           if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
 			    if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.pressed){
     			    return true;
                 }
@@ -1473,7 +1473,7 @@ class FunkinLua {
     			    return true;
                 }
            }
-           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
                 if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.pressed){
     			    return true;
                 }
@@ -1493,7 +1493,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyboardReleased", function(name:String)
 		{
 		    #if mobile // Extend for check control for android
-           if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+           if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
                 if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.justReleased){
     			    return true;
                 }
@@ -1507,7 +1507,7 @@ class FunkinLua {
     			    return true;
                 }
            }
-           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.extraKeys != 0){ //check for android control and dont check for keyboard
+           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
                 if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.justReleased){
     			    return true;
                 }
@@ -1880,7 +1880,7 @@ class FunkinLua {
 			{
 				leSprite.loadGraphic(Paths.image(image));
 			}
-			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+			leSprite.antialiasing = ClientPrefs.data.antialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
 		});
@@ -1892,7 +1892,7 @@ class FunkinLua {
 			{
 				leSprite.loadGraphic(Paths.assetsimage(image));
 			}
-			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+			leSprite.antialiasing = ClientPrefs.data.antialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
 		});
@@ -1902,7 +1902,7 @@ class FunkinLua {
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 
 			loadFrames(leSprite, image, spriteType);
-			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+			leSprite.antialiasing = ClientPrefs.data.antialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});
 		Lua_helper.add_callback(lua, "makeAnimatedLuaAssetSprite", function(tag:String, image:String, x:Float, y:Float, ?spriteType:String = "sparrow") {
@@ -1911,7 +1911,7 @@ class FunkinLua {
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 
 			loadAssetFrames(leSprite, image, spriteType);
-			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+			leSprite.antialiasing = ClientPrefs.data.antialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});
 
@@ -3176,7 +3176,7 @@ class FunkinLua {
 	
 	function initLuaShader(name:String)
 	{
-		if(!ClientPrefs.shaders) return false;
+		if(!ClientPrefs.data.shaders) return false;
 
 		#if (!flash && sys)
 		if(PlayState.instance.runtimeShaders.exists(name))
@@ -3639,7 +3639,7 @@ class FunkinLua {
 	    var extraControl:Dynamic = null;
 	    
 	    for (num in 1...5){
-	        if (ClientPrefs.extraKeys >= num && key == Reflect.field(ClientPrefs, 'extraKeyReturn' + num)){
+	        if (ClientPrefs.data.extraKeys >= num && key == Reflect.field(ClientPrefs.data, 'extraKeyReturn' + num)){
 	            if (MusicBeatState.mobilec.newhbox != null)
 	                extraControl = Reflect.getProperty(MusicBeatState.mobilec.newhbox, 'buttonExtra' + num);	            
 	            else
@@ -3666,7 +3666,7 @@ class ModchartSprite extends FlxSprite
 	public function new(?x:Float = 0, ?y:Float = 0)
 	{
 		super(x, y);
-		antialiasing = ClientPrefs.globalAntialiasing;
+		antialiasing = ClientPrefs.data.antialiasing;
 	}
 }
 
@@ -3764,7 +3764,8 @@ class HScript
 		interp.variables.set('game', PlayState.instance);
 		interp.variables.set('Paths', Paths);
 		interp.variables.set('Conductor', Conductor);
-		interp.variables.set('ClientPrefs', ClientPrefs);
+		interp.variables.set('ClientPrefs', ClientPrefs.data); //For 0.6.3 Mods
+		interp.variables.set('GlobalClientPrefs', ClientPrefs);
 		interp.variables.set('Character', Character);
 		interp.variables.set('Alphabet', Alphabet);
 		interp.variables.set('CustomSubstate', CustomSubstate);

@@ -117,7 +117,7 @@ class ResetScoreSubState extends MusicBeatSubstate
                         close();
 		}
 		
-    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.mobileC)
+    	if(FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed && ClientPrefs.data.mobileC)
     	{
     		onYes = true;
     		if(onYes) {
@@ -131,7 +131,7 @@ class ResetScoreSubState extends MusicBeatSubstate
             close();
         }
     		
-    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.mobileC)
+    	if(FlxG.mouse.overlaps(noText) && FlxG.mouse.justPressed && ClientPrefs.data.mobileC)
     	{
         	FlxG.sound.play(Paths.sound('cancelMenu'), 1);
             close();
@@ -144,7 +144,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		var alphas:Array<Float> = [0.6, 1.25];
 		var confirmInt:Int = onYes ? 1 : 0;
 
-        if (ClientPrefs.mobileC) {
+        if (ClientPrefs.data.mobileC) {
 		yesText.alpha = 1.25;
 		yesText.scale.set(1, 1);
 		noText.alpha = 1.25;

@@ -240,7 +240,7 @@ class Paths
 	inline static public function music(key:String, ?library:String):Sound
 	{
 		var file:Sound = returnSound('music', key, library);
-		if (ClientPrefs.FreakyMenu == 'Psych' && key == 'freakyMenu') //better
+		if (ClientPrefs.data.FreakyMenu == 'Psych' && key == 'freakyMenu') //better
 		    file = returnSound('music', 'freakyMenuPsych', library);
 		return file;
 	}
@@ -761,7 +761,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-	    return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
+	    return if (ClientPrefs.data.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -818,7 +818,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		return if (ClientPrefs.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
+		return if (ClientPrefs.data.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
 	}
 	
 	public static function loadTopMod()

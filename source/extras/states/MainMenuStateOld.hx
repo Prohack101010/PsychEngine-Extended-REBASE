@@ -53,7 +53,7 @@ class MainMenuStateOld extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
-		if (ClientPrefs.MainMenuStyle == '0.6.3')
+		if (ClientPrefs.data.MainMenuStyle == '0.6.3')
 		{
 		optionShit = [
     		'story_mode',
@@ -96,7 +96,7 @@ class MainMenuStateOld extends MusicBeatState
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -110,7 +110,7 @@ class MainMenuStateOld extends MusicBeatState
 		magenta.updateHitbox();
 		magenta.screenCenter();
 		magenta.visible = false;
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+		magenta.antialiasing = ClientPrefs.data.antialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 		
@@ -140,7 +140,7 @@ class MainMenuStateOld extends MusicBeatState
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
 			menuItem.scrollFactor.set(0, scr);
-			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
+			menuItem.antialiasing = ClientPrefs.data.antialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
@@ -175,7 +175,7 @@ class MainMenuStateOld extends MusicBeatState
     		#end
     	#end
 
-    	if (ClientPrefs.MainMenuStyle == '0.6.3')
+    	if (ClientPrefs.data.MainMenuStyle == '0.6.3')
     	    addVirtualPad(UP_DOWN, A_B_E);
     	else
     	    addVirtualPad(UP_DOWN, A_B_E_C_M);
@@ -190,9 +190,9 @@ class MainMenuStateOld extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			if (ClientPrefs.FreeplayStyle == 'NF')
+			if (ClientPrefs.data.FreeplayStyle == 'NF')
 			    if(FreeplayStateNF.vocals != null) FreeplayStateNF.vocals.volume += 0.5 * elapsed;
-			else if (ClientPrefs.FreeplayStyle == 'NovaFlare')
+			else if (ClientPrefs.data.FreeplayStyle == 'NovaFlare')
 			    if(FreeplayStateNOVA.vocals != null) FreeplayStateNOVA.vocals.volume += 0.5 * elapsed;
 			else
 			    if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
@@ -245,7 +245,7 @@ class MainMenuStateOld extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					if(ClientPrefs.data.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
