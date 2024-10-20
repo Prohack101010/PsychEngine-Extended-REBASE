@@ -3045,6 +3045,16 @@ class FunkinLua {
 			CoolUtil.showPopUp(message, title);
 		});
 		
+		Lua_helper.add_callback(lua, "parseJson", function(directory:String, ?ignoreMods:Bool = false):Void //For Vs Steve Bedrock Edition Psych Port
+		{
+            final funnyPath:String = directory + '.json';
+            final jsonContents:String = Paths.getTextFromFile(funnyPath, ignoreMods);
+            final realPath:String = (ignoreMods ? '' : Paths.modFolders(Paths.currentModDirectory)) + '/' + funnyPath;
+            final jsonExists:Bool = Paths.fileExists(realPath, null, ignoreMods);
+            if (jsonContents != null || jsonExists) return Json.parse(jsonContents);
+            else if (!jsonExists && PlayState.chartingMode) debugPrint('parseJson: "' + realPath + '" doesn\'t exist!', 0xff0000);
+		});
+		
 		Lua_helper.add_callback(lua, "CloseGame", function():Void
 		{
 			lime.system.System.exit(1);
