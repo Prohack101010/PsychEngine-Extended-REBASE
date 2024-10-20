@@ -247,17 +247,11 @@ class TitleState extends MusicBeatState
 			startIntro();
 			return;
 		}
-		if (!ClientPrefs.data.skipTitleVideo)
-			startVideo('menuExtend/titleIntro');
-		else
-			startCutscenesOut();
+		startVideo('menuExtend/titleIntro');
 	}
 	
 	function startCutscenesOut()
 	{
-	    #if android
-		AndroidDialogsExtend.OpenToast(lang,2);
-		#end
 		inGame = true;
 		startIntro();
 	}
@@ -466,13 +460,6 @@ class TitleState extends MusicBeatState
 		}
 		#end
 		
-		#if android
-		if (videoBool){
-			pressedEnter = false;
-			if (FlxG.android.justReleased.BACK) pressedEnter = true;
-		}
-		#end
-
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		if (gamepad != null)
@@ -615,17 +602,6 @@ class TitleState extends MusicBeatState
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
 		}
 		
-		if (videoBool)
-		{
-			if(pressedEnter)
-			{
-				video.stop();
-				videoBool = false;
-				skipVideo.visible = false;
-				startCutscenesOut();
-			}
-		}
-
 		super.update(elapsed);
 	}
 
