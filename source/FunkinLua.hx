@@ -3052,7 +3052,7 @@ class FunkinLua {
             final realPath:String = (ignoreMods ? '' : Paths.modFolders(Paths.currentModDirectory)) + '/' + funnyPath;
             final jsonExists:Bool = Paths.fileExists(realPath, null, ignoreMods);
             if (jsonContents != null || jsonExists) return Json.parse(jsonContents);
-            else if (!jsonExists && PlayState.chartingMode) debugPrintSource('parseJson: "' + realPath + '" doesn\'t exist!', 0xff0000);
+            else if (!jsonExists && PlayState.chartingMode) return debugPrintSource('parseJson: "' + realPath + '" doesn\'t exist!', 0xff0000);
             else return null;
 		});
 		
