@@ -35,10 +35,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 
-#if HXVLC_ALLOWED
-import hxvlc.flixel.FlxVideoSprite;
-#end
-
 #if HXCODEC_ALLOWED
 import backend.VideoHandler_Title;
 #end
@@ -66,6 +62,7 @@ class TitleState extends MusicBeatState
 	public static var initialized:Bool = false;
 	public static var inGame:Bool = false;
 	var checkOpenFirst:Bool = false;
+	var skipVideo:FlxText;
 
 	var blackScreen:FlxSprite;
 	var credGroup:FlxGroup;
@@ -250,15 +247,17 @@ class TitleState extends MusicBeatState
 			startIntro();
 			return;
 		}
-		#if VIDEOS_ALLOWED 
-		    startVideo('title');
-		#else
-		    startCutscenesOut();
-		#end
+		if (!ClientPrefs.data.skipTitleVideo)
+			startVideo('menuExtend/titleIntro');
+		else
+			startCutscenesOut();
 	}
 	
 	function startCutscenesOut()
-	{	    
+	{
+	    #if android
+		AndroidDialogsExtend.OpenToast(lang,2);
+		#end
 		inGame = true;
 		startIntro();
 	}
@@ -856,15 +855,10 @@ class TitleState extends MusicBeatState
 	}
 	
 	#if VIDEOS_ALLOWED
-	#if HXCODEC_ALLOWED
 	var video:VideoSprite;
-	#else
-	var video:FlxVideoSprite;
-	#end
-	var videoBool:Bool = false;
 	function startVideo(name:String)
 	{
-	    skipVideo = new FlxText(0, FlxG.height - 26, 0, "Press " + #if android "Back on your Phone " #else "Enter " #end + "to skip", 18);
+	    skipVideo = new FlxText(0, FlxG.height - 26, 0, "Press " + #if android "Back on your phone " #else "Enter " #end + "to skip", 18);
 		skipVideo.setFormat(Assets.getFont("assets/fonts/montserrat.ttf").fontName, 18);
 		skipVideo.alpha = 0;
 		skipVideo.alignment = CENTER;
@@ -874,7 +868,6 @@ class TitleState extends MusicBeatState
 		
 		
 		#if VIDEOS_ALLOWED
-
 		var filepath:String = Paths.video(name);
 		#if sys
 		if(!FileSystem.exists(filepath))
@@ -887,49 +880,28 @@ class TitleState extends MusicBeatState
 			return;
 		}
         
-        #if HXCODEC_ALLOWED
-		video = new VideoSprite(0, 0);
-		#else
-		video = new FlxVideoSprite(0, 0);
-		#end
-		video.antialiasing = true;
-		video.bitmap.onFormatSetup.add(function():Void
-		{
-			if (video.bitmap != null && video.bitmap.bitmapData != null)
+        
+		var video:VideoSprite = new VideoSprite(0, 0, 1280, 720);
+			video.playVideo(filepath);
+			add(video);
+			video.updateHitbox();
+			video.finishCallback = function()
 			{
-				final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
-		
-				video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
-				video.updateHitbox();
-				video.screenCenter();
+				videoEnd();
+				return;
 			}
-		});
-		video.bitmap.onEndReached.add(video.destroy);
-		add(video);
-		video.load(filepath);
-		video.play();
-		videoBool = true;
-
-		video.bitmap.onEndReached.add(function() {
-			videoEnd();
-		});
-
-		showText();
+		showText();	
 		#else
 		FlxG.log.warn('Platform not supported!');
 		videoEnd();
 		return;
 		#end
 	}
-
 	function videoEnd()
 	{
 	    skipVideo.visible = false;
-		if (video != null) video.stop();
-		//video.visible = false;
+	    //video.visible = false;
 		startCutscenesOut();
-		videoBool = false;
-		trace("end");
 	}
 	
 	function showText(){
