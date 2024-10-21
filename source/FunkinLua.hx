@@ -1052,7 +1052,7 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
-			if (classVar == 'ClientPrefs') classVar = 'ClientPrefs.data';
+			if (classVar == 'ClientPrefs') variable = 'data.' + variable;
 			var myClass:Dynamic = classCheck(classVar);
 			var variableplus:String = varCheck(myClass, variable);
 			var killMe:Array<String> = variable.split('.');
@@ -1073,7 +1073,7 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			@:privateAccess
-			if (classVar == 'ClientPrefs') classVar = 'ClientPrefs.data';
+			if (classVar == 'ClientPrefs') variable = 'data.' + variable;
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
