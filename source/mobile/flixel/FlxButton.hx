@@ -13,6 +13,9 @@ import flixel.input.touch.FlxTouch;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.util.FlxDestroyUtil;
+#if desktop
+import flixel.input.mouse.FlxMouseButton;
+#end
 
 /**
  * A simple button class that calls a function when clicked by the touch.
@@ -386,8 +389,13 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		var overlap = false;
 
 		for (camera in cameras)
+		    #if desktop
+			var button = FlxMouseButton.getByID(FlxMouseButtonID.LEFT);
+			if (checkInput(FlxG.mouse, button, button.justPressedPosition, camera))
+			#else
 			for (touch in FlxG.touches.list)
 				if (checkInput(touch, touch, touch.justPressedPosition, camera))
+			#end
 					overlap = true;
 
 		return overlap;

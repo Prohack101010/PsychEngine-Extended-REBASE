@@ -105,14 +105,6 @@
 	<assets path="assets/weekend_1/songs"          rename="assets/songs"         library="songs"         exclude="*.ogg" if="web"/>
 	<assets path="assets/weekend_1/songs"          rename="assets/songs"         library="songs"         exclude="*.mp3" unless="web"/>
 	</section>
-	<section if="ERECT_ASSETS">
-	<assets path="assets/erect_songs/preload"        rename="assets"                exclude="*.ogg"        if="web"/>
-	<assets path="assets/erect_songs/preload"        rename="assets"                exclude="*.mp3"       unless="web"/>
-	<assets path="assets/erect_songs/songs"          rename="assets/songs"         library="songs"         exclude="*.ogg" if="web"/>
-	<assets path="assets/erect_songs/songs"          rename="assets/songs"         library="songs"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/erect_songs/shared"         rename="assets/shared"         library="shared"        exclude="*.ogg" if="web"/>
-	<assets path="assets/erect_songs/shared"         rename="assets/shared"         library="shared"        exclude="*.mp3" unless="web"/>
-	</section>
 	<section if="BASE_GAME_ASSETS">
 	<assets path="assets/base_game/preload"        rename="assets"                exclude="*.ogg"        if="web"/>
 	<assets path="assets/base_game/preload"        rename="assets"                exclude="*.mp3"       unless="web"/>
