@@ -3047,6 +3047,17 @@ class FunkinLua {
 			CoolUtil.showPopUp(message, title);
 		});
 		
+		Lua_helper.add_callback(lua, "parseJson", function(directory:String, ?ignoreMods:Bool = false):Dynamic //For Vs Steve Bedrock Edition Psych Port
+		{
+            final funnyPath:String = directory + '.json';
+            final jsonContents:String = Paths.getTextFromFile(funnyPath, ignoreMods);
+            final realPath:String = (ignoreMods ? '' : Paths.modFolders(Paths.currentModDirectory)) + '/' + funnyPath;
+            final jsonExists:Bool = Paths.fileExists(realPath, null, ignoreMods);
+            if (jsonContents != null || jsonExists) return Json.parse(jsonContents);
+            else if (!jsonExists && PlayState.chartingMode) debugPrintFunction('parseJson: "' + realPath + '" doesn\'t exist!', 0xff0000);
+            return null;
+		});
+		
 		Lua_helper.add_callback(lua, "CloseGame", function():Void
 		{
 			lime.system.System.exit(1);
@@ -3059,6 +3070,16 @@ class FunkinLua {
 
 		call('onCreate', []);
 		#end
+	}
+	
+	public function debugPrintFunction(text1:Dynamic = '', text2:Dynamic = '', text3:Dynamic = '', text4:Dynamic = '', text5:Dynamic = '')
+	{
+	    if (text1 == null) text1 = '';
+		if (text2 == null) text2 = '';
+		if (text3 == null) text3 = '';
+		if (text4 == null) text4 = '';
+		if (text5 == null) text5 = '';
+		luaTrace('' + text1 + text2 + text3 + text4 + text5, true, false);
 	}
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
