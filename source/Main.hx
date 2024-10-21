@@ -152,8 +152,6 @@ class Main extends Sprite
 		#else
 		FlxG.keys.preventDefaultKeys = [TAB];
 		#end
-		
-		#if desktop FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, toggleFullScreen); #end
 
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 
