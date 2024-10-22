@@ -35,10 +35,6 @@ class VirtualButton extends TypedVirtualButton<FlxSprite>
 	**/
 	public var tag:String;
 	/**
-	 * The `FlxMobileInputID` that are assigned to this button.
-	**/
-	public var IDs:Array<FlxMobileInputID> = [];
-	/**
 	 * A Small invisible bounds used for colision
 	**/
 	public var bounds:FlxSprite = new FlxSprite();
@@ -49,13 +45,10 @@ class VirtualButton extends TypedVirtualButton<FlxSprite>
 	 *
 	 * @param   X         The x position of the button.
 	 * @param   Y         The y position of the button.
-	 * @param   IDs        The button's IDs(used for input handling so be careful).
 	 */
-	public function new(X:Float = 0, Y:Float = 0, ?IDs:Array<FlxMobileInputID> = null):Void
+	public function new(X:Float = 0, Y:Float = 0):Void
 	{
 		super(X, Y);
-
-		this.IDs = IDs == null ? [] : IDs;
 	}
 
 	public inline function centerInBounds()
