@@ -4,7 +4,7 @@
       "name": "lime",
       "type": "git",
       "dir": null,
-      "ref": "develop",
+      "ref": "main",
       "url": "https://github.com/mcagabe19-stuff/lime"
     },
     {
@@ -101,7 +101,7 @@
       "type": "git",
       "dir": null,
       "ref": "main",
-      "url": "https://github.com/beihu235/funkVis-FrequencyFixed"
+      "url": ""
     },
     {
       "name": "grig.audio",
