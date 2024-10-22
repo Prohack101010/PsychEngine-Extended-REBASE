@@ -280,7 +280,7 @@ class MainMenuStateOld extends MusicBeatState
 									case 'credits':
 										CustomSwitchState.switchMenus('Credits');
 									case 'options':
-										MusicBeatState.switchState(new extras.optionsNOVA.OptionsState());
+										CustomSwitchState.switchMenus('Options');
 								}
 							});
 						}
