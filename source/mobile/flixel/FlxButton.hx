@@ -387,7 +387,9 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	function checkTouchOverlap():Bool
 	{
 		var overlap = false;
+		#if desktop
 		var button = FlxMouseButton.getByID(FlxMouseButtonID.LEFT);
+		#end
 
 		for (camera in cameras)
 		    #if desktop

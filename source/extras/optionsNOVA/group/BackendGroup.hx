@@ -39,20 +39,12 @@ class BackendGroup
         follow.addOption(option);
 
         var hitsoundArray:Array<String> = ['Default'];             
-        for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'sounds/hitsounds/'))
+        for (folder in Paths.directoriesWithFile(Paths.getSharedPath(), 'sounds/hitsounds/'))
 			for (file in FileSystem.readDirectory(folder))
 			{				
 				if(file.endsWith('.ogg'))
 					hitsoundArray.push(file.replace('.ogg', ''));				
 			}
-        var option:Option = new Option(
-            'Choose sound type for hitSound',
-            'hitsoundType',
-            STRING,
-            hitsoundArray
-        );
-        follow.addOption(option);
-        option.onChange = onChangeHitsound;
 
         var option:Option = new Option(
             "Hitsound Volume",
@@ -218,12 +210,5 @@ class BackendGroup
         );
         follow.addOption(option);
         #end
-    }
-
-    static function onChangeHitsound() {
-        if (ClientPrefs.data.hitsoundType == ClientPrefs.defaultData.hitsoundType)
-            FlxG.sound.play(Paths.sound(ClientPrefs.data.hitsoundType));
-        else
-            FlxG.sound.play(Paths.sound('hitsounds/' + ClientPrefs.data.hitsoundType));
     }
 }

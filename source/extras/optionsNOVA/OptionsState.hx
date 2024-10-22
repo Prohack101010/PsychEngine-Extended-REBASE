@@ -24,7 +24,6 @@ class OptionsState extends MusicBeatState
 		FlxG.mouse.visible = true;
 
 		Main.fpsVar.visible = false;
-		if(Main.watermark != null) Main.watermark.visible = false;
 
 		instance = this;
 		
@@ -189,13 +188,6 @@ class OptionsState extends MusicBeatState
 			pressCheck = true;
 			ClientPrefs.saveSettings();
 			Main.fpsVar.visible = ClientPrefs.data.showFPS;
-			Main.fpsVar.scaleX = Main.fpsVar.scaleY = ClientPrefs.data.FPSScale;
-			Main.fpsVar.change();
-			if(Main.watermark != null) {
-				Main.watermark.scaleX = Main.watermark.scaleY = ClientPrefs.data.WatermarkScale;
-				Main.watermark.y += (1 - ClientPrefs.data.WatermarkScale) * Main.watermark.bitmapData.height;
-				Main.watermark.visible = ClientPrefs.data.showWatermark;
-			}			
 			switch (stateType)
 			{
 				case 0:

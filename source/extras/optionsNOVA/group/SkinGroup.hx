@@ -13,13 +13,13 @@ class SkinGroup
         follow.add(reset);
         
         var noteSkins:Array<String> = [];
-        if(Mods.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared').length > 0)
-			noteSkins = Mods.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared');
+        if(Paths.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared').length > 0)
+			noteSkins = Paths.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared');
 		else
 			noteSkins = CoolUtil.coolTextFile(Paths.getSharedPath('shared/images/noteSkins/list.txt'));			
 		if(noteSkins.length > 0)
         {
-		    noteSkins.insert(0, ClientPrefs.defaultData.noteSkin);
+		    noteSkins.insert(0, ClientPrefs.defaultData.NoteSkin);
 
             var option:Option = new Option(
                 'Change your current noteSkin',
@@ -40,23 +40,10 @@ class SkinGroup
         ///////////////////////////////
 
         var noteSplashes:Array<String> = [];
-		if(Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared').length > 0)
-			noteSplashes = Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared');
+		if(Paths.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared').length > 0)
+			noteSplashes = Paths.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared');
 		else
 			noteSplashes = CoolUtil.coolTextFile(Paths.getSharedPath('shared/images/noteSplashes/list.txt'));
-			
-		if(noteSplashes.length > 0)
-		{
-		    noteSplashes.insert(0, ClientPrefs.defaultData.splashSkin);
-
-            var option:Option = new Option(
-                'Change your current splashSkin',
-                'splashSkin',
-                STRING,
-                noteSplashes
-            );
-            follow.addOption(option);
-        }
 
         var option:Option = new Option(
             'Show on sick/marvelous judge',
