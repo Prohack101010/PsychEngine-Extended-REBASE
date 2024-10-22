@@ -14,7 +14,7 @@ import openfl.utils.Assets;
 // Lua VirtualPad
 import haxe.ds.StringMap;
 
-class FlxNewVirtualPad extends FlxSpriteGroup {
+class FlxVirtualPad extends FlxSpriteGroup {
 	//Actions
 	public var buttonA:FlxButton;
 	public var buttonB:FlxButton;
