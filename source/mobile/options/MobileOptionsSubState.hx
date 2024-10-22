@@ -45,7 +45,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	final lastStorageType:String = ClientPrefs.data.storageType;
 	#end
 	
-	var virtualpadTypes:Array<String> = ["New", "Old"];
+	var virtualpadTypes:Array<String> = ["Newest", "New", "Old"];
 	var virtualpadSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/mobilecontrols/virtualpad/virtualpadSkinList.txt'));
 	var virtualpadSkinListModsFolder:Array<String> = CoolUtil.coolTextFile(Paths.modsImages('virtualpad/virtualpadSkinList.txt'));
 	
@@ -120,69 +120,67 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 	}
 		
-	#if mobile //only Mobile Because You Can't Change Mobile Controls, Technically You Cant use Hitbox into the PC Build	
-		var option:Option = new Option('Extra Control Location:',
-			"Choose Extra Control Location",
-			'hitboxLocation',
-			'string',
-			'Bottom',
-			['Bottom', 'Top', 'Middle']);
-		addOption(option);
+	var option:Option = new Option('Extra Control Location:',
+		"Choose Extra Control Location",
+		'hitboxLocation',
+		'string',
+		'Bottom',
+		['Bottom', 'Top', 'Middle']);
+	addOption(option);
 		  
-		var option:Option = new Option('Hitbox Mode:',
-			"Choose your Hitbox Style!  -mariomaster",
-			'hitboxmode',
-			'string',
-			'New',
-			['Classic', 'New']);
-		addOption(option);
+	var option:Option = new Option('Hitbox Mode:',
+		"Choose your Hitbox Style!  -mariomaster",
+		'hitboxmode',
+		'string',
+		'New',
+		['Classic', 'New']);
+	addOption(option);
 		  
-		var option:Option = new Option('Hitbox Design:',
-			"Choose how your hitbox should look like.",
-			'hitboxtype',
-			'string',
-			'Gradient',
-			['Gradient', 'No Gradient' , 'No Gradient (Old)']);
-		addOption(option);
+	var option:Option = new Option('Hitbox Design:',
+		"Choose how your hitbox should look like.",
+		'hitboxtype',
+		'string',
+		'Gradient',
+		['Gradient', 'No Gradient' , 'No Gradient (Old)']);
+	addOption(option);
 
-		var option:Option = new Option('Hitbox Hint',
-			'Hitbox Hint -I hate this',
-			'hitboxhint',
-			'bool',
-			false);
-		addOption(option);
+	var option:Option = new Option('Hitbox Hint',
+		'Hitbox Hint -I hate this',
+		'hitboxhint',
+		'bool',
+		false);
+	addOption(option);
 		
-		var option:Option = new Option('Hitbox Opacity', //mariomaster was here again
-			'Changes hitbox opacity -omg',
-			'hitboxalpha',
-			'float',
-			0.7);
-		option.scrollSpeed = 1.6;
-		option.minValue = 0.0;
-		option.maxValue = 1;
-		option.changeValue = 0.1;
-		option.decimals = 1;
-		addOption(option);
+	var option:Option = new Option('Hitbox Opacity', //mariomaster was here again
+		'Changes hitbox opacity -omg',
+		'hitboxalpha',
+		'float',
+		0.7);
+	option.scrollSpeed = 1.6;
+	option.minValue = 0.0;
+	option.maxValue = 1;
+	option.changeValue = 0.1;
+	option.decimals = 1;
+	addOption(option);
 		
-		#if mobile
-		var option:Option = new Option('Wide Screen Mode',
-			'If checked, The game will stetch to fill your whole screen. (WARNING: Can result in bad visuals & break some mods that resizes the game/cameras)',
-			'wideScreen',
-			'bool',
-			true);
-		option.onChange = () -> FlxG.scaleMode = new MobileScaleMode();
-		addOption(option);
-		#end
+	#if mobile
+	var option:Option = new Option('Wide Screen Mode',
+		'If checked, The game will stetch to fill your whole screen. (WARNING: Can result in bad visuals & break some mods that resizes the game/cameras)',
+		'wideScreen',
+		'bool',
+		true);
+	option.onChange = () -> FlxG.scaleMode = new MobileScaleMode();
+	addOption(option);
+	#end
 		
-		#if android
-		var option:Option = new Option('Storage Type',
-			'Which folder Psych Engine should use?',
-			'storageType',
-			'string',
-			null,
-			storageTypes);
-			addOption(option);
-		#end
+	#if android
+	var option:Option = new Option('Storage Type',
+		'Which folder Psych Engine should use?',
+		'storageType',
+		'string',
+		null,
+		storageTypes);
+		addOption(option);
 	#end
 
 		super();
