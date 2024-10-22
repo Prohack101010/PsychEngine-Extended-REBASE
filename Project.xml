@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="FNF': Psych Extended" file="PsychEngine" packageName="com.kraloyuncu.psychextended" package="com.kraloyuncu.psychextended" main="Main" version="0.2.8" company="KralOyuncu" />
+	<app title="FNF': Psych Extended" file="Psych Extended" packageName="com.kraloyuncu.psychextended" package="com.kraloyuncu.psychextended" main="Main" version="0.2.8" company="KralOyuncu" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
@@ -44,9 +44,13 @@
 	<classpath name="source" />
 	
 	<!-- PSYCH EXTENDED CUSTOMIZATION -->
+	<section if="finalBuild">
+    	<define name="WEEKEND1" />
+    	<define name="BASE_GAME_ASSETS" />
+	</section>
 	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This -->
 	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
-	<define name="HIDE_CURSOR" /> <!-- DELETE THIS IF YOU WANT TO SEE CURSOR (PC BUILD) -->
+	<define name="HIDE_CURSOR" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO SEE CURSOR IN PC BUILDS -->
 	<define name="INDIECROSS_ASSETS" if="cross_enabled" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
 	<define name="INDIECROSS_FORCED" if="cross_forced" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MODS -->
 	<architecture name="ARM64" exclude="ARMV7" if="android" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->

@@ -413,7 +413,7 @@ class FreeplayStateNOVA extends MusicBeatState
 		}
 		destroyFreeplayVocals();
 		LoadingState.loadAndSwitchState(new PlayState());
-		FlxG.mouse.visible = false;
+		#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 	}
 
 	function extraChange() {

@@ -235,7 +235,7 @@ class MainMenuStateNOVA extends MusicBeatState
 		#if !mobile
 		FlxG.mouse.visible = true;
 	    #else
-	    FlxG.mouse.visible = false;
+	    #if HIDE_CURSOR FlxG.mouse.visible = false; #end
 	    #end
         
 		addVirtualPad(UP_DOWN, A_B_E);

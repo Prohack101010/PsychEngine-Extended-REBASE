@@ -18,7 +18,7 @@ jobs:
           haxelib run hmm install --quiet
 
       - name: Compile
-        run: haxelib run lime build windows -D BASE_GAME_ASSETS -D WEEKEND1
+        run: haxelib run lime build windows -D finalBuild
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main

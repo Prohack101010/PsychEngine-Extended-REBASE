@@ -158,7 +158,7 @@ class FreeplaySelect extends MusicBeatState
 
 	override function destroy()
 	{
-		FlxG.mouse.visible = false;
+		#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 		super.destroy();
 	}
 }

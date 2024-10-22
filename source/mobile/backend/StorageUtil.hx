@@ -167,15 +167,16 @@ enum abstract StorageType(String) from String to String
 	var EXTERNAL_ONLINE = "EXTERNAL_ONLINE";
 	var EXTERNAL_NF = "EXTERNAL_NF";
 	var EXTERNAL_EX = "EXTERNAL_EX";
+	var EXTERNAL_PE = "EXTERNAL_PE";
 
 	public static function fromStr(str:String):StorageType
 	{
 		final EXTERNAL_DATA = AndroidContext.getExternalFilesDir();
 		final EXTERNAL_OBB = AndroidContext.getObbDir();
 		final EXTERNAL_MEDIA = AndroidEnvironment.getExternalStorageDirectory() + '/Android/media/' + lime.app.Application.current.meta.get('packageName');
-		final EXTERNAL = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
+		final EXTERNAL = AndroidEnvironment.getExternalStorageDirectory() + '/.' + fileLocal;
 		final EXTERNAL_NF = AndroidEnvironment.getExternalStorageDirectory() + '/.' + fileLocalNF;
-		final EXTERNAL_EX = AndroidEnvironment.getExternalStorageDirectory() + '/.' + fileLocalEX;
+		final EXTERNAL_EX = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
 		final EXTERNAL_ONLINE = AndroidEnvironment.getExternalStorageDirectory() + '/.' + fileLocalONLINE;
 
 		return switch (str)
