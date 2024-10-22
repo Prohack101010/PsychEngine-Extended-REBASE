@@ -10,6 +10,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 import openfl.utils.Assets;
+import mobile.objects.VirtualButton;
 
 import haxe.io.Path;
 import openfl.utils.AssetType;
@@ -119,7 +120,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		switch (DPad){
 			case UP_DOWN:
 				dPad.add(add(buttonUp = createButton(0, FlxG.height - 85 * 3, "up", 0x00FF00)));
-				dPad.add(add(buttonDown = createButton(0, FlxG.height - 45 * 3, 127, "down", 0x00FFFF)));
+				dPad.add(add(buttonDown = createButton(0, FlxG.height - 45 * 3, "down", 0x00FFFF)));
 			case LEFT_RIGHT:
 				dPad.add(add(buttonLeft = createButton(0, FlxG.height - 45 * 3, "left", 0xFF00FF)));
 				dPad.add(add(buttonRight = createButton(42 * 3, FlxG.height - 45 * 3, "right", 0xFF0000)));
@@ -243,9 +244,9 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		    case OptionsC:
 			    add(buttonLeft = createButton(FlxG.width - 258, FlxG.height - 85 * 3, "left", 0xFF00FF));
 				add(buttonRight = createButton(FlxG.width - 132, FlxG.height - 85 * 3, "right", 0xFF0000));
-			    add(buttonC = createButton(FlxG.width - 384, FlxG.height - 135, 132, 127, 'c', 0x44FF00));
-			    add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 132, 127, 'b', 0xFFCB00));
-				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 132, 127, 'a', 0xFF0000));
+			    add(buttonC = createButton(FlxG.width - 384, FlxG.height - 135, 'c', 0x44FF00));
+			    add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
+				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
 			case ALL:
 				actions.add(add(buttonV = createButton(FlxG.width - 170 * 3, FlxG.height - 85 * 3, "v", 0x49A9B2)));            
 				actions.add(add(buttonX = createButton(FlxG.width - 128 * 3, FlxG.height - 85 * 3, "x", 0x99062D)));
@@ -286,7 +287,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		}
 	}
 
-	public function createButton(X:Float, Y:Float, Frames:String, ColorS:Int, ?colored:Bool = true):VirtualPadButton {
+	public function createButton(X:Float, Y:Float, Graphic:String, Color:Int, ?colored:Bool = true):VirtualPadButton {
 	    var button = new VirtualPadButton(X, Y, Graphic.toUpperCase());
 		button.bounds.makeGraphic(Std.int(button.width - 50), Std.int(button.height - 50), FlxColor.TRANSPARENT);
 		button.centerBounds();
@@ -315,7 +316,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 }
 
-class VirtualPadButton extends FlxButton
+class VirtualPadButton extends VirtualButton
 {
 	public function new(X:Float = 0, Y:Float = 0, ?labelGraphic:String){
 		super(X, Y);
