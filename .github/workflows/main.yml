@@ -64,6 +64,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: androidBuild
+          name: androidBuild-FULL
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
