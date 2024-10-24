@@ -26,7 +26,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
 
       - name: Compile
-        run: haxelib run lime build android -D finalBuild -ARM64
+        run: haxelib run lime build android -D finalBuild -D 32bits_disabled -ARM64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
