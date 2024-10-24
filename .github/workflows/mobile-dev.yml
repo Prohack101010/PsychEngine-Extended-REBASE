@@ -64,7 +64,7 @@ jobs:
       - name: Make Zip For Release
         run: |
            cd export/release/ios/build/Release-iphoneos
-           zip PsychEngine-iOS.zip PsychEngine.ipa
+           zip PsychExtended-iOS.zip PsychExtended.ipa
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
@@ -84,7 +84,7 @@ jobs:
            path: /home/runner
 
       - name: Move Android File
-        run: mv /home/runner/PsychEngine-release.apk /home/runner/PsychExtended-Android.apk
+        run: mv /home/runner/PsychExtended-release.apk /home/runner/PsychExtended-Android.apk
 
       - name: Download iOS Build
         uses: actions/download-artifact@main
